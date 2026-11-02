@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bell, Info } from 'lucide-react';
+import { NotificationDrawer } from '@/app/components/NotificationDrawer';
 
 export interface Notification {
   id: string;
@@ -40,7 +41,10 @@ const mockNotifications: Notification[] = [
 
 export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications] = useState<Notification[]>([])  // staging: belum ada pemberitahuan;
+  const [notifications, setNotifications] = useState<Notification[]>([
+    { id: 'n1', title: 'Pemberitahuan Contoh', message: 'Deskripsi pemberitahuan contoh.', time: '6 jam yang lalu', isRead: false },
+  ]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -129,8 +133,9 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
                     backgroundColor: notification.isRead ? 'transparent' : 'var(--secondary)',
                   }}
                   onClick={() => {
-                    // Handle notification click
-                    console.log('Notification clicked:', notification.id);
+                    setNotifications((prev) => prev.map((n) => (n.id === notification.id ? { ...n, isRead: true } : n)));
+                    setIsOpen(false);
+                    setDrawerOpen(true);
                   }}
                 >
                   <div className="flex gap-[12px]">
@@ -178,31 +183,10 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
             )}
           </div>
 
-          {/* Footer */}
-          {notifications.length > 0 && <div
-            className="px-[16px] py-[10px] border-t"
-            style={{
-              borderColor: 'var(--border)',
-              backgroundColor: 'var(--secondary)',
-            }}
-          >
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                onViewAll();
-              }}
-              className="w-full text-center py-[6px] rounded-[4px] hover:bg-white transition-colors"
-              style={{
-                fontSize: 'var(--text-sm)',
-                fontWeight: 'var(--font-weight-medium)',
-                color: 'var(--primary)',
-              }}
-            >
-              Lihat Semua Pemberitahuan
-            </button>
-          </div>}
+
         </div>
       )}
+      <NotificationDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} items={notifications} />
     </div>
   );
 }

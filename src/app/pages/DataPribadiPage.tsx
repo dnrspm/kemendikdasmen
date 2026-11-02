@@ -224,7 +224,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                 <div className="size-[64px] shrink-0 bg-[#f4f4f4] grid place-items-center text-[10px] text-[#65696c]">QR</div>
                 <div>
                   <p style={{ fontSize: '11px', lineHeight: '14px' }}>Scan QR untuk melihat profil publik (Kartu Pegawai). Klik gambar untuk memperbesar.</p>
-                  <a className="text-[#1a5fe0] inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '11px' }} href="#"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
+                  <a className="text-[#1a5fe0] inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '11px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
                 </div>
               </div>
               <button className="w-full border border-[#c7c7c7] rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] font-semibold hover:bg-[#f7f7f7]" style={{ fontSize: 'var(--text-sm)' }}>
