@@ -642,14 +642,14 @@ function ProtoBar({ admin, setAdmin }: { admin: boolean; setAdmin: (v: boolean) 
   const { scenario, setScenario } = useContext(ProtoCtx);
   return (
     <div role="region" aria-label="Kontrol prototipe" className="flex flex-wrap items-center gap-[16px] border-b border-dashed border-[#828282] bg-[#f1f1f1] px-[24px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>
-      <span className="inline-flex items-center gap-[6px]" style={{ fontWeight: 700 }}><SlidersHorizontal className="size-[14px]" />Kontrol prototipe · Opsi 3: Tabel per tahun</span>
-      <span className="text-[#727272]">Bukan bagian produk</span>
-      <label className="inline-flex items-center gap-[8px]">Skenario (AC EK-5)
+      <span className="inline-flex items-center gap-[6px]" style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}><SlidersHorizontal className="size-[12px]" />Kontrol prototipe · Opsi 3: Tabel per tahun</span>
+      <span className="text-[#727272]" style={{ fontSize: '12px', lineHeight: '16px' }}>Bukan bagian produk</span>
+      <label className="inline-flex items-center gap-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>Skenario (AC EK-5)
         <select value={scenario} onChange={(e) => setScenario(e.target.value)} aria-label="Skenario prototipe" className="max-w-full rounded-[4px] border border-[#828282] bg-white px-[8px] py-[4px]" style={{ fontSize: '12px' }}>
           {SCENARIOS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </label>
-      <label className="inline-flex items-center gap-[6px] cursor-pointer">
+      <label className="inline-flex items-center gap-[6px] cursor-pointer" style={{ fontSize: '12px', lineHeight: '16px' }}>
         <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} /> Tampilan admin, lihat pegawai lain (EK-5.8)
       </label>
     </div>
@@ -660,11 +660,11 @@ function LayoutSwitch() {
   const { layout, setLayout } = useContext(ProtoCtx);
   return (
     <div role="group" aria-label="Pilihan tata letak prototipe" className="fixed bottom-[16px] right-[16px] z-[90] flex items-center gap-[8px] rounded-[8px] border border-dashed border-[#828282] bg-[#f1f1f1] px-[12px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
-      <span style={{ fontWeight: 700 }}>Tata letak</span>
+      <span style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}>Tata letak</span>
       {([[1, 'Opsi 1'], [2, 'Opsi 2']] as const).map(([v, l]) => (
         <button key={v} onClick={() => setLayout(v)} aria-pressed={layout === v}
           className={`rounded-[4px] border px-[10px] py-[4px] ${layout === v ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#828282] bg-white text-[#2f3031]'}`}
-          style={{ fontWeight: 600 }}>{l}</button>
+          style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}>{l}</button>
       ))}
     </div>
   );
