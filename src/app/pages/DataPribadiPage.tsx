@@ -2,7 +2,7 @@ import { Fragment, createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router';
-import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, RefreshCw, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
+import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, RefreshCw, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download, ChartLine } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 import imgPhoto from '@/assets/staging/tut-wuri-handayani.png';
@@ -154,7 +154,8 @@ function Keluarga() {
 }
 
 /* Data contoh fiktif: kolom mengikuti staging, isi sel dibuat otomatis. */
-const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void }>({ scenario: 'normal', setScenario: () => {} });
+type LayoutOpt = 1 | 2;
+const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void; layout: LayoutOpt; setLayout: (l: LayoutOpt) => void }>({ scenario: 'normal', setScenario: () => {}, layout: 2, setLayout: () => {} });
 
 function sample(label: string, i: number): string {
   const l = label.toLowerCase();
@@ -384,9 +385,8 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   const plotH = CHART_H - PLOT_TOP - xH;
 
   return (
-    <div className="mb-[24px] rounded-[6px] border border-[#efefef] p-[16px]">
+    <div>
       <div className="flex items-center justify-between gap-[12px] flex-wrap mb-[8px]">
-        <span className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Grafik riwayat predikat kinerja</span>
         <div className="flex gap-[8px]">
           {([['tahunan', 'Tahunan'], ['triwulan', 'Triwulanan']] as const).map(([k, l]) => (
             <button key={k} onClick={() => setMode(k)} aria-pressed={mode === k}
@@ -438,20 +438,40 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   );
 }
 
+function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: number; hk: string; pk: string; pred: string }[]; quarterly: KRow[]; onClose: () => void }) {
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClose]);
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-[16px]" onClick={onClose}>
+      <div role="dialog" aria-modal="true" aria-label="Grafik riwayat predikat kinerja" className="w-full max-w-[960px] max-h-full overflow-auto rounded-[8px] bg-white p-[24px]" style={{ boxShadow: '0 8px 24px rgba(0,0,0,.2)' }} onClick={(e) => e.stopPropagation()}>
+        <div className="mb-[16px] flex items-center justify-between gap-[12px]">
+          <span className="text-[#2f3031]" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik riwayat predikat kinerja</span>
+          <button onClick={onClose} aria-label="Tutup" className="rounded-[4px] p-[4px] text-[#65696c] hover:bg-[#f7f7f7]"><X className="size-[20px]" /></button>
+        </div>
+        <KinerjaChart annual={annual} quarterly={quarterly} />
+      </div>
+    </div>
+  );
+}
+
 function wibNow(): string {
   const d = new Date();
   const tgl = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
   const jam = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' });
   return `${tgl}, ${jam} WIB`;
 }
-// Data terbaru dari eSKP yang menimpa data lama saat "Get Data" dijalankan.
+// Data terbaru dari eSKP yang menimpa data lama saat "Perbarui data" dijalankan.
 const freshFor = (sc: string) => (sc === 'variasi' ? 'variasi' : sc === 'masa' || sc === 'masaBelum' ? 'masa' : 'normal');
 
 function KinerjaTabel() {
-  const { scenario: ctxScenario, setScenario } = useContext(ProtoCtx);
+  const { scenario: ctxScenario, setScenario, layout } = useContext(ProtoCtx);
   const [open, setOpen] = useState<number | null>(2026);
   const [fetchedAt, setFetchedAt] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
+  const [showChart, setShowChart] = useState(false);
   // Skenario prototipe diganti => kembali ke data bawaan skenario tersebut.
   useEffect(() => { setFetchedAt(null); }, [ctxScenario]);
   const scenario = fetchedAt ? freshFor(ctxScenario) : ctxScenario;
@@ -535,12 +555,33 @@ function KinerjaTabel() {
   };
 
   return (
-    <div className="px-[16px] pb-[16px]">
-      <div className="mb-[12px] flex items-center justify-between gap-[12px] flex-wrap">
-        <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-          Riwayat penilaian kinerja per tahun
-          {showSync && <> · Dicek dari eSKP: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>{syncAt}</span></>}
-        </div>
+    <div className={layout === 2 ? 'mx-[16px] mb-[16px] -mt-[12px] rounded-[6px] border border-[#cfd2d4]' : 'px-[16px] pb-[16px]'}>
+      <div className={`flex items-center justify-between gap-[12px] flex-wrap ${layout === 2 ? 'border-b border-[#cfd2d4] p-[16px]' : 'mb-[12px]'}`}>
+        {layout === 2 ? (
+          <div>
+            <h3 className="text-[#2f3031]" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
+            {showSync && (
+              <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+                Dicek dari eSKP: {syncAt}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            {showSync ? <>Dicek dari eSKP: {syncAt}</> : 'Belum pernah diperbarui dari eSKP'}
+          </div>
+        )}
+        <div className="flex items-center gap-[8px]">
+        {scenario !== 'loading' && (
+          <button
+            onClick={() => setShowChart(true)}
+            className="inline-flex items-center gap-[8px] rounded-[4px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031] hover:bg-[#f7f7f7]"
+            style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+          >
+            <ChartLine className="size-[18px]" />
+            Lihat grafik
+          </button>
+        )}
         <button
           onClick={getData}
           disabled={fetching}
@@ -549,10 +590,11 @@ function KinerjaTabel() {
           style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
         >
           <RefreshCw className={`size-[18px] ${fetching ? 'animate-spin' : ''}`} />
-          {fetching ? 'Mengambil data…' : 'Get Data'}
+          {fetching ? 'Mengambil data…' : 'Perbarui data'}
         </button>
+        </div>
       </div>
-      {scenario !== 'loading' && <KinerjaChart annual={annual} quarterly={allQuarters} />}
+      {showChart && <KinerjaChartModal annual={annual} quarterly={allQuarters} onClose={() => setShowChart(false)} />}
       <div className="overflow-auto">
         <table className="w-full border-collapse" style={{ minWidth: '640px' }} aria-label="Penilaian tahunan dan triwulan">
           <thead>
@@ -589,7 +631,7 @@ function KinerjaTabel() {
           </tbody>
         </table>
       </div>
-      <p className="mt-[12px] text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+      <p className={layout === 2 ? 'border-t border-[#cfd2d4] p-[16px] text-[#808489]' : 'mt-[12px] text-[#808489]'} style={{ fontSize: '14px', lineHeight: '20px' }}>
         Predikat tahunan merupakan evaluasi tersendiri, bukan gabungan nilai Triwulan 1–4.
       </p>
     </div>
@@ -610,6 +652,20 @@ function ProtoBar({ admin, setAdmin }: { admin: boolean; setAdmin: (v: boolean) 
       <label className="inline-flex items-center gap-[6px] cursor-pointer">
         <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} /> Tampilan admin, lihat pegawai lain (EK-5.8)
       </label>
+    </div>
+  );
+}
+
+function LayoutSwitch() {
+  const { layout, setLayout } = useContext(ProtoCtx);
+  return (
+    <div role="group" aria-label="Pilihan tata letak prototipe" className="fixed bottom-[16px] right-[16px] z-[90] flex items-center gap-[8px] rounded-[8px] border border-dashed border-[#828282] bg-[#f1f1f1] px-[12px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
+      <span style={{ fontWeight: 700 }}>Tata letak</span>
+      {([[1, 'Opsi 1'], [2, 'Opsi 2']] as const).map(([v, l]) => (
+        <button key={v} onClick={() => setLayout(v)} aria-pressed={layout === v}
+          className={`rounded-[4px] border px-[10px] py-[4px] ${layout === v ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#828282] bg-white text-[#2f3031]'}`}
+          style={{ fontWeight: 600 }}>{l}</button>
+      ))}
     </div>
   );
 }
@@ -683,11 +739,12 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
   const [showNotice, setShowNotice] = useState(true);
   const [scenario, setScenario] = useState('normal');
   const [adminOn, setAdminOn] = useState(false);
+  const [layout, setLayout] = useState<LayoutOpt>(2);
   const onPenilaian = tabs[tab] === 'Penilaian';
   const admin = adminOn && onPenilaian;
 
   return (
-    <ProtoCtx.Provider value={{ scenario, setScenario }}>
+    <ProtoCtx.Provider value={{ scenario, setScenario, layout, setLayout }}>
     <KepegawaianLayout topBar={onPenilaian ? <ProtoBar admin={adminOn} setAdmin={setAdminOn} /> : undefined}>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
@@ -795,6 +852,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         </div>
       </div>
     </KepegawaianLayout>
+    {onPenilaian && <LayoutSwitch />}
     </ProtoCtx.Provider>
   );
 }
