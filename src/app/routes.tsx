@@ -16,6 +16,8 @@ import { ProfilASNPage } from '@/app/components/ProfilASNPage';
 import { PemberitahuanPage } from '@/app/pages/PemberitahuanPage';
 import { PengaturanUmumPage } from '@/app/pages/PengaturanUmumPage';
 import { DataPribadiPage } from '@/app/pages/DataPribadiPage';
+import { KepegawaianSubPage } from '@/app/pages/KepegawaianSubPage';
+import { kepegawaianGroups } from '@/app/components/KepegawaianLayout';
 import { organizations } from '@/app/data/organizationData';
 import { getArticleData, getCategoryData } from '@/app/data/articleData';
 import { Toaster } from 'sonner';
@@ -43,7 +45,7 @@ function HomePage() {
       onNavigateToPengaturanUmum={() => navigate('/pengaturan')}
       onNavigateToManajemenSKP={() => navigate('/manajemen-proyek')}
       onNavigateToDashboardAnalitik={() => navigate('/dashboard-analitik')}
-      onNavigateToDataPribadi={() => navigate('/data-pribadi')}
+      onNavigateToDataPribadi={() => navigate('/kepegawaian')}
       onNavigateToProfilASN={() => navigate('/profil-asn')}
     />
   );
@@ -444,6 +446,8 @@ export const router = createBrowserRouter([
       { path: 'dashboard-analitik', Component: DashboardAnalitikPage },
       { path: 'profil-asn', Component: ProfilASNPageWrapper },
       { path: 'data-pribadi', Component: DataPribadiPageWrapper },
+      { path: 'kepegawaian', Component: DataPribadiPageWrapper },
+      ...kepegawaianGroups.flatMap((g) => g.children).map((c) => ({ path: c.path.slice(1), Component: KepegawaianSubPage })),
       { path: '*', Component: NotFoundPage },
     ],
   },
