@@ -17,6 +17,10 @@ import { PemberitahuanPage } from '@/app/pages/PemberitahuanPage';
 import { PengaturanUmumPage } from '@/app/pages/PengaturanUmumPage';
 import { DataPribadiPage } from '@/app/pages/DataPribadiPage';
 import { KepegawaianSubPage } from '@/app/pages/KepegawaianSubPage';
+import { DataPegawaiAktifPage, DataPPPKPage, DataNonAktifPage, VerifikasiPerubahanPage } from '@/app/pages/ProfilPegawaiPages';
+import { DaftarSemuaSKPage, KoreksiSKPage, TandaTanganSKPage, RiwayatSKIndividuPage, LogTandaTanganSKPage } from '@/app/pages/PengelolaanSKPages';
+import { PemetaanKonfigurasiPage, PergeseranJabatanPage, VerifikasiUsulanPergeseranPage, InventarisKepmenPage } from '@/app/pages/PemetaanJabatanPages';
+import { MasterDataPage, UnitKerjaPage, masterDataSlugs } from '@/app/pages/MasterDataPages';
 import { kepegawaianGroups } from '@/app/components/KepegawaianLayout';
 import { organizations } from '@/app/data/organizationData';
 import { getArticleData, getCategoryData } from '@/app/data/articleData';
@@ -447,7 +451,22 @@ export const router = createBrowserRouter([
       { path: 'profil-asn', Component: ProfilASNPageWrapper },
       { path: 'data-pribadi', Component: DataPribadiPageWrapper },
       { path: 'kepegawaian', Component: DataPribadiPageWrapper },
-      ...kepegawaianGroups.flatMap((g) => g.children).map((c) => ({ path: c.path.slice(1), Component: KepegawaianSubPage })),
+      { path: 'kepegawaian/data-pegawai-aktif', Component: DataPegawaiAktifPage },
+      { path: 'kepegawaian/data-pppk', Component: DataPPPKPage },
+      { path: 'kepegawaian/data-nonaktif', Component: DataNonAktifPage },
+      { path: 'kepegawaian/verifikasi-perubahan', Component: VerifikasiPerubahanPage },
+      { path: 'surat-keputusan/daftar-surat', Component: DaftarSemuaSKPage },
+      { path: 'surat-keputusan/daftar-koreksi', Component: KoreksiSKPage },
+      { path: 'surat-keputusan/daftar-tanda-tangan', Component: TandaTanganSKPage },
+      { path: 'surat-keputusan/riwayat-individu', Component: RiwayatSKIndividuPage },
+      { path: 'surat-keputusan/log-tanda-tangan', Component: LogTandaTanganSKPage },
+      { path: 'pemetaan-jabatan/pemetaan-konfigurasi', Component: PemetaanKonfigurasiPage },
+      { path: 'pemetaan-jabatan/pergeseran-jabatan', Component: PergeseranJabatanPage },
+      { path: 'pemetaan-jabatan/verifikasi-usulan-pergeseran', Component: VerifikasiUsulanPergeseranPage },
+      { path: 'pemetaan-jabatan/inventaris-kepmen-peta-jabatan', Component: InventarisKepmenPage },
+      ...masterDataSlugs.map((slug) => ({ path: `master-data/${slug}`, Component: () => <MasterDataPage slug={slug} /> })),
+      { path: 'master-data/unit-kerja', Component: UnitKerjaPage },
+      ...kepegawaianGroups.flatMap((g) => g.children).filter((c) => !c.path.startsWith('/kepegawaian/') && !c.path.startsWith('/surat-keputusan/') && !c.path.startsWith('/pemetaan-jabatan/') && !c.path.startsWith('/master-data/')).map((c) => ({ path: c.path.slice(1), Component: KepegawaianSubPage })),
       { path: '*', Component: NotFoundPage },
     ],
   },

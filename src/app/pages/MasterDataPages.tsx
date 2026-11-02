@@ -1,0 +1,185 @@
+import { useState, type ReactNode } from 'react';
+import { Plus, MoreVertical, ChevronLeft, ChevronRight, ChevronDown, ChevronRight as Caret } from 'lucide-react';
+import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
+
+type Cfg = { title: string; subtitle: string; columns: string[]; rows: string[][]; total: number };
+
+const configs: Record<string, Cfg> = {
+  agama: {
+    title: 'Data Agama', subtitle: 'Kelola data agama yang digunakan dalam sistem', columns: ['Nama Agama'], total: 5,
+    rows: [['Hindu'], ['Katholik'], ['Budha'], ['Konghucu'], ['Islam']],
+  },
+  jabatan: {
+    title: 'Data Jabatan', subtitle: 'Kelola data jabatan yang digunakan dalam sistem',
+    columns: ['Kode Jabatan', 'Nama Jabatan', 'Jenis Jabatan', 'Kategori'], total: 6748,
+    rows: [
+      ['378873', 'Penghulu ahli utama', 'Jabatan Administrasi', 'Fungsional'],
+      ['3788731', 'Ahli Utama Sekunder', 'Jabatan Administrasi', 'Administrator'],
+      ['34534534', 'Dirjen PAUD', '', 'Pelaksana'],
+    ],
+  },
+  pendidikan: {
+    title: 'Data Pendidikan', subtitle: 'Kelola data pendidikan yang digunakan dalam sistem',
+    columns: ['Tingkat Pendidikan', 'Jurusan Pendidikan'], total: 22926,
+    rows: [
+      ['S-1/Sarjana', 'S-1/A-IV MANAJEMEN PEMBELAJARAN GURU TAMAN KANAK KANAK'],
+      ['S-1/Sarjana', 'S-1/A-IV MANAJEMEN PENDIDIKAN'],
+      ['S-2', 'S-2 ADMINISTRASI KEUANGAN SYARIAH'],
+    ],
+  },
+  golongan: {
+    title: 'Data Golongan', subtitle: 'Kelola data golongan dan pangkat yang digunakan dalam sistem',
+    columns: ['Golongan', 'Pangkat', 'Nama', 'Gol', 'Gol PPPK'], total: 21,
+    rows: [
+      ['II/d', 'Pengatur Tingkat I', '2d', '2', 'VIII'],
+      ['III/b', 'Penata Muda Tingkat I', '3b', '3', 'X'],
+      ['III/d', 'Penata Tingkat I', '3d', '3', 'XII'],
+      ['IV/a', 'Pembina', '4a', '4', 'XIII'],
+      ['IV/c', 'Pembina Utama Muda', '4c', '4', 'XV'],
+      ['IV/d', 'Pembina Utama Madya', '4d', '4', 'XVI'],
+      ['Non-ASN', 'Non-ASN', '-', '0', '-'],
+      ['II/a', 'Pengatur Muda', 'II A', '3', 'PPP-C'],
+      ['II/b', 'Pengatur', 'II B', '4', 'PPP-D'],
+      ['V/a', 'Spesial', 'V A', '9', 'PPP-I'],
+    ],
+  },
+  'jenis-kenaikan-pangkat': {
+    title: 'Data Jenis Kenaikan Pangkat', subtitle: 'Kelola data jenis kenaikan pangkat yang digunakan dalam sistem',
+    columns: ['Nama Jenis KP'], total: 27,
+    rows: [['Pilihan (Jabatan Struktural)'], ['Pilihan (Jabatan Fungsional Tertentu)']],
+  },
+  'jenis-jabatan': {
+    title: 'Data Jenis Jabatan', subtitle: 'Kelola data jenis jabatan yang digunakan dalam sistem',
+    columns: ['Nama Jenis Jabatan'], total: 7,
+    rows: [['Jabatan Administrasi'], ['Jabatan Penyelenggara'], ['Jabatan Fungsional'], ['Jabatan Struktural'], ['Jabatan Pelaksana'], ['Jabatan Fungsional'], ['Karir']],
+  },
+  'jenis-penghargaan': {
+    title: 'Data Jenis Penghargaan', subtitle: 'Kelola data jenis penghargaan yang digunakan dalam sistem',
+    columns: ['Nama Jenis Penghargaan'], total: 13,
+    rows: [['Satya Lencana'], ['Penghargaan Kinerja']],
+  },
+  'jenis-hukuman': {
+    title: 'Data Jenis Hukuman', subtitle: 'Kelola data jenis hukuman yang digunakan dalam sistem',
+    columns: ['Nama Jenis Hukuman', 'Tingkat Hukuman'], total: 21,
+    rows: [['Sangat Berat', 'Berat'], ['Berat', 'Berat'], ['ringan', 'Ringan'], ['Pelanggaran Berat', 'Berat']],
+  },
+  'template-dokumen': {
+    title: 'Data Template Dokumen', subtitle: 'Kelola data template dokumen yang digunakan dalam sistem',
+    columns: ['Nama Template', 'Dokumen'], total: 23,
+    rows: [['Template SK Contoh', 'template-sk-contoh.docx'], ['Template SPMT', 'template-spmt.docx']],
+  },
+};
+
+function Shell({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
+  return (
+    <KepegawaianLayout>
+      <div className="p-[20px] flex flex-col gap-[12px]">
+        <div>
+          <h1 className="font-semibold text-[#2f3031]" style={{ fontSize: '24px' }}>{title}</h1>
+          <p className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
+        </div>
+        <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px]">{children}</div>
+      </div>
+    </KepegawaianLayout>
+  );
+}
+
+const AddButton = () => (
+  <div className="flex justify-end mb-[12px]">
+    <button className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+      <Plus className="size-[16px]" /> Tambah
+    </button>
+  </div>
+);
+
+export function MasterDataPage({ slug }: { slug: string }) {
+  const cfg = configs[slug];
+  const [perPage, setPerPage] = useState(10);
+  if (!cfg) return null;
+  return (
+    <Shell title={cfg.title} subtitle={cfg.subtitle}>
+      <AddButton />
+      <div className="overflow-x-auto">
+        <table className="w-full text-left" style={{ fontSize: 'var(--text-sm)' }}>
+          <thead>
+            <tr className="border-y border-[#e4e4e4]">
+              <th className="px-[12px] py-[12px] uppercase text-[#65696c] w-[56px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>No</th>
+              {cfg.columns.map((c) => (
+                <th key={c} className="px-[12px] py-[12px] uppercase text-[#65696c]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>{c}</th>
+              ))}
+              <th className="px-[12px] py-[12px] uppercase text-[#65696c] text-center w-[80px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cfg.rows.map((r, i) => (
+              <tr key={i} className={i % 2 === 0 ? 'bg-[#f7f7f7]' : ''}>
+                <td className="px-[12px] py-[16px]">{i + 1}</td>
+                {r.map((v, j) => <td key={j} className="px-[12px] py-[16px]">{v}</td>)}
+                <td className="px-[12px] py-[16px] text-center"><button aria-label="Aksi"><MoreVertical className="size-[18px] inline text-[#45474a]" /></button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="flex items-center justify-between mt-[12px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
+        <span className="flex items-center gap-[8px]">
+          Menampilkan 1 - {Math.min(cfg.rows.length, perPage)} dari {cfg.total} data ·
+          <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-[#c7c7c7] rounded-[4px] px-[4px] py-[1px] bg-white">
+            {[5, 10, 20, 50].map((n) => <option key={n}>{n}</option>)}
+          </select>
+          per halaman
+        </span>
+        <span className="flex items-center gap-[6px]">
+          <ChevronLeft className="size-[16px] text-[#bbb]" />
+          <span className="size-[28px] grid place-items-center rounded-[4px] bg-[#1a5fe0] text-white font-semibold">1</span>
+          <ChevronRight className="size-[16px]" />
+        </span>
+      </div>
+    </Shell>
+  );
+}
+
+type Node = { name: string; children?: Node[] };
+const unitTree: Node[] = [{
+  name: 'KEMENTERIAN PENDIDIKAN DASAR DAN MENENGAH',
+  children: [
+    { name: 'Staf Ahli' },
+    { name: 'PENGALIHAN DIKTI' },
+    { name: 'Direktorat Jenderal Guru Dan Tenaga Kependidikan (Non Aktif)' },
+    { name: 'Direktorat Jenderal Kebudayaan (Non AKtif)' },
+    { name: 'Badan Penelitian dan Pengembangan dan Perbukuan' },
+  ],
+}];
+
+function TreeNode({ node, depth = 0 }: { node: Node; depth?: number }) {
+  const [open, setOpen] = useState(depth === 0);
+  return (
+    <div>
+      <button
+        onClick={() => node.children && setOpen(!open)}
+        className="flex items-center gap-[6px] py-[6px] hover:bg-[#f7f7f7] w-full text-left rounded-[4px]"
+        style={{ paddingLeft: depth * 20 + 4, fontSize: 'var(--text-sm)' }}
+      >
+        {node.children ? (open ? <ChevronDown className="size-[16px]" /> : <Caret className="size-[16px]" />) : <span className="size-[16px]" />}
+        {node.name}
+      </button>
+      {open && node.children?.map((c) => <TreeNode key={c.name} node={c} depth={depth + 1} />)}
+    </div>
+  );
+}
+
+export function UnitKerjaPage() {
+  return (
+    <Shell title="Data Unit Kerja" subtitle="Kelola data unit kerja yang digunakan dalam sistem">
+      <div className="flex items-center justify-between mb-[12px]">
+        <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Klik kanan pada unit kerja untuk menampilkan menu</p>
+        <button className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+          <Plus className="size-[16px]" /> Tambah
+        </button>
+      </div>
+      {unitTree.map((n) => <TreeNode key={n.name} node={n} />)}
+    </Shell>
+  );
+}
+
+export const masterDataSlugs = Object.keys(configs);
