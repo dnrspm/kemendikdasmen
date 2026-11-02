@@ -41,17 +41,17 @@ type Row = (string | boolean | undefined)[];
 
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
-    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-[#65696c] font-medium" style={{ fontSize: 'var(--text-sm)' }}>
+    <section className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">
+      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
         {icon} {title}
       </header>
       <div className={`grid gap-x-[16px] gap-y-[14px] p-[16px] ${cols === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {rows.map(([label, value, info]) => (
           <div key={label as string} className={`flex flex-col gap-[2px] ${full.includes(label as string) ? 'col-span-2' : ''}`}>
-            <span className="text-[#65696c] flex items-center gap-[4px]" style={{ fontSize: 'var(--text-xs)' }}>
+            <span className="text-[#65696c] flex items-center gap-[4px]" style={{ fontSize: '14px', lineHeight: '20px' }}>
               {label as string} {info ? <Info className="size-[13px]" /> : null}
             </span>
-            <span className="text-[#2f3031] break-words" style={{ fontSize: 'var(--text-sm)', fontWeight: 500, letterSpacing: hidden ? '2px' : undefined }}>
+            <span className="text-[#2f3031] break-words" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
               {hidden ? '••••••••••••••' : (value as string)}
             </span>
           </div>
@@ -188,17 +188,17 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
 
   return (
     <KepegawaianLayout>
-      <div className="p-[20px] flex flex-col gap-[16px]">
+      <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="font-semibold text-[#2f3031]" style={{ fontSize: '24px' }}>Data Pribadi</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>Kelola data pribadi Anda di Portal Kemendikdasmen</p>
+          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Data Pribadi</h1>
+          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>Kelola data pribadi Anda di Portal Kemendikdasmen</p>
         </div>
 
         {showNotice && (
-          <div className="bg-[#e3f1fd] border border-[#a9d2f7] rounded-[8px] p-[16px] flex gap-[10px]">
+          <div className="bg-[#e3f1fd] border border-[#a9d2f7] rounded-[6px] p-[16px] flex gap-[10px]">
             <Info className="size-[18px] mt-[2px] text-[#1a5fe0] shrink-0" />
-            <div className="flex-1" style={{ fontSize: 'var(--text-sm)' }}>
-              <p className="font-semibold mb-[6px]">Perhatian</p>
+            <div className="flex-1" style={{ fontSize: '16px', lineHeight: '24px' }}>
+              <p className="mb-[6px]" style={{ fontWeight: 600 }}>Perhatian</p>
               <p>Silakan ajukan perubahan data jika ada kesalahan atau ada perubahan data diri Anda.</p>
               <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh kepegawaian Satker/UPT Anda, setelah itu data akan diverifikasi ulang oleh Biro SDM.</p>
             </div>
@@ -206,48 +206,48 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
           </div>
         )}
 
-        <div className="grid grid-cols-1 xl:grid-cols-[248px_1fr] gap-[16px] items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-[275px_1fr] gap-[16px] items-start">
           <div className="flex flex-col gap-[16px]">
-            <div className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-              <img alt="" src={imgPhoto} className="w-full aspect-square object-cover bg-[#d9d9d9]" />
+            <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">
+              <img alt="" src={imgPhoto} className="w-full object-cover bg-[#d9d9d9]" style={{ height: 279 }} />
               <div className="p-[16px] text-center flex flex-col gap-[6px]">
-                <h2 className="font-semibold uppercase text-[#2f3031]" style={{ fontSize: 'var(--text-base)' }}>Prof. Dr. Ahmad Wijaya M.M.</h2>
-                <p className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>
+                <h2 className="uppercase text-[#2f3031]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>Prof. Dr. Ahmad Wijaya M.M.</h2>
+                <p className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                   Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten
                 </p>
-                <p style={{ fontSize: 'var(--text-xs)' }}>(Karir)<br />TMT 1 Oktober 2023</p>
+                <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>(Karir)<br />TMT 1 Oktober 2023</p>
               </div>
             </div>
 
-            <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[12px] flex flex-col gap-[12px]">
+            <div className="bg-white border border-[#efefef] rounded-[6px] p-[12px] flex flex-col gap-[12px]">
               <div className="flex gap-[10px]">
                 <div className="size-[64px] shrink-0 bg-[#f4f4f4] grid place-items-center text-[10px] text-[#65696c]">QR</div>
                 <div>
-                  <p style={{ fontSize: '11px', lineHeight: '14px' }}>Scan QR untuk melihat profil publik (Kartu Pegawai). Klik gambar untuk memperbesar.</p>
-                  <a className="text-[#1a5fe0] inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '11px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
+                  <p style={{ fontSize: '12px', lineHeight: '16px' }}>Scan QR untuk melihat profil publik (Kartu Pegawai). Klik gambar untuk memperbesar.</p>
+                  <a className="text-[#0b5fef] inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
                 </div>
               </div>
-              <button className="w-full border border-[#c7c7c7] rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] font-semibold hover:bg-[#f7f7f7]" style={{ fontSize: 'var(--text-sm)' }}>
+              <button className="w-full border border-[#c7c7c7] rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-[#f7f7f7]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                 <Download className="size-[16px]" /> Unduh QR
               </button>
             </div>
 
-            <div className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-              <header className="px-[16px] py-[12px] bg-[#fafafa] border-b border-[#eee] font-semibold text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>Unit Organisasi</header>
-              <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: 'var(--text-sm)' }}>
+            <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">
+              <header className="px-[16px] py-[12px] bg-[#fafafa] border-b border-[#eee] text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Unit Organisasi</header>
+              <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '16px', lineHeight: '24px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
               </ul>
             </div>
           </div>
 
-          <div className="bg-white border border-[#e4e4e4] rounded-[8px] min-w-0">
+          <div className="bg-white border border-[#efefef] rounded-[6px] min-w-0">
             <div className="flex gap-[24px] px-[16px] border-b border-[#e4e4e4] overflow-x-auto">
               {tabs.map((t, i) => (
                 <button
                   key={t}
                   onClick={() => setTab(i)}
-                  className={`py-[16px] whitespace-nowrap border-b-[3px] ${i === tab ? 'border-[#1a5fe0] font-semibold' : 'border-transparent text-[#2f3031]'}`}
-                  style={{ fontSize: 'var(--text-sm)', fontWeight: i === tab ? 600 : 500 }}
+                  className={`py-[16px] whitespace-nowrap border-b-[3px] ${i === tab ? 'border-[#1a5fe0]' : 'border-transparent'} text-[#2f3031]`}
+                  style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
                 >
                   {t}
                 </button>
@@ -257,12 +257,12 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             {tab === 0 ? (
               <div className="p-[14px] flex flex-col gap-[14px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui: 2 November 2026</span>
+                  <span className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>2 November 2026</span></span>
                   <div className="flex items-center gap-[12px]">
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
                     </button>
-                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[8px] " style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                       <FilePenLine className="size-[16px]" /> Ubah Data
                     </button>
                   </div>

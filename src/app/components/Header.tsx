@@ -51,7 +51,7 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
   };
 
   return (
-    <div className="bg-white border-b border-[#EFEFEF] h-[64px] sticky top-0 z-50 shadow-sm">
+    <div className="bg-white border-b border-[#EFEFEF] h-[61px] sticky top-0 z-50 shadow-sm">
       <div className={`flex items-center justify-between h-full px-[24px] mx-auto ${fullWidth ? 'w-full' : 'max-w-[1440px]'}`}>
         {/* Logo Header */}
         <div className="flex items-center">
