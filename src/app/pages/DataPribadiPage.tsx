@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { TriangleAlert, Plus, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
@@ -81,12 +82,13 @@ function Updated() {
 }
 
 function Keluarga() {
+  const navigate = useNavigate();
   const sectionCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('hub', 'Hubungan'), col('hidup', 'Status Hidup'), col('asn', 'Status ASN'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
   const pasanganCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('ke', 'Pasangan Ke'), col('asn', 'Status ASN'), col('hidup', 'Status Hidup'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
-  const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+  const SectionTitle = ({ children, to }: { children: React.ReactNode; to?: string }) => (
     <div className="flex items-center justify-between px-[14px] pt-[16px]">
       <h3 className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-base)' }}>{children}</h3>
-      <button className="border border-[#1a5fe0] text-[#1a5fe0] rounded-[4px] px-[12px] py-[4px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+      <button onClick={() => to && navigate(to)} className="border border-[#1a5fe0] text-[#1a5fe0] rounded-[4px] px-[12px] py-[4px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
         <Plus className="size-[14px]" /> Tambah
       </button>
     </div>
@@ -102,11 +104,11 @@ function Keluarga() {
           <p>Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
         </div>
       </div>
-      <SectionTitle>Data Orang Tua</SectionTitle>
+      <SectionTitle to="/kepegawaian/keluarga/orang-tua/tambah">Data Orang Tua</SectionTitle>
       <StagingDataTable hideFilter columns={sectionCols} rows={[
         { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Hapus', hub: 'Ayah', hidup: 'Masih Hidup', asn: 'Bukan ASN', nama: 'Contoh Orang Tua', tgl: '-' },
       ]} />
-      <SectionTitle>Data Pasangan</SectionTitle>
+      <SectionTitle to="/kepegawaian/keluarga/pasangan/tambah">Data Pasangan</SectionTitle>
       <StagingDataTable hideFilter columns={pasanganCols} rows={[
         { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Tambah', ke: '1', asn: 'Bukan ASN', hidup: 'Masih Hidup', nama: 'Contoh Pasangan', tgl: '-' },
       ]} />
@@ -179,6 +181,7 @@ function OtherTab({ name }: { name: string }) {
 }
 
 export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
+  const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const [hidden, setHidden] = useState(true);
   const [showNotice, setShowNotice] = useState(true);
@@ -259,7 +262,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
                     </button>
-                    <button className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
                       <FilePenLine className="size-[16px]" /> Ubah Data
                     </button>
                   </div>

@@ -1,4 +1,6 @@
 import { useState, type ReactNode } from 'react';
+import { X } from 'lucide-react';
+import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, EyeAction, MoreAction, type Column } from '@/app/components/StagingDataTable';
 
@@ -84,7 +86,67 @@ export function DataNonAktifPage() {
   );
 }
 
+type Usulan = { data: string; jenis: 'Tambah' | 'Hapus'; detail: [string, string][] };
+
+const detailPasangan: [string, string][] = [
+  ['Pasangan Ke', '3'], ['Status ASN', 'Bukan ASN'], ['Status Hidup', 'Hidup'], ['Status Pernikahan', 'Menikah'], ['NIP', '-'],
+  ['Nama', 'Pasangan Contoh'], ['Tanggal Lahir', '29 Oktober 2026'], ['Jenis Kelamin', 'Perempuan'], ['Agama', 'Islam'],
+  ['Nomor KK', '0000000000000000'], ['Jenis Dokumen Identitas', 'KTP'], ['Nomor Identitas', '0000000000000000'],
+  ['Nomor Akta Menikah', '0000000'], ['Tanggal Akta Menikah', '29 Oktober 2026'], ['Nomor Akta Cerai', '-'],
+  ['Tanggal Akta Cerai', '-'], ['No. Akta Meninggal', '-'], ['Tanggal Meninggal', '-'], ['Nomor HP', '-'], ['Email', '-'], ['Alamat', '-'],
+];
+const detailOrtu: [string, string][] = [
+  ['Hubungan', 'Ayah'], ['Status Hidup', 'Masih Hidup'], ['Status ASN', 'Bukan ASN'], ['NIP', '-'], ['Nama', 'Orang Tua Contoh'],
+  ['Tanggal Lahir', '-'], ['Jenis Identitas', '-'], ['Nomor Identitas', '-'], ['Nomor HP', '-'], ['Email', '-'], ['Alamat', '-'],
+];
+
+function DetailUsulanModal({ usulan, onClose }: { usulan: Usulan; onClose: () => void }) {
+  const done = (msg: string) => { toast.info(`Prototipe: ${msg} (tidak dikirim ke server).`); onClose(); };
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[880px] max-h-[92vh] flex flex-col">
+        <div className="flex items-center justify-between px-[20px] py-[14px] border-b border-[#e4e4e4]">
+          <h2 style={{ fontSize: 'var(--text-lg)' }}>Detail Usulan Perubahan: <b className="uppercase">{usulan.data}</b></h2>
+          <button onClick={onClose} aria-label="Close" className="border border-[#1a5fe0] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#1a5fe0]" /></button>
+        </div>
+        <div className="overflow-y-auto p-[20px] flex flex-col gap-[14px]">
+          <div className="flex items-center gap-[14px] bg-[#f4f4f4] rounded-[8px] p-[12px]">
+            <div className="size-[48px] rounded-full bg-[#d6e6fd]" />
+            <div>
+              <p className="font-semibold">{AHMAD}</p>
+              <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{AHMAD_NIP}</p>
+              <p className="flex gap-[6px] flex-wrap mt-[2px]"><Chip tone="blue">III/d</Chip><Chip tone="green">PNS</Chip><span style={{ fontSize: '11px' }}>Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten</span></p>
+            </div>
+          </div>
+          <div className="border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+            <div className="flex items-center justify-between bg-[#f4f4f4] px-[14px] py-[8px]">
+              <span className="flex items-center gap-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Detail <Chip tone={usulan.jenis === 'Tambah' ? 'green' : 'red'}>{usulan.jenis === 'Tambah' ? 'Penambahan Data' : 'Penghapusan Data'}</Chip></span>
+              <span style={{ fontSize: 'var(--text-xs)' }}>Diajukan pada: 29 Oktober 2026 09:32 WIB</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[16px] gap-y-[12px] p-[14px]">
+              {usulan.detail.map(([k, v]) => (
+                <div key={k}>
+                  <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{k}</p>
+                  <p className="font-semibold text-[#2d8a4e]" style={{ fontSize: 'var(--text-sm)' }}>{v}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between px-[20px] py-[12px] border-t border-[#e4e4e4]">
+          <button onClick={onClose} className="border border-[#a8a8a8] rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Batal</button>
+          <div className="flex gap-[8px]">
+            <button onClick={() => done('usulan ditolak')} className="bg-[#e0243a] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✕ Tolak</button>
+            <button onClick={() => done('usulan disetujui')} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✓ Setujui</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function VerifikasiPerubahanPage() {
+  const [selected, setSelected] = useState<Usulan | null>(null);
   const [tab, setTab] = useState(0);
   const cols: Column[] = [
     { key: 'no', label: 'No', width: '48px' },
@@ -97,7 +159,8 @@ export function VerifikasiPerubahanPage() {
   ];
   const mk = (n: number, nama: ReactNode, data: string, jenis: 'Tambah' | 'Hapus') => ({
     no: n, nama, unit: UNIT, data, jenis: <Chip tone={jenis === 'Tambah' ? 'green' : 'red'}>{jenis}</Chip>,
-    status: 'Menunggu diverifikasi', aksi: <EyeAction />,
+    status: 'Menunggu diverifikasi',
+    aksi: <EyeAction onClick={() => setSelected({ data, jenis, detail: data === 'Pasangan' ? detailPasangan : detailOrtu })} />,
   });
   const ahmad = <PersonCell name={AHMAD} nip={AHMAD_NIP} />;
   const rows = [
@@ -110,6 +173,7 @@ export function VerifikasiPerubahanPage() {
     <PageShell title="Verifikasi Perubahan Data" subtitle="Kelola dan verifikasi perubahan data yang diajukan oleh pegawai">
       <Tabs tabs={['Daftar Usulan Perubahan Data', 'Daftar Usulan yang Telah Ditinjau']} active={tab} onChange={setTab} />
       <StagingDataTable columns={cols} rows={tab === 0 ? rows : []} />
+      {selected && <DetailUsulanModal usulan={selected} onClose={() => setSelected(null)} />}
     </PageShell>
   );
 }

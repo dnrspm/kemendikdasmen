@@ -107,5 +107,5 @@ export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?:
   return <span className="inline-block rounded-full px-[10px] py-[2px] font-semibold" style={{ background: t[0], color: t[1], fontSize: 'var(--text-xs)' }}>{children}</span>;
 };
 
-export const EyeAction = () => <button aria-label="Lihat"><Eye className="size-[18px] text-[#45474a]" /></button>;
+export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-[#45474a]" /></button>;
 export const MoreAction = () => <button aria-label="Aksi"><MoreVertical className="size-[18px] text-[#45474a]" /></button>;

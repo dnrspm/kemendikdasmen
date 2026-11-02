@@ -23,6 +23,7 @@ import { PemetaanKonfigurasiPage, PergeseranJabatanPage, VerifikasiUsulanPergese
 import { MasterDataPage, UnitKerjaPage, masterDataSlugs } from '@/app/pages/MasterDataPages';
 import { RolePage, UserPage, PemberitahuanUmumPage, InformasiSistemPage, BannerUtamaPage } from '@/app/pages/PengaturanUmumStaging';
 import { Navigate } from 'react-router';
+import { UbahDataPribadiPage, TambahPasanganPage, TambahOrangTuaPage } from '@/app/pages/FormKepegawaianPages';
 import { kepegawaianGroups } from '@/app/components/KepegawaianLayout';
 import { organizations } from '@/app/data/organizationData';
 import { getArticleData, getCategoryData } from '@/app/data/articleData';
@@ -452,6 +453,9 @@ export const router = createBrowserRouter([
       { path: 'profil-asn', Component: ProfilASNPageWrapper },
       { path: 'data-pribadi', Component: DataPribadiPageWrapper },
       { path: 'kepegawaian', Component: DataPribadiPageWrapper },
+      { path: 'kepegawaian/ubah-data-pribadi', Component: UbahDataPribadiPage },
+      { path: 'kepegawaian/keluarga/pasangan/tambah', Component: TambahPasanganPage },
+      { path: 'kepegawaian/keluarga/orang-tua/tambah', Component: TambahOrangTuaPage },
       { path: 'kepegawaian/data-pegawai-aktif', Component: DataPegawaiAktifPage },
       { path: 'kepegawaian/data-pppk', Component: DataPPPKPage },
       { path: 'kepegawaian/data-nonaktif', Component: DataNonAktifPage },
