@@ -51,27 +51,27 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
   };
 
   return (
-    <div className="bg-white border-b border-[#EFEFEF] h-[61px] sticky top-0 z-50 shadow-sm">
-      <div className={`flex items-center justify-between h-full px-[24px] mx-auto ${fullWidth ? 'w-full' : 'max-w-[1440px]'}`}>
+    <div className="bg-white border-b border-[#EFEFEF] h-[61px] sticky top-0 z-50">
+      <div className={`flex items-center justify-between h-full px-[20px] mx-auto ${fullWidth ? 'w-full' : 'max-w-[1440px]'}`}>
         {/* Logo Header */}
         <div className="flex items-center">
           <button onClick={handleLogoClick} className="hover:opacity-80 transition-opacity">
             <img 
               alt="Portal Kemendikdasmen" 
-              className="h-[42px] w-auto object-contain" 
+              className="h-[36px] w-auto object-contain" 
               src={logoPortal} 
             />
           </button>
         </div>
 
         {/* Right side: Notification + User Menu */}
-        <div className="flex items-center gap-[16px]">
+        <div className="flex items-center gap-[8px]">
           {/* Notification Dropdown */}
           <NotificationDropdown onViewAll={handleNotificationViewAll} />
 
           {/* User Menu */}
           <div className="relative" ref={userRef}>
-            <button onClick={() => setUserOpen(!userOpen)} className="flex items-center gap-[9px] cursor-pointer hover:opacity-80 transition-opacity">
+            <button onClick={() => setUserOpen(!userOpen)} className="flex items-center gap-[12px] cursor-pointer hover:opacity-80 transition-opacity">
               <img alt="" src={imgTutWuri} className="size-[34px] rounded-full object-cover" />
               <p className="hidden md:block uppercase text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                 AHMAD WIJAYA
