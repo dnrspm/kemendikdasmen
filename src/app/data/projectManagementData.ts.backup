@@ -1,0 +1,1908 @@
+// Project Management Mock Data
+
+export type TaskStatus = 'pengusulan' | 'belum_dikerjakan' | 'sedang_dikerjakan' | 'perlu_reviu' | 'selesai' | 'diblokir';
+export type TaskPriority = 'high' | 'medium' | 'low';
+export type ProgramPriority = 'prioritas_presiden' | 'prioritas_nasional' | 'prioritas_kementerian' | 'non_prioritas';
+export type EpicStatus = 'belum_dimulai' | 'sedang_dikerjakan' | 'selesai' | 'diblokir' | 'dibatalkan';
+
+// Organizational Hierarchy Types
+export interface Biro {
+  id: string;
+  name: string;
+  short_name: string;
+  parent_org_id: string; // sekretariat-jenderal
+}
+
+export interface TimKerja {
+  id: string;
+  name: string;
+  biro_id: string;
+  parent_org_id: string; // sekretariat-jenderal
+}
+
+// Organizational Hierarchy Data
+export const biros: Biro[] = [
+  {
+    id: 'biro-osdm',
+    name: 'Biro Organisasi dan Sumber Daya Manusia',
+    short_name: 'Biro OSDM',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'biro-perencanaan',
+    name: 'Biro Perencanaan dan Kerjasama',
+    short_name: 'Biro Perencanaan',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'pusdatin',
+    name: 'Pusat Data dan Teknologi Informasi',
+    short_name: 'Pusdatin',
+    parent_org_id: 'sekretariat-jenderal'
+  }
+];
+
+export const timKerjas: TimKerja[] = [
+  // Tim Kerja Biro OSDM (10 tim)
+  {
+    id: 'tim-osdm-1',
+    name: 'Bagian Manajemen Talenta',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-2',
+    name: 'Bagian Transformasi Organisasi',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-3',
+    name: 'Subbagian Tata Usaha',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-4',
+    name: 'Tim Analisis Jabatan & Pengembangan JF',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-5',
+    name: 'Tim Digitalisasi Manajemen ASN',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-6',
+    name: 'Tim Disiplin, Pemberhentian dan Pensiun',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-7',
+    name: 'Tim Ketatalaksanaan',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-8',
+    name: 'Tim Layanan Mutasi',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-9',
+    name: 'Tim Pelembagaan Unit Kerja',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-osdm-10',
+    name: 'Tim Perencanaan dan Pengadaan ASN',
+    biro_id: 'biro-osdm',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  // Tim Kerja Biro Perencanaan (contoh 3 tim)
+  {
+    id: 'tim-perencanaan-1',
+    name: 'Bagian Perencanaan Program',
+    biro_id: 'biro-perencanaan',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-perencanaan-2',
+    name: 'Bagian Kerjasama Dalam Negeri',
+    biro_id: 'biro-perencanaan',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  {
+    id: 'tim-perencanaan-3',
+    name: 'Bagian Kerjasama Luar Negeri',
+    biro_id: 'biro-perencanaan',
+    parent_org_id: 'sekretariat-jenderal'
+  },
+  // Tim Kerja Pusdatin (Diah Wulandari - Tim Pelaksana)
+  {
+    id: 'tim-pusdatin-1',
+    name: 'Tim Pelaksana - Diah Wulandari',
+    biro_id: 'pusdatin',
+    parent_org_id: 'sekretariat-jenderal'
+  }
+];
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  epic_id: string | null;
+  epic_name?: string; // SKP/Output tujuan
+  team_id: string;
+  biro_id?: string; // Biro assignment
+  tim_kerja_id?: string; // Tim Kerja assignment
+  status: TaskStatus;
+  assignee_id: string;
+  assignee_name: string; // Pelaku Tugas
+  assignee_avatar?: string;
+  assignees?: Array<{ // Multiple assignees support
+    id: string;
+    name: string;
+    avatar?: string;
+  }>;
+  reporter_id: string;
+  reporter_name: string; // Pemberi Tugas
+  priority: TaskPriority;
+  program_priority?: ProgramPriority; // Inherit dari Epic
+  labels: string[];
+  story_points?: number;
+  due_date: string; // Batas Waktu
+  start_date?: string;
+  completed_date?: string;
+  time_spent?: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Epic {
+  id: string;
+  name: string;
+  description: string;
+  sasaran_kinerja_id?: string; // Terkait Sasaran Kinerja
+  sasaran_kinerja_name?: string;
+  owner_org_id: string;
+  owner_org_name: string;
+  biro_id?: string; // Which biro owns this epic
+  biro_name?: string;
+  status: EpicStatus;
+  priority: TaskPriority;
+  program_priority?: ProgramPriority; // Label prioritas program
+  rhk_id?: string; // Terkait RHK mana
+  rhk_name?: string;
+  start_date: string;
+  due_date: string;
+  completed_date?: string;
+  progress: number;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Comment {
+  id: string;
+  task_id: string;
+  user_id: string;
+  user_name: string;
+  user_avatar?: string;
+  content: string;
+  created_at: string;
+}
+
+export interface ActivityLog {
+  id: string;
+  entity_type: 'task' | 'epic';
+  entity_id: string;
+  action: string;
+  user_id: string;
+  user_name: string;
+  details: string;
+  created_at: string;
+}
+
+// Mock Epics Data
+export const epics: Epic[] = [
+  // 5 SKP Baru untuk Sekretariat Jenderal
+  {
+    id: 'epic-setjen-1',
+    name: 'Asesmen Profiling Kompetensi',
+    description: 'Pelaksanaan Asesmen Profiling Kompetensi bagi PPYK dan PNS untuk mengidentifikasi kebutuhan pengembangan SDM',
+    sasaran_kinerja_id: 'sk-001',
+    sasaran_kinerja_name: 'Terwujudnya pengelolaan SDM yang profesional dan berintegritas',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'biro-osdm',
+    biro_name: 'Biro OSDM',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    rhk_id: 'rhk-sdm-1',
+    rhk_name: 'Peningkatan Kompetensi SDM Kemdikdasmen',
+    start_date: '2026-01-01',
+    due_date: '2026-06-30',
+    progress: 60,
+    created_by: 'user-1',
+    created_at: '2025-12-15T08:00:00Z',
+    updated_at: '2026-04-27T10:30:00Z'
+  },
+  {
+    id: 'epic-setjen-2',
+    name: 'Uji Kompetensi SDM',
+    description: 'Pelaksanaan Penilaian Kompetensi SDM di Lingkungan Kemdikdasmen melalui Uji Kompetensi Regular dan Incremental',
+    sasaran_kinerja_id: 'sk-001',
+    sasaran_kinerja_name: 'Terwujudnya pengelolaan SDM yang profesional dan berintegritas',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'biro-osdm',
+    biro_name: 'Biro OSDM',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    rhk_id: 'rhk-sdm-1',
+    rhk_name: 'Peningkatan Kompetensi SDM Kemdikdasmen',
+    start_date: '2026-01-15',
+    due_date: '2026-05-31',
+    progress: 45,
+    created_by: 'user-2',
+    created_at: '2026-01-10T09:00:00Z',
+    updated_at: '2026-04-27T11:00:00Z'
+  },
+  {
+    id: 'epic-setjen-3',
+    name: 'Sistem Penilaian Kompetensi',
+    description: 'Pengelolaan dan pengembangan Sistem Penilaian Kompetensi (SPK) dan Pengelolaan PPJK untuk evaluasi kinerja pegawai',
+    sasaran_kinerja_id: 'sk-001',
+    sasaran_kinerja_name: 'Terwujudnya pengelolaan SDM yang profesional dan berintegritas',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    rhk_id: 'rhk-sdm-2',
+    rhk_name: 'Sistem Evaluasi Kinerja Pegawai',
+    start_date: '2026-02-01',
+    due_date: '2026-04-30',
+    progress: 70,
+    created_by: 'user-3',
+    created_at: '2026-01-25T10:00:00Z',
+    updated_at: '2026-04-27T09:00:00Z'
+  },
+  {
+    id: 'epic-setjen-4',
+    name: 'Layanan Konseling Online',
+    description: 'Pengembangan dan pelaksanaan Layanan Konseling Online untuk mendukung kesejahteraan psikologis pegawai Kemdikdasmen',
+    sasaran_kinerja_id: 'sk-001',
+    sasaran_kinerja_name: 'Terwujudnya pengelolaan SDM yang profesional dan berintegritas',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    status: 'belum_dimulai',
+    priority: 'medium',
+    program_priority: 'non_prioritas',
+    rhk_id: 'rhk-sdm-3',
+    rhk_name: 'Kesejahteraan Pegawai',
+    start_date: '2026-03-01',
+    due_date: '2026-08-31',
+    progress: 0,
+    created_by: 'user-4',
+    created_at: '2026-02-20T10:00:00Z',
+    updated_at: '2026-04-27T08:00:00Z'
+  },
+  {
+    id: 'epic-setjen-5',
+    name: 'Manajemen Kinerja Organisasi',
+    description: 'Implementasi sistem manajemen kinerja organisasi dan kinerja pegawai yang terintegrasi untuk meningkatkan produktivitas',
+    sasaran_kinerja_id: 'sk-002',
+    sasaran_kinerja_name: 'Terlaksananya reformasi birokrasi yang efektif',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'biro-perencanaan',
+    biro_name: 'Biro Perencanaan',
+    status: 'selesai',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    rhk_id: 'rhk-sdm-2',
+    rhk_name: 'Sistem Evaluasi Kinerja Pegawai',
+    start_date: '2025-10-01',
+    due_date: '2025-12-31',
+    completed_date: '2025-12-28',
+    progress: 100,
+    created_by: 'user-5',
+    created_at: '2025-09-20T08:00:00Z',
+    updated_at: '2025-12-28T17:00:00Z'
+  },
+
+  // SKP Pusdatin
+  {
+    id: 'epic-pusdatin-1',
+    name: 'Laporan Pengelolaan Aplikasi sesuai ketentuan yang berlaku',
+    description: 'Pengelolaan berbagai aplikasi layanan administrasi pemerintahan dan layanan publik termasuk Super Aplikasi Rumah Pendidikan, SINDE, Portal Kemendikdasmen, dan sistem naskah dinas elektronik',
+    sasaran_kinerja_id: 'sk-pusdatin-001',
+    sasaran_kinerja_name: 'Persentase peningkatan peserta didik, pendidik, dan tenaga kependidikan dalam memanfaatkan Platform Digital Pendidikan',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'pusdatin',
+    biro_name: 'Pusdatin',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    rhk_id: 'rhk-pusdatin-1',
+    rhk_name: 'Peningkatan Pemanfaatan TIK untuk Pembelajaran',
+    start_date: '2026-01-01',
+    due_date: '2026-12-31',
+    progress: 35,
+    created_by: 'pusdatin-ketua',
+    created_at: '2025-12-20T08:00:00Z',
+    updated_at: '2026-05-15T10:00:00Z'
+  },
+  {
+    id: 'epic-pusdatin-2',
+    name: 'Laporan Integrasi Aplikasi sesuai ketentuan yang berlaku',
+    description: 'Integrasi berbagai aplikasi layanan administrasi pemerintahan dan layanan publik dengan Super Aplikasi Rumah Pendidikan, portal kemendikdasmen dengan layanan kearsipan, serta penyusunan standar teknis',
+    sasaran_kinerja_id: 'sk-pusdatin-002',
+    sasaran_kinerja_name: 'Persentase rekomendasi yang diterbitkan berdasarkan usulan clearance TIK',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'pusdatin',
+    biro_name: 'Pusdatin',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    rhk_id: 'rhk-pusdatin-2',
+    rhk_name: 'Integritas Data dan Tata Kelola TIK',
+    start_date: '2026-01-01',
+    due_date: '2026-12-31',
+    progress: 25,
+    created_by: 'pusdatin-ketua',
+    created_at: '2025-12-20T08:00:00Z',
+    updated_at: '2026-05-15T10:00:00Z'
+  },
+  {
+    id: 'epic-pusdatin-3',
+    name: 'Laporan Evaluasi Aplikasi sesuai ketentuan yang berlaku',
+    description: 'Evaluasi fungsionalitas aplikasi Kemendikdasmen (EFAK) termasuk penyusunan instrumen, pelaksanaan evaluasi, analisis hasil, dan rekomendasi penyelenggaraan aplikasi',
+    sasaran_kinerja_id: 'sk-pusdatin-002',
+    sasaran_kinerja_name: 'Persentase rekomendasi yang diterbitkan berdasarkan usulan clearance TIK',
+    owner_org_id: 'sekretariat-jenderal',
+    owner_org_name: 'Sekretariat Jenderal',
+    biro_id: 'pusdatin',
+    biro_name: 'Pusdatin',
+    status: 'sedang_dikerjakan',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    rhk_id: 'rhk-pusdatin-2',
+    rhk_name: 'Integritas Data dan Tata Kelola TIK',
+    start_date: '2026-01-01',
+    due_date: '2026-12-31',
+    progress: 30,
+    created_by: 'pusdatin-ketua',
+    created_at: '2025-12-20T08:00:00Z',
+    updated_at: '2026-05-15T10:00:00Z'
+  }
+];
+
+// Mock Tasks Data
+export const tasks: Task[] = [
+  {
+    id: 'TK-101',
+    title: 'Penyusunan Instrumen Asesmen PPYK',
+    description: 'Menyusun instrumen dan kuesioner asesmen profiling kompetensi untuk PPYK',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'selesai',
+    assignee_id: 'setjen-001',
+    assignee_name: 'Dr. Andi Wijaya',
+    reporter_id: 'setjen-002',
+    reporter_name: 'Dra. Sri Mulyani',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['asesmen', 'kompetensi'],
+    due_date: '2026-02-15',
+    start_date: '2026-01-05',
+    completed_date: '2026-02-14',
+    created_at: '2026-01-02T08:00:00Z',
+    updated_at: '2026-02-14T16:00:00Z'
+  },
+  {
+    id: 'TK-102',
+    title: 'Pelaksanaan Asesmen Batch 1',
+    description: 'Melaksanakan asesmen profiling kompetensi batch pertama untuk PPYK di lingkungan Kemdikdasmen',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-003',
+    assignee_name: 'Drs. Hendra Wijaya',
+    reporter_id: 'setjen-001',
+    reporter_name: 'Dr. Andi Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['asesmen', 'pelaksanaan'],
+    due_date: '2026-04-30',
+    start_date: '2026-02-20',
+    created_at: '2026-02-15T09:00:00Z',
+    updated_at: '2026-04-27T10:30:00Z'
+  },
+  {
+    id: 'TK-103',
+    title: 'Analisis Hasil Asesmen',
+    description: 'Menganalisis dan menyusun laporan hasil asesmen profiling kompetensi',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-004',
+    assignee_name: 'Ir. Bambang Sutrisno',
+    reporter_id: 'setjen-001',
+    reporter_name: 'Dr. Andi Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['analisis', 'pelaporan'],
+    due_date: '2026-05-31',
+    start_date: '2026-03-01',
+    created_at: '2026-02-20T10:00:00Z',
+    updated_at: '2026-04-27T14:30:00Z'
+  },
+  {
+    id: 'TK-104',
+    title: 'Rekomendasi Pengembangan SDM',
+    description: 'Menyusun rekomendasi program pengembangan SDM berdasarkan hasil asesmen',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-002',
+    assignee_name: 'Dra. Sri Mulyani',
+    reporter_id: 'setjen-001',
+    reporter_name: 'Dr. Andi Wijaya',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['rekomendasi', 'pengembangan'],
+    due_date: '2026-06-15',
+    created_at: '2026-02-25T11:00:00Z',
+    updated_at: '2026-04-27T09:00:00Z'
+  },
+
+  // Tasks for epic-setjen-2 (Uji Kompetensi SDM)
+  {
+    id: 'TK-201',
+    title: 'Penyiapan Materi Uji Kompetensi',
+    description: 'Menyiapkan materi dan soal untuk uji kompetensi regular dan incremental',
+    epic_id: 'epic-setjen-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'selesai',
+    assignee_id: 'setjen-005',
+    assignee_name: 'Dr. Ratna Sari',
+    reporter_id: 'setjen-002',
+    reporter_name: 'Dra. Sri Mulyani',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['uji-kompetensi', 'materi'],
+    due_date: '2026-02-28',
+    start_date: '2026-01-20',
+    completed_date: '2026-02-25',
+    created_at: '2026-01-15T09:00:00Z',
+    updated_at: '2026-02-25T16:00:00Z'
+  },
+  {
+    id: 'TK-202',
+    title: 'Platform CBT Uji Kompetensi',
+    description: 'Setup dan konfigurasi platform Computer Based Test untuk pelaksanaan uji kompetensi',
+    epic_id: 'epic-setjen-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-006',
+    assignee_name: 'Ir. Dimas Prasetyo',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['platform', 'cbt'],
+    due_date: '2026-03-31',
+    start_date: '2026-02-15',
+    created_at: '2026-02-10T10:00:00Z',
+    updated_at: '2026-04-27T15:30:00Z'
+  },
+  {
+    id: 'TK-203',
+    title: 'Pelaksanaan Uji Kompetensi Regular',
+    description: 'Melaksanakan uji kompetensi regular untuk seluruh PNS di lingkungan Kemdikdasmen',
+    epic_id: 'epic-setjen-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-007',
+    assignee_name: 'Dra. Dewi Kartika',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['uji-kompetensi', 'pelaksanaan'],
+    due_date: '2026-05-15',
+    start_date: '2026-04-01',
+    created_at: '2026-03-15T11:00:00Z',
+    updated_at: '2026-04-27T16:00:00Z'
+  },
+  {
+    id: 'TK-204',
+    title: 'Evaluasi dan Sertifikasi',
+    description: 'Evaluasi hasil uji kompetensi dan penerbitan sertifikat kompetensi',
+    epic_id: 'epic-setjen-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-005',
+    assignee_name: 'Dr. Ratna Sari',
+    reporter_id: 'setjen-002',
+    reporter_name: 'Dra. Sri Mulyani',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['evaluasi', 'sertifikasi'],
+    due_date: '2026-05-31',
+    created_at: '2026-03-20T12:00:00Z',
+    updated_at: '2026-04-27T11:00:00Z'
+  },
+
+  // Tasks for epic-setjen-3 (Sistem Penilaian Kompetensi)
+  {
+    id: 'TK-301',
+    title: 'Pengembangan Modul SPK',
+    description: 'Mengembangkan modul Sistem Penilaian Kompetensi untuk evaluasi kinerja pegawai',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'selesai',
+    assignee_id: 'setjen-008',
+    assignee_name: 'Ir. Ahmad Fauzi',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    labels: ['spk', 'development'],
+    due_date: '2026-03-15',
+    start_date: '2026-02-01',
+    completed_date: '2026-03-14',
+    created_at: '2026-02-01T08:00:00Z',
+    updated_at: '2026-03-14T17:00:00Z'
+  },
+  {
+    id: 'TK-302',
+    title: 'Integrasi SPK dengan SIMPEG',
+    description: 'Mengintegrasikan Sistem Penilaian Kompetensi dengan SIMPEG untuk sinkronisasi data pegawai',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-008',
+    assignee_name: 'Ir. Ahmad Fauzi',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    labels: ['integrasi', 'simpeg'],
+    due_date: '2026-04-15',
+    start_date: '2026-03-15',
+    created_at: '2026-03-10T09:00:00Z',
+    updated_at: '2026-04-27T14:00:00Z'
+  },
+  {
+    id: 'TK-303',
+    title: 'Pengelolaan PPJK',
+    description: 'Mengelola dan memperbarui data PPJK (Peta Jabatan dan Kelas Jabatan)',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'setjen-009',
+    assignee_name: 'Dra. Lisa Maharani',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    labels: ['ppjk', 'data'],
+    due_date: '2026-04-20',
+    start_date: '2026-03-01',
+    created_at: '2026-02-25T10:00:00Z',
+    updated_at: '2026-04-27T15:00:00Z'
+  },
+  {
+    id: 'TK-304',
+    title: 'Pelatihan Pengguna SPK',
+    description: 'Melaksanakan pelatihan penggunaan Sistem Penilaian Kompetensi untuk admin dan user',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-010',
+    assignee_name: 'Dr. Yoga Pratama',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'medium',
+    program_priority: 'prioritas_kementerian',
+    labels: ['pelatihan', 'user'],
+    due_date: '2026-04-30',
+    created_at: '2026-03-20T11:00:00Z',
+    updated_at: '2026-04-27T10:00:00Z'
+  },
+
+  // Tasks for epic-setjen-4 (Layanan Konseling Online)
+  {
+    id: 'TK-401',
+    title: 'Rekrutmen Psikolog Konselor',
+    description: 'Merekrut dan onboarding psikolog profesional untuk layanan konseling online',
+    epic_id: 'epic-setjen-4',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-011',
+    assignee_name: 'Dra. Siti Nurhaliza',
+    reporter_id: 'setjen-004',
+    reporter_name: 'Ir. Bambang Sutrisno',
+    priority: 'medium',
+    program_priority: 'non_prioritas',
+    labels: ['rekrutmen', 'psikolog'],
+    due_date: '2026-04-30',
+    created_at: '2026-02-25T08:00:00Z',
+    updated_at: '2026-04-27T09:00:00Z'
+  },
+  {
+    id: 'TK-402',
+    title: 'Platform Konseling Online',
+    description: 'Pengembangan platform konseling online dengan fitur chat, video call, dan appointment',
+    epic_id: 'epic-setjen-4',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-012',
+    assignee_name: 'Ir. Rudi Hermawan',
+    reporter_id: 'setjen-004',
+    reporter_name: 'Ir. Bambang Sutrisno',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    labels: ['platform', 'development'],
+    due_date: '2026-06-30',
+    created_at: '2026-03-01T09:00:00Z',
+    updated_at: '2026-04-27T08:00:00Z'
+  },
+  {
+    id: 'TK-403',
+    title: 'Sosialisasi Layanan Konseling',
+    description: 'Melaksanakan sosialisasi dan edukasi layanan konseling online kepada seluruh pegawai',
+    epic_id: 'epic-setjen-4',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-011',
+    assignee_name: 'Dra. Siti Nurhaliza',
+    reporter_id: 'setjen-004',
+    reporter_name: 'Ir. Bambang Sutrisno',
+    priority: 'medium',
+    program_priority: 'non_prioritas',
+    labels: ['sosialisasi', 'edukasi'],
+    due_date: '2026-07-31',
+    created_at: '2026-03-15T10:00:00Z',
+    updated_at: '2026-04-27T07:00:00Z'
+  },
+  {
+    id: 'TK-404',
+    title: 'Monitoring dan Evaluasi',
+    description: 'Melakukan monitoring dan evaluasi efektivitas layanan konseling online',
+    epic_id: 'epic-setjen-4',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'setjen-013',
+    assignee_name: 'Dr. Hendra Saputra',
+    reporter_id: 'setjen-004',
+    reporter_name: 'Ir. Bambang Sutrisno',
+    priority: 'low',
+    program_priority: 'non_prioritas',
+    labels: ['monitoring', 'evaluasi'],
+    due_date: '2026-08-31',
+    created_at: '2026-04-01T11:00:00Z',
+    updated_at: '2026-04-27T06:00:00Z'
+  },
+
+  // Tasks for epic-setjen-5 (Manajemen Kinerja Organisasi) - COMPLETED
+  {
+    id: 'TK-501',
+    title: 'Design Sistem Manajemen Kinerja',
+    description: 'Merancang arsitektur dan flow sistem manajemen kinerja organisasi dan pegawai',
+    epic_id: 'epic-setjen-5',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'selesai',
+    assignee_id: 'setjen-014',
+    assignee_name: 'Ir. Budi Santoso',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    labels: ['design', 'arsitektur'],
+    due_date: '2025-10-31',
+    start_date: '2025-10-01',
+    completed_date: '2025-10-30',
+    created_at: '2025-09-25T08:00:00Z',
+    updated_at: '2025-10-30T17:00:00Z'
+  },
+  {
+    id: 'TK-502',
+    title: 'Implementasi Dashboard Kinerja',
+    description: 'Mengimplementasikan dashboard visualisasi kinerja organisasi dan pegawai',
+    epic_id: 'epic-setjen-5',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'selesai',
+    assignee_id: 'setjen-015',
+    assignee_name: 'Dra. Rina Permata',
+    reporter_id: 'setjen-014',
+    reporter_name: 'Ir. Budi Santoso',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    labels: ['dashboard', 'frontend'],
+    due_date: '2025-11-30',
+    start_date: '2025-11-01',
+    completed_date: '2025-11-28',
+    created_at: '2025-10-25T09:00:00Z',
+    updated_at: '2025-11-28T16:00:00Z'
+  },
+  {
+    id: 'TK-503',
+    title: 'Integrasi dengan Sistem Eksisting',
+    description: 'Mengintegrasikan sistem manajemen kinerja dengan SIMPEG dan sistem lainnya',
+    epic_id: 'epic-setjen-5',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'selesai',
+    assignee_id: 'setjen-014',
+    assignee_name: 'Ir. Budi Santoso',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    labels: ['integrasi', 'backend'],
+    due_date: '2025-12-15',
+    start_date: '2025-12-01',
+    completed_date: '2025-12-14',
+    created_at: '2025-11-20T10:00:00Z',
+    updated_at: '2025-12-14T17:00:00Z'
+  },
+  {
+    id: 'TK-504',
+    title: 'UAT dan Go-Live',
+    description: 'User Acceptance Testing dan peluncuran sistem manajemen kinerja',
+    epic_id: 'epic-setjen-5',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'selesai',
+    assignee_id: 'setjen-016',
+    assignee_name: 'Dr. Linda Sari',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'high',
+    program_priority: 'non_prioritas',
+    labels: ['uat', 'deployment'],
+    due_date: '2025-12-31',
+    start_date: '2025-12-15',
+    completed_date: '2025-12-28',
+    created_at: '2025-12-10T11:00:00Z',
+    updated_at: '2025-12-28T18:00:00Z'
+  },
+
+  // Tasks with status "pengusulan" (Pengusulan Tugas)
+  {
+    id: 'TK-601',
+    title: 'Penyusunan Modul Pelatihan Digital',
+    description: 'Membuat modul pelatihan digital untuk pengembangan kompetensi pegawai di bidang teknologi informasi',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'pengusulan',
+    assignee_id: 'setjen-017',
+    assignee_name: 'Drs. Fajar Nugroho',
+    reporter_id: 'setjen-017',
+    reporter_name: 'Drs. Fajar Nugroho',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['pelatihan', 'modul'],
+    due_date: '2026-06-15',
+    created_at: '2026-05-10T09:00:00Z',
+    updated_at: '2026-05-10T09:00:00Z'
+  },
+  {
+    id: 'TK-602',
+    title: 'Survei Kepuasan Pegawai 2026',
+    description: 'Melakukan survei kepuasan pegawai untuk mengukur tingkat kepuasan dan engagement pegawai di lingkungan Kemdikdasmen',
+    epic_id: 'epic-setjen-4',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'pengusulan',
+    assignee_id: 'setjen-018',
+    assignee_name: 'Dr. Maya Kusuma',
+    reporter_id: 'setjen-018',
+    reporter_name: 'Dr. Maya Kusuma',
+    priority: 'medium',
+    program_priority: 'non_prioritas',
+    labels: ['survei', 'kepuasan'],
+    due_date: '2026-07-30',
+    created_at: '2026-05-11T10:30:00Z',
+    updated_at: '2026-05-11T10:30:00Z'
+  },
+  {
+    id: 'TK-603',
+    title: 'Workshop Peningkatan Soft Skills',
+    description: 'Menyelenggarakan workshop untuk meningkatkan soft skills pegawai seperti komunikasi, leadership, dan teamwork',
+    epic_id: 'epic-setjen-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-1',
+    status: 'pengusulan',
+    assignee_id: 'setjen-019',
+    assignee_name: 'Dra. Nina Safitri',
+    reporter_id: 'setjen-019',
+    reporter_name: 'Dra. Nina Safitri',
+    priority: 'low',
+    program_priority: 'prioritas_presiden',
+    labels: ['workshop', 'soft-skills'],
+    due_date: '2026-08-15',
+    created_at: '2026-05-12T08:15:00Z',
+    updated_at: '2026-05-12T08:15:00Z'
+  },
+
+  // Tasks with status "perlu_reviu" (Perlu Tinjauan Atasan)
+  {
+    id: 'TK-701',
+    title: 'Laporan Monitoring Kinerja Q1 2026',
+    description: 'Menyusun laporan hasil monitoring dan evaluasi kinerja pegawai periode Kuartal 1 tahun 2026',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'perlu_reviu',
+    assignee_id: 'setjen-020',
+    assignee_name: 'Ir. Tono Prasetyo',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    labels: ['laporan', 'monitoring'],
+    due_date: '2026-04-15',
+    start_date: '2026-03-20',
+    created_at: '2026-03-18T09:00:00Z',
+    updated_at: '2026-05-10T16:30:00Z'
+  },
+  {
+    id: 'TK-702',
+    title: 'Dokumentasi Prosedur Standar Operasional',
+    description: 'Mendokumentasikan prosedur standar operasional untuk proses rekrutmen dan seleksi pegawai baru',
+    epic_id: 'epic-setjen-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-4',
+    status: 'perlu_reviu',
+    assignee_id: 'setjen-021',
+    assignee_name: 'Dra. Putri Wulandari',
+    reporter_id: 'setjen-005',
+    reporter_name: 'Dr. Ratna Sari',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['dokumentasi', 'sop'],
+    due_date: '2026-05-20',
+    start_date: '2026-04-15',
+    created_at: '2026-04-10T10:00:00Z',
+    updated_at: '2026-05-11T14:00:00Z'
+  },
+  {
+    id: 'TK-703',
+    title: 'Update Database Kepegawaian',
+    description: 'Melakukan update dan sinkronisasi database kepegawaian dengan data terbaru dari BKN dan SIMPEG',
+    epic_id: 'epic-setjen-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'biro-osdm',
+    tim_kerja_id: 'tim-osdm-5',
+    status: 'perlu_reviu',
+    assignee_id: 'setjen-022',
+    assignee_name: 'Ir. Eko Wahyudi',
+    reporter_id: 'setjen-003',
+    reporter_name: 'Drs. Hendra Wijaya',
+    priority: 'high',
+    program_priority: 'prioritas_kementerian',
+    labels: ['database', 'sinkronisasi'],
+    due_date: '2026-05-10',
+    start_date: '2026-04-20',
+    created_at: '2026-04-18T08:30:00Z',
+    updated_at: '2026-05-12T11:00:00Z'
+  },
+
+  // ===== PUSDATIN TASKS (with Multiple Assignees) =====
+  // Epic 1: Laporan Pengelolaan Aplikasi (17 tasks)
+  {
+    id: 'TK-PD-101',
+    title: 'Laporan Pengelolaan Aplikasi Layanan Administrasi Pemerintahan sesuai ketentuan yang berlaku',
+    description: 'Menyusun laporan pengelolaan aplikasi layanan administrasi pemerintahan sesuai ketentuan yang berlaku',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-001',
+    assignee_name: 'Ratu Monalisa',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['laporan', 'administrasi'],
+    due_date: '2026-06-30',
+    start_date: '2026-01-15',
+    created_at: '2026-01-10T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-102',
+    title: 'Laporan Pengelolaan Aplikasi Layanan Publik sesuai ketentuan yang berlaku',
+    description: 'Menyusun laporan pengelolaan aplikasi layanan publik sesuai ketentuan yang berlaku',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-001',
+    assignee_name: 'Ratu Monalisa',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['laporan', 'layanan-publik'],
+    due_date: '2026-06-30',
+    start_date: '2026-01-15',
+    created_at: '2026-01-10T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-103',
+    title: 'Laporan UAT pengembangan Super Aplikasi Rumah Pendidikan',
+    description: 'Menyusun laporan User Acceptance Testing pengembangan Super Aplikasi Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['uat', 'super-app'],
+    due_date: '2026-08-31',
+    created_at: '2026-01-10T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-104',
+    title: 'Laporan Eksplorasi Pengembangan Super Aplikasi Rumah Pendidikan',
+    description: 'Menyusun laporan eksplorasi dan riset pengembangan Super Aplikasi Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'selesai',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['eksplorasi', 'riset'],
+    due_date: '2026-03-31',
+    start_date: '2026-01-01',
+    completed_date: '2026-03-28',
+    created_at: '2026-01-01T08:00:00Z',
+    updated_at: '2026-03-28T17:00:00Z'
+  },
+  {
+    id: 'TK-PD-105',
+    title: 'Laporan Usability Test Super Aplikasi Rumah Pendidikan',
+    description: 'Melaksanakan dan menyusun laporan usability testing Super Aplikasi Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['usability', 'testing'],
+    due_date: '2026-07-31',
+    start_date: '2026-04-01',
+    created_at: '2026-03-25T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-106',
+    title: 'Laporan Pengembangan Prototipe Fitur Layanan Rumah Pendidikan',
+    description: 'Mengembangkan dan menyusun laporan prototipe fitur-fitur layanan Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['prototipe', 'development'],
+    due_date: '2026-09-30',
+    start_date: '2026-05-01',
+    created_at: '2026-04-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-107',
+    title: 'Laporan pengelolaan SINDE',
+    description: 'Menyusun laporan pengelolaan Sistem Informasi Naskah Dinas Elektronik (SINDE)',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['sinde', 'pengelolaan'],
+    due_date: '2026-06-30',
+    start_date: '2026-01-01',
+    created_at: '2026-01-01T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-108',
+    title: 'Laporan Pelaksanaan studi tiru pemanfaatan Segel Elektronik',
+    description: 'Melaksanakan studi tiru dan menyusun laporan pemanfaatan Segel Elektronik',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['studi-tiru', 'segel-elektronik'],
+    due_date: '2026-10-31',
+    created_at: '2026-01-10T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-109',
+    title: 'Laporan pengelolaan Portal Kemendikdasmen',
+    description: 'Menyusun laporan pengelolaan Portal Kemendikdasmen',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['portal', 'pengelolaan'],
+    due_date: '2026-12-31',
+    start_date: '2026-01-01',
+    created_at: '2026-01-01T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-110',
+    title: 'Laporan Pengelolaan Layanan Administrasi Lainnya (Formulir dan PSE)',
+    description: 'Menyusun laporan pengelolaan layanan administrasi lainnya termasuk formulir dan PSE',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['administrasi', 'formulir'],
+    due_date: '2026-11-30',
+    start_date: '2026-02-01',
+    created_at: '2026-01-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-111',
+    title: 'Dokumen kebijakan Penyelenggaraan Aplikasi Kemendikdasmen',
+    description: 'Menyusun dokumen kebijakan penyelenggaraan aplikasi Kemendikdasmen',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'perlu_reviu',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['kebijakan', 'dokumen'],
+    due_date: '2026-05-31',
+    start_date: '2026-03-01',
+    created_at: '2026-02-25T08:00:00Z',
+    updated_at: '2026-05-14T16:00:00Z'
+  },
+  {
+    id: 'TK-PD-112',
+    title: 'Laporan Pengelolaan Sistem Naskah Dinas Elektronik',
+    description: 'Menyusun laporan pengelolaan Sistem Naskah Dinas Elektronik',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['naskah-dinas', 'pengelolaan'],
+    due_date: '2026-12-31',
+    start_date: '2026-01-01',
+    created_at: '2026-01-01T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-113',
+    title: 'Laporan Asistensi Penggunaan Layanan Administrasi Pemerintahan',
+    description: 'Memberikan asistensi dan menyusun laporan penggunaan layanan administrasi pemerintahan',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['asistensi', 'layanan'],
+    due_date: '2026-11-30',
+    start_date: '2026-02-01',
+    created_at: '2026-01-25T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-114',
+    title: 'Dokumen Kebijakan Penyelenggaraan Aplikasi Kemendikdasmen',
+    description: 'Menyusun dokumen kebijakan penyelenggaraan aplikasi Kemendikdasmen (versi Siti Nurma)',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'perlu_reviu',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['kebijakan', 'dokumen'],
+    due_date: '2026-05-31',
+    start_date: '2026-03-01',
+    created_at: '2026-02-25T08:00:00Z',
+    updated_at: '2026-05-14T16:00:00Z'
+  },
+  {
+    id: 'TK-PD-115',
+    title: 'Laporan Pengelolaan Portal Kemendikdasmen',
+    description: 'Menyusun laporan pengelolaan Portal Kemendikdasmen (versi Joddy)',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['portal', 'pengelolaan'],
+    due_date: '2026-12-31',
+    start_date: '2026-01-01',
+    created_at: '2026-01-01T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-116',
+    title: 'Laporan Pengembangan Prototipe Blockchain pada SHTKA dan E-Ijazah',
+    description: 'Mengembangkan prototipe teknologi blockchain untuk SHTKA dan E-Ijazah',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_presiden',
+    labels: ['blockchain', 'prototipe'],
+    due_date: '2026-10-31',
+    created_at: '2026-01-10T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-117',
+    title: 'Dokumen kebijakan Penyelenggaraan Aplikasi Kemendikdasmen',
+    description: 'Menyusun dokumen kebijakan penyelenggaraan aplikasi Kemendikdasmen (versi Joddy)',
+    epic_id: 'epic-pusdatin-1',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'perlu_reviu',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_presiden',
+    labels: ['kebijakan', 'dokumen'],
+    due_date: '2026-05-31',
+    start_date: '2026-03-01',
+    created_at: '2026-02-25T08:00:00Z',
+    updated_at: '2026-05-14T16:00:00Z'
+  },
+
+  // Epic 2: Laporan Integrasi Aplikasi (12 tasks)
+  {
+    id: 'TK-PD-201',
+    title: 'Laporan Integrasi Aplikasi Layanan Administrasi Pemerintahan sesuai ketentuan yang berlaku',
+    description: 'Menyusun laporan integrasi aplikasi layanan administrasi pemerintahan sesuai ketentuan yang berlaku',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-001',
+    assignee_name: 'Ratu Monalisa',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['integrasi', 'administrasi'],
+    due_date: '2026-08-31',
+    start_date: '2026-03-01',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-202',
+    title: 'Laporan Integrasi Aplikasi Layanan Publik Kementerian dengan Super Aplikasi Rumah Pendidikan',
+    description: 'Mengintegrasikan aplikasi layanan publik kementerian dengan Super Aplikasi Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['integrasi', 'super-app'],
+    due_date: '2026-09-30',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-203',
+    title: 'Dokumen Standar Teknis Konten Digital Pendidikan',
+    description: 'Menyusun dokumen standar teknis konten digital pendidikan',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['standar-teknis', 'dokumentasi'],
+    due_date: '2026-10-31',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-204',
+    title: 'Laporan integrasi Portal Kemendikdasmen dengan layanan kearsipan Kementerian',
+    description: 'Mengintegrasikan Portal Kemendikdasmen dengan layanan kearsipan Kementerian',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['integrasi', 'kearsipan'],
+    due_date: '2026-07-31',
+    start_date: '2026-04-01',
+    created_at: '2026-03-25T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-205',
+    title: 'Dokumen standar teknis layanan administrasi pemerintahan',
+    description: 'Menyusun dokumen standar teknis layanan administrasi pemerintahan (Ajeng)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['standar-teknis', 'dokumentasi'],
+    due_date: '2026-11-30',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-206',
+    title: 'Grand Design Portal Kemendikdasmen',
+    description: 'Menyusun Grand Design Portal Kemendikdasmen (Ajeng)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'pengusulan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['grand-design', 'portal'],
+    due_date: '2026-12-31',
+    created_at: '2026-05-10T08:00:00Z',
+    updated_at: '2026-05-10T08:00:00Z'
+  },
+  {
+    id: 'TK-PD-207',
+    title: 'Laporan Integrasi Portal Kemendikdasmen dengan Layanan Kearsipan Kementerian',
+    description: 'Mengintegrasikan Portal Kemendikdasmen dengan layanan kearsipan kementerian (Siti)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['integrasi', 'kearsipan'],
+    due_date: '2026-07-31',
+    start_date: '2026-04-01',
+    created_at: '2026-03-25T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-208',
+    title: 'Dokumen standar teknis layanan administrasi pemerintahan',
+    description: 'Menyusun dokumen standar teknis layanan administrasi pemerintahan (Siti)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['standar-teknis', 'dokumentasi'],
+    due_date: '2026-11-30',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-209',
+    title: 'Grand Design Portal Kemendikdasmen',
+    description: 'Menyusun Grand Design Portal Kemendikdasmen (Siti)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'pengusulan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['grand-design', 'portal'],
+    due_date: '2026-12-31',
+    created_at: '2026-05-10T08:00:00Z',
+    updated_at: '2026-05-10T08:00:00Z'
+  },
+  {
+    id: 'TK-PD-210',
+    title: 'Laporan integrasi Portal Kemendikdasmen dengan layanan kearsipan Kementerian',
+    description: 'Mengintegrasikan Portal Kemendikdasmen dengan layanan kearsipan kementerian (Joddy)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['integrasi', 'kearsipan'],
+    due_date: '2026-07-31',
+    start_date: '2026-04-01',
+    created_at: '2026-03-25T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-211',
+    title: 'Dokumen standar teknis layanan administrasi pemerintahan',
+    description: 'Menyusun dokumen standar teknis layanan administrasi pemerintahan (Joddy)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'medium',
+    program_priority: 'prioritas_nasional',
+    labels: ['standar-teknis', 'dokumentasi'],
+    due_date: '2026-11-30',
+    created_at: '2026-02-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-212',
+    title: 'Grand Design Portal Kemendikdasmen',
+    description: 'Menyusun Grand Design Portal Kemendikdasmen (Joddy)',
+    epic_id: 'epic-pusdatin-2',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'pengusulan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['grand-design', 'portal'],
+    due_date: '2026-12-31',
+    created_at: '2026-05-10T08:00:00Z',
+    updated_at: '2026-05-10T08:00:00Z'
+  },
+
+  // Epic 3: Laporan Evaluasi Aplikasi (12 tasks)
+  {
+    id: 'TK-PD-301',
+    title: 'Laporan Evaluasi Fungsionalitas Aplikasi Kemendikdasmen sesuai ketentuan yang berlaku',
+    description: 'Menyusun laporan evaluasi fungsionalitas aplikasi Kemendikdasmen sesuai ketentuan yang berlaku',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-001',
+    assignee_name: 'Ratu Monalisa',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['evaluasi', 'efak'],
+    due_date: '2026-09-30',
+    start_date: '2026-05-01',
+    created_at: '2026-04-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-302',
+    title: 'Laporan Evaluasi Pengembangan Super Aplikasi Rumah Pendidikan',
+    description: 'Melakukan evaluasi dan menyusun laporan pengembangan Super Aplikasi Rumah Pendidikan',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['evaluasi', 'super-app'],
+    due_date: '2026-11-30',
+    created_at: '2026-04-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-303',
+    title: 'Laporan Pelaksanaan EFAK',
+    description: 'Melaksanakan Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK) dan menyusun laporannya',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-002',
+    assignee_name: 'I Made Bhudi Saputra',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'pelaksanaan'],
+    due_date: '2026-10-31',
+    start_date: '2026-06-01',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-304',
+    title: 'Instrumen Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK)',
+    description: 'Menyusun instrumen evaluasi fungsionalitas aplikasi kementerian (EFAK)',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'selesai',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'instrumen'],
+    due_date: '2026-04-30',
+    start_date: '2026-02-01',
+    completed_date: '2026-04-28',
+    created_at: '2026-01-25T08:00:00Z',
+    updated_at: '2026-04-28T17:00:00Z'
+  },
+  {
+    id: 'TK-PD-305',
+    title: 'Laporan Pelaksanaan Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK)',
+    description: 'Menyusun laporan pelaksanaan evaluasi fungsionalitas aplikasi kementerian (EFAK)',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'pelaksanaan'],
+    due_date: '2026-10-31',
+    start_date: '2026-06-01',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-306',
+    title: 'Laporan Hasil Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK)',
+    description: 'Menyusun laporan hasil evaluasi fungsionalitas aplikasi kementerian (EFAK) - Ajeng',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-003',
+    assignee_name: 'Ajeng Dika Fortuningtyas',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'hasil'],
+    due_date: '2026-11-30',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-307',
+    title: 'Laporan Pelaksanaan Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK)',
+    description: 'Menyusun laporan pelaksanaan evaluasi fungsionalitas aplikasi kementerian (EFAK) - Siti',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'pelaksanaan'],
+    due_date: '2026-10-31',
+    start_date: '2026-06-01',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-308',
+    title: 'Laporan Hasil Evaluasi Fungsionalitas Aplikasi Kementerian (EFAK)',
+    description: 'Menyusun laporan hasil evaluasi fungsionalitas aplikasi kementerian (EFAK) - Siti',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-004',
+    assignee_name: 'Siti Nurma',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'hasil'],
+    due_date: '2026-11-30',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-309',
+    title: 'Instrumen EFAK',
+    description: 'Menyusun instrumen evaluasi fungsionalitas aplikasi kementerian (EFAK) - Joddy',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'selesai',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'instrumen'],
+    due_date: '2026-04-30',
+    start_date: '2026-02-01',
+    completed_date: '2026-04-28',
+    created_at: '2026-01-25T08:00:00Z',
+    updated_at: '2026-04-28T17:00:00Z'
+  },
+  {
+    id: 'TK-PD-310',
+    title: 'Laporan pelaksanaan EFAK',
+    description: 'Menyusun laporan pelaksanaan evaluasi fungsionalitas aplikasi kementerian (EFAK) - Joddy',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'sedang_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'pelaksanaan'],
+    due_date: '2026-10-31',
+    start_date: '2026-06-01',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-311',
+    title: 'Laporan hasil EFAK',
+    description: 'Menyusun laporan hasil evaluasi fungsionalitas aplikasi kementerian (EFAK) - Joddy',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['efak', 'hasil'],
+    due_date: '2026-11-30',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  },
+  {
+    id: 'TK-PD-312',
+    title: 'Rekomendasi Penyelenggaraan Aplikasi Kementerian',
+    description: 'Menyusun rekomendasi penyelenggaraan aplikasi kementerian berdasarkan hasil EFAK',
+    epic_id: 'epic-pusdatin-3',
+    team_id: 'sekretariat-jenderal',
+    biro_id: 'pusdatin',
+    tim_kerja_id: 'tim-pusdatin-1',
+    status: 'belum_dikerjakan',
+    assignee_id: 'pusdatin-005',
+    assignee_name: 'Joddy Irvan Rizky',
+    reporter_id: 'pusdatin-ketua',
+    reporter_name: 'Wibowo Mukti',
+    priority: 'high',
+    program_priority: 'prioritas_nasional',
+    labels: ['rekomendasi', 'efak'],
+    due_date: '2026-12-31',
+    created_at: '2026-05-20T08:00:00Z',
+    updated_at: '2026-05-15T09:00:00Z'
+  }
+];
+
+// Mock Comments
+export const comments: Comment[] = [
+  {
+    id: 'comment-1',
+    task_id: 'TK-103',
+    user_id: 'user-1',
+    user_name: 'Budi Santoso',
+    content: 'Pastikan API documentation lengkap ya, nanti akan digunakan oleh frontend team.',
+    created_at: '2026-02-16T10:00:00Z'
+  },
+  {
+    id: 'comment-2',
+    task_id: 'TK-103',
+    user_id: 'user-4',
+    user_name: 'Ahmad Rizki',
+    content: 'Siap, sedang saya prepare Swagger documentation-nya.',
+    created_at: '2026-02-16T14:30:00Z'
+  },
+  {
+    id: 'comment-3',
+    task_id: 'TK-104',
+    user_id: 'user-3',
+    user_name: 'Dewi Lestari',
+    content: 'Design mockup sudah ready di Figma, silakan cek link di description.',
+    created_at: '2026-02-17T09:00:00Z'
+  }
+];
+
+// Mock Activity Logs
+export const activityLogs: ActivityLog[] = [
+  {
+    id: 'log-1',
+    entity_type: 'task',
+    entity_id: 'TK-103',
+    action: 'status_changed',
+    user_id: 'user-4',
+    user_name: 'Ahmad Rizki',
+    details: 'Changed status from To Do to In Progress',
+    created_at: '2026-02-18T08:00:00Z'
+  },
+  {
+    id: 'log-2',
+    entity_type: 'task',
+    entity_id: 'TK-104',
+    action: 'status_changed',
+    user_id: 'user-5',
+    user_name: 'Rina Permata',
+    details: 'Changed status from To Do to In Progress',
+    created_at: '2026-02-18T08:30:00Z'
+  },
+  {
+    id: 'log-3',
+    entity_type: 'task',
+    entity_id: 'TK-203',
+    action: 'status_changed',
+    user_id: 'user-5',
+    user_name: 'Rina Permata',
+    details: 'Changed status from In Progress to In Review',
+    created_at: '2026-02-18T15:00:00Z'
+  }
+];
+
+// Helper functions
+export function getEpicsByOrgId(orgId: string): Epic[] {
+  return epics.filter(epic => epic.owner_org_id === orgId);
+}
+
+export function getTasksByTeamId(teamId: string): Task[] {
+  return tasks.filter(task => task.team_id === teamId);
+}
+
+export function getTasksByEpicId(epicId: string): Task[] {
+  return tasks.filter(task => task.epic_id === epicId);
+}
+
+export function getCommentsByTaskId(taskId: string): Comment[] {
+  return comments.filter(comment => comment.task_id === taskId);
+}
+
+export function getActivityLogsByEntityId(entityId: string): ActivityLog[] {
+  return activityLogs.filter(log => log.entity_id === entityId);
+}
+
+// Calculate workload metrics
+export function calculateWorkloadMetrics(tasks: Task[]) {
+  const total = tasks.length;
+  const inProgress = tasks.filter(t => t.status === 'sedang_dikerjakan').length;
+  const completed = tasks.filter(t => t.status === 'selesai').length;
+  const overdue = tasks.filter(t => {
+    const dueDate = new Date(t.due_date);
+    const today = new Date();
+    return t.status !== 'selesai' && dueDate < today;
+  }).length;
+  const completionRate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  return {
+    total,
+    inProgress,
+    completed,
+    overdue,
+    completionRate
+  };
+}

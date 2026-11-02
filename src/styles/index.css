@@ -1,0 +1,56 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Rich Text Editor (ReactQuill) overrides */
+.rich-text-editor .ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--secondary);
+  padding: 6px 8px;
+}
+
+.rich-text-editor .ql-container.ql-snow {
+  border: none;
+  font-size: var(--text-sm);
+  color: var(--foreground);
+  background-color: var(--input-background);
+}
+
+.rich-text-editor .ql-editor {
+  padding: 10px 12px;
+  min-height: 80px;
+}
+
+.rich-text-editor .ql-editor.ql-blank::before {
+  color: var(--muted-foreground);
+  font-style: normal;
+  font-size: var(--text-sm);
+}
+
+.rich-text-editor .ql-snow .ql-stroke {
+  stroke: var(--foreground);
+}
+
+.rich-text-editor .ql-snow .ql-fill {
+  fill: var(--foreground);
+}
+
+.rich-text-editor .ql-snow .ql-picker-label {
+  color: var(--foreground);
+}
+
+.rich-text-editor .ql-snow button:hover .ql-stroke,
+.rich-text-editor .ql-snow button.ql-active .ql-stroke {
+  stroke: var(--primary);
+}
+
+.rich-text-editor .ql-snow button:hover .ql-fill,
+.rich-text-editor .ql-snow button.ql-active .ql-fill {
+  fill: var(--primary);
+}
+
+.rich-text-editor .ql-snow .ql-picker-label:hover,
+.rich-text-editor .ql-snow .ql-picker-label.ql-active {
+  color: var(--primary);
+}
