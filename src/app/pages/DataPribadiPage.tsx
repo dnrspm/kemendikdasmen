@@ -1,6 +1,8 @@
-import { Fragment, createContext, useContext, useState } from 'react';
+import { Fragment, createContext, useContext, useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router';
-import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
+import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, RefreshCw, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 import imgPhoto from '@/assets/staging/tut-wuri-handayani.png';
@@ -256,7 +258,7 @@ const KTAHUNAN: Record<string, { tahun: number; hk: string; pk: string; pred: st
     { tahun: 2023, hk: 'Sesuai Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Baik' },
   ],
   variasi: [
-    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Kurang / Misconduct' },
+    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Kurang' },
     { tahun: 2024, hk: 'Dibawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
     { tahun: 2023, hk: 'Dibawah Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Sangat Kurang' },
     { tahun: 2022, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
@@ -280,7 +282,7 @@ const SCENARIOS: [string, string][] = [
 const NO_DATA = ['Belum tersedia', 'Tidak dinilai', 'Dalam Penilaian'];
 const PRED_BG: Record<string, string> = {
   'Sangat Baik': '#9ae5b9', Baik: '#9ae5b9', 'Butuh Perbaikan': '#ffdfa3',
-  'Kurang / Misconduct': '#ffe9ea', Kurang: '#ffe9ea', 'Sangat Kurang': '#ffe9ea',
+  Kurang: '#ffe9ea', 'Sangat Kurang': '#ffe9ea',
 };
 const BULAN_TUTUP: Record<number, [string, number]> = { 1: ['April', 0], 2: ['Juli', 0], 3: ['Oktober', 0], 4: ['Januari', 1] };
 const BULAN_TW: Record<number, string> = { 1: 'Januari–Maret', 2: 'April–Juni', 3: 'Juli–September', 4: 'Oktober–Desember' };
@@ -333,16 +335,148 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   );
 }
 
+/* Grafik garis riwayat predikat kinerja per NIP. */
+const PRED_LEVEL: Record<string, number> = { 'Sangat Kurang': 1, Kurang: 2, 'Butuh Perbaikan': 3, Baik: 4, 'Sangat Baik': 5 };
+const LEVEL_LABEL: Record<number, string> = { 1: 'Sangat Kurang', 2: 'Kurang', 3: 'Butuh Perbaikan', 4: 'Baik', 5: 'Sangat Baik' };
+
+/* Triwulan historis fiktif untuk tahun-tahun sebelumnya, dibuat konsisten dengan predikat tahunannya. */
+function historyQuarters(a: { tahun: number; hk: string; pk: string; pred: string }): KRow[] {
+  const lvl = PRED_LEVEL[a.pred] ?? 4;
+  const up = LEVEL_LABEL[Math.min(5, lvl + 1)];
+  const preds = [a.pred, a.pred, up, a.pred];
+  return [4, 3, 2, 1].map((tw) => ({ tahun: a.tahun, tw, hk: a.hk, pk: a.pk, pred: preds[tw - 1] }));
+}
+
+type ChartPoint = { label: string; level: number | null; hk?: string; pk?: string; pred: string };
+
+const CHART_H = 300;
+const PLOT_TOP = 8;
+
+/* Label sumbu X dimiringkan 45° agar semua triwulan muat tanpa scroll. */
+function RotatedTick({ x = 0, y = 0, payload }: { x?: number; y?: number; payload?: { value: string } }) {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text textAnchor="end" fill="#65696c" fontSize={14} dy={4} transform="rotate(-45)">{payload?.value}</text>
+    </g>
+  );
+}
+
+function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: string; pk: string; pred: string }[]; quarterly: KRow[] }) {
+  const [mode, setMode] = useState<'tahunan' | 'triwulan'>('tahunan');
+  const years = [...new Set([2026, ...annual.map((r) => r.tahun)])].sort((a, b) => a - b);
+  const annualPoints: ChartPoint[] = years.map((y) => {
+    const a = annual.find((r) => r.tahun === y);
+    return a ? { label: String(y), level: PRED_LEVEL[a.pred] ?? null, hk: a.hk, pk: a.pk, pred: a.pred } : { label: String(y), level: null, pred: 'Data Tidak Tersedia' };
+  });
+  // Setiap tahun selalu menampilkan Tw1–Tw4; triwulan tanpa data menjadi titik kosong.
+  const quarterPoints: ChartPoint[] = years.flatMap((y) =>
+    [1, 2, 3, 4].map((tw): ChartPoint => {
+      const r = quarterly.find((q) => q.tahun === y && q.tw === tw);
+      const label = `Tw${tw} ${y}`;
+      if (!r || r.belum) return { label, level: null, pred: 'Data Tidak Tersedia' };
+      return { label, level: PRED_LEVEL[r.pred!] ?? null, hk: r.hk, pk: r.pk, pred: r.pred! };
+    }));
+  // Hanya periode yang ada datanya yang ditampilkan.
+  const data = (mode === 'tahunan' ? annualPoints : quarterPoints).filter((d) => d.level !== null);
+  const hasAny = data.some((d) => d.level !== null);
+  const rotate = mode === 'triwulan';
+  const xH = rotate ? 76 : 44;
+  const plotH = CHART_H - PLOT_TOP - xH;
+
+  return (
+    <div className="mb-[24px] rounded-[6px] border border-[#efefef] p-[16px]">
+      <div className="flex items-center justify-between gap-[12px] flex-wrap mb-[8px]">
+        <span className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Grafik riwayat predikat kinerja</span>
+        <div className="flex gap-[8px]">
+          {([['tahunan', 'Tahunan'], ['triwulan', 'Triwulanan']] as const).map(([k, l]) => (
+            <button key={k} onClick={() => setMode(k)} aria-pressed={mode === k}
+              className={`border px-[12px] py-[2px] ${mode === k ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`}
+              style={{ borderRadius: '24px', fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{l}</button>
+          ))}
+        </div>
+      </div>
+      {hasAny ? (
+        <div className="flex">
+          {/* Label sumbu Y dibuat terpisah agar tetap terlihat saat grafik digeser. */}
+          <div className="relative shrink-0" style={{ width: 150, height: CHART_H }} aria-hidden="true">
+            {[5, 4, 3, 2, 1].map((v) => (
+              <span key={v} className="absolute right-[16px] whitespace-nowrap text-[#65696c]" style={{ top: PLOT_TOP + ((5.5 - v) / 5) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{LEVEL_LABEL[v]}</span>
+            ))}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div style={{ width: '100%', height: CHART_H }}>
+              <ResponsiveContainer>
+                <LineChart data={data} margin={{ top: PLOT_TOP, right: 24, bottom: 0, left: 0 }}>
+                  <CartesianGrid horizontal={false} vertical={false} />
+                  {[1, 2, 3, 4, 5].map((v) => <ReferenceLine key={v} y={v} stroke="#efefef" />)}
+                  <XAxis dataKey="label" interval={0} height={xH} tickMargin={rotate ? 12 : 16} padding={{ left: rotate ? 56 : 16, right: 16 }} tick={rotate ? <RotatedTick /> : { fontSize: 14, fill: '#65696c' }} axisLine={false} tickLine={false} />
+                  <YAxis hide domain={[0.5, 5.5]} ticks={[1, 2, 3, 4, 5]} width={0} />
+                  <ChartTooltip
+                    content={({ active, payload }) => {
+                      if (!active || !payload?.length) return null;
+                      const d = payload[0].payload as ChartPoint;
+                      return (
+                        <div className="rounded-[4px] bg-[#2f3031] px-[10px] py-[8px] text-white" style={{ fontSize: '12px', lineHeight: '18px' }}>
+                          <div style={{ fontWeight: 600 }}>{d.label}</div>
+                          <div>Predikat: {d.pred}</div>
+                          {d.hk && <div>Hasil Kerja: {d.hk}</div>}
+                          {d.pk && <div>Perilaku Kerja: {d.pk}</div>}
+                        </div>
+                      );
+                    }}
+                  />
+                  <Line type="linear" dataKey="level" stroke="#0b5fef" strokeWidth={2} dot={{ r: 4, fill: '#0b5fef', stroke: '#0b5fef', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#0b5fef', stroke: '#0b5fef', strokeWidth: 0 }} isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p className="py-[32px] text-center text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>Belum ada data untuk ditampilkan pada grafik.</p>
+      )}
+    </div>
+  );
+}
+
+function wibNow(): string {
+  const d = new Date();
+  const tgl = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+  const jam = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' });
+  return `${tgl}, ${jam} WIB`;
+}
+// Data terbaru dari eSKP yang menimpa data lama saat "Get Data" dijalankan.
+const freshFor = (sc: string) => (sc === 'variasi' ? 'variasi' : sc === 'masa' || sc === 'masaBelum' ? 'masa' : 'normal');
+
 function KinerjaTabel() {
-  const { scenario, setScenario } = useContext(ProtoCtx);
+  const { scenario: ctxScenario, setScenario } = useContext(ProtoCtx);
   const [open, setOpen] = useState<number | null>(2026);
+  const [fetchedAt, setFetchedAt] = useState<string | null>(null);
+  const [fetching, setFetching] = useState(false);
+  // Skenario prototipe diganti => kembali ke data bawaan skenario tersebut.
+  useEffect(() => { setFetchedAt(null); }, [ctxScenario]);
+  const scenario = fetchedAt ? freshFor(ctxScenario) : ctxScenario;
+  const getData = () => {
+    if (fetching) return;
+    setFetching(true);
+    setTimeout(() => {
+      setFetching(false);
+      setFetchedAt(wibNow());
+      toast.success('Data NIP ini berhasil diambil dari eSKP. Data lama telah ditimpa dengan data terbaru.');
+    }, 1200);
+  };
   const toggle = (y: number) => setOpen((o) => (o === y ? null : y));
 
   const annual = KTAHUNAN[scenario === 'variasi' ? 'variasi' : 'normal'];
   const quarterly = KDATA[['belum', 'tersedia', 'variasi', 'masa', 'masaBelum'].includes(scenario) ? scenario : 'normal'];
   const years = [...new Set([2026, ...annual.map((r) => r.tahun)])].sort((x, y) => y - x);
-  const syncAt = ['masa', 'masaBelum'].includes(scenario) ? '9 Oktober 2026, 22.35 WIB' : '26 Juli 2026, 22.40 WIB';
+  const syncAt = fetchedAt ?? (['masa', 'masaBelum'].includes(scenario) ? '9 Oktober 2026, 22.35 WIB' : '26 Juli 2026, 22.40 WIB');
   const showSync = !['loading', 'error', 'nip'].includes(scenario);
+  const quartersOf = (y: number): KRow[] => {
+    if (y === 2026) return quarterly;
+    const a = annual.find((r) => r.tahun === y);
+    return a ? historyQuarters(a) : [];
+  };
+  const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersOf(y)));
 
   const th = 'px-[16px] py-[16px] text-left uppercase text-[#65696c] bg-white border-y border-[#efefef]';
   const thStyle = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
@@ -362,8 +496,8 @@ function KinerjaTabel() {
   } as const;
 
   const detail = (y: number) => {
-    if (y !== 2026) return <tr><td colSpan={4} className={`${td} text-[#808489]`} style={{ ...tdStyle, ...bar }}>Data triwulan {y} belum tersedia.</td></tr>;
-    if (KMESSAGES[scenario]) {
+    const rowsFor = quartersOf(y);
+    if (y === 2026 && KMESSAGES[scenario]) {
       return (
         <tr><td colSpan={4} className={`${td} text-[#65696c]`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
@@ -375,16 +509,16 @@ function KinerjaTabel() {
     }
     return (
       <>
-        {scenario === 'stale' && (
+        {y === 2026 && scenario === 'stale' && (
           <tr><td colSpan={4} className="py-[12px] pr-[16px] border-b border-[#efefef] bg-white" style={bar}>
             <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
           </td></tr>
         )}
-        {quarterly.map((r, qi) => (
+        {rowsFor.map((r, qi) => (
           <tr key={r.tw}>
-            <td className={td} style={{ ...tdStyle, ...(qi < quarterly.length - 1 ? barMid : bar) }}>
+            <td className={td} style={{ ...tdStyle, ...(qi < rowsFor.length - 1 ? barMid : bar) }}>
               Triwulan {r.tw}
               <span className="block text-[#65696c]" style={sub}>{BULAN_TW[r.tw]}</span>
             </td>
@@ -402,10 +536,23 @@ function KinerjaTabel() {
 
   return (
     <div className="px-[16px] pb-[16px]">
-      <div className="mb-[12px] text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-        Riwayat penilaian kinerja per tahun
-        {showSync && <> · Dicek dari eSKP: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>{syncAt}</span></>}
+      <div className="mb-[12px] flex items-center justify-between gap-[12px] flex-wrap">
+        <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+          Riwayat penilaian kinerja per tahun
+          {showSync && <> · Dicek dari eSKP: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>{syncAt}</span></>}
+        </div>
+        <button
+          onClick={getData}
+          disabled={fetching}
+          title="Ambil data penilaian NIP ini dari eSKP. Data baru akan menimpa data lama."
+          className="inline-flex items-center gap-[8px] rounded-[4px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031] hover:bg-[#f7f7f7] disabled:cursor-not-allowed disabled:opacity-60"
+          style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+        >
+          <RefreshCw className={`size-[18px] ${fetching ? 'animate-spin' : ''}`} />
+          {fetching ? 'Mengambil data…' : 'Get Data'}
+        </button>
       </div>
+      {scenario !== 'loading' && <KinerjaChart annual={annual} quarterly={allQuarters} />}
       <div className="overflow-auto">
         <table className="w-full border-collapse" style={{ minWidth: '640px' }} aria-label="Penilaian tahunan dan triwulan">
           <thead>
