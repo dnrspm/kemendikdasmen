@@ -12,7 +12,7 @@ import { RepositoriSurat } from '@/app/components/RepositoriSurat';
 import { PetaJabatan } from '@/app/components/PetaJabatan';
 import { ProjectManagement } from '@/app/components/ProjectManagement';
 import { DashboardAnalitik } from '@/app/components/DashboardAnalitik';
-import { ProfilASNPage } from '@/app/components/ProfilASNPage';
+import { ProfilASNStagingPage } from '@/app/pages/ProfilASNStagingPage';
 import { PemberitahuanPage } from '@/app/pages/PemberitahuanPage';
 import { PengaturanUmumPage } from '@/app/pages/PengaturanUmumPage';
 import { DataPribadiPage } from '@/app/pages/DataPribadiPage';
@@ -386,10 +386,7 @@ function DashboardAnalitikPage() {
 function ProfilASNPageWrapper() {
   const navigate = useNavigate();
   return (
-    <ProfilASNPage
-      onBack={() => navigate('/')}
-      onBackToHome={() => navigate('/')}
-    />
+    <ProfilASNStagingPage onBack={() => navigate('/')} />
   );
 }
 
