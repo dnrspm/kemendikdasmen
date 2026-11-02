@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { TriangleAlert, Plus, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
+import { TriangleAlert, UserPlus, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 import imgPhoto from '@/assets/staging/tut-wuri-handayani.png';
@@ -65,9 +65,9 @@ function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.
 
 function SubTabs({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
   return (
-    <div className="flex gap-[8px] flex-wrap px-[14px] pt-[14px]">
+    <div className="flex gap-[8px] flex-wrap px-[16px] pt-[16px] pb-[28px]">
       {items.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`rounded-full border px-[14px] py-[4px] ${i === active ? 'border-[#1a5fe0] bg-[#eaf3fe] text-[#1a5fe0]' : 'border-[#c7c7c7] text-[#2f3031]'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+        <button key={t} onClick={() => onChange(i)} className={`rounded-[24px] border px-[12px] py-[4px] ${i === active ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`} style={{ fontSize: '16px', lineHeight: '20px', fontWeight: 600 }}>
           {t}
         </button>
       ))}
@@ -78,42 +78,75 @@ function SubTabs({ items, active, onChange }: { items: string[]; active: number;
 const col = (key: string, label: string, width?: string): Column => ({ key, label, width });
 
 function Updated() {
-  return <p className="px-[14px] pt-[12px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui: 2 November 2026</p>;
+  return (
+    <p className="px-[16px] pt-[12px] pb-[16px] text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+      Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span>
+    </p>
+  );
+}
+
+const MASK = '••••••••••••••';
+
+function FamilyCard({ title, to, cols, rows }: { title: string; to: string; cols: { label: string; width?: string }[]; rows: number }) {
+  const navigate = useNavigate();
+  return (
+    <div className="rounded-[8px] border border-[#efefef] bg-white p-[16px] mb-[16px]">
+      <div className="flex items-center justify-between pb-[12px]">
+        <span className="text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</span>
+        <button
+          onClick={() => to && navigate(to)}
+          className="flex items-center gap-[6px] rounded-[6px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031]"
+          style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+        >
+          <UserPlus className="size-[20px]" /> Tambah
+        </button>
+      </div>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="border-y border-[#efefef]">
+            <th className="p-[8px] text-left text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '48px' }}>NO</th>
+            {cols.map((c) => (
+              <th key={c.label} className="p-[8px] text-left text-[#2f3031] uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px' }}>{c.label}</th>
+            ))}
+            <th className="p-[8px] text-center text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '60px' }}>AKSI</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: rows }).map((_, i) => (
+            <tr key={i} className={i % 2 === 0 ? 'bg-[#fafafa]' : ''}>
+              <td className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{i + 1}</td>
+              {cols.map((c) => (
+                <td key={c.label} className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{MASK}</td>
+              ))}
+              <td className="p-[12px_8px] text-center"><MoreAction /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 function Keluarga() {
-  const navigate = useNavigate();
-  const sectionCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('hub', 'Hubungan'), col('hidup', 'Status Hidup'), col('asn', 'Status ASN'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
-  const pasanganCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('ke', 'Pasangan Ke'), col('asn', 'Status ASN'), col('hidup', 'Status Hidup'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
-  const SectionTitle = ({ children, to }: { children: React.ReactNode; to?: string }) => (
-    <div className="flex items-center justify-between px-[14px] pt-[16px]">
-      <h3 className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-base)' }}>{children}</h3>
-      <button onClick={() => to && navigate(to)} className="border border-[#1a5fe0] text-[#1a5fe0] rounded-[4px] px-[12px] py-[4px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
-        <Plus className="size-[14px]" /> Tambah
-      </button>
-    </div>
-  );
   return (
     <div>
       <Updated />
-      <div className="m-[14px] rounded-[8px] border border-[#f1c27a] bg-[#fff8ec] p-[14px] flex gap-[10px]" style={{ fontSize: 'var(--text-sm)' }}>
-        <TriangleAlert className="size-[18px] text-[#d99a1f] shrink-0 mt-[2px]" />
-        <div>
-          <p className="font-semibold">Usulan Perubahan Data</p>
-          <p>Anda memiliki 4 usulan perubahan data. Data yang Diusulkan sedang dalam proses verifikasi oleh Biro SDM. Usulan yang telah Disetujui sudah melewati proses verifikasi dan data Anda telah diperbarui.</p>
-          <p>Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
+      <div className="m-[16px] rounded-[8px] border border-[#f3e3b0] bg-[#fff6dc] p-[16px] flex gap-[12px]">
+        <TriangleAlert className="size-[20px] text-[#b57f21] shrink-0 mt-[2px]" />
+        <div className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>
+          <p style={{ fontWeight: 600 }} className="mb-[8px]">Usulan Perubahan Data</p>
+          <p>
+            Anda memiliki 4 usulan perubahan data. Data yang <b style={{ fontWeight: 600 }}>Diusulkan</b> sedang dalam proses verifikasi oleh Biro SDM. Usulan yang telah <b style={{ fontWeight: 600 }}>Disetujui</b> sudah melewati proses verifikasi dan data Anda telah diperbarui.
+          </p>
+          <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
+          <button className="mt-[8px] underline" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Selengkapnya</button>
         </div>
       </div>
-      <SectionTitle to="/kepegawaian/keluarga/orang-tua/tambah">Data Orang Tua</SectionTitle>
-      <StagingDataTable hideFilter columns={sectionCols} rows={[
-        { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Hapus', hub: 'Ayah', hidup: 'Masih Hidup', asn: 'Bukan ASN', nama: 'Contoh Orang Tua', tgl: '-' },
-      ]} />
-      <SectionTitle to="/kepegawaian/keluarga/pasangan/tambah">Data Pasangan</SectionTitle>
-      <StagingDataTable hideFilter columns={pasanganCols} rows={[
-        { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Tambah', ke: '1', asn: 'Bukan ASN', hidup: 'Masih Hidup', nama: 'Contoh Pasangan', tgl: '-' },
-      ]} />
-      <SectionTitle>Data Anak</SectionTitle>
-      <StagingDataTable hideFilter columns={[col('aksi', 'Aksi', '60px'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir'), col('jk', 'Jenis Kelamin')]} rows={[]} />
+      <div className="px-[16px]">
+        <FamilyCard title="Orang Tua" to="/kepegawaian/keluarga/orang-tua/tambah" cols={[{ label: 'Nama' }, { label: 'Hubungan' }, { label: 'Nomor Identitas' }, { label: 'Status Hidup' }]} rows={3} />
+        <FamilyCard title="Istri" to="/kepegawaian/keluarga/pasangan/tambah" cols={[{ label: 'Nama' }, { label: 'Nomor Identitas' }, { label: 'Status Pernikahan' }]} rows={2} />
+        <FamilyCard title="Anak" to="" cols={[{ label: 'Nama' }, { label: 'Jenis Kelamin' }, { label: 'Status Sekolah/Kerja' }, { label: 'Status Pernikahan Anak' }]} rows={1} />
+      </div>
     </div>
   );
 }
@@ -125,8 +158,13 @@ function PendidikanPelatihan() {
     [col('no', 'No', '48px'), col('status', 'Status'), col('jenjang', 'Jenjang'), col('sekolah', 'Nama Sekolah'), col('jurusan', 'Jurusan'), col('ket', 'Keterangan'), col('tahun', 'Tahun Lulus'), col('ijazah', 'Nomor Ijazah'), col('aksi', 'Aksi', '60px')],
     [col('no', 'No', '48px'), col('nama', 'Nama Pelatihan'), col('tahun', 'Tahun'), col('aksi', 'Aksi', '60px')],
   ];
-  const formal = [['S3', 'Universitas Contoh', 'Pendidikan', '2018'], ['S2', 'Universitas Contoh', 'Manajemen', '2010'], ['S1', 'Universitas Contoh', 'Manajemen', '2004']].map(([j, s, jr, t], i) => ({
-    no: i + 1, status: <Chip tone="green">Aktif</Chip>, jenjang: j, sekolah: s, jurusan: jr, ket: '-', tahun: t, ijazah: '-', aksi: <MoreAction />,
+  const formal = [
+    ['S-1/Sarjana', 'Kampus Contoh A', 'S-1 MANAJEMEN', 'Dalam Negeri', '2025', '0000000001'],
+    ['S-1/Sarjana', 'Kampus Contoh B', 'S-1 ADMINISTRASI', 'Data tidak lengkap', '2022', '0000000002'],
+    ['S-3/Doktor', 'UNIVERSITAS CONTOH', 'S-3 MANAJEMEN DAN BISNIS', 'Dalam Negeri', '2019', '0000000003'],
+  ].map(([j, s, jr, k, t, ij], i) => ({
+    no: i + 1, status: '-', jenjang: j, sekolah: s, jurusan: jr,
+    ket: k === 'Data tidak lengkap' ? <span style={{ color: '#e02d38' }}>{k}</span> : k, tahun: t, ijazah: ij, aksi: <MoreAction />,
   }));
   return (
     <div>
@@ -257,7 +295,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             {tab === 0 ? (
               <div className="p-[14px] flex flex-col gap-[14px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>2 November 2026</span></span>
+                  <span className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span></span>
                   <div className="flex items-center gap-[12px]">
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}

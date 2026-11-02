@@ -32,7 +32,7 @@ function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onCh
 }
 
 const nomorTanggal = (no: string, tgl: string) => (
-  <div className="flex flex-col"><span>{no}</span><span className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>{tgl}</span></div>
+  <div className="flex flex-col"><span>{no}</span><span style={{ fontSize: '14px', lineHeight: '20px', color: '#65696c' }}>{tgl}</span></div>
 );
 
 const skCols: Column[] = [
@@ -53,7 +53,7 @@ const sampleSK = [
   ['Pegawai Contoh Dua', '100000000000000002', 'SK KENAIKAN PANGKAT PEGAWAI', '003/SK/2026', '5 September 2025', 'III/b', 'Sudah dikirim'],
   ['Pegawai Contoh Tiga', '100000000000000003', 'SK MUTASI PERMINTAAN SENDIRI', '004/B/07/2025', '27 Juli 2025', 'III/d', 'Sedang Dikoreksi'],
 ].map(([nama, nip, kat, no, tgl, gol, st], i) => ({
-  no: i + 1, pemilik: <PersonCell name={nama} nip={nip} />, kategori: kat, nomor: nomorTanggal(no, tgl), gol,
+  no: i + 1, pemilik: <PersonCell name={nama} nip={nip} />, kategori: kat, nomor: nomorTanggal(no, tgl), gol: <span style={{ fontWeight: 600 }}>{gol}</span>,
   jabatan: 'Bidang Tata Kelola Sistem Pemerintahan Berbasis Elektronik dan Transformasi Digital', unit: UNIT_PUSDATIN,
   status: st, aksi: <MoreAction />,
 }));
