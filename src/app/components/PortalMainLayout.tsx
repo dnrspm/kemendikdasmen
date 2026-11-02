@@ -1,5 +1,6 @@
 import { Header } from "@/app/components/Header";
 import { DaftarTugas } from "@/app/components/DaftarTugas";
+import { MenuLainnyaModal } from "@/app/components/MenuLainnyaModal";
 import { KehadiranHariIni } from "@/app/components/KehadiranHariIni";
 import { MenuUtamaGrid } from "@/app/components/MenuUtamaGrid";
 import { BannerMockup } from "@/app/components/BannerMockup";
@@ -36,6 +37,7 @@ export default function PortalMainLayout({
   ]);
   
   const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [menuLainnyaOpen, setMenuLainnyaOpen] = React.useState(false);
   
   const banners = [
     { type: 'fitur-portal' as const },
@@ -145,11 +147,21 @@ export default function PortalMainLayout({
               onNavigateToKepegawaian={onNavigateToDataPribadi}
               onNavigateToProfilASN={onNavigateToProfilASN}
               onNavigateToDashboardAnalitik={onNavigateToDashboardAnalitik}
-              onNavigateToMenuLainnya={onNavigateToLayanan}
+              onNavigateToMenuLainnya={() => setMenuLainnyaOpen(true)}
             />
           </div>
 
           <DaftarTugas />
+          <MenuLainnyaModal
+            open={menuLainnyaOpen}
+            onClose={() => setMenuLainnyaOpen(false)}
+            onNavigate={{
+              kepegawaian: onNavigateToDataPribadi,
+              profilASN: onNavigateToProfilASN,
+              dasbor: onNavigateToDashboardAnalitik,
+              pengaturan: onNavigateToPengaturanUmum,
+            }}
+          />
         </div>
       </div>
     </div>
