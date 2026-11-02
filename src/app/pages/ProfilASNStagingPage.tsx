@@ -119,6 +119,87 @@ function Pendidikan() {
   );
 }
 
+const jenisUnit = [{ name: 'Pusat', value: 35, fill: '#3578c0' }, { name: 'UPT', value: 20, fill: '#e9a93a' }, { name: 'Belum Diketahui', value: 17, fill: '#1fa57a' }];
+const upt = [{ name: 'Balai', value: 10, fill: '#3578c0' }, { name: 'Balai Besar', value: 9, fill: '#e9a93a' }, { name: 'Kantor', value: 5, fill: '#1fa57a' }];
+const perUnit = [['Belum Diketahui', 17], ['Ditjen PAUD, Dikdas, dan Dikmen', 2], ['Ditjen GTK', 13], ['Pengujian Klasifikasi Tipe K1', 18], ['Sekretariat Jenderal', 25]];
+
+function Donut({ title, data }: { title: string; data: { name: string; value: number; fill: string }[] }) {
+  return (
+    <Card title={title}>
+      <div style={{ height: 280 }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie data={data} dataKey="value" nameKey="name" innerRadius={65} outerRadius={95} isAnimationActive={false} label={({ name, value }) => `${name} ${value}`}>
+              {data.map((d) => <Cell key={d.name} fill={d.fill} />)}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </Card>
+  );
+}
+
+function UnitOrganisasi() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-[16px]">
+      <Donut title="Sebaran ASN di Unit Utama dan UPT" data={jenisUnit} />
+      <Donut title="Sebaran ASN di UPT" data={upt} />
+      <Card title="Sebaran ASN Manajerial di Satuan Kerja">
+        <div className="bg-[#f4f4f4] rounded-[6px] h-[280px] grid place-items-center text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>
+          Data belum tersedia untuk kombinasi filter ini.
+        </div>
+      </Card>
+      <div className="lg:col-span-3">
+        <Card title="Jumlah Pegawai per Unit Kerja">
+          <div style={{ height: 320 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={toData(perUnit)} layout="vertical" margin={{ left: 40, right: 24 }}>
+                <CartesianGrid horizontal={false} stroke="#e4e4e4" />
+                <XAxis type="number" tick={{ fontSize: 11 }} />
+                <YAxis type="category" dataKey="name" width={200} tick={{ fontSize: 11 }} />
+                <Bar dataKey="value" fill={BLUE}><LabelList dataKey="value" position="right" fontSize={11} /></Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function MatriksKomparasi() {
+  const rows: [string, number, number, number][] = [
+    ['Analis Kebijakan Ahli Madya', 0, 0, 1], ['Pranata Komputer Ahli Madya', 0, 0, 2],
+    ['Pranata Komputer Ahli Muda', 0, 2, 0], ['Pranata Komputer Ahli Pertama', 17, 0, 0],
+  ];
+  const tot = [17, 2, 3, 22];
+  const shade = (v: number, max = 17) => (v === 0 ? '#eaf3fe' : v > max / 2 ? '#3578c0' : '#d6e6fd');
+  const cell = (v: number) => ({ background: shade(v), color: v > 8 ? '#fff' : '#2f3031' });
+  return (
+    <Card title="Kelompok JF dengan Jenjang JF" right={<select className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }}><option>Kelompok JF dengan Jenjang JF</option></select>}>
+      <p className="mb-[8px] inline-block float-right rounded-[4px] border border-[#f1c27a] bg-[#fff8ec] text-[#8a5a00] px-[8px] py-[2px]" style={{ fontSize: 'var(--text-xs)' }}>Mengabaikan filter jabatan</p>
+      <div className="overflow-x-auto clear-both">
+        <table className="w-full text-center border border-[#e4e4e4]" style={{ fontSize: 'var(--text-xs)' }}>
+          <thead className="bg-[#f4f4f4]">
+            <tr><th rowSpan={2} className="p-[10px] w-[48px]">NO</th><th rowSpan={2} className="p-[10px]">KELOMPOK JABATAN FUNGSIONAL</th><th colSpan={4} className="p-[10px]">JENJANG JABATAN FUNGSIONAL</th></tr>
+            <tr>{['Pertama', 'Muda', 'Madya', 'JUMLAH'].map((h) => <th key={h} className="p-[10px]">{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            <tr className="bg-[#f4f4f4] font-semibold"><td /><td className="p-[10px]">JUMLAH KESELURUHAN</td>{tot.map((v, i) => <td key={i}>{v}</td>)}</tr>
+            {rows.map(([n, a, b, c], i) => (
+              <tr key={n} className="border-t border-[#e4e4e4]">
+                <td className="p-[10px]">{i + 1}</td><td className="p-[10px]">{n}</td>
+                {[a, b, c].map((v, j) => <td key={j} style={cell(v)}>{v}</td>)}
+                <td className="font-semibold">{a + b + c}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  );
+}
+
 export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
   const [tab, setTab] = useState(0);
   return (
@@ -154,7 +235,7 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
       <div className="max-w-[1280px] mx-auto px-[24px] py-[16px] flex flex-col gap-[16px]">
         <div className="bg-white border border-[#e4e4e4] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[10px] flex-wrap" style={{ fontSize: 'var(--text-sm)' }}>
           <Filter className="size-[16px]" /> <span className="font-semibold">Filter</span>
-          {['Unit Kerja: Seluruh', 'Jabatan: Seluruh', 'Mode: Absolut', 'Periode: View Terbaru'].map((f) => {
+          {['Unit Kerja: Seluruh', ...(tab === 3 ? [] : ['Jabatan: Seluruh']), 'Mode: Absolut', 'Periode: View Terbaru'].map((f) => {
             const [k, v] = f.split(': ');
             return <span key={f} className="rounded-full border border-[#2f3031] px-[10px] py-[1px]"><b>{k}:</b> {v}</span>;
           })}
@@ -176,11 +257,8 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
 
         {tab === 0 && <Ringkasan />}
         {tab === 1 && <Pendidikan />}
-        {tab > 1 && (
-          <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[24px] text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>
-            Tab {tabs[tab]} belum disalin dari portal staging.
-          </div>
-        )}
+        {tab === 2 && <UnitOrganisasi />}
+        {tab === 3 && <MatriksKomparasi />}
       </div>
     </div>
   );
