@@ -1,5 +1,6 @@
 import { ChevronDown } from 'lucide-react';
-import image_9422af45ba9c756818c3d67dd655d109dfd2e3af from 'figma:asset/9422af45ba9c756818c3d67dd655d109dfd2e3af.png';
+import logoPortal from '@/assets/staging/portal-kemendikdasmen.png';
+import imgTutWuri from '@/assets/staging/tut-wuri-handayani.png';
 import svgPaths from "@/imports/svg-9fgkcyy25e";
 import { NotificationDropdown } from './NotificationDropdown';
 import { useNavigate } from 'react-router';
@@ -50,7 +51,7 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
             <img 
               alt="Portal Kemendikdasmen" 
               className="h-[42px] w-auto object-contain" 
-              src={image_9422af45ba9c756818c3d67dd655d109dfd2e3af} 
+              src={logoPortal} 
             />
           </button>
         </div>
@@ -62,9 +63,9 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
 
           {/* User Menu */}
           <div className="flex items-center gap-[9px] cursor-pointer hover:opacity-80 transition-opacity">
-            <FilledActionSSupervisorAccount />
-            <p className="hidden md:block text-[16px] font-[var(--font-weight-medium)] text-[#2f3031] leading-[24px]">
-              Sarah Citra
+            <img alt="" src={imgTutWuri} className="size-[34px] rounded-full object-cover" />
+            <p className="hidden md:block uppercase text-[14px] font-[var(--font-weight-medium)] text-[#2f3031] leading-[24px]">
+              AHMAD WIJAYA
             </p>
             <ChevronDown className="w-[24px] h-[24px] text-[#45474A]" />
           </div>

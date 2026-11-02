@@ -1,5 +1,5 @@
 import { Header } from "@/app/components/Header";
-import { SystemBanner } from "@/app/components/SystemBanner";
+import { DaftarTugas } from "@/app/components/DaftarTugas";
 import { KehadiranHariIni } from "@/app/components/KehadiranHariIni";
 import { MenuUtamaGrid } from "@/app/components/MenuUtamaGrid";
 import { BannerMockup } from "@/app/components/BannerMockup";
@@ -71,14 +71,6 @@ export default function PortalMainLayout({
     <div className="bg-background min-h-screen w-full">
       <Header onNotificationViewAll={onNavigateToPemberitahuan} />
       
-      {/* System Banner - untuk pemberitahuan maintenance, dll */}
-      <SystemBanner 
-        type="maintenance"
-        message="Sistem sedang dalam pemeliharaan terjadwal pada Sabtu, 15 Maret 2026 pukul 22:00 - 02:00 WIB. Beberapa layanan mungkin tidak tersedia."
-        dismissible={true}
-        showIcon={true}
-      />
-      
       {/* Main Content */}
       <div className="max-w-[1280px] mx-auto px-[24px] py-[32px]">
         <div className="flex flex-col gap-[24px] w-full">
@@ -132,12 +124,7 @@ export default function PortalMainLayout({
 
             {/* Left Column - Widget Kehadiran (Second on mobile, First on desktop) */}
             <div className="lg:order-1">
-              <KehadiranHariIni
-                status="hadir"
-                absenMasuk="08:00"
-                absenKeluar="17:00"
-                lastUpdate={new Date()}
-              />
+              <KehadiranHariIni />
             </div>
           </div>
           
@@ -155,15 +142,14 @@ export default function PortalMainLayout({
               </h3>
             </div>
             <MenuUtamaGrid
-              onNavigateToOrganizations={onNavigateToOrganizations}
-              onNavigateToLayanan={onNavigateToLayanan}
-              onNavigateToPengaturanUmum={onNavigateToPengaturanUmum}
-              onNavigateToManajemenSKP={onNavigateToManajemenSKP}
-              onNavigateToDashboardAnalitik={onNavigateToDashboardAnalitik}
-              onNavigateToDataPribadi={onNavigateToDataPribadi}
+              onNavigateToKepegawaian={onNavigateToDataPribadi}
               onNavigateToProfilASN={onNavigateToProfilASN}
+              onNavigateToDashboardAnalitik={onNavigateToDashboardAnalitik}
+              onNavigateToMenuLainnya={onNavigateToLayanan}
             />
           </div>
+
+          <DaftarTugas />
         </div>
       </div>
     </div>
