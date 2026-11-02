@@ -47,7 +47,7 @@ export const kepegawaianGroups: MenuGroup[] = [
   },
 ];
 
-export function KepegawaianLayout({ children }: { children: ReactNode }) {
+export function KepegawaianLayout({ children, topBar }: { children: ReactNode; topBar?: ReactNode }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const clean = pathname.replace(/\/$/, '') || '/';
@@ -59,6 +59,7 @@ export function KepegawaianLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex flex-col h-screen bg-[#f4f4f4]">
+      {topBar}
       <Header fullWidth />
       <div className="flex flex-1 min-h-0">
         {!collapsed && (
