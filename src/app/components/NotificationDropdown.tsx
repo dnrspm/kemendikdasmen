@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Bell } from 'lucide-react';
+import { Bell, Info } from 'lucide-react';
 
 export interface Notification {
   id: string;
@@ -40,7 +40,7 @@ const mockNotifications: Notification[] = [
 
 export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications] = useState<Notification[]>(mockNotifications);
+  const [notifications] = useState<Notification[]>([])  // staging: belum ada pemberitahuan;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -113,14 +113,10 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
           {/* Notification List */}
           <div className="max-h-[320px] overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="px-[16px] py-[32px] text-center">
-                <p
-                  className="text-[14px]"
-                  style={{
-                    color: 'var(--muted-foreground)',
-                  }}
-                >
-                  Tidak ada pemberitahuan
+              <div className="m-[12px] rounded-[6px] bg-[#f4f4f4] px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
+                <Info className="size-[18px] text-[#1a5fe0]" />
+                <p className="text-[14px]" style={{ color: 'var(--muted-foreground)' }}>
+                  Tidak ada pemberitahuan baru.
                 </p>
               </div>
             ) : (
@@ -183,7 +179,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
           </div>
 
           {/* Footer */}
-          <div
+          {notifications.length > 0 && <div
             className="px-[16px] py-[10px] border-t"
             style={{
               borderColor: 'var(--border)',
@@ -204,7 +200,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
             >
               Lihat Semua Pemberitahuan
             </button>
-          </div>
+          </div>}
         </div>
       )}
     </div>
