@@ -10,9 +10,10 @@ interface Props {
   columns: Column[];
   rows: TableRow[];
   showPagination?: boolean;
+  hideFilter?: boolean;
 }
 
-export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true }: Props) {
+export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false }: Props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [perPage, setPerPage] = useState(10);
 
@@ -25,7 +26,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
         </div>
       )}
 
-      <div className="flex justify-end">
+      {!hideFilter && <div className="flex justify-end">
         <button
           onClick={() => setFilterOpen(!filterOpen)}
           className="flex items-center gap-[6px] text-[#1a5fe0] font-semibold"
@@ -34,9 +35,9 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           <Search className="size-[16px]" /> {filterOpen ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
           <ChevronDown className={`size-[16px] transition-transform ${filterOpen ? 'rotate-180' : ''}`} />
         </button>
-      </div>
+      </div>}
 
-      {filterOpen && (
+      {filterOpen && !hideFilter && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] p-[12px] bg-[#fafafa] border border-[#eee] rounded-[8px]">
           <input className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Cari nama atau NIP" style={{ fontSize: 'var(--text-sm)' }} />
           <input className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Unit kerja" style={{ fontSize: 'var(--text-sm)' }} />

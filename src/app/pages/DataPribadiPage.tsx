@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
+import { TriangleAlert, Plus, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
+import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 import imgPhoto from '@/assets/staging/tut-wuri-handayani.png';
 
 const tabs = ['Data Pribadi', 'Keluarga', 'Pendidikan dan Pelatihan', 'Penilaian', 'Riwayat'];
@@ -57,6 +58,124 @@ function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.
       </div>
     </section>
   );
+}
+
+/* ───── Tab lain (data contoh fiktif) ───── */
+
+function SubTabs({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
+  return (
+    <div className="flex gap-[8px] flex-wrap px-[14px] pt-[14px]">
+      {items.map((t, i) => (
+        <button key={t} onClick={() => onChange(i)} className={`rounded-full border px-[14px] py-[4px] ${i === active ? 'border-[#1a5fe0] bg-[#eaf3fe] text-[#1a5fe0]' : 'border-[#c7c7c7] text-[#2f3031]'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+          {t}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+const col = (key: string, label: string, width?: string): Column => ({ key, label, width });
+
+function Updated() {
+  return <p className="px-[14px] pt-[12px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui: 2 November 2026</p>;
+}
+
+function Keluarga() {
+  const sectionCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('hub', 'Hubungan'), col('hidup', 'Status Hidup'), col('asn', 'Status ASN'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
+  const pasanganCols = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), col('ke', 'Pasangan Ke'), col('asn', 'Status ASN'), col('hidup', 'Status Hidup'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir')];
+  const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+    <div className="flex items-center justify-between px-[14px] pt-[16px]">
+      <h3 className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-base)' }}>{children}</h3>
+      <button className="border border-[#1a5fe0] text-[#1a5fe0] rounded-[4px] px-[12px] py-[4px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+        <Plus className="size-[14px]" /> Tambah
+      </button>
+    </div>
+  );
+  return (
+    <div>
+      <Updated />
+      <div className="m-[14px] rounded-[8px] border border-[#f1c27a] bg-[#fff8ec] p-[14px] flex gap-[10px]" style={{ fontSize: 'var(--text-sm)' }}>
+        <TriangleAlert className="size-[18px] text-[#d99a1f] shrink-0 mt-[2px]" />
+        <div>
+          <p className="font-semibold">Usulan Perubahan Data</p>
+          <p>Anda memiliki 4 usulan perubahan data. Data yang Diusulkan sedang dalam proses verifikasi oleh Biro SDM. Usulan yang telah Disetujui sudah melewati proses verifikasi dan data Anda telah diperbarui.</p>
+          <p>Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
+        </div>
+      </div>
+      <SectionTitle>Data Orang Tua</SectionTitle>
+      <StagingDataTable hideFilter columns={sectionCols} rows={[
+        { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Hapus', hub: 'Ayah', hidup: 'Masih Hidup', asn: 'Bukan ASN', nama: 'Contoh Orang Tua', tgl: '-' },
+      ]} />
+      <SectionTitle>Data Pasangan</SectionTitle>
+      <StagingDataTable hideFilter columns={pasanganCols} rows={[
+        { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: 'Tambah', ke: '1', asn: 'Bukan ASN', hidup: 'Masih Hidup', nama: 'Contoh Pasangan', tgl: '-' },
+      ]} />
+      <SectionTitle>Data Anak</SectionTitle>
+      <StagingDataTable hideFilter columns={[col('aksi', 'Aksi', '60px'), col('nama', 'Nama'), col('tgl', 'Tanggal Lahir'), col('jk', 'Jenis Kelamin')]} rows={[]} />
+    </div>
+  );
+}
+
+function PendidikanPelatihan() {
+  const [sub, setSub] = useState(0);
+  const items = ['Pendidikan Formal', 'Pelatihan SIASN', 'Pelatihan Struktural', 'Pelatihan Fungsional', 'Pelatihan Teknis/Seminar/Workshop/Kursus'];
+  const cols = [
+    [col('no', 'No', '48px'), col('status', 'Status'), col('jenjang', 'Jenjang'), col('sekolah', 'Nama Sekolah'), col('jurusan', 'Jurusan'), col('ket', 'Keterangan'), col('tahun', 'Tahun Lulus'), col('ijazah', 'Nomor Ijazah'), col('aksi', 'Aksi', '60px')],
+    [col('no', 'No', '48px'), col('nama', 'Nama Pelatihan'), col('tahun', 'Tahun'), col('aksi', 'Aksi', '60px')],
+  ];
+  const formal = [['S3', 'Universitas Contoh', 'Pendidikan', '2018'], ['S2', 'Universitas Contoh', 'Manajemen', '2010'], ['S1', 'Universitas Contoh', 'Manajemen', '2004']].map(([j, s, jr, t], i) => ({
+    no: i + 1, status: <Chip tone="green">Aktif</Chip>, jenjang: j, sekolah: s, jurusan: jr, ket: '-', tahun: t, ijazah: '-', aksi: <MoreAction />,
+  }));
+  return (
+    <div>
+      <SubTabs items={items} active={sub} onChange={setSub} />
+      <Updated />
+      <StagingDataTable hideFilter columns={sub === 0 ? cols[0] : cols[1]} rows={sub === 0 ? formal : []} />
+    </div>
+  );
+}
+
+function Penilaian() {
+  const [sub, setSub] = useState(0);
+  const cols = sub === 0
+    ? [col('no', 'No', '48px'), col('tahun', 'Tahun'), col('hasil', 'Hasil Kinerja'), col('perilaku', 'Perilaku Kerja'), col('kuadran', 'Kuadran Kinerja')]
+    : [col('no', 'No', '48px'), col('tahun', 'Tahun'), col('kinerja', 'Aspek Kinerja'), col('potensial', 'Aspek Potensial'), col('box', 'Kotak')];
+  const rows = sub === 0
+    ? [{ no: 1, tahun: '2025', hasil: 'Baik', perilaku: 'Baik', kuadran: 'Kuadran 5' }, { no: 2, tahun: '2024', hasil: 'Baik', perilaku: 'Baik', kuadran: 'Kuadran 5' }]
+    : [];
+  return (
+    <div>
+      <SubTabs items={['Kinerja', 'Asesmen Nine Box']} active={sub} onChange={setSub} />
+      <Updated />
+      <StagingDataTable hideFilter columns={cols} rows={rows} />
+    </div>
+  );
+}
+
+function RiwayatTab() {
+  const [sub, setSub] = useState(0);
+  const items = ['Kepangkatan', 'Jabatan', 'Penghargaan', 'Penugasan', 'Sertifikasi', 'Hukuman Disiplin', 'Kenaikan Gaji Berkala'];
+  const rows = [['Penata', 'III/c', '1 Oktober 2021', '3 tahun / 7 bulan'], ['Penata', 'III/c', '1 Oktober 2021', '3 tahun / 8 bulan'], ['Penata Tingkat I', 'III/d', '1 Oktober 2023', '1 tahun / 2 bulan']].map(([p, g, t, m], i) => ({
+    no: i + 1, pangkat: p, gol: g, status: '-', tmt: t, masa: m, aksi: <MoreAction />,
+  }));
+  return (
+    <div>
+      <SubTabs items={items} active={sub} onChange={setSub} />
+      <Updated />
+      <StagingDataTable hideFilter
+        columns={sub === 0
+          ? [col('no', 'No', '48px'), col('pangkat', 'Pangkat'), col('gol', 'Golongan'), col('status', 'Status'), col('tmt', 'TMT Golongan'), col('masa', 'Masa Kerja'), col('aksi', 'Aksi', '60px')]
+          : [col('no', 'No', '48px'), col('nama', items[sub]), col('tgl', 'Tanggal'), col('aksi', 'Aksi', '60px')]}
+        rows={sub === 0 ? rows : []} />
+    </div>
+  );
+}
+
+function OtherTab({ name }: { name: string }) {
+  if (name === 'Keluarga') return <Keluarga />;
+  if (name === 'Pendidikan dan Pelatihan') return <PendidikanPelatihan />;
+  if (name === 'Penilaian') return <Penilaian />;
+  return <RiwayatTab />;
 }
 
 export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
@@ -158,7 +277,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                 </div>
               </div>
             ) : (
-              <p className="p-[24px] text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>Tab {tabs[tab]} belum disalin dari portal staging.</p>
+              <OtherTab name={tabs[tab]} />
             )}
           </div>
         </div>
