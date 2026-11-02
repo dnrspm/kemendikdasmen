@@ -21,16 +21,16 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
     <div className="flex flex-col gap-[16px] p-[16px]">
       {title && (
         <div>
-          <h3 className="font-semibold text-[#2f3031]" style={{ fontSize: '18px' }}>{title}</h3>
-          {subtitle && <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{subtitle}</p>}
+          <h3 className="text-[#2f3031]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{title}</h3>
+          {subtitle && <p className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>}
         </div>
       )}
 
       {!hideFilter && <div className="flex justify-end">
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className="flex items-center gap-[6px] text-[#1a5fe0] font-semibold"
-          style={{ fontSize: 'var(--text-sm)' }}
+          className="flex items-center gap-[6px] text-[#0b5fef]"
+          style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}
         >
           <Search className="size-[16px]" /> {filterOpen ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
           <ChevronDown className={`size-[16px] transition-transform ${filterOpen ? 'rotate-180' : ''}`} />
@@ -46,11 +46,11 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse" style={{ fontSize: 'var(--text-sm)' }}>
+        <table className="w-full text-left border-collapse" style={{ fontSize: '16px', lineHeight: '24px' }}>
           <thead>
             <tr className="border-y border-[#e4e4e4]">
               {columns.map((c) => (
-                <th key={c.key} className="px-[12px] py-[12px] uppercase text-[#65696c] align-top" style={{ fontSize: 'var(--text-xs)', fontWeight: 600, width: c.width }}>
+                <th key={c.key} className="p-[16px] uppercase text-[#65696c] align-top" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: c.width }}>
                   {c.label}
                 </th>
               ))}
@@ -68,9 +68,9 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
               </tr>
             ) : (
               rows.map((r, i) => (
-                <tr key={i} className={`align-top ${i % 2 === 0 ? 'bg-[#f7f7f7]' : ''}`}>
+                <tr key={i} className={`align-top ${i % 2 === 0 ? 'bg-[#fafafa]' : ''}`}>
                   {columns.map((c) => (
-                    <td key={c.key} className="px-[12px] py-[12px]">{r[c.key]}</td>
+                    <td key={c.key} className="p-[16px]">{r[c.key]}</td>
                   ))}
                 </tr>
               ))
@@ -80,13 +80,13 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       </div>
 
       {showPagination && rows.length > 0 && (
-        <div className="flex items-center justify-between text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
-          <span>Menampilkan 1 - {rows.length} dari {rows.length} data</span>
+        <div className="flex items-center justify-between text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+          <span style={{ fontSize: '14px', lineHeight: '20px' }}>Menampilkan 1 - {rows.length} dari {rows.length} data</span>
           <div className="flex items-center gap-[8px]">
             <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-[#c7c7c7] rounded-[4px] px-[6px] py-[2px] bg-white">
               {[5, 10, 20, 50].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
-            <span>per halaman</span>
+            <span style={{ fontSize: '14px', lineHeight: '20px' }}>per halaman</span>
             <span className="ml-[12px] size-[28px] grid place-items-center rounded-[4px] bg-[#1a5fe0] text-white font-semibold">1</span>
           </div>
         </div>
@@ -97,14 +97,14 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
 export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
   <div className="flex flex-col">
-    <span className="text-[#2f3031]" style={{ fontWeight: 500 }}>{name}</span>
-    <span className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>NIP: {nip}</span>
+    <span className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{name}</span>
+    <span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>NIP: {nip}</span>
   </div>
 );
 
 export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => {
-  const t = { green: ['#cdeccd', '#1e6b24'], red: ['#fbd5d5', '#a11d1d'], blue: ['#d6e6fd', '#1a4fb0'] }[tone];
-  return <span className="inline-block rounded-full px-[10px] py-[2px] font-semibold" style={{ background: t[0], color: t[1], fontSize: 'var(--text-xs)' }}>{children}</span>;
+  const t = { green: ['#9ae5b9', '#2f3031'], red: ['#fbd5d5', '#a11d1d'], blue: ['#9ae5b9', '#2f3031'] }[tone];
+  return <span className="inline-block rounded-[6px] px-[8px] py-[2px]" style={{ background: t[0], color: t[1], fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>{children}</span>;
 };
 
 export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-[#45474a]" /></button>;

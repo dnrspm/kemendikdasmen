@@ -8,12 +8,12 @@ const UNIT_PUSDATIN = 'Pusat Data dan Teknologi Informasi - Sekretariat Jenderal
 function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   return (
     <KepegawaianLayout>
-      <div className="p-[20px] flex flex-col gap-[12px]">
+      <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="font-semibold text-[#2f3031]" style={{ fontSize: '24px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
+          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">{children}</div>
+        <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
   );
@@ -23,7 +23,7 @@ function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onCh
   return (
     <div className="grid border-b border-[#e4e4e4]" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
       {tabs.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#1a5fe0]' : 'border-transparent'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 500 }}>
+        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#1a5fe0]' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
           {t}
         </button>
       ))}

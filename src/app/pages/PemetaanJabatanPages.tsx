@@ -4,10 +4,10 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
     <KepegawaianLayout>
-      <div className="p-[20px] flex flex-col gap-[12px]">
+      <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="font-semibold text-[#2f3031]" style={{ fontSize: '24px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
+          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         {children}
       </div>
@@ -32,7 +32,7 @@ function SelectField({ label, placeholder, disabled }: { label: string; placehol
 
 function Filters({ withKepmen = true }: { withKepmen?: boolean }) {
   return (
-    <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px] grid grid-cols-1 md:grid-cols-2 gap-[16px]">
+    <div className="bg-white border border-[#efefef] rounded-[6px] p-[16px] grid grid-cols-1 md:grid-cols-2 gap-[16px]">
       <SelectField label="Pilih Unit Organisasi (Eselon I)" placeholder="Pilih Unit Organisasi" />
       {withKepmen && <SelectField label="Referensi Kepmen" placeholder="Pilih Kepmen" disabled />}
     </div>
@@ -41,7 +41,7 @@ function Filters({ withKepmen = true }: { withKepmen?: boolean }) {
 
 function EmptyState({ title, text }: { title: string; text: string }) {
   return (
-    <div className="bg-white border border-[#e4e4e4] rounded-[8px] py-[48px] flex flex-col items-center gap-[6px] text-center">
+    <div className="bg-white border border-[#efefef] rounded-[6px] py-[48px] flex flex-col items-center gap-[6px] text-center">
       <FileText className="size-[32px] text-[#8a8d90]" />
       <p className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{title}</p>
       <p className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>{text}</p>

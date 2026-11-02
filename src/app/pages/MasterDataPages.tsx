@@ -73,12 +73,12 @@ const configs: Record<string, Cfg> = {
 function Shell({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   return (
     <KepegawaianLayout>
-      <div className="p-[20px] flex flex-col gap-[12px]">
+      <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="font-semibold text-[#2f3031]" style={{ fontSize: '24px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
+          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px]">{children}</div>
+        <div className="bg-white border border-[#efefef] rounded-[6px] p-[16px]">{children}</div>
       </div>
     </KepegawaianLayout>
   );
