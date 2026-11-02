@@ -21,6 +21,8 @@ import { DataPegawaiAktifPage, DataPPPKPage, DataNonAktifPage, VerifikasiPerubah
 import { DaftarSemuaSKPage, KoreksiSKPage, TandaTanganSKPage, RiwayatSKIndividuPage, LogTandaTanganSKPage } from '@/app/pages/PengelolaanSKPages';
 import { PemetaanKonfigurasiPage, PergeseranJabatanPage, VerifikasiUsulanPergeseranPage, InventarisKepmenPage } from '@/app/pages/PemetaanJabatanPages';
 import { MasterDataPage, UnitKerjaPage, masterDataSlugs } from '@/app/pages/MasterDataPages';
+import { RolePage, UserPage, PemberitahuanUmumPage, InformasiSistemPage, BannerUtamaPage } from '@/app/pages/PengaturanUmumStaging';
+import { Navigate } from 'react-router';
 import { kepegawaianGroups } from '@/app/components/KepegawaianLayout';
 import { organizations } from '@/app/data/organizationData';
 import { getArticleData, getCategoryData } from '@/app/data/articleData';
@@ -439,7 +441,12 @@ export const router = createBrowserRouter([
       { path: 'layanan/repositori-surat', Component: RepositoriSuratPage },
       { path: 'layanan/peta-jabatan', Component: PetaJabatanPage },
       { path: 'pemberitahuan', Component: PemberitahuanPageWrapper },
-      { path: 'pengaturan', Component: PengaturanUmumPageWrapper },
+      { path: 'pengaturan', Component: () => <Navigate to="/pengaturan/role" replace /> },
+      { path: 'pengaturan/role', Component: RolePage },
+      { path: 'pengaturan/user', Component: UserPage },
+      { path: 'pengaturan/pemberitahuan-umum', Component: PemberitahuanUmumPage },
+      { path: 'pengaturan/informasi-sistem', Component: InformasiSistemPage },
+      { path: 'pengaturan/banner-utama', Component: BannerUtamaPage },
       { path: 'manajemen-proyek', Component: ManajemenSKPPage },
       { path: 'dashboard-analitik', Component: DashboardAnalitikPage },
       { path: 'profil-asn', Component: ProfilASNPageWrapper },

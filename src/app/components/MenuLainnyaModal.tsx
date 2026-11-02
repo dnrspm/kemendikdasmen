@@ -33,12 +33,12 @@ export function MenuLainnyaModal({ open, onClose, onNavigate }: Props) {
     { name: 'Dasbor Eksekutif', icon: imgAnalytic, onClick: onNavigate.dasbor },
     { name: 'Dasbor Kunjungan Kerja', icon: imgStatistic },
     { name: 'Wiyata Kinarya', icon: imgTutWuri },
-    { name: 'Agenda', icon: imgAgenda },
-    { name: 'Penyimpanan Elektronik', icon: imgDrive },
-    { name: 'Konferensi Video', icon: imgVideo },
-    { name: 'Dokumen Kolaborasi', icon: imgDocument },
-    { name: 'Spreadsheet Kolaborasi', icon: imgSheet },
-    { name: 'Presentasi Kolaborasi', icon: imgPresentation },
+    { name: 'Agenda', icon: imgAgenda, onClick: () => window.open('https://calendar.google.com/', '_blank') },
+    { name: 'Penyimpanan Elektronik', icon: imgDrive, onClick: () => window.open('https://drive.google.com/', '_blank') },
+    { name: 'Konferensi Video', icon: imgVideo, onClick: () => window.open('https://meet.google.com/', '_blank') },
+    { name: 'Dokumen Kolaborasi', icon: imgDocument, onClick: () => window.open('https://docs.google.com/', '_blank') },
+    { name: 'Spreadsheet Kolaborasi', icon: imgSheet, onClick: () => window.open('https://docs.google.com/spreadsheets/', '_blank') },
+    { name: 'Presentasi Kolaborasi', icon: imgPresentation, onClick: () => window.open('https://docs.google.com/presentation/', '_blank') },
     { name: 'Pengaturan Umum', icon: imgSetting, onClick: onNavigate.pengaturan },
   ];
 
