@@ -11,7 +11,7 @@ import { DaftarLayanan } from '@/app/components/DaftarLayanan';
 import { RepositoriSurat } from '@/app/components/RepositoriSurat';
 import { PetaJabatan } from '@/app/components/PetaJabatan';
 import { ProjectManagement } from '@/app/components/ProjectManagement';
-import { DashboardAnalitik } from '@/app/components/DashboardAnalitik';
+import { DasborEksekutifPage } from '@/app/pages/DasborEksekutifPage';
 import { ProfilASNStagingPage } from '@/app/pages/ProfilASNStagingPage';
 import { PemberitahuanPage } from '@/app/pages/PemberitahuanPage';
 import { PengaturanUmumPage } from '@/app/pages/PengaturanUmumPage';
@@ -376,10 +376,7 @@ function PengaturanUmumPageWrapper() {
 function DashboardAnalitikPage() {
   const navigate = useNavigate();
   return (
-    <DashboardAnalitik
-      onBack={() => navigate('/')}
-      onBackToHome={() => navigate('/')}
-    />
+    <DasborEksekutifPage onBack={() => navigate('/')} />
   );
 }
 
