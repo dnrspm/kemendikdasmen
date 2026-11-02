@@ -16,8 +16,8 @@ export function DaftarTugas() {
       style={{ borderColor: '#c7c7c7' }}
     >
       <h3
-        className="font-['Inter',sans-serif] font-semibold text-foreground uppercase tracking-[0.5px]"
-        style={{ fontSize: 'var(--text-lg)' }}
+        className="font-['Inter',sans-serif] text-foreground uppercase"
+        style={{ fontSize: '14px', fontWeight: 600, lineHeight: '16px' }}
       >
         Daftar Tugas
       </h3>
@@ -37,8 +37,8 @@ export function DaftarTugas() {
               ) : null}
             </span>
             <span className="flex flex-col">
-              <span className="text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{t.group}</span>
-              <span className="text-[#1a5fe0]" style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{t.label}</span>
+              <span className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{t.group}</span>
+              <span className="text-[#0b5fef]" style={{ fontSize: '16px', fontWeight: 700, lineHeight: '24px' }}>{t.label}</span>
             </span>
           </button>
         ))}

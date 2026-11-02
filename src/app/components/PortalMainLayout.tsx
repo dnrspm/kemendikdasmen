@@ -137,8 +137,8 @@ export default function PortalMainLayout({
           >
             <div className="flex items-center justify-between w-full">
               <h3 
-                className="font-['Inter',sans-serif] font-semibold text-foreground uppercase tracking-[0.5px]" 
-                style={{ fontSize: 'var(--text-lg)' }}
+                className="font-['Inter',sans-serif] text-foreground uppercase" 
+                style={{ fontSize: '14px', fontWeight: 600, lineHeight: '16px' }}
               >
                 Menu Utama
               </h3>

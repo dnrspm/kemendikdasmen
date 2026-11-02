@@ -42,14 +42,14 @@ export function MenuUtamaGrid({
           type="button"
           onClick={item.onClick}
           disabled={!item.onClick}
-          className={`flex items-center gap-[12px] px-[16px] py-[8px] rounded-[4px] bg-[#eaf3fe] text-left ${
+          className={`flex items-center gap-[12px] px-[16px] py-[12px] rounded-[4px] bg-[#ecf5fe] text-left ${
             item.onClick ? 'cursor-pointer hover:bg-[#dbeafc] transition-colors' : 'cursor-default'
           }`}
         >
           <img alt="" src={item.icon} className="size-[48px] object-contain shrink-0" />
           <span
             className="font-['Inter',sans-serif] font-semibold text-[#2f3031] line-clamp-2"
-            style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}
+            style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}
           >
             {item.name}
           </span>
