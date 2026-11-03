@@ -155,10 +155,10 @@ function Keluarga() {
 
 /* Data contoh fiktif: kolom mengikuti staging, isi sel dibuat otomatis. */
 const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void }>({ scenario: 'sebagian', setScenario: () => {} });
-/* Variasi gaya pill (prototipe): 1 = biru/merah saja, 2 = kepekatan warna + ikon, 3 = tanpa pill, ikon berwarna. */
-type PillVariant = '1' | '2' | '3';
+/* Variasi gaya pill (prototipe): 1 = biru/merah saja, 2 = kepekatan warna + ikon, 3 = tanpa pill, ikon berwarna, 4 = hanya teks berwarna. */
+type PillVariant = '1' | '2' | '3' | '4';
 const PillCtx = createContext<PillVariant>('2');
-const PILL_VARIANTS: PillVariant[] = ['1', '2', '3'];
+const PILL_VARIANTS: PillVariant[] = ['1', '2', '3', '4'];
 
 function sample(label: string, i: number): string {
   const l = label.toLowerCase();
@@ -345,7 +345,10 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const tone = base.icon === 'down' ? 'merah' : 'biru';
   const Icon = base.icon ? PILL_ICON[base.icon] : null;
   let badge;
-  if (variant === '3' && base.icon && Icon) {
+  if (variant === '4' && base.icon) {
+    // Hanya teks berwarna (biru/merah), tanpa pill dan tanpa ikon.
+    badge = <span style={{ color: FLAT[tone].dot, fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>{v}</span>;
+  } else if (variant === '3' && base.icon && Icon) {
     // Tanpa pill: ikon berwarna + teks standar.
     badge = (
       <span className="inline-flex items-center gap-[6px] text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
