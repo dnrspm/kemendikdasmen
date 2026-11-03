@@ -157,7 +157,7 @@ function Keluarga() {
 const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void }>({ scenario: 'sebagian', setScenario: () => {} });
 /* Variasi gaya pill (prototipe): 1 = biru/merah saja, 2 = kepekatan warna + ikon, 3 = tanpa pill, ikon berwarna, 4 = hanya teks berwarna. */
 type PillVariant = '1' | '2' | '3' | '4';
-const PillCtx = createContext<PillVariant>('2');
+const PillCtx = createContext<PillVariant>('3');
 const PILL_VARIANTS: PillVariant[] = ['1', '2', '3', '4'];
 
 function sample(label: string, i: number): string {
@@ -315,9 +315,10 @@ const PRED_STYLE: Record<string, PillStyle> = {
   'Di Atas Ekspektasi': BIRU_PEKAT, 'Sesuai Ekspektasi': { ...BIRU_MUDA, icon: 'eq' },
   'Di Bawah Ekspektasi': { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
 };
-const FLAT: Record<'biru' | 'merah', { bg: string; fg: string; dot: string }> = {
+const FLAT: Record<'biru' | 'merah' | 'hijau', { bg: string; fg: string; dot: string }> = {
   biru: { bg: '#cde0ff', fg: '#0a3a8c', dot: '#0b5fef' },
   merah: { bg: '#ffbdbd', fg: '#7a1212', dot: '#c62828' },
+  hijau: { bg: '#cdf0dc', fg: '#0f5a2e', dot: '#16803c' }, // khusus Opsi 3: Sangat Baik / Di Atas Ekspektasi
 };
 const PILL_ICON = { up: ArrowUp, ok: Check, eq: Equal, down: ArrowDown };
 const BULAN_TUTUP: Record<number, [string, number]> = { 1: ['April', 0], 2: ['Juli', 0], 3: ['Oktober', 0], 4: ['Januari', 1] };
@@ -345,6 +346,7 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const tone = base.icon === 'down' ? 'merah' : 'biru';
   const Icon = base.icon ? PILL_ICON[base.icon] : null;
   let badge;
+  const tone3 = base.icon === 'up' ? 'hijau' : tone;
   if (variant === '4' && base.icon) {
     // Hanya teks berwarna (biru/merah), tanpa pill dan tanpa ikon.
     badge = <span style={{ color: FLAT[tone].dot, fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>{v}</span>;
@@ -352,7 +354,7 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
     // Tanpa pill: ikon berwarna + teks standar.
     badge = (
       <span className="inline-flex items-center gap-[6px] text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
-        <span className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full" style={{ background: FLAT[tone].bg, color: FLAT[tone].dot }}>
+        <span className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full" style={{ background: FLAT[tone3].bg, color: FLAT[tone3].dot }}>
           <Icon className="size-[14px]" strokeWidth={2.5} aria-hidden="true" />
         </span>{v}
       </span>
@@ -812,7 +814,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
   const [showNotice, setShowNotice] = useState(true);
   const [scenario, setScenario] = useState('sebagian');
   const [adminOn, setAdminOn] = useState(false);
-  const [pillVariant, setPillVariant] = useState<PillVariant>('2');
+  const [pillVariant, setPillVariant] = useState<PillVariant>('3');
   const onPenilaian = tabs[tab] === 'Penilaian';
   const admin = adminOn && onPenilaian;
 
