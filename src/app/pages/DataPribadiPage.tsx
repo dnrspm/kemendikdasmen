@@ -2,7 +2,7 @@ import { Fragment, createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router';
-import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, RefreshCw, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download, ChartLine } from 'lucide-react';
+import { TriangleAlert, UserPlus, Plus, SlidersHorizontal, RefreshCw, ChevronRight, ChevronDown, ChevronUp, Info, X, Eye, EyeOff, FilePenLine, User, IdCard, Contact, FolderOpen, ExternalLink, Download, ChartLine, ArrowUp, ArrowDown, Check, Equal } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 import imgPhoto from '@/assets/staging/tut-wuri-handayani.png';
@@ -155,6 +155,10 @@ function Keluarga() {
 
 /* Data contoh fiktif: kolom mengikuti staging, isi sel dibuat otomatis. */
 const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void }>({ scenario: 'sebagian', setScenario: () => {} });
+/* Variasi gaya pill (prototipe): 1 = biru/merah saja, 2 = kepekatan warna + ikon, 3 = tanpa pill, ikon berwarna. */
+type PillVariant = '1' | '2' | '3';
+const PillCtx = createContext<PillVariant>('2');
+const PILL_VARIANTS: PillVariant[] = ['1', '2', '3'];
 
 function sample(label: string, i: number): string {
   const l = label.toLowerCase();
@@ -225,59 +229,59 @@ function UsulanBanner({ count, onToggle, open }: { count: number; onToggle: () =
 type KRow = { tahun: number; tw: number; hk?: string; pk?: string; pred?: string; belum?: string; prov?: boolean };
 const KDATA: Record<string, KRow[]> = {
   normal: [
-    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di Atas Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   belum: [
     { tahun: 2026, tw: 2, belum: 'Tidak dinilai' },
-    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   variasi: [
-    { tahun: 2026, tw: 2, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
-    { tahun: 2026, tw: 1, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
+    { tahun: 2026, tw: 2, hk: 'Di Bawah Ekspektasi', pk: 'Di Bawah Ekspektasi', pred: 'Sangat Kurang' },
+    { tahun: 2026, tw: 1, hk: 'Di Bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
   ],
   masa: [
     { tahun: 2026, tw: 3, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik', prov: true },
-    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di Atas Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   masaBelum: [
     { tahun: 2026, tw: 3, belum: 'Dalam Penilaian' },
-    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di Atas Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   // Triwulan dan tahunan terpisah: Tw 2 kosong, Tw 4 belum ada; 2024–2025 tanpa triwulan.
   sebagian: [
-    { tahun: 2026, tw: 3, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
+    { tahun: 2026, tw: 3, hk: 'Di Atas Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
   ],
   tersedia: [
     { tahun: 2026, tw: 2, belum: 'Belum tersedia' },
-    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
 };
 const KTAHUNAN: Record<string, { tahun: number; hk: string; pk: string; pred?: string }[]> = {
   normal: [
-    { tahun: 2025, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2025, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
     { tahun: 2024, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
-    { tahun: 2023, hk: 'Sesuai Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Baik' },
+    { tahun: 2023, hk: 'Sesuai Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Baik' },
   ],
   variasi: [
-    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Kurang' },
-    { tahun: 2024, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
-    { tahun: 2023, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
+    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di Bawah Ekspektasi', pred: 'Kurang' },
+    { tahun: 2024, hk: 'Di Bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
+    { tahun: 2023, hk: 'Di Bawah Ekspektasi', pk: 'Di Bawah Ekspektasi', pred: 'Sangat Kurang' },
     { tahun: 2022, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
-    { tahun: 2021, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2021, hk: 'Di Atas Ekspektasi', pk: 'Di Atas Ekspektasi', pred: 'Sangat Baik' },
   ],
 };
 KTAHUNAN.sebagian = [
-  { tahun: 2026, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
-  { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Kurang' },
-  { tahun: 2024, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
+  { tahun: 2026, hk: 'Di Atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+  { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di Bawah Ekspektasi', pred: 'Kurang' },
+  { tahun: 2024, hk: 'Di Bawah Ekspektasi', pk: 'Di Bawah Ekspektasi', pred: 'Sangat Kurang' },
 ];
 // Seluruh kombinasi Hasil Kerja x Perilaku Kerja (3x3) dan kelima predikat. Predikat contoh fiktif.
 {
-  const E = ['Di atas Ekspektasi', 'Sesuai Ekspektasi', 'Di bawah Ekspektasi'];
+  const E = ['Di Atas Ekspektasi', 'Sesuai Ekspektasi', 'Di Bawah Ekspektasi'];
   const P = [['Sangat Baik', 'Baik', 'Butuh Perbaikan'], ['Baik', 'Baik', 'Butuh Perbaikan'], ['Kurang', 'Kurang', 'Sangat Kurang']];
   KTAHUNAN.kombinasi = E.flatMap((hk, i) => E.map((pk, j) => ({ hk, pk, pred: P[i][j] }))).map((r, k) => ({ tahun: 2026 - k, ...r }));
 }
@@ -298,12 +302,24 @@ const SCENARIOS: [string, string][] = [
 ];
 // Status tanpa nilai ditampilkan seragam; penjelasan rinci tetap ada di tooltip.
 const NO_DATA = ['Belum tersedia', 'Tidak dinilai', 'Dalam Penilaian'];
-const PRED_BG: Record<string, string> = {
-  'Sangat Baik': '#9ae5b9', Baik: '#cde0ff', 'Butuh Perbaikan': '#ffdfa3',
-  Kurang: '#ffd3b0', 'Sangat Kurang': '#ffbdbd',
-  // Status Hasil Kerja & Perilaku Kerja
-  'Di atas Ekspektasi': '#9ae5b9', 'Sesuai Ekspektasi': '#cde0ff', 'Di bawah Ekspektasi': '#ffdfa3',
+// Dua rona: biru = sesuai/di atas ekspektasi atau Baik/Sangat Baik; merah = di bawah ekspektasi atau di bawah Baik.
+// Level dibedakan lewat kepekatan warna + ikon (ikon jadi penanda cadangan bagi pengguna buta warna). Kontras teks >= 4.5:1.
+type PillStyle = { bg: string; fg: string; icon: 'up' | 'ok' | 'eq' | 'down' };
+const BIRU_PEKAT: PillStyle = { bg: '#0b5fef', fg: '#ffffff', icon: 'up' };
+const BIRU_MUDA: PillStyle = { bg: '#cde0ff', fg: '#0a3a8c', icon: 'ok' };
+const PRED_STYLE: Record<string, PillStyle> = {
+  'Sangat Baik': BIRU_PEKAT, Baik: BIRU_MUDA,
+  'Butuh Perbaikan': { bg: '#ffe1e1', fg: '#8a1c1c', icon: 'down' },
+  Kurang: { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
+  'Sangat Kurang': { bg: '#c62828', fg: '#ffffff', icon: 'down' },
+  'Di Atas Ekspektasi': BIRU_PEKAT, 'Sesuai Ekspektasi': { ...BIRU_MUDA, icon: 'eq' },
+  'Di Bawah Ekspektasi': { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
 };
+const FLAT: Record<'biru' | 'merah', { bg: string; fg: string; dot: string }> = {
+  biru: { bg: '#cde0ff', fg: '#0a3a8c', dot: '#0b5fef' },
+  merah: { bg: '#ffbdbd', fg: '#7a1212', dot: '#c62828' },
+};
+const PILL_ICON = { up: ArrowUp, ok: Check, eq: Equal, down: ArrowDown };
 const BULAN_TUTUP: Record<number, [string, number]> = { 1: ['April', 0], 2: ['Juli', 0], 3: ['Oktober', 0], 4: ['Januari', 1] };
 const BULAN_TW: Record<number, string> = { 1: 'Januari–Maret', 2: 'April–Juni', 3: 'Juli–September', 4: 'Oktober–Desember' };
 const KMESSAGES: Record<string, string> = {
@@ -323,10 +339,29 @@ function tipText(v: string, r: KRow): string {
 function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
   // Data kosong bukan status: tampil sebagai teks abu polos, bukan pill.
-  if (NO_DATA.includes(v)) return <span className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
-  const badge = (
-    <span className="inline-flex items-center rounded-full px-[10px] py-[2px] text-[#2f3031]" style={{ background: PRED_BG[v] ?? '#efefef', fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{NO_DATA.includes(v) ? 'Data Tidak Tersedia' : v}</span>
-  );
+  if (NO_DATA.includes(v)) return <span className="text-[#808489]" style={{ fontSize: '16px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
+  const variant = useContext(PillCtx);
+  const base = PRED_STYLE[v] ?? { bg: '#efefef', fg: '#2f3031', icon: null };
+  const tone = base.icon === 'down' ? 'merah' : 'biru';
+  const Icon = base.icon ? PILL_ICON[base.icon] : null;
+  let badge;
+  if (variant === '3' && base.icon && Icon) {
+    // Tanpa pill: ikon berwarna + teks standar.
+    badge = (
+      <span className="inline-flex items-center gap-[6px] text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
+        <span className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full" style={{ background: FLAT[tone].bg, color: FLAT[tone].dot }}>
+          <Icon className="size-[14px]" strokeWidth={2.5} aria-hidden="true" />
+        </span>{v}
+      </span>
+    );
+  } else {
+    const st = variant === '1' && base.icon ? { ...FLAT[tone], icon: base.icon } : base;
+    badge = (
+      <span className="inline-flex items-center gap-[4px] rounded-full px-[10px] py-[2px]" style={{ background: st.bg, color: st.fg, fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
+        {variant === '2' && Icon && <Icon className="size-[14px] shrink-0" strokeWidth={2.5} aria-hidden="true" />}{v}
+      </span>
+    );
+  }
   const tt = row ? tipText(v, row) : '';
   if (!tt) return badge;
   const show = (el: HTMLElement) => {
@@ -383,8 +418,8 @@ function RotatedTick({ x = 0, y = 0, payload }: { x?: number; y?: number; payloa
 }
 
 /* Sumbu Y mengikuti indikator yang dipilih (bukan periode). Indikator Ekspektasi punya baris "Data Tidak Tersedia" (0). */
-const EXP_LEVEL: Record<string, number> = { 'Di bawah Ekspektasi': 1, 'Sesuai Ekspektasi': 2, 'Di atas Ekspektasi': 3 };
-const EXP_LABEL: Record<number, string> = { 0: 'Data Tidak Tersedia', 1: 'Di bawah Ekspektasi', 2: 'Sesuai Ekspektasi', 3: 'Di atas Ekspektasi' };
+const EXP_LEVEL: Record<string, number> = { 'Di Bawah Ekspektasi': 1, 'Sesuai Ekspektasi': 2, 'Di Atas Ekspektasi': 3 };
+const EXP_LABEL: Record<number, string> = { 0: 'Data Tidak Tersedia', 1: 'Di Bawah Ekspektasi', 2: 'Sesuai Ekspektasi', 3: 'Di Atas Ekspektasi' };
 type Indikator = 'pred' | 'hk' | 'pk';
 const INDIKATOR: [Indikator, string][] = [['pred', 'Predikat Kinerja'], ['hk', 'Hasil Kerja'], ['pk', 'Perilaku Kerja']];
 type CP = { label: string; level: number | null; na: number | null; path: number; hk?: string; pk?: string; pred?: string };
@@ -427,7 +462,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
     <div>
       <div className="mb-[24px] flex flex-col gap-[12px]">
         {([
-          ['Periode', 'Periode', [['tahunan', 'Tahunan'], ['triwulan', 'Triwulanan']], mode, (k: string) => setMode(k as 'tahunan' | 'triwulan')],
+          ['Periode', 'Periode', [['tahunan', 'Tahunan'], ['triwulan', 'Triwulan']], mode, (k: string) => setMode(k as 'tahunan' | 'triwulan')],
           ['Indikator', 'Indikator', INDIKATOR, ind, (k: string) => setInd(k as Indikator)],
         ] as const).map(([title, aria, opts, cur, set]) => (
           <div key={title} className="flex items-center gap-[16px]">
@@ -493,9 +528,9 @@ function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: nu
   }, [onClose]);
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-[16px]" onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label="Grafik riwayat predikat kinerja" className="w-full max-w-[960px] max-h-full overflow-auto rounded-[8px] bg-white p-[24px]" style={{ boxShadow: '0 8px 24px rgba(0,0,0,.2)' }} onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Grafik Riwayat Penilaian Kinerja" className="w-full max-w-[960px] max-h-full overflow-auto rounded-[8px] bg-white p-[24px]" style={{ boxShadow: '0 8px 24px rgba(0,0,0,.2)' }} onClick={(e) => e.stopPropagation()}>
         <div className="mb-[16px] flex items-center justify-between gap-[12px]">
-          <span className="text-[#2f3031]" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik riwayat predikat kinerja</span>
+          <span className="text-[#2f3031]" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik Riwayat Penilaian Kinerja</span>
           <button onClick={onClose} aria-label="Tutup" className="rounded-[4px] p-[4px] text-[#65696c] hover:bg-[#f7f7f7]"><X className="size-[20px]" /></button>
         </div>
         <KinerjaChart annual={annual} quarterly={quarterly} />
@@ -510,7 +545,7 @@ function wibNow(): string {
   const jam = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' });
   return `${tgl}, ${jam} WIB`;
 }
-// Data terbaru dari eSKP yang menimpa data lama saat "Perbarui data" dijalankan.
+// Data terbaru dari eSKP yang menimpa data lama saat "Perbarui Data" dijalankan.
 const freshFor = (sc: string) => (sc === 'variasi' || sc === 'sebagian' ? sc : sc === 'masa' || sc === 'masaBelum' ? 'masa' : 'normal');
 
 function KinerjaTabel() {
@@ -628,7 +663,7 @@ function KinerjaTabel() {
             style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
           >
             <ChartLine className="size-[18px]" />
-            Lihat grafik
+            Lihat Grafik
           </button>
         )}
         <button
@@ -639,7 +674,7 @@ function KinerjaTabel() {
           style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
         >
           <RefreshCw className={`size-[18px] ${fetching ? 'animate-spin' : ''}`} />
-          {fetching ? 'Mengambil data…' : 'Perbarui data'}
+          {fetching ? 'Mengambil Data…' : 'Perbarui Data'}
         </button>
         </div>
       </div>
@@ -681,7 +716,7 @@ function KinerjaTabel() {
         </table>
       </div>
       <p className="border-t border-[#cfd2d4] p-[16px] text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-        Predikat tahunan merupakan evaluasi tersendiri, bukan gabungan nilai Triwulan 1–4.
+        Hasil penilaian kinerja tahunan bukan merupakan gabungan dari penilaian kinerja triwulan 1-4.
       </p>
     </div>
   );
@@ -774,11 +809,13 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
   const [showNotice, setShowNotice] = useState(true);
   const [scenario, setScenario] = useState('sebagian');
   const [adminOn, setAdminOn] = useState(false);
+  const [pillVariant, setPillVariant] = useState<PillVariant>('2');
   const onPenilaian = tabs[tab] === 'Penilaian';
   const admin = adminOn && onPenilaian;
 
   return (
     <ProtoCtx.Provider value={{ scenario, setScenario }}>
+    <PillCtx.Provider value={pillVariant}>
     <KepegawaianLayout topBar={onPenilaian ? <ProtoBar admin={adminOn} setAdmin={setAdminOn} /> : undefined}>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
@@ -886,6 +923,15 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         </div>
       </div>
     </KepegawaianLayout>
+    {onPenilaian && (
+      <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-[#828282] bg-[#f1f1f1] px-[10px] py-[6px]" style={{ fontSize: '14px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
+        <span style={{ fontWeight: 600 }}>Gaya pill</span>
+        {PILL_VARIANTS.map((k) => (
+          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`} style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
+        ))}
+      </div>
+    )}
+    </PillCtx.Provider>
     </ProtoCtx.Provider>
   );
 }
