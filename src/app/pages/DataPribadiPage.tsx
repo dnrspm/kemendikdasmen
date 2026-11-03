@@ -154,8 +154,7 @@ function Keluarga() {
 }
 
 /* Data contoh fiktif: kolom mengikuti staging, isi sel dibuat otomatis. */
-type LayoutOpt = 1 | 2;
-const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void; layout: LayoutOpt; setLayout: (l: LayoutOpt) => void }>({ scenario: 'normal', setScenario: () => {}, layout: 2, setLayout: () => {} });
+const ProtoCtx = createContext<{ scenario: string; setScenario: (s: string) => void }>({ scenario: 'sebagian', setScenario: () => {} });
 
 function sample(label: string, i: number): string {
   const l = label.toLowerCase();
@@ -226,48 +225,66 @@ function UsulanBanner({ count, onToggle, open }: { count: number; onToggle: () =
 type KRow = { tahun: number; tw: number; hk?: string; pk?: string; pred?: string; belum?: string; prov?: boolean };
 const KDATA: Record<string, KRow[]> = {
   normal: [
-    { tahun: 2026, tw: 2, hk: 'Diatas Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   belum: [
     { tahun: 2026, tw: 2, belum: 'Tidak dinilai' },
-    { tahun: 2026, tw: 1, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   variasi: [
-    { tahun: 2026, tw: 2, hk: 'Dibawah Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Sangat Kurang' },
-    { tahun: 2026, tw: 1, hk: 'Dibawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
+    { tahun: 2026, tw: 2, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
+    { tahun: 2026, tw: 1, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
   ],
   masa: [
     { tahun: 2026, tw: 3, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik', prov: true },
-    { tahun: 2026, tw: 2, hk: 'Diatas Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
   masaBelum: [
     { tahun: 2026, tw: 3, belum: 'Dalam Penilaian' },
-    { tahun: 2026, tw: 2, hk: 'Diatas Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Sangat Baik' },
-    { tahun: 2026, tw: 1, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 2, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+  ],
+  // Triwulan dan tahunan terpisah: Tw 2 kosong, Tw 4 belum ada; 2024–2025 tanpa triwulan.
+  sebagian: [
+    { tahun: 2026, tw: 3, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
   ],
   tersedia: [
     { tahun: 2026, tw: 2, belum: 'Belum tersedia' },
-    { tahun: 2026, tw: 1, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2026, tw: 1, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
   ],
 };
-const KTAHUNAN: Record<string, { tahun: number; hk: string; pk: string; pred: string }[]> = {
+const KTAHUNAN: Record<string, { tahun: number; hk: string; pk: string; pred?: string }[]> = {
   normal: [
-    { tahun: 2025, hk: 'Diatas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+    { tahun: 2025, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
     { tahun: 2024, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
-    { tahun: 2023, hk: 'Sesuai Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Baik' },
+    { tahun: 2023, hk: 'Sesuai Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Baik' },
   ],
   variasi: [
-    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Kurang' },
-    { tahun: 2024, hk: 'Dibawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
-    { tahun: 2023, hk: 'Dibawah Ekspektasi', pk: 'Dibawah Ekspektasi', pred: 'Sangat Kurang' },
+    { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Kurang' },
+    { tahun: 2024, hk: 'Di bawah Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Butuh Perbaikan' },
+    { tahun: 2023, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
     { tahun: 2022, hk: 'Sesuai Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
-    { tahun: 2021, hk: 'Diatas Ekspektasi', pk: 'Diatas Ekspektasi', pred: 'Sangat Baik' },
+    { tahun: 2021, hk: 'Di atas Ekspektasi', pk: 'Di atas Ekspektasi', pred: 'Sangat Baik' },
   ],
 };
+KTAHUNAN.sebagian = [
+  { tahun: 2026, hk: 'Di atas Ekspektasi', pk: 'Sesuai Ekspektasi', pred: 'Baik' },
+  { tahun: 2025, hk: 'Sesuai Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Kurang' },
+  { tahun: 2024, hk: 'Di bawah Ekspektasi', pk: 'Di bawah Ekspektasi', pred: 'Sangat Kurang' },
+];
+// Seluruh kombinasi Hasil Kerja x Perilaku Kerja (3x3) dan kelima predikat. Predikat contoh fiktif.
+{
+  const E = ['Di atas Ekspektasi', 'Sesuai Ekspektasi', 'Di bawah Ekspektasi'];
+  const P = [['Sangat Baik', 'Baik', 'Butuh Perbaikan'], ['Baik', 'Baik', 'Butuh Perbaikan'], ['Kurang', 'Kurang', 'Sangat Kurang']];
+  KTAHUNAN.kombinasi = E.flatMap((hk, i) => E.map((pk, j) => ({ hk, pk, pred: P[i][j] }))).map((r, k) => ({ tahun: 2026 - k, ...r }));
+}
 const SCENARIOS: [string, string][] = [
+  ['sebagian', 'Skenario Eksisting'],
   ['normal', 'Normal: Tw 1–2 2026 sudah dinilai'],
+  ['kombinasi', 'Kombinasi status: semua Hasil Kerja × Perilaku Kerja, lima predikat'],
   ['variasi', 'Variasi predikat (contoh seluruh warna chip)'],
   ['belum', 'Tw 2 tidak dinilai, dikonfirmasi eSKP setelah kunci (EK-5.4)'],
   ['tersedia', 'Tw 2 belum tersedia, gagal diambil (EK-5.4)'],
@@ -282,8 +299,10 @@ const SCENARIOS: [string, string][] = [
 // Status tanpa nilai ditampilkan seragam; penjelasan rinci tetap ada di tooltip.
 const NO_DATA = ['Belum tersedia', 'Tidak dinilai', 'Dalam Penilaian'];
 const PRED_BG: Record<string, string> = {
-  'Sangat Baik': '#9ae5b9', Baik: '#9ae5b9', 'Butuh Perbaikan': '#ffdfa3',
-  Kurang: '#ffe9ea', 'Sangat Kurang': '#ffe9ea',
+  'Sangat Baik': '#9ae5b9', Baik: '#cde0ff', 'Butuh Perbaikan': '#ffdfa3',
+  Kurang: '#ffd3b0', 'Sangat Kurang': '#ffbdbd',
+  // Status Hasil Kerja & Perilaku Kerja
+  'Di atas Ekspektasi': '#9ae5b9', 'Sesuai Ekspektasi': '#cde0ff', 'Di bawah Ekspektasi': '#ffdfa3',
 };
 const BULAN_TUTUP: Record<number, [string, number]> = { 1: ['April', 0], 2: ['Juli', 0], 3: ['Oktober', 0], 4: ['Januari', 1] };
 const BULAN_TW: Record<number, string> = { 1: 'Januari–Maret', 2: 'April–Juni', 3: 'Juli–September', 4: 'Oktober–Desember' };
@@ -303,6 +322,8 @@ function tipText(v: string, r: KRow): string {
 
 function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
+  // Data kosong bukan status: tampil sebagai teks abu polos, bukan pill.
+  if (NO_DATA.includes(v)) return <span className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
   const badge = (
     <span className="inline-flex items-center rounded-full px-[10px] py-[2px] text-[#2f3031]" style={{ background: PRED_BG[v] ?? '#efefef', fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{NO_DATA.includes(v) ? 'Data Tidak Tersedia' : v}</span>
   );
@@ -341,14 +362,13 @@ const PRED_LEVEL: Record<string, number> = { 'Sangat Kurang': 1, Kurang: 2, 'But
 const LEVEL_LABEL: Record<number, string> = { 1: 'Sangat Kurang', 2: 'Kurang', 3: 'Butuh Perbaikan', 4: 'Baik', 5: 'Sangat Baik' };
 
 /* Triwulan historis fiktif untuk tahun-tahun sebelumnya, dibuat konsisten dengan predikat tahunannya. */
-function historyQuarters(a: { tahun: number; hk: string; pk: string; pred: string }): KRow[] {
-  const lvl = PRED_LEVEL[a.pred] ?? 4;
+function historyQuarters(a: { tahun: number; hk: string; pk: string; pred?: string }): KRow[] {
+  const lvl = PRED_LEVEL[a.pred ?? ''] ?? 4;
   const up = LEVEL_LABEL[Math.min(5, lvl + 1)];
-  const preds = [a.pred, a.pred, up, a.pred];
+  const preds = [a.pred ?? 'Baik', a.pred ?? 'Baik', up, a.pred ?? 'Baik'];
   return [4, 3, 2, 1].map((tw) => ({ tahun: a.tahun, tw, hk: a.hk, pk: a.pk, pred: preds[tw - 1] }));
 }
 
-type ChartPoint = { label: string; level: number | null; hk?: string; pk?: string; pred: string };
 
 const CHART_H = 300;
 const PLOT_TOP = 8;
@@ -362,45 +382,70 @@ function RotatedTick({ x = 0, y = 0, payload }: { x?: number; y?: number; payloa
   );
 }
 
-function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: string; pk: string; pred: string }[]; quarterly: KRow[] }) {
+/* Sumbu Y mengikuti indikator yang dipilih (bukan periode). Indikator Ekspektasi punya baris "Data Tidak Tersedia" (0). */
+const EXP_LEVEL: Record<string, number> = { 'Di bawah Ekspektasi': 1, 'Sesuai Ekspektasi': 2, 'Di atas Ekspektasi': 3 };
+const EXP_LABEL: Record<number, string> = { 0: 'Data Tidak Tersedia', 1: 'Di bawah Ekspektasi', 2: 'Sesuai Ekspektasi', 3: 'Di atas Ekspektasi' };
+type Indikator = 'pred' | 'hk' | 'pk';
+const INDIKATOR: [Indikator, string][] = [['pred', 'Predikat Kinerja'], ['hk', 'Hasil Kerja'], ['pk', 'Perilaku Kerja']];
+type CP = { label: string; level: number | null; na: number | null; path: number; hk?: string; pk?: string; pred?: string };
+const NA_TEXT = 'Data Tidak Tersedia';
+
+function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: string; pk: string; pred?: string }[]; quarterly: KRow[] }) {
   const [mode, setMode] = useState<'tahunan' | 'triwulan'>('tahunan');
-  const years = [...new Set([2026, ...annual.map((r) => r.tahun)])].sort((a, b) => a - b);
-  const annualPoints: ChartPoint[] = years.map((y) => {
-    const a = annual.find((r) => r.tahun === y);
-    return a ? { label: String(y), level: PRED_LEVEL[a.pred] ?? null, hk: a.hk, pk: a.pk, pred: a.pred } : { label: String(y), level: null, pred: 'Data Tidak Tersedia' };
+  const [ind, setInd] = useState<Indikator>('pred');
+  const allYears = [2026, ...annual.map((r) => r.tahun), ...quarterly.map((r) => r.tahun)];
+  const first = Math.min(...allYears);
+  const years = Array.from({ length: 2026 - first + 1 }, (_, i) => first + i);
+
+  const isPred = ind === 'pred';
+  const levelMap = isPred ? PRED_LEVEL : EXP_LEVEL;
+  const ticks = isPred ? [5, 4, 3, 2, 1, 0] : [3, 2, 1, 0];
+  const labelOf = (v: number) => (v === 0 ? NA_TEXT : isPred ? LEVEL_LABEL[v] : EXP_LABEL[v]);
+
+  type Src = { label: string; hk?: string; pk?: string; pred?: string };
+  const sources: Src[] = mode === 'tahunan'
+    ? years.map((y) => { const a = annual.find((r) => r.tahun === y); return { label: String(y), hk: a?.hk, pk: a?.pk, pred: a?.pred }; })
+    : [...quarterly].sort((a, b) => a.tahun - b.tahun || a.tw - b.tw).map((r) => ({ label: `Tw${r.tw} ${r.tahun}`, hk: r.belum ? undefined : r.hk, pk: r.belum ? undefined : r.pk, pred: r.belum ? undefined : r.pred }));
+  const all: CP[] = sources.map((d) => {
+    const level = levelMap[d[ind] ?? ''] ?? null;
+    return { ...d, level, na: level === null ? 0 : null, path: level ?? 0 };
   });
-  // Setiap tahun selalu menampilkan Tw1–Tw4; triwulan tanpa data menjadi titik kosong.
-  const quarterPoints: ChartPoint[] = years.flatMap((y) =>
-    [1, 2, 3, 4].map((tw): ChartPoint => {
-      const r = quarterly.find((q) => q.tahun === y && q.tw === tw);
-      const label = `Tw${tw} ${y}`;
-      if (!r || r.belum) return { label, level: null, pred: 'Data Tidak Tersedia' };
-      return { label, level: PRED_LEVEL[r.pred!] ?? null, hk: r.hk, pk: r.pk, pred: r.pred! };
-    }));
-  // Hanya periode yang ada datanya yang ditampilkan.
-  const data = (mode === 'tahunan' ? annualPoints : quarterPoints).filter((d) => d.level !== null);
+  // Semua indikator menandai periode tanpa nilai di baris "Data Tidak Tersedia".
+  const data = all;
   const hasAny = data.some((d) => d.level !== null);
+
   const rotate = mode === 'triwulan';
-  const xH = rotate ? 76 : 44;
+  // Tinggi area sumbu X tetap agar sumbu Y tidak bergeser saat berpindah mode.
+  const xH = 76;
   const plotH = CHART_H - PLOT_TOP - xH;
+  const lo = Math.min(...ticks) - 0.5;
+  const hi = Math.max(...ticks) + 0.5;
+  const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`;
+  const pillStyle = { borderRadius: '24px', fontSize: '14px', fontWeight: 600, lineHeight: '20px' } as const;
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-[12px] flex-wrap mb-[8px]">
-        <div className="flex gap-[8px]">
-          {([['tahunan', 'Tahunan'], ['triwulan', 'Triwulanan']] as const).map(([k, l]) => (
-            <button key={k} onClick={() => setMode(k)} aria-pressed={mode === k}
-              className={`border px-[12px] py-[2px] ${mode === k ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`}
-              style={{ borderRadius: '24px', fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{l}</button>
-          ))}
-        </div>
+      <div className="mb-[24px] flex flex-col gap-[12px]">
+        {([
+          ['Periode', 'Periode', [['tahunan', 'Tahunan'], ['triwulan', 'Triwulanan']], mode, (k: string) => setMode(k as 'tahunan' | 'triwulan')],
+          ['Indikator', 'Indikator', INDIKATOR, ind, (k: string) => setInd(k as Indikator)],
+        ] as const).map(([title, aria, opts, cur, set]) => (
+          <div key={title} className="flex items-center gap-[16px]">
+            <span className="w-[80px] shrink-0 text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>{title}</span>
+            <div className="flex flex-wrap gap-[8px]" role="group" aria-label={aria}>
+              {opts.map(([k, l]) => (
+                <button key={k} onClick={() => set(k)} aria-pressed={cur === k} className={pill(cur === k)} style={pillStyle}>{l}</button>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
       {hasAny ? (
         <div className="flex">
           {/* Label sumbu Y dibuat terpisah agar tetap terlihat saat grafik digeser. */}
-          <div className="relative shrink-0" style={{ width: 150, height: CHART_H }} aria-hidden="true">
-            {[5, 4, 3, 2, 1].map((v) => (
-              <span key={v} className="absolute right-[16px] whitespace-nowrap text-[#65696c]" style={{ top: PLOT_TOP + ((5.5 - v) / 5) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{LEVEL_LABEL[v]}</span>
+          <div className="relative shrink-0" style={{ width: 180, height: CHART_H }} aria-hidden="true">
+            {ticks.map((v) => (
+              <span key={v} className="absolute right-[16px] whitespace-nowrap text-[#65696c]" style={{ top: PLOT_TOP + ((hi - v) / (hi - lo)) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{labelOf(v)}</span>
             ))}
           </div>
           <div className="min-w-0 flex-1">
@@ -408,24 +453,26 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
               <ResponsiveContainer>
                 <LineChart data={data} margin={{ top: PLOT_TOP, right: 24, bottom: 0, left: 0 }}>
                   <CartesianGrid horizontal={false} vertical={false} />
-                  {[1, 2, 3, 4, 5].map((v) => <ReferenceLine key={v} y={v} stroke="#efefef" />)}
+                  {ticks.map((v) => <ReferenceLine key={v} y={v} stroke="#efefef" />)}
                   <XAxis dataKey="label" interval={0} height={xH} tickMargin={rotate ? 12 : 16} padding={{ left: rotate ? 56 : 16, right: 16 }} tick={rotate ? <RotatedTick /> : { fontSize: 14, fill: '#65696c' }} axisLine={false} tickLine={false} />
-                  <YAxis hide domain={[0.5, 5.5]} ticks={[1, 2, 3, 4, 5]} width={0} />
+                  <YAxis hide domain={[lo, hi]} ticks={ticks} width={0} />
                   <ChartTooltip
                     content={({ active, payload }) => {
                       if (!active || !payload?.length) return null;
-                      const d = payload[0].payload as ChartPoint;
+                      const d = payload[0].payload as CP;
                       return (
                         <div className="rounded-[4px] bg-[#2f3031] px-[10px] py-[8px] text-white" style={{ fontSize: '12px', lineHeight: '18px' }}>
                           <div style={{ fontWeight: 600 }}>{d.label}</div>
-                          <div>Predikat: {d.pred}</div>
-                          {d.hk && <div>Hasil Kerja: {d.hk}</div>}
-                          {d.pk && <div>Perilaku Kerja: {d.pk}</div>}
+                          <div>{INDIKATOR.find(([k]) => k === ind)![1]}: {d[ind] ?? NA_TEXT}</div>
                         </div>
                       );
                     }}
                   />
+                  {/* Garis putus-putus menghubungkan titik data ke titik "Data Tidak Tersedia"; garis penuh di atasnya hanya antar-data. */}
+                  <Line type="linear" dataKey="path" stroke="#b5b8bb" strokeWidth={1.5} strokeDasharray="4 4" dot={false} activeDot={false} isAnimationActive={false} />
                   <Line type="linear" dataKey="level" stroke="#0b5fef" strokeWidth={2} dot={{ r: 4, fill: '#0b5fef', stroke: '#0b5fef', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#0b5fef', stroke: '#0b5fef', strokeWidth: 0 }} isAnimationActive={false} />
+                  {/* Titik abu di baris "Data Tidak Tersedia" untuk periode yang kosong. */}
+                  {<Line type="linear" dataKey="na" stroke="none" dot={{ r: 4, fill: '#b5b8bb', stroke: '#b5b8bb', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#b5b8bb', stroke: '#b5b8bb', strokeWidth: 0 }} isAnimationActive={false} />}
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -438,7 +485,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   );
 }
 
-function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: number; hk: string; pk: string; pred: string }[]; quarterly: KRow[]; onClose: () => void }) {
+function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: number; hk: string; pk: string; pred?: string }[]; quarterly: KRow[]; onClose: () => void }) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -464,10 +511,10 @@ function wibNow(): string {
   return `${tgl}, ${jam} WIB`;
 }
 // Data terbaru dari eSKP yang menimpa data lama saat "Perbarui data" dijalankan.
-const freshFor = (sc: string) => (sc === 'variasi' ? 'variasi' : sc === 'masa' || sc === 'masaBelum' ? 'masa' : 'normal');
+const freshFor = (sc: string) => (sc === 'variasi' || sc === 'sebagian' ? sc : sc === 'masa' || sc === 'masaBelum' ? 'masa' : 'normal');
 
 function KinerjaTabel() {
-  const { scenario: ctxScenario, setScenario, layout } = useContext(ProtoCtx);
+  const { scenario: ctxScenario, setScenario } = useContext(ProtoCtx);
   const [open, setOpen] = useState<number | null>(2026);
   const [fetchedAt, setFetchedAt] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
@@ -486,17 +533,28 @@ function KinerjaTabel() {
   };
   const toggle = (y: number) => setOpen((o) => (o === y ? null : y));
 
-  const annual = KTAHUNAN[scenario === 'variasi' ? 'variasi' : 'normal'];
-  const quarterly = KDATA[['belum', 'tersedia', 'variasi', 'masa', 'masaBelum'].includes(scenario) ? scenario : 'normal'];
-  const years = [...new Set([2026, ...annual.map((r) => r.tahun)])].sort((x, y) => y - x);
+  const annual = KTAHUNAN[scenario === 'variasi' || scenario === 'sebagian' || scenario === 'kombinasi' ? scenario : 'normal'];
+  const quarterly = KDATA[['belum', 'tersedia', 'variasi', 'masa', 'masaBelum', 'sebagian'].includes(scenario) ? scenario : 'normal'];
+  // Daftar tahun = semua tahun dari yang terlama sampai 2026, termasuk tahun yang keduanya kosong.
+  const firstYear = scenario === 'sebagian' ? 2023 : Math.min(2026, ...annual.map((r) => r.tahun));
+  const years = Array.from({ length: 2026 - firstYear + 1 }, (_, i) => 2026 - i);
   const syncAt = fetchedAt ?? (['masa', 'masaBelum'].includes(scenario) ? '9 Oktober 2026, 22.35 WIB' : '26 Juli 2026, 22.40 WIB');
   const showSync = !['loading', 'error', 'nip'].includes(scenario);
+  // Data triwulan yang benar-benar ada (tanpa mengarang dari predikat tahunan pada skenario 'sebagian').
   const quartersOf = (y: number): KRow[] => {
     if (y === 2026) return quarterly;
+    if (scenario === 'sebagian') return [];
     const a = annual.find((r) => r.tahun === y);
     return a ? historyQuarters(a) : [];
   };
-  const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersOf(y)));
+  const isFilled = (r: KRow) => !r.belum;
+  // Tw1–Tw4 selalu lengkap untuk tahun lampau; tahun berjalan sampai triwulan terakhir yang ada. Yang kosong diisi baris "Data Tidak Tersedia".
+  const quartersFull = (y: number): KRow[] => {
+    const have = quartersOf(y);
+    const last = y === 2026 ? Math.max(0, ...have.map((r) => r.tw)) : 4;
+    return [4, 3, 2, 1].filter((tw) => tw <= last).map((tw) => have.find((r) => r.tw === tw) ?? { tahun: y, tw, belum: 'Belum tersedia' });
+  };
+  const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersFull(y)));
 
   const th = 'px-[16px] py-[16px] text-left uppercase text-[#65696c] bg-white border-y border-[#efefef]';
   const thStyle = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
@@ -504,25 +562,16 @@ function KinerjaTabel() {
   const tdOpen = td.replace('bg-white', 'bg-[#fafafa]');
   const tdStyle = { fontSize: '16px', lineHeight: '24px' } as const;
   const sub = { fontSize: '14px', lineHeight: '20px', fontWeight: 400 } as const;
-  // Garis biru sejajar dengan awal teks tahun; abu pudar dimulai dari garis biru; teks rincian menjorok setelahnya.
-  const bar = { backgroundImage: 'linear-gradient(#0954d9, #0954d9), linear-gradient(#fafafa, #fafafa)', backgroundSize: '3px 100%, calc(100% - 16px) 100%', backgroundPosition: '16px 0, 16px 0', backgroundRepeat: 'no-repeat', paddingLeft: '35px' } as const;
-  // Antar baris rincian: pembatas digambar mulai setelah garis biru supaya garis biru tidak terpotong.
-  const barMid = {
-    ...bar,
-    backgroundImage: 'linear-gradient(#0954d9, #0954d9), linear-gradient(#efefef, #efefef), linear-gradient(#fafafa, #fafafa)',
-    backgroundSize: '3px 100%, calc(100% - 19px) 1px, calc(100% - 16px) 100%',
-    backgroundPosition: '16px 0, 19px 100%, 16px 0',
-    borderBottom: 'none',
-  } as const;
-
+  // Garis biru di tepi kiri baris rincian triwulan (tanpa menggeser isi).
+  const bar = { boxShadow: 'inset 3px 0 0 #0954d9' } as const;
   const detail = (y: number) => {
-    const rowsFor = quartersOf(y);
+    const rowsFor = quartersFull(y);
     if (y === 2026 && KMESSAGES[scenario]) {
       return (
-        <tr><td colSpan={4} className={`${td} text-[#65696c]`} role="status" style={{ ...tdStyle, ...bar }}>
+        <tr><td colSpan={4} className={`${tdOpen} text-[#65696c]`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
           {scenario === 'error' && (
-            <button onClick={() => setScenario('normal')} className="ml-[8px] rounded-[4px] border border-[#808489] bg-white px-[14px] py-[4px] text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
+            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-[#808489] bg-white px-[14px] py-[4px] text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
           )}
         </td></tr>
       );
@@ -530,22 +579,28 @@ function KinerjaTabel() {
     return (
       <>
         {y === 2026 && scenario === 'stale' && (
-          <tr><td colSpan={4} className="py-[12px] pr-[16px] border-b border-[#efefef] bg-white" style={bar}>
+          <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-[#efefef] bg-[#fafafa]" style={bar}>
             <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
           </td></tr>
         )}
-        {rowsFor.map((r, qi) => (
+        {rowsFor.every((r) => !isFilled(r)) && (
+          <tr><td colSpan={4} className={`${tdOpen} text-[#65696c]`} role="status" style={{ ...tdStyle, ...bar }}>
+            Belum ada data triwulan untuk tahun {y}.
+          </td></tr>
+        )}
+        {rowsFor.some(isFilled) && rowsFor.map((r) => (
           <tr key={r.tw}>
-            <td className={td} style={{ ...tdStyle, ...(qi < rowsFor.length - 1 ? barMid : bar) }}>
+            <td className={tdOpen} style={{ ...tdStyle, ...bar }}>
               Triwulan {r.tw}
               <span className="block text-[#65696c]" style={sub}>{BULAN_TW[r.tw]}</span>
             </td>
-            <td className={tdOpen} style={tdStyle}>{r.belum ? '—' : r.hk}</td>
-            <td className={tdOpen} style={tdStyle}>{r.belum ? '—' : r.pk}</td>
+            {/* Hasil Kerja, Perilaku Kerja, dan Predikat adalah indikator mandiri: tiap sel kosong menampilkan badge sendiri. */}
+            <td className={tdOpen} style={tdStyle}>{!r.belum && r.hk ? <PredBadge v={r.hk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
+            <td className={tdOpen} style={tdStyle}>{!r.belum && r.pk ? <PredBadge v={r.pk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
             <td className={tdOpen} style={tdStyle}>
-              {r.belum ? <PredBadge v={r.belum} row={r} /> : <PredBadge v={r.pred!} />}
+              {!r.belum && r.pred ? <PredBadge v={r.pred} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}
               {r.prov && <span className="ml-[6px] whitespace-nowrap text-[#65696c]" style={sub}>Belum final</span>}
             </td>
           </tr>
@@ -555,22 +610,16 @@ function KinerjaTabel() {
   };
 
   return (
-    <div className={layout === 2 ? 'mx-[16px] mb-[16px] -mt-[12px] rounded-[6px] border border-[#cfd2d4]' : 'px-[16px] pb-[16px]'}>
-      <div className={`flex items-center justify-between gap-[12px] flex-wrap ${layout === 2 ? 'border-b border-[#cfd2d4] p-[16px]' : 'mb-[12px]'}`}>
-        {layout === 2 ? (
-          <div>
-            <h3 className="text-[#2f3031]" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
-            {showSync && (
-              <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-                Dicek dari eSKP: {syncAt}
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-            {showSync ? <>Dicek dari eSKP: {syncAt}</> : 'Belum pernah diperbarui dari eSKP'}
-          </div>
-        )}
+    <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[6px] border border-[#cfd2d4]">
+      <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-[#cfd2d4] p-[16px]">
+        <div>
+          <h3 className="text-[#2f3031]" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
+          {showSync && (
+            <div className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+              Dicek dari eSKP: {syncAt}
+            </div>
+          )}
+        </div>
         <div className="flex items-center gap-[8px]">
         {scenario !== 'loading' && (
           <button
@@ -608,11 +657,11 @@ function KinerjaTabel() {
                 <Fragment key={y}>
                   <tr onClick={() => toggle(y)} className={`cursor-pointer ${isOpen ? '' : 'hover:bg-[#fafafa]'}`}>
                     <td className={td} style={{ ...tdStyle, fontWeight: isOpen ? 600 : 400 }}>{y}</td>
-                    <td className={td} style={tdStyle}>{a ? a.hk : '—'}</td>
-                    <td className={td} style={tdStyle}>{a ? a.pk : '—'}</td>
+                    <td className={td} style={tdStyle}>{a?.hk ? <PredBadge v={a.hk} /> : <PredBadge v="Belum tersedia" />}</td>
+                    <td className={td} style={tdStyle}>{a?.pk ? <PredBadge v={a.pk} /> : <PredBadge v="Belum tersedia" />}</td>
                     <td className={td} style={tdStyle}>
                       <div className="flex items-center justify-between gap-[12px]">
-                        <PredBadge v={a ? a.pred : 'Belum tersedia'} />
+                        <PredBadge v={a?.pred ?? 'Belum tersedia'} />
                         <button
                           onClick={(e) => { e.stopPropagation(); toggle(y); }}
                           aria-expanded={isOpen}
@@ -631,7 +680,7 @@ function KinerjaTabel() {
           </tbody>
         </table>
       </div>
-      <p className={layout === 2 ? 'border-t border-[#cfd2d4] p-[16px] text-[#808489]' : 'mt-[12px] text-[#808489]'} style={{ fontSize: '14px', lineHeight: '20px' }}>
+      <p className="border-t border-[#cfd2d4] p-[16px] text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>
         Predikat tahunan merupakan evaluasi tersendiri, bukan gabungan nilai Triwulan 1–4.
       </p>
     </div>
@@ -652,20 +701,6 @@ function ProtoBar({ admin, setAdmin }: { admin: boolean; setAdmin: (v: boolean) 
       <label className="inline-flex items-center gap-[6px] cursor-pointer" style={{ fontSize: '12px', lineHeight: '16px' }}>
         <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} /> Tampilan admin, lihat pegawai lain (EK-5.8)
       </label>
-    </div>
-  );
-}
-
-function LayoutSwitch() {
-  const { layout, setLayout } = useContext(ProtoCtx);
-  return (
-    <div role="group" aria-label="Pilihan tata letak prototipe" className="fixed bottom-[16px] right-[16px] z-[90] flex items-center gap-[8px] rounded-[8px] border border-dashed border-[#828282] bg-[#f1f1f1] px-[12px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
-      <span style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}>Tata letak</span>
-      {([[1, 'Opsi 1'], [2, 'Opsi 2']] as const).map(([v, l]) => (
-        <button key={v} onClick={() => setLayout(v)} aria-pressed={layout === v}
-          className={`rounded-[4px] border px-[10px] py-[4px] ${layout === v ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#828282] bg-white text-[#2f3031]'}`}
-          style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}>{l}</button>
-      ))}
     </div>
   );
 }
@@ -737,14 +772,13 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
   const [tab, setTab] = useState(0);
   const [hidden, setHidden] = useState(true);
   const [showNotice, setShowNotice] = useState(true);
-  const [scenario, setScenario] = useState('normal');
+  const [scenario, setScenario] = useState('sebagian');
   const [adminOn, setAdminOn] = useState(false);
-  const [layout, setLayout] = useState<LayoutOpt>(2);
   const onPenilaian = tabs[tab] === 'Penilaian';
   const admin = adminOn && onPenilaian;
 
   return (
-    <ProtoCtx.Provider value={{ scenario, setScenario, layout, setLayout }}>
+    <ProtoCtx.Provider value={{ scenario, setScenario }}>
     <KepegawaianLayout topBar={onPenilaian ? <ProtoBar admin={adminOn} setAdmin={setAdminOn} /> : undefined}>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
@@ -852,7 +886,6 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         </div>
       </div>
     </KepegawaianLayout>
-    {onPenilaian && <LayoutSwitch />}
     </ProtoCtx.Provider>
   );
 }
