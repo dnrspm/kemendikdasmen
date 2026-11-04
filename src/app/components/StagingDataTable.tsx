@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+import { Badge } from 'seragam-design-system';
 import { Search, ChevronDown, ChevronLeft, ChevronRight, SearchX, Eye, MoreVertical } from 'lucide-react';
 
 export type Column = { key: string; label: string; width?: string };
@@ -111,10 +112,10 @@ export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
   </div>
 );
 
-export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => {
-  const t = { green: ['var(--sd-badge-success)', 'var(--sd-gray-90)'], red: ['#fbd5d5', '#a11d1d'], blue: ['var(--sd-badge-success)', 'var(--sd-gray-90)'] }[tone];
-  return <span className="inline-block rounded-[8px] px-[8px] py-[2px]" style={{ background: t[0], color: t[1], fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>{children}</span>;
-};
+/** Badge status di tabel: memakai komponen Badge Seragam (pill 2x8, 13/20 semibold). */
+export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => (
+  <Badge tone={tone === 'red' ? 'red' : 'green'}>{children}</Badge>
+);
 
 export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-sd-gray-80" /></button>;
 export const MoreAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Aksi" onClick={onClick}><MoreVertical className="size-[18px] text-sd-gray-80" /></button>;
