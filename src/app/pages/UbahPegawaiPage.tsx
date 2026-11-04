@@ -122,13 +122,13 @@ const TH = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
 function Modal({ title, wide, onClose, children, footer }: { title: string; wide?: boolean; onClose: () => void; children: ReactNode; footer: ReactNode }) {
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[12px] w-full ${wide ? 'max-w-[760px]' : 'max-w-[640px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
-        <div className="flex items-center justify-between gap-[16px] px-[24px] py-[14px] border-b border-[#e4e4e4]">
+      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
+        <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
           <h2 className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
         </div>
         <div className="overflow-y-auto bg-[#f7f7f7] px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
-        <div className="flex justify-end gap-[8px] px-[24px] py-[12px] border-t border-[#e4e4e4] bg-white">{footer}</div>
+        <div className="flex justify-end gap-[8px] px-[20px] py-[16px] border-t border-[#D9DBDD] bg-white">{footer}</div>
       </div>
     </div>
   );

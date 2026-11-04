@@ -253,8 +253,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between gap-[16px] px-[24px] py-[14px] border-b border-[#e4e4e4]">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
           <h2 className="text-[#2f3031]" style={HEADING}>Detail Usulan Perubahan</h2>
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
         </div>
@@ -323,7 +323,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-[12px] px-[24px] py-[12px] border-t border-[#e4e4e4] bg-white">
+        <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-[#D9DBDD] bg-white">
           <button onClick={onClose} className={buttonClass('outline', 'lg')} style={btnText}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
           <div className="flex gap-[8px]">
             {canRetry && (
