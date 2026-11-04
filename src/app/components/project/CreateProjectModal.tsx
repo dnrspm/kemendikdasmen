@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState, FormEvent } from 'react';
 import { X, Calendar } from 'lucide-react';
 import { Epic, ProgramPriority, EpicStatus } from '@/app/data/projectManagementData';
@@ -183,14 +184,14 @@ export function CreateProjectModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-[16px] py-[8px] border border-sd-gray-50 text-sd-gray-90 rounded-[4px] font-[var(--font-weight-medium)] hover:bg-sd-badge-neutral transition-colors"
+              className={buttonClass('secondary', 'md')}
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={!isFormValid}
-              className="px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[4px] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:opacity-50"
+              className={buttonClass('ultimate', 'md')}
             >
               Tambah Proyek Pendukung
             </button>

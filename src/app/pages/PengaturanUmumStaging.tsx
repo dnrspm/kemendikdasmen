@@ -1,4 +1,4 @@
-import { Tabs as SdTabs } from 'seragam-design-system';
+import { Tabs as SdTabs, buttonClass } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Home, Settings, Bell, Info, Image as ImageIcon, ChevronUp, ChevronDown, ArrowLeftCircle, Plus, Trash2 } from 'lucide-react';
@@ -73,7 +73,7 @@ function Page({ title, subtitle, action, children }: { title: string; subtitle: 
 }
 
 const DarkButton = ({ children }: { children: ReactNode }) => (
-  <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+  <button className={buttonClass('primary', 'md')}>
     <Plus className="size-[16px]" /> {children}
   </button>
 );

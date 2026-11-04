@@ -1,5 +1,5 @@
 import { StagingDataTable, MoreAction } from '@/app/components/StagingDataTable';
-import { Button } from 'seragam-design-system';
+import { Button, buttonClass } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { Plus, MoreVertical, ChevronLeft, ChevronRight, ChevronDown, ChevronRight as Caret } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -151,7 +151,7 @@ export function UnitKerjaPage() {
     <Shell title="Data Unit Kerja" subtitle="Kelola data unit kerja yang digunakan dalam sistem">
       <div className="flex items-center justify-between mb-[12px]">
         <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Klik kanan pada unit kerja untuk menampilkan menu</p>
-        <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+        <button className={buttonClass('primary', 'md')}>
           <Plus className="size-[16px]" /> Tambah
         </button>
       </div>

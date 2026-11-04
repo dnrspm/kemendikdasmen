@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { ChevronDown, Upload, X, ChevronRight, Home } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Header } from "@/app/components/Header";
@@ -233,7 +234,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
               <div className="flex justify-end pt-[8px]">
                 <button
                   type="submit"
-                  className="px-[32px] py-[12px] bg-primary text-primary-foreground rounded-[var(--radius-button)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+                  className={buttonClass('ultimate', 'lg')}
                 >
                   Kirim
                 </button>

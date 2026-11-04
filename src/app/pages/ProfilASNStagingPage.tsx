@@ -1,4 +1,4 @@
-import { Tabs as SdTabs } from 'seragam-design-system';
+import { Tabs as SdTabs, buttonClass } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { ArrowLeft, Download, Filter, ChevronDown } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, LabelList, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
@@ -220,7 +220,7 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
           <p className="text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Lihat statistik dan profil ASN Kemendikdasmen secara agregat</p>
           <div className="flex items-end justify-between mt-[16px]">
             <SdTabs items={tabs} active={tab} onChange={setTab} className="border-b-0" />
-            <button className="mb-[8px] bg-sd-gray-90 text-white rounded-[4px] px-[16px] py-[10px] flex items-center gap-[8px] font-semibold">
+            <button className={`${buttonClass('primary', 'md')} mb-[8px]`}>
               <Download className="size-[16px]" /> Export
             </button>
           </div>
@@ -234,7 +234,7 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
             const [k, v] = f.split(': ');
             return <span key={f} className="rounded-full border border-sd-gray-90 px-[10px] py-[1px]"><b>{k}:</b> {v}</span>;
           })}
-          <button className="ml-auto border border-sd-blue-70 text-sd-blue-70 rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
+          <button className={`${buttonClass('secondary', 'sm')} ml-auto`}>
             Ubah filter <ChevronDown className="size-[14px]" />
           </button>
         </div>

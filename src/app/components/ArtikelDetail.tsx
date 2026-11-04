@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { Header } from "@/app/components/Header";
 import { ChevronRight, ChevronDown, ChevronUp, Star, Bookmark, Clock, Eye, ThumbsUp, MessageSquare, Share2 } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -289,7 +290,7 @@ export function ArtikelDetail({
                   </span>
                 </button>
                 
-                <button className="flex items-center gap-[8px] px-[16px] py-[8px] rounded-[var(--radius-button)] border border-border bg-card hover:bg-muted transition-colors">
+                <button className={buttonClass('secondary', 'md')}>
                   <Share2 className="w-[16px] h-[16px]" />
                   <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)]">Bagikan</span>
                 </button>
@@ -409,7 +410,7 @@ export function ArtikelDetail({
                     <button
                       onClick={handleFeedbackSubmit}
                       disabled={!feedback.trim()}
-                      className="px-[20px] py-[10px] bg-primary text-primary-foreground rounded-[var(--radius-button)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                      className={buttonClass('ultimate', 'md')}
                     >
                       Kirim Feedback
                     </button>

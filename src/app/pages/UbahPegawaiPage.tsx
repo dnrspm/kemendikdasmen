@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
-import { fieldClass, Tabs, ChipGroup, Badge, buttonClass, buttonStyle } from 'seragam-design-system';
+import { fieldClass, Tabs, ChipGroup, Badge, buttonClass } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import {
@@ -132,10 +132,9 @@ function Modal({ title, wide, onClose, children, footer }: { title: string; wide
   );
 }
 
-const btnText = buttonStyle;
-const btnGhost = buttonClass('outline', 'lg');
-const btnPrimary = buttonClass('primary', 'lg');
-const btnDanger = buttonClass('danger', 'lg');
+const btnGhost = buttonClass('secondary', 'lg');
+const btnPrimary = buttonClass('ultimate', 'lg');
+const btnDanger = buttonClass('destructive', 'lg');
 
 function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
   return (
@@ -181,8 +180,8 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
       wide={aksi.tipe === 'tambah'}
       onClose={onClose}
       footer={<>
-        <button onClick={onClose} className={btnGhost} style={btnText}>Batal</button>
-        <button disabled={!valid} onClick={kirim} className={jenis === 'Hapus' ? btnDanger : btnPrimary} style={btnText}>
+        <button onClick={onClose} className={btnGhost}>Batal</button>
+        <button disabled={!valid} onClick={kirim} className={jenis === 'Hapus' ? btnDanger : btnPrimary}>
           {jenis === 'Tambah' ? 'Ajukan Penambahan' : jenis === 'Hapus' ? 'Ajukan Penghapusan' : 'Ajukan Perubahan'}
         </button>
       </>}
@@ -254,8 +253,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
 /* ---------- Tab ---------- */
 /* Gaya pill/chip dan tombol mengikuti staging dan sistem ini. */
-const outlineBtn = buttonClass('outline', 'md');
-const outlineTxt = buttonStyle;
+const outlineBtn = buttonClass('secondary', 'md');
 
 const Diperbarui = () => (
   <p className="text-sd-gray-60" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
@@ -303,7 +301,7 @@ function KartuKeluarga({ t, onAksi }: { t: Tabel; onAksi: (a: Aksi) => void }) {
     <section className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-sd-badge-neutral">
         <h3 className="text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{t.judul}</h3>
-        <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn} style={outlineTxt}><UserPlus className="size-[18px]" /> Tambah</button>
+        <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn}><UserPlus className="size-[18px]" /> Tambah</button>
       </div>
       <TabelEdit t={t} onAksi={onAksi} pagination={false} menu />
     </section>
@@ -320,8 +318,8 @@ function TabSub({ tabel, onAksi, siasn = true, editable = true }: { tabel: Tabel
       <div className="flex items-center justify-between gap-[8px] flex-wrap">
         <Diperbarui />
         <div className="flex gap-[8px]">
-          {siasn && <button onClick={() => toast.info('Prototipe: data SIASN tidak ditampilkan.')} className={outlineBtn} style={outlineTxt}><Eye className="size-[18px]" /> Lihat Data SIASN</button>}
-          {editable && t.tambah && <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn} style={outlineTxt}><Plus className="size-[18px]" /> Tambah</button>}
+          {siasn && <button onClick={() => toast.info('Prototipe: data SIASN tidak ditampilkan.')} className={outlineBtn}><Eye className="size-[18px]" /> Lihat Data SIASN</button>}
+          {editable && t.tambah && <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn}><Plus className="size-[18px]" /> Tambah</button>}
         </div>
       </div>
       <div className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">

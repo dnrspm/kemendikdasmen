@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { X, Calendar as CalendarIcon, AlertCircle } from 'lucide-react';
@@ -305,13 +306,13 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
             <button
               type="button"
               onClick={handleClose}
-              className="px-[20px] py-[10px] border border-sd-gray-50 text-sd-gray-90 rounded-[4px] font-[var(--font-weight-medium)] hover:bg-sd-gray-0 transition-colors"
+              className={buttonClass('secondary', 'md')}
             >
               Batal
             </button>
             <button
               type="submit"
-              className="px-[20px] py-[10px] bg-primary text-primary-foreground rounded-[4px] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+              className={buttonClass('ultimate', 'md')}
             >
               Buat Tugas
             </button>

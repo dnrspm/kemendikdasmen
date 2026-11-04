@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MoreVertical } from 'lucide-react';
-import { buttonClass, buttonStyle } from 'seragam-design-system';
+import { buttonClass } from 'seragam-design-system';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu';
 
 export type AksiItem = { label: string; onClick: () => void; icon?: ReactNode; danger?: boolean };
@@ -17,8 +17,7 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
           <button
             key={a.label}
             onClick={a.onClick}
-            className={buttonClass(a.danger ? 'danger-outline' : 'outline', 'sm')}
-            style={buttonStyle}
+            className={buttonClass(a.danger ? 'danger-outline' : 'secondary', 'sm')}
           >
             {a.label}
           </button>

@@ -1,4 +1,4 @@
-import { Tabs, Checkbox, ChipGroup, Banner, buttonClass, buttonStyle } from 'seragam-design-system';
+import { Tabs, Checkbox, ChipGroup, Banner, buttonClass } from 'seragam-design-system';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -91,8 +91,7 @@ function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: b
         <span className="text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
         <button
           onClick={() => to && navigate(to)}
-          className={buttonClass('outline', 'md')}
-          style={buttonStyle}
+          className={buttonClass('secondary', 'md')}
         >
           <UserPlus className="size-[20px]" /> Tambah
         </button>
@@ -649,8 +648,7 @@ function KinerjaTabel() {
         {scenario !== 'loading' && (
           <button
             onClick={() => setShowChart(true)}
-            className={buttonClass('outline', 'md')}
-            style={buttonStyle}
+            className={buttonClass('secondary', 'md')}
           >
             <ChartLine className="size-[18px]" />
             Lihat Grafik
@@ -660,8 +658,7 @@ function KinerjaTabel() {
           onClick={getData}
           disabled={fetching}
           title="Ambil data penilaian NIP ini dari eSKP. Data baru akan menimpa data lama."
-          className={buttonClass('outline', 'md')}
-          style={buttonStyle}
+          className={buttonClass('secondary', 'md')}
         >
           <RefreshCw className={`size-[18px] ${fetching ? 'animate-spin' : ''}`} />
           {fetching ? 'Mengambil Data…' : 'Perbarui Data'}
@@ -772,7 +769,7 @@ function SubTabContent({ tab }: { tab: string }) {
       <div className="flex items-center justify-between pr-[16px]">
         <Updated />
         {d.tambah && (
-          <button className="flex items-center gap-[8px] rounded-[4px] bg-sd-gray-90 px-[16px] py-[8px] text-white" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+          <button className={buttonClass('primary', 'md')}>
             <Plus className="size-[20px]" /> Tambah
           </button>
         )}
@@ -868,7 +865,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-sd-gray-80" /> : <Eye className="size-[20px] text-sd-gray-80" />}
                     </button>
-                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className={buttonClass('primary', 'md')} style={buttonStyle}>
+                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className={buttonClass('ultimate', 'md')}>
                       <FilePenLine className="size-[16px]" /> Ubah Data
                     </button>
                   </div>

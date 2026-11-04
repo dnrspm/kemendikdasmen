@@ -3,7 +3,7 @@ import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, P
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { fieldClass, Tabs, Badge, Banner, buttonClass, buttonStyle } from 'seragam-design-system';
+import { fieldClass, Tabs, Badge, Banner, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
@@ -233,7 +233,6 @@ function PerubahanPanel({ u }: { u: Usulan }) {
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
 
-const btnText = buttonStyle;
 
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
@@ -321,27 +320,27 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
         </div>
 
         <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">
-          <button onClick={onClose} className={buttonClass('outline', 'lg')} style={btnText}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
+          <button onClick={onClose} className={buttonClass('secondary', 'lg')}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
           <div className="flex gap-[8px]">
             {canRetry && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={buttonClass('primary', 'lg')} style={btnText}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={buttonClass('ultimate', 'lg')}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
             )}
             {u.status === 'disetujui-komite' && role === 'admin' && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Jalankan Sinkronisasi SIASN</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={buttonClass('ultimate', 'lg')}>Jalankan Sinkronisasi SIASN</button>
             )}
             {u.status === 'berhasil-siasn' && role === 'admin' && (
-              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Simpan ke Portal</button>
+              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className={buttonClass('ultimate', 'lg')}>Simpan ke Portal</button>
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('danger-outline', 'lg')} style={btnText}>Tolak</button>
-                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('danger-outline', 'lg')}>Tolak</button>
+                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('danger-outline', 'lg')} style={btnText}>Tolak</button>
-                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('danger-outline', 'lg')}>Tolak</button>
+                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
           </div>
@@ -371,7 +370,7 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
     jenis: u.jenis,
     asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
-    aksi: <button onClick={() => onOpen(u)} className={buttonClass('outline', 'sm')} style={buttonStyle}>Cek Detail</button>,
+    aksi: <button onClick={() => onOpen(u)} className={buttonClass('secondary', 'sm')}>Cek Detail</button>,
   });
   return { cols, toRow };
 }

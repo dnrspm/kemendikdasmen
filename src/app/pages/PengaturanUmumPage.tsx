@@ -1,4 +1,4 @@
-import { Tabs as SdTabs, Checkbox } from 'seragam-design-system';
+import { Tabs as SdTabs, Checkbox, buttonClass } from 'seragam-design-system';
 import { useState } from 'react';
 import { Header } from '@/app/components/Header';
 import {
@@ -751,8 +751,7 @@ function PemberitahuanUmumContent({
             <div className="flex items-center justify-between px-[24px] py-[16px]">
               <button
                 onClick={handleCancel}
-                className="px-[20px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius-button)] text-foreground hover:bg-muted/50 transition-colors bg-card"
-                style={{ fontSize: 'var(--text-sm)' }}
+                className={buttonClass('secondary', 'md')}
               >
                 Batal
               </button>
@@ -895,9 +894,9 @@ function RoleContent() {
       </div>
 
       <div className="flex items-center justify-end mb-[24px]">
-        <button className="flex items-center gap-[6px] px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[var(--radius-button)] hover:opacity-90 transition-opacity">
-          <Plus style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
-          <span style={{ fontSize: 'var(--text-sm)' }}>Tambah Role</span>
+        <button className={buttonClass('ultimate', 'md')}>
+          <Plus className="size-[18px]" />
+          Tambah Role
         </button>
       </div>
 
@@ -966,9 +965,9 @@ function UserContent() {
             style={{ fontSize: 'var(--text-sm)' }}
           />
         </div>
-        <button className="flex items-center gap-[6px] px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[var(--radius-button)] hover:opacity-90 transition-opacity whitespace-nowrap">
-          <Plus style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
-          <span style={{ fontSize: 'var(--text-sm)' }}>Tambah User</span>
+        <button className={buttonClass('ultimate', 'md')}>
+          <Plus className="size-[18px]" />
+          Tambah User
         </button>
       </div>
 
@@ -1291,20 +1290,16 @@ function BannerUtamaContent() {
               {activeTab === 'Aktif' && aktifBanners.length > 1 && (
                 <button
                   onClick={enterReorderMode}
-                  className="flex items-center gap-[6px] px-[16px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius-button)] text-foreground hover:bg-muted/50 transition-colors bg-card whitespace-nowrap"
+                  className={buttonClass('secondary', 'md')}
                 >
                   <ArrowUpDown style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
-                  <span style={{ fontSize: 'var(--text-sm)' }}>Atur Urutan</span>
+                  Atur Urutan
                 </button>
               )}
               <button
                 onClick={handleOpenAdd}
                 disabled={aktifBanners.length >= 5}
-                className={`flex items-center gap-[6px] px-[16px] py-[8px] rounded-[var(--radius-button)] transition-opacity whitespace-nowrap ${
-                  aktifBanners.length >= 5
-                    ? 'bg-muted text-muted-foreground cursor-not-allowed'
-                    : 'bg-primary text-primary-foreground hover:opacity-90'
-                }`}
+                className={buttonClass('ultimate', 'md')}
               >
                 <Plus style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
                 <span style={{ fontSize: 'var(--text-sm)' }}>Tambah Banner</span>
@@ -1314,10 +1309,10 @@ function BannerUtamaContent() {
             <>
               <button
                 onClick={cancelReorder}
-                className="flex items-center gap-[6px] px-[16px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius-button)] text-foreground hover:bg-muted/50 transition-colors bg-card whitespace-nowrap"
+                className={buttonClass('secondary', 'md')}
               >
                 <X style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
-                <span style={{ fontSize: 'var(--text-sm)' }}>Batal</span>
+                Batal
               </button>
               <button
                 onClick={confirmReorder}
@@ -1736,8 +1731,7 @@ function BannerUtamaContent() {
             <div className="flex items-center justify-between px-[24px] py-[16px] sticky bottom-0 bg-card">
               <button
                 onClick={handleCancel}
-                className="px-[20px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius-button)] text-foreground hover:bg-muted/50 transition-colors bg-card"
-                style={{ fontSize: 'var(--text-sm)' }}
+                className={buttonClass('secondary', 'md')}
               >
                 Batal
               </button>
@@ -1927,10 +1921,10 @@ function InformasiSistemContent() {
         </p>
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-[6px] px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[var(--radius-button)] hover:opacity-90 transition-opacity whitespace-nowrap"
+          className={buttonClass('ultimate', 'md')}
         >
-          <Plus style={{ width: 'var(--text-base)', height: 'var(--text-base)' }} />
-          <span style={{ fontSize: 'var(--text-sm)' }}>Tambah Informasi</span>
+          <Plus className="size-[18px]" />
+          Tambah Informasi
         </button>
       </div>
 
@@ -2252,8 +2246,7 @@ function InformasiSistemContent() {
             <div className="flex items-center justify-end gap-[8px] px-[24px] py-[20px]">
               <button
                 onClick={handleCancel}
-                className="px-[16px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius-button)] text-foreground hover:bg-muted/50 transition-colors bg-card"
-                style={{ fontSize: 'var(--text-sm)' }}
+                className={buttonClass('secondary', 'md')}
               >
                 Batal
               </button>

@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState } from 'react';
 import { X, User, Calendar, Clock, MessageSquare, Activity, FolderKanban, Building2, Upload, FileText } from 'lucide-react';
 import { Task, getCommentsByTaskId, getActivityLogsByEntityId, epics, biros, timKerjas } from '@/app/data/projectManagementData';
@@ -252,7 +253,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       </button>
                       <button
                         onClick={handleAddNote}
-                        className="px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+                        className={buttonClass('ultimate', 'md')}
                       >
                         Kirim Catatan
                       </button>
@@ -313,7 +314,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   </p>
                   <button
                     onClick={handleApproveProposal}
-                    className="w-full px-[16px] py-[10px] bg-primary text-primary-foreground rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+                    className={buttonClass('ultimate', 'md', true)}
                   >
                     Setujui Pengusulan
                   </button>
@@ -354,14 +355,14 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                         )}
                       </div>
                     </div>
-                    <button className="mt-[12px] w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90 hover:bg-sd-gray-0 transition-colors">
+                    <button className={`${buttonClass('secondary', 'md', true)} mt-[12px]`}>
                       Unduh File
                     </button>
                   </div>
 
                   <button
                     onClick={handleApproveReview}
-                    className="w-full px-[16px] py-[10px] bg-sd-success-border text-white rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+                    className={buttonClass('ultimate', 'md', true)}
                   >
                     Setujui & Tandai Selesai
                   </button>
@@ -582,7 +583,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               <button
                 onClick={handleUploadSubmit}
                 disabled={!uploadedFile}
-                className="px-[16px] py-[8px] bg-primary text-primary-foreground rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className={buttonClass('ultimate', 'md')}
               >
                 Unggah & Ubah Status
               </button>

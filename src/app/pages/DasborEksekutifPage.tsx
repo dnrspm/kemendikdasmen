@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { Home, TrendingUp, ChevronDown, Filter, TriangleAlert, SearchX, ArrowLeftCircle, Info } from 'lucide-react';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
@@ -112,7 +113,7 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
             {[['Unit Kerja', 'Seluruh'], ['Jabatan', 'Seluruh'], ['Tahun', '2026']].map(([k, v]) => (
               <span key={k} className="rounded-full border border-sd-gray-90 px-[10px] py-[1px]"><b>{k}:</b> {v}</span>
             ))}
-            <button className="ml-auto border border-sd-blue-70 text-sd-blue-70 rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
+            <button className={`${buttonClass('secondary', 'sm')} ml-auto`}>
               Ubah filter <ChevronDown className="size-[14px]" />
             </button>
           </div>

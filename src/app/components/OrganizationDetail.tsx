@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState } from 'react';
 import {
   ChevronRight,
@@ -198,7 +199,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-[12px] mt-[24px]">
                 <button
-                  className="flex items-center gap-[8px] px-[20px] py-[12px] bg-primary text-primary-foreground rounded-[4px] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity"
+                  className={buttonClass('ultimate', 'lg')}
                   onClick={() => onNavigateToAnalytics?.(organization.id)}
                 >
                   <BarChart3 className="w-[20px] h-[20px]" />

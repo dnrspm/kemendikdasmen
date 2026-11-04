@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { Radio } from 'seragam-design-system';
+import { Radio, buttonClass } from 'seragam-design-system';
 import { ArrowLeft, Calendar, Paperclip, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
@@ -86,7 +86,7 @@ export function FileField({ label, hint, required }: { label: string; hint: stri
           <Paperclip className="size-[16px]" /> Pilih File
           <input type="file" className="hidden" />
         </label>
-        <button type="button" className="border border-sd-blue-70 text-sd-blue-70 rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: '16px', lineHeight: '24px' }}>Unggah</button>
+        <button type="button" className={buttonClass('secondary', 'md')}>Unggah</button>
       </div>
     </div>
   );
@@ -95,10 +95,10 @@ export function FileField({ label, hint, required }: { label: string; hint: stri
 export function FormActions({ primary, onCancel, primaryDisabled, onPrimary }: { primary: string; onCancel: () => void; primaryDisabled?: boolean; onPrimary?: () => void }) {
   return (
     <div className="flex items-center gap-[10px] pt-[4px] pb-[24px]">
-      <button type="button" disabled={primaryDisabled} onClick={onPrimary} className={`rounded-[4px] px-[16px] py-[8px] font-semibold ${primaryDisabled ? '' : 'text-white'} ${primaryDisabled ? 'bg-sd-modal-border text-sd-gray-60 cursor-not-allowed' : 'bg-sd-gray-90'}`} style={{ fontSize: '16px', lineHeight: '24px' }}>
+      <button type="button" disabled={primaryDisabled} onClick={onPrimary} className={buttonClass('primary', 'md')}>
         {primary}
       </button>
-      <button type="button" onClick={onCancel} className="rounded-[4px] border border-sd-gray-50 px-[16px] py-[8px] font-semibold bg-white" style={{ fontSize: '16px', lineHeight: '24px' }}>Batal</button>
+      <button type="button" onClick={onCancel} className={buttonClass('secondary', 'md')}>Batal</button>
     </div>
   );
 }

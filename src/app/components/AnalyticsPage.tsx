@@ -1,3 +1,4 @@
+import { buttonClass } from 'seragam-design-system';
 import { useState } from 'react';
 import {
   ChevronRight,
@@ -112,11 +113,11 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
               </p>
             </div>
             <div className="flex gap-[12px]">
-              <button className="flex items-center gap-[8px] px-[16px] py-[10px] bg-white border border-sd-gray-50 text-foreground rounded-[4px] font-[var(--font-weight-medium)] hover:bg-muted transition-colors">
+              <button className={buttonClass('secondary', 'md')}>
                 <Filter className="w-[18px] h-[18px]" />
                 <span>Filter</span>
               </button>
-              <button className="flex items-center gap-[8px] px-[16px] py-[10px] bg-primary text-primary-foreground rounded-[4px] font-[var(--font-weight-medium)] hover:opacity-90 transition-opacity">
+              <button className={buttonClass('ultimate', 'md')}>
                 <Download className="w-[18px] h-[18px]" />
                 <span>Export</span>
               </button>
