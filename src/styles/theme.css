@@ -200,16 +200,13 @@ label {
   line-height: 1.5;
 }
 
-button {
-  font-family: 'Inter', sans-serif;
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.5;
-}
-
-/* Radius default tombol ada di layer base agar kelas rounded-* (mis. Chip pill) tidak tertimpa. */
+/* Default tombol ada di layer base agar kelas Tailwind (rounded-*, text-*, font-*, leading-*) pada Button DS tidak tertimpa. */
 @layer base {
   button {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
     border-radius: var(--radius-button);
   }
 }
