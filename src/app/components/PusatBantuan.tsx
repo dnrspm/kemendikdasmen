@@ -60,7 +60,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
       <Header onLogoClick={onBack} />
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#0B5FEF] to-[#4C8DF6] text-white">
+      <div className="bg-gradient-to-r from-[#0954D9] to-[#4C8DF6] text-white">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[48px]">
           <div className="max-w-[800px] mx-auto text-center flex flex-col gap-[16px]">
             <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)]">
@@ -102,11 +102,11 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
       {/* Form Section */}
       <div className="max-w-[1440px] mx-auto px-[24px] py-[40px]">
         <div className="max-w-[800px] mx-auto">
-          <div className="bg-white rounded-[var(--radius-card)] border border-[#c7c7c7] p-[32px]">
+          <div className="bg-white rounded-[var(--radius-card)] border border-[#ADADAD] p-[32px]">
             <form onSubmit={handleSubmit} className="flex flex-col gap-[24px]">
               {/* Jenis Field */}
               <div className="flex flex-col gap-[8px]">
-                <label htmlFor="jenis" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <label htmlFor="jenis" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Jenis <span className="text-destructive">*</span>
                 </label>
                 <div className="relative">
@@ -115,7 +115,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                     required
                     value={formData.jenis}
                     onChange={(e) => setFormData({ ...formData, jenis: e.target.value })}
-                    className="w-full h-[48px] px-[16px] pr-[40px] border border-[#808489] rounded-[var(--radius)] text-[var(--text-base)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
+                    className="w-full h-[48px] px-[16px] pr-[40px] border border-[#828282] rounded-[var(--radius)] text-[var(--text-base)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
                   >
                     <option value="">Pilih jenis</option>
                     {jenisOptions.map((option) => (
@@ -124,13 +124,13 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489] pointer-events-none" />
+                  <ChevronDown className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272] pointer-events-none" />
                 </div>
               </div>
 
               {/* Kategori Field */}
               <div className="flex flex-col gap-[8px]">
-                <label htmlFor="kategori" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <label htmlFor="kategori" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Layanan Kepegawaian <span className="text-destructive">*</span>
                 </label>
                 <div className="relative">
@@ -139,7 +139,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                     required
                     value={formData.kategori}
                     onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                    className="w-full h-[48px] px-[16px] pr-[40px] border border-[#808489] rounded-[var(--radius)] text-[var(--text-base)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
+                    className="w-full h-[48px] px-[16px] pr-[40px] border border-[#828282] rounded-[var(--radius)] text-[var(--text-base)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
                   >
                     <option value="">Pilih kategori</option>
                     {kategoriOptions.map((option) => (
@@ -148,13 +148,13 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                       </option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489] pointer-events-none" />
+                  <ChevronDown className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272] pointer-events-none" />
                 </div>
               </div>
 
               {/* Detail Pertanyaan Field */}
               <div className="flex flex-col gap-[8px]">
-                <label htmlFor="detail" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <label htmlFor="detail" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Detail Pertanyaan <span className="text-destructive">*</span>
                 </label>
                 <textarea
@@ -164,13 +164,13 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                   value={formData.detailPertanyaan}
                   onChange={(e) => setFormData({ ...formData, detailPertanyaan: e.target.value })}
                   placeholder="Jelaskan pertanyaan, permintaan, keluhan, atau saran Anda secara detail..."
-                  className="w-full px-[16px] py-[12px] border border-[#808489] rounded-[var(--radius)] text-[var(--text-base)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] placeholder:text-[#808489] resize-none"
+                  className="w-full px-[16px] py-[12px] border border-[#828282] rounded-[var(--radius)] text-[var(--text-base)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] placeholder:text-[#727272] resize-none"
                 />
               </div>
 
               {/* File Upload Field */}
               <div className="flex flex-col gap-[8px]">
-                <label htmlFor="file" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <label htmlFor="file" className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Lampiran (Opsional)
                 </label>
                 <p className="text-[var(--text-sm)] text-[#656a6c] leading-[1.5]">
@@ -186,7 +186,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                         </svg>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                        <span className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                           {uploadedFile.name}
                         </span>
                         <span className="text-[var(--text-sm)] text-[#656a6c]">
@@ -205,13 +205,13 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                 ) : (
                   <label
                     htmlFor="file"
-                    className="flex flex-col items-center justify-center gap-[12px] p-[32px] border-2 border-dashed border-[#808489] rounded-[var(--radius)] cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors"
+                    className="flex flex-col items-center justify-center gap-[12px] p-[32px] border-2 border-dashed border-[#828282] rounded-[var(--radius)] cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors"
                   >
                     <div className="w-[48px] h-[48px] bg-primary/10 rounded-full flex items-center justify-center">
                       <Upload className="w-[24px] h-[24px] text-primary" />
                     </div>
                     <div className="text-center">
-                      <p className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <p className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                         Klik untuk upload file
                       </p>
                       <p className="text-[var(--text-sm)] text-[#656a6c] mt-[4px]">
@@ -248,7 +248,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
               <div className="flex flex-col gap-[4px]">
-                <p className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <p className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Waktu Respons
                 </p>
                 <p className="text-[var(--text-sm)] text-[#656a6c] leading-[1.6]">

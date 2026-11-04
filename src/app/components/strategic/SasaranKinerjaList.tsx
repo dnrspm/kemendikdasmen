@@ -37,16 +37,16 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
   return (
     <div className="space-y-[24px]">
       {/* Controls */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
         <div className="flex flex-col gap-[16px]">
           <div className="relative">
-            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489]" />
+            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
             <input
               type="text"
               placeholder="Cari sasaran kinerja..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#808489] rounded-[4px] text-[var(--text-base)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#828282] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
             />
           </div>
           <div className="grid grid-cols-2 gap-[12px]">
@@ -56,7 +56,7 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
                 value="biro-osdm"
                 onChange={() => {}}
                 disabled
-                className="w-full px-[12px] py-[8px] border border-[#c7c7c7] rounded-[4px] text-[var(--text-sm)] text-[#808489] bg-[#f9f9f9] cursor-not-allowed opacity-70"
+                className="w-full px-[12px] py-[8px] border border-[#ADADAD] rounded-[4px] text-[var(--text-sm)] text-[#727272] bg-[#f9f9f9] cursor-not-allowed opacity-70"
               >
                 <option value="biro-osdm">Biro OSDM</option>
               </select>
@@ -66,7 +66,7 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
               <select
                 value={filterSasaranProgram}
                 onChange={(e) => setFilterSasaranProgram(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="all">Semua Sasaran Program</option>
                 {sasaranPrograms.map(sp => (
@@ -93,9 +93,9 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
         ))}
 
         {filteredKinerjas.length === 0 && (
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[40px] text-center">
-            <TrendingUp className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#808489]" />
-            <p className="text-[var(--text-base)] text-[#808489]">Tidak ada sasaran kinerja ditemukan</p>
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[40px] text-center">
+            <TrendingUp className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#727272]" />
+            <p className="text-[var(--text-base)] text-[#727272]">Tidak ada sasaran kinerja ditemukan</p>
           </div>
         )}
       </div>
@@ -106,13 +106,13 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
 function getProgressColor(percentage: number): string {
   if (percentage >= 100) return '#4CA375';
   if (percentage <= 0) return '#EDA62B';
-  return '#0B5FEF';
+  return '#0954D9';
 }
 
 function getEpicColor(status: string): string {
   if (status === 'selesai') return '#4CA375';
   if (status === 'belum_dimulai' || status === 'belum_dikerjakan') return '#EDA62B';
-  return '#0B5FEF';
+  return '#0954D9';
 }
 
 function CircularProgress({ percentage, color }: { percentage: number; color?: string }) {
@@ -155,14 +155,14 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
   };
 
   return (
-    <div className="bg-white border border-[#c7c7c7] border-solid flex flex-col gap-[24px] items-start p-[20px] rounded-[8px]">
+    <div className="bg-white border border-[#ADADAD] border-solid flex flex-col gap-[24px] items-start p-[20px] rounded-[8px]">
       {/* SK Header */}
       <div className="flex flex-col gap-[12px] w-full">
         <div className="flex flex-col gap-[6px]">
-          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#2f3031] self-start">
+          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] self-start">
             {kinerja.code}
           </span>
-          <h3 className="text-[19px] leading-[26.6px] text-[#2f3031]" style={{ fontWeight: 600 }}>
+          <h3 className="text-[19px] leading-[26.6px] text-[#323232]" style={{ fontWeight: 600 }}>
             {kinerja.name}
           </h3>
         </div>
@@ -173,7 +173,7 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
             <span className="text-[16px] text-[#656a6c]">Selesai</span>
           </div>
           <div className="flex gap-[4px] items-center">
-            <div className="w-[8px] h-[8px] rounded-full bg-[#0B5FEF] shrink-0" />
+            <div className="w-[8px] h-[8px] rounded-full bg-[#0954D9] shrink-0" />
             <span className="text-[16px] text-[#656a6c]">Sedang dikerjakan</span>
           </div>
           <div className="flex gap-[4px] items-center">
@@ -201,16 +201,16 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
                   percentage={relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0}
                   color={getProgressColor(relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0)}
                 />
-                <span className="text-[13px] text-[#2f3031] text-center">
+                <span className="text-[13px] text-[#323232] text-center">
                   Target: {ikp.target}{ikp.unit}
                 </span>
               </div>
               {/* IKK badge + title */}
               <div className="flex flex-col items-start flex-1 min-w-0">
-                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#2f3031] mb-[2px]">
+                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] mb-[2px]">
                   {ikkCode}
                 </span>
-                <p className="text-[16px] text-[#2f3031] leading-[24px]" style={{ fontWeight: 700 }}>
+                <p className="text-[16px] text-[#323232] leading-[24px]" style={{ fontWeight: 700 }}>
                   {ikp.description}
                 </p>
               </div>
@@ -225,7 +225,7 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
                 </div>
                 {/* SKP badge + description */}
                 <div className="flex flex-col items-start flex-1 min-w-0 pt-[2px]">
-                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#2f3031] mb-[6px]">
+                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] mb-[6px]">
                     SKP {kinerja.code.replace('SK', '')}.{ikpIndex + 1}.{epicIndex + 1}
                   </span>
                   {epic.description && (
@@ -237,7 +237,7 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
 
             {relatedEpics.length === 0 && (
               <div className="border-t border-[#efefef] px-[12px] py-[12px] w-full">
-                <p className="text-[14px] text-[#808489]">Belum ada SKP terkait</p>
+                <p className="text-[14px] text-[#727272]">Belum ada SKP terkait</p>
               </div>
             )}
           </div>

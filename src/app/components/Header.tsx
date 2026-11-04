@@ -73,17 +73,17 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
           <div className="relative" ref={userRef}>
             <button onClick={() => setUserOpen(!userOpen)} className="flex items-center gap-[12px] cursor-pointer hover:opacity-80 transition-opacity">
               <img alt="" src={imgTutWuri} className="size-[34px] rounded-full object-cover" />
-              <p className="hidden md:block uppercase text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+              <p className="hidden md:block uppercase text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                 AHMAD WIJAYA
               </p>
               {userOpen ? <ChevronUp className="w-[24px] h-[24px] text-[#45474A]" /> : <ChevronDown className="w-[24px] h-[24px] text-[#45474A]" />}
             </button>
             {userOpen && (
               <div className="absolute right-0 mt-[8px] w-[220px] bg-white border border-[#e4e4e4] rounded-[8px] shadow-lg p-[12px] z-50">
-                <p className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>Ahmad Wijaya</p>
-                <p className="text-[#1a5fe0]" style={{ fontSize: '12px' }}>ahmad.wijaya@kemendikdasmen.go.id</p>
-                <p className="text-[#65696c] mb-[10px]" style={{ fontSize: '11px' }}>NIP: 198704182018031001</p>
-                <button className="w-full flex items-center gap-[8px] border border-[#1a5fe0] rounded-[4px] px-[10px] py-[6px] hover:bg-[#f3f8ff]" style={{ fontSize: 'var(--text-sm)' }}>
+                <p className="font-semibold text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>Ahmad Wijaya</p>
+                <p className="text-[#0954D9]" style={{ fontSize: '12px' }}>ahmad.wijaya@kemendikdasmen.go.id</p>
+                <p className="text-[#727272] mb-[10px]" style={{ fontSize: '11px' }}>NIP: 198704182018031001</p>
+                <button className="w-full flex items-center gap-[8px] border border-[#0954D9] rounded-[4px] px-[10px] py-[6px] hover:bg-[#f3f8ff]" style={{ fontSize: 'var(--text-sm)' }}>
                   <LogOut className="size-[16px]" /> Keluar
                 </button>
               </div>

@@ -20,7 +20,7 @@ export function KartuPegawaiPage() {
         <div className="flex flex-col sm:flex-row gap-[20px] p-[20px]">
           <div className="sm:w-[170px] shrink-0 flex flex-col items-center text-center">
             <img alt="" src={imgTutWuri} className="size-[130px] rounded-full object-cover" />
-            <p className="mt-[12px] font-semibold uppercase text-[#2f3031]" style={{ fontSize: 'var(--text-base)' }}>Prof. Dr. Ahmad Wijaya M.M.</p>
+            <p className="mt-[12px] font-semibold uppercase text-[#323232]" style={{ fontSize: 'var(--text-base)' }}>Prof. Dr. Ahmad Wijaya M.M.</p>
           </div>
           <table className="flex-1 text-left" style={{ fontSize: 'var(--text-sm)' }}>
             <tbody>

@@ -97,26 +97,26 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                 <div className="text-[var(--text-sm)] mb-[8px] uppercase tracking-wide opacity-90">Total Pegawai</div>
                 <div className="text-[36px] font-[var(--font-weight-bold)]">{totalASN.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Total PNS</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{totalPNS.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{totalPNS.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Total PPPK</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{totalPPPK.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{totalPPPK.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">PPPK Paruh Waktu</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{pppkParuhWaktu.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{pppkParuhWaktu.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Non ASN</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{nonASN.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{nonASN.toLocaleString()}</div>
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Komposisi Jenis Pegawai</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Komposisi Jenis Pegawai</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
                     <Pie data={komposisiPegawaiData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" label>
@@ -134,8 +134,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   ))}
                 </div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Distribusi Usia</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Distribusi Usia</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={distribusiUsiaData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -148,8 +148,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Komposisi Jenis Kelamin</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Komposisi Jenis Kelamin</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
                     <Pie data={jenisKelaminData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" label>
@@ -167,8 +167,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   ))}
                 </div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Distribusi Masa Kerja</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Distribusi Masa Kerja</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={masaKerjaData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -181,8 +181,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Angkatan ASN Berdasarkan TMT CPNS</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Angkatan ASN Berdasarkan TMT CPNS</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={angkatanASNData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -193,9 +193,9 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                 <div className="flex items-center justify-between mb-[16px]">
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Proyeksi Pensiun 5 Thn</h3>
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Proyeksi Pensiun 5 Thn</h3>
                   <div className="flex items-center gap-[6px] bg-amber-100 px-[8px] py-[4px] rounded-[4px]">
                     <AlertTriangle className="w-[14px] h-[14px] text-amber-600" />
                     <span className="text-[11px] text-amber-800">Mengabaikan filter jabatan</span>
@@ -221,19 +221,19 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
             <p className="text-[var(--text-sm)] text-[#656a6c]">Menampilkan gambaran jenjang pendidikan terakhir pegawai Kemendikdasmen secara agregat.</p>
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-[20px]">
               <div className="space-y-[20px]">
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                   <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Jenjang Terbanyak</div>
-                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[8px]">S1 / D4</div>
-                  <div className="text-[var(--text-sm)] text-[#0B5FEF] font-[var(--font-weight-medium)]">65% dari total</div>
+                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[8px]">S1 / D4</div>
+                  <div className="text-[var(--text-sm)] text-[#0954D9] font-[var(--font-weight-medium)]">65% dari total</div>
                 </div>
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                   <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Proporsi S2/S3</div>
-                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[8px]">12%</div>
+                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[8px]">12%</div>
                   <div className="text-[var(--text-sm)] text-[#656a6c]">Kapasitas kepemimpinan strategis</div>
                 </div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Distribusi Pendidikan Terakhir</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Distribusi Pendidikan Terakhir</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={pendidikanData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -246,8 +246,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Pendidikan berdasarkan Jenis Pegawai</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Pendidikan berdasarkan Jenis Pegawai</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={pendidikanByJenisPegawaiData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -261,8 +261,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Pendidikan berdasarkan Rentang Usia</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Pendidikan berdasarkan Rentang Usia</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={pendidikanByUsiaData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -284,8 +284,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
           <div className="space-y-[24px]">
             <p className="text-[var(--text-sm)] text-[#656a6c]">Menampilkan persebaran pegawai berdasarkan unit organisasi, kelompok jabatan, dan wilayah kerja.</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Jumlah Pegawai per Unit Kerja</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Jumlah Pegawai per Unit Kerja</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={pegawaiPerUnitData} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -296,8 +296,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Komposisi Pegawai per Unit Kerja</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Komposisi Pegawai per Unit Kerja</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={komposisiPerUnitData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -311,8 +311,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Komposisi Jenis Jabatan per Unit Kerja</h3>
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Komposisi Jenis Jabatan per Unit Kerja</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={jabatanPerUnitData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -327,8 +327,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
               </ResponsiveContainer>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Sebaran Pusat vs UPT/Daerah</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Sebaran Pusat vs UPT/Daerah</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
                     <Pie data={sebaranPusatData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" label>
@@ -338,8 +338,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Sebaran Wilayah Provinsi Utama</h3>
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Sebaran Wilayah Provinsi Utama</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={wilayahData}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#EFEFEF" />
@@ -351,8 +351,8 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                 </ResponsiveContainer>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[8px]">Breakdown Manajerial</h3>
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[8px]">Breakdown Manajerial</h3>
               <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px]">Hanya berlaku saat filter termasuk Manajerial/Semua</p>
               {isManajerialFilter ? (
                 <ResponsiveContainer width="100%" height={300}>
@@ -378,34 +378,34 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
           <div className="space-y-[24px]">
             <p className="text-[var(--text-sm)] text-[#656a6c]">Eksplorasi komparasi data pegawai dalam bentuk matriks agregat.</p>
             <div className="flex items-center justify-between">
-              <select value={selectedMatrix} onChange={(e) => setSelectedMatrix(e.target.value)} className="px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
+              <select value={selectedMatrix} onChange={(e) => setSelectedMatrix(e.target.value)} className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
                 <option value="pendidikan-usia">Pendidikan × Rentang Usia</option>
                 <option value="jenis-pegawai-usia">Jenis Pegawai × Rentang Usia</option>
                 <option value="unit-kerja-pendidikan">Unit Kerja × Pendidikan</option>
                 <option value="unit-kerja-jenis-pegawai">Unit Kerja × Jenis Pegawai</option>
               </select>
               <div className="flex items-center gap-[12px]">
-                <label className="text-[var(--text-sm)] text-[#2f3031]">Tampilkan Persentase Baris</label>
+                <label className="text-[var(--text-sm)] text-[#323232]">Tampilkan Persentase Baris</label>
                 <button onClick={() => setShowPersentase(!showPersentase)} className={`w-[44px] h-[24px] rounded-full transition-colors relative ${showPersentase ? 'bg-primary' : 'bg-gray-300'}`}>
                   <div className={`absolute top-[2px] w-[20px] h-[20px] rounded-full bg-white transition-transform ${showPersentase ? 'translate-x-[22px]' : 'translate-x-[2px]'}`} />
                 </button>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] overflow-x-auto">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr>
-                    <th className="border border-[#EFEFEF] p-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031] bg-[#f9f9f9]">Kategori</th>
+                    <th className="border border-[#EFEFEF] p-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232] bg-[#f9f9f9]">Kategori</th>
                     {matrixConfig.columns.map((col) => (
-                      <th key={col} className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031] bg-[#f9f9f9]">{col}</th>
+                      <th key={col} className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232] bg-[#f9f9f9]">{col}</th>
                     ))}
-                    <th className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#2f3031] bg-[#EFEFEF]">Total</th>
+                    <th className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] bg-[#EFEFEF]">Total</th>
                   </tr>
                 </thead>
                 <tbody>
                   {matrixConfig.data.map((row: any) => (
                     <tr key={row.kategori}>
-                      <td className="border border-[#EFEFEF] p-[12px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">{row.kategori}</td>
+                      <td className="border border-[#EFEFEF] p-[12px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">{row.kategori}</td>
                       {matrixConfig.columns.map((col) => {
                         const value = row[col];
                         return (
@@ -414,7 +414,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                           </td>
                         );
                       })}
-                      <td className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#2f3031] bg-[#f9f9f9]">{row.total.toLocaleString()}</td>
+                      <td className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] bg-[#f9f9f9]">{row.total.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -458,7 +458,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
         <div className="px-[24px] py-[20px]">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">Profil ASN Kemendikdasmen</h1>
+              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">Profil ASN Kemendikdasmen</h1>
               <p className="text-[var(--text-sm)] text-[#656a6c]">Demografi, pendidikan, dan persebaran pegawai ASN</p>
             </div>
             <div className="flex flex-col items-end gap-[6px] ml-auto">
@@ -487,7 +487,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
           </div>
           <div className="flex items-center gap-[8px]">
             <span className="text-[10px] text-[#656a6c] uppercase tracking-wide">Filter Jenis Jabatan</span>
-            <select value={filterJabatan} onChange={(e) => setFilterJabatan(e.target.value)} className="px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
+            <select value={filterJabatan} onChange={(e) => setFilterJabatan(e.target.value)} className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
               <option value="semua">Seluruh Jabatan</option>
               <option value="manajerial">Seluruh Manajerial</option>
               <option value="jpt">JPT</option>

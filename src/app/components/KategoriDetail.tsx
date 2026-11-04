@@ -85,7 +85,7 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
               />
             </div>
             <div>
-              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
                 {category.title}
               </h1>
               <p className="text-[var(--text-base)] text-[#656a6c] mt-[4px]">
@@ -103,7 +103,7 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
             <section key={subcategory.id}>
               {/* Subcategory Header */}
               <div className="mb-[24px]">
-                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                   {subcategory.name}
                 </h2>
                 <p className="text-[var(--text-sm)] text-[#656a6c]">
@@ -116,7 +116,7 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
                 {subcategory.articles.map((article) => (
                   <button
                     key={article.id}
-                    className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-left hover:shadow-md hover:border-primary transition-all group"
+                    className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-left hover:shadow-md hover:border-primary transition-all group"
                     onClick={() => onNavigateToArtikel && onNavigateToArtikel(article.id)}
                   >
                     <div className="flex flex-col gap-[12px]">
@@ -132,18 +132,18 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
 
                       {/* Article Meta */}
                       <div className="flex items-center gap-[16px] mt-[4px] pt-[12px] border-t border-[#EFEFEF]">
-                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#808489]">
+                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#727272]">
                           <Clock className="w-[14px] h-[14px]" />
                           <span>{article.readTime}</span>
                         </div>
-                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#808489]">
+                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#727272]">
                           <TrendingUp className="w-[14px] h-[14px]" />
                           <span>{article.views} views</span>
                         </div>
                       </div>
 
                       {/* Article Date */}
-                      <div className="text-[var(--text-xs)] text-[#808489]">
+                      <div className="text-[var(--text-xs)] text-[#727272]">
                         {article.date}
                       </div>
                     </div>
@@ -165,9 +165,9 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
 
         {/* Empty State */}
         {category.subcategories.length === 0 && (
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[48px] text-center">
-            <AlertCircle className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
-            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[48px] text-center">
+            <AlertCircle className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
+            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
               Belum Ada Konten
             </h3>
             <p className="text-[var(--text-sm)] text-[#656a6c]">

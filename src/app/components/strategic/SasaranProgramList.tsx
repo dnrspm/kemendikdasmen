@@ -26,16 +26,16 @@ export function SasaranProgramList({ organization, onNavigateToSK }: SasaranProg
   return (
     <div className="space-y-[24px]">
       {/* Controls */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489]" />
+          <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
           <input
             type="text"
             placeholder="Cari sasaran program..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#808489] rounded-[4px] text-[var(--text-base)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+            className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#828282] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
           />
         </div>
       </div>
@@ -51,9 +51,9 @@ export function SasaranProgramList({ organization, onNavigateToSK }: SasaranProg
         ))}
 
         {filteredPrograms.length === 0 && (
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[40px] text-center">
-            <Target className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#808489]" />
-            <p className="text-[var(--text-base)] text-[#808489]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[40px] text-center">
+            <Target className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#727272]" />
+            <p className="text-[var(--text-base)] text-[#727272]">
               Tidak ada sasaran program ditemukan
             </p>
           </div>
@@ -72,20 +72,20 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
   const relatedSK = sasaranKinerjas.filter(sk => sk.sasaran_program_id === program.id);
 
   return (
-    <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px] hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px] hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="flex items-start justify-between gap-[16px] mb-[20px]">
         <div className="flex items-start gap-[16px] flex-1">
-          <div className="w-[48px] h-[48px] rounded-[8px] bg-[#0B5FEF]/10 flex items-center justify-center shrink-0">
-            <Target className="w-[24px] h-[24px] text-[#0B5FEF]" />
+          <div className="w-[48px] h-[48px] rounded-[8px] bg-[#0954D9]/10 flex items-center justify-center shrink-0">
+            <Target className="w-[24px] h-[24px] text-[#0954D9]" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-[12px] mb-[8px]">
-              <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#0B5FEF] bg-[#0B5FEF]/10 px-[12px] py-[4px] rounded-[4px]">
+              <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#0954D9] bg-[#0954D9]/10 px-[12px] py-[4px] rounded-[4px]">
                 {program.code}
               </span>
             </div>
-            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031]">
+            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232]">
               {program.name}
             </h3>
           </div>
@@ -94,7 +94,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
 
       {/* Progres Realisasi - Combined with SK list */}
       <div className="mb-[20px]">
-        <h4 className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+        <h4 className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
           Progres Realisasi
         </h4>
 
@@ -118,7 +118,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
                   cy="50"
                   r="42"
                   fill="none"
-                  stroke="#0B5FEF"
+                  stroke="#0954D9"
                   strokeWidth="10"
                   strokeDasharray={`${2 * Math.PI * 42}`}
                   strokeDashoffset={`${2 * Math.PI * 42 - (overallProgress / 100) * (2 * Math.PI * 42)}`}
@@ -132,7 +132,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
                   y="50"
                   textAnchor="middle"
                   dy="0.3em"
-                  fill="#0B5FEF"
+                  fill="#0954D9"
                   fontSize="20"
                   fontWeight="600"
                 >
@@ -145,7 +145,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-[8px] mb-[12px]">
                 <TrendingUp className="w-[16px] h-[16px] text-[#906CEF]" />
-                <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                   {relatedSK.length} Sasaran Kinerja
                 </span>
               </div>
@@ -164,7 +164,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
                   ))}
                 </div>
               ) : (
-                <p className="text-[var(--text-sm)] text-[#808489]">Belum ada sasaran kinerja terkait</p>
+                <p className="text-[var(--text-sm)] text-[#727272]">Belum ada sasaran kinerja terkait</p>
               )}
             </div>
           </div>
@@ -174,7 +174,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
       {/* IKP Metrics */}
       <div className="mb-[20px]">
         <div className="flex items-center justify-between mb-[12px]">
-          <h4 className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+          <h4 className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
             Progres Ketercapaian
           </h4>
 
@@ -185,7 +185,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
               <span className="text-[#656a6c]">≥ Target</span>
             </div>
             <div className="flex items-center gap-[6px]">
-              <div className="w-[12px] h-[12px] rounded-full bg-[#0B5FEF]"></div>
+              <div className="w-[12px] h-[12px] rounded-full bg-[#0954D9]"></div>
               <span className="text-[#656a6c]">≥ 75% Target</span>
             </div>
             <div className="flex items-center gap-[6px]">
@@ -204,7 +204,7 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
             const displayValue = Math.min(ikp.current_value, 100);
             const dashOffset = circumference - (displayValue / 100) * circumference;
             // Color based on achievement vs target
-            const strokeColor = ikp.current_value >= ikp.target ? '#4CA375' : ikp.current_value >= (ikp.target * 0.75) ? '#0B5FEF' : '#EDA62B';
+            const strokeColor = ikp.current_value >= ikp.target ? '#4CA375' : ikp.current_value >= (ikp.target * 0.75) ? '#0954D9' : '#EDA62B';
 
             return (
               <div
@@ -262,14 +262,14 @@ function SasaranProgramCard({ program, onNavigateToSK }: { program: SasaranProgr
                   {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-[8px] mb-[8px]">
-                      <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-[#0B5FEF] bg-[#0B5FEF]/10 px-[8px] py-[2px] rounded-[4px]">
+                      <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-[#0954D9] bg-[#0954D9]/10 px-[8px] py-[2px] rounded-[4px]">
                         {ikp.id.toUpperCase().replace('IKP-SK-', 'IKPSK').replace('IKP-', 'IKP').replace(/-/g, '.')}
                       </span>
                       {isAchieved && (
                         <CheckCircle2 className="w-[16px] h-[16px] text-[#4CA375]" />
                       )}
                     </div>
-                    <p className="text-[var(--text-sm)] text-[#2f3031] leading-[1.5]">
+                    <p className="text-[var(--text-sm)] text-[#323232] leading-[1.5]">
                       {ikp.description}
                     </p>
                   </div>

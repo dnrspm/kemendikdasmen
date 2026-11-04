@@ -83,7 +83,7 @@ function totalAll(l: LevelKebutuhan) { return totalKeahlian(l) + totalKeterampil
 // ─── Static Data ──────────────────────────────────────────────────────────────
 
 const units: Unit[] = [
-  { id: 'setjen',        nama: 'Sekretariat Jenderal',                               singkatan: 'Setjen',        warna: '#0B5FEF' },
+  { id: 'setjen',        nama: 'Sekretariat Jenderal',                               singkatan: 'Setjen',        warna: '#0954D9' },
   { id: 'ditjen-paud',   nama: 'Ditjen PAUD Dikdasmen',                              singkatan: 'PAUD Dikdasmen',warna: '#4CA375' },
   { id: 'ditjen-gtk',    nama: 'Ditjen Guru dan Tenaga Kependidikan',                singkatan: 'Ditjen GTK',    warna: '#906CEF' },
   { id: 'ditjen-vokasi', nama: 'Ditjen Pendidikan Vokasi',                           singkatan: 'Ditjen Vokasi', warna: '#EDA62B' },

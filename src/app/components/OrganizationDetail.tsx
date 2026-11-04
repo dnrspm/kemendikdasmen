@@ -36,7 +36,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
 
   // Get organization color
   const getColorFromName = (name: string) => {
-    const colors = ['#0B5FEF', '#4CA375', '#906CEF', '#EDA62B', '#E02D38'];
+    const colors = ['#0954D9', '#4CA375', '#906CEF', '#EDA62B', '#E02D38'];
     const index = name.length % colors.length;
     return colors[index];
   };
@@ -133,7 +133,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
               <div className="flex items-start justify-between gap-[16px] mb-[12px]">
                 <div>
                   <div className="flex items-center gap-[12px] mb-[8px]">
-                    <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                    <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
                       {organization.name}
                     </h1>
                     <span
@@ -157,7 +157,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <Users className="w-[20px] h-[20px] text-primary" />
                   </div>
                   <div>
-                    <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                    <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
                       {organization.members.length}
                     </div>
                     <div className="text-[var(--text-xs)] text-[#656a6c]">Anggota</div>
@@ -171,7 +171,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                       <Briefcase className="w-[20px] h-[20px] text-primary" />
                     </div>
                     <div>
-                      <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                      <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
                         {positionPercentage}%
                       </div>
                       <div className="text-[var(--text-xs)] text-[#656a6c]">Jabatan Terisi</div>
@@ -186,7 +186,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                       <TrendingUp className="w-[20px] h-[20px] text-primary" />
                     </div>
                     <div>
-                      <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                      <div className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
                         {latestScore}
                       </div>
                       <div className="text-[var(--text-xs)] text-[#656a6c]">Skor Kinerja</div>
@@ -241,8 +241,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
         {activeTab === 'about' && (
           <div className="space-y-[32px]">
             {/* Description */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[16px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[16px]">
                 Deskripsi
               </h2>
               <p className="text-[var(--text-base)] text-[#656a6c] leading-[1.6]">
@@ -253,8 +253,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
             {/* Vision & Mission */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[16px]">
               {/* Vision */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
                   Visi
                 </h3>
                 <p className="text-[var(--text-base)] text-[#656a6c] leading-[1.6]">
@@ -263,8 +263,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
               </div>
 
               {/* Mission */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
                   Misi
                 </h3>
                 <ul className="space-y-[8px]">
@@ -282,8 +282,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
 
             {/* Summary Jabatan */}
             {organization.position_summary && (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[16px]">
                   Summary Jabatan
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
@@ -314,7 +314,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                         />
                       </svg>
                       <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                        <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#323232]">
                           {positionPercentage}%
                         </div>
                         <div className="text-[var(--text-sm)] text-[#656a6c]">Terisi</div>
@@ -329,7 +329,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                         <Briefcase className="w-[20px] h-[20px] text-[#656a6c]" />
                         <span className="text-[var(--text-base)] text-[#656a6c]">Total Jabatan</span>
                       </div>
-                      <span className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                      <span className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
                         {organization.position_summary.total_positions}
                       </span>
                     </div>
@@ -344,10 +344,10 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     </div>
                     <div className="flex items-center justify-between p-[16px] bg-[#f9f9f9] rounded-[8px]">
                       <div className="flex items-center gap-[12px]">
-                        <Users className="w-[20px] h-[20px] text-[#808489]" />
+                        <Users className="w-[20px] h-[20px] text-[#727272]" />
                         <span className="text-[var(--text-base)] text-[#656a6c]">Jabatan Kosong</span>
                       </div>
-                      <span className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#808489]">
+                      <span className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#727272]">
                         {organization.position_summary.total_positions - organization.position_summary.filled_positions}
                       </span>
                     </div>
@@ -362,8 +362,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
         {activeTab === 'services' && (
           <div className="space-y-[24px]">
             {/* Main Services */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[20px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[20px]">
                 Layanan dan Fungsi Utama
               </h2>
               <div className="space-y-[16px]">
@@ -371,7 +371,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                   organization.services.map((service, index) => (
                     <div
                       key={service.id}
-                      className="p-[20px] rounded-[8px] border border-[#c7c7c7] hover:shadow-md transition-shadow"
+                      className="p-[20px] rounded-[8px] border border-[#ADADAD] hover:shadow-md transition-shadow"
                     >
                       <div className="flex items-start gap-[16px]">
                         <div 
@@ -382,7 +382,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                           </span>
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                          <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                             {service.title}
                           </h3>
                           <p className="text-[var(--text-base)] text-[#656a6c] leading-[1.6]">
@@ -394,7 +394,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                   ))
                 ) : (
                   <div className="p-[48px] text-center">
-                    <FolderKanban className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
+                    <FolderKanban className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
                     <p className="text-[var(--text-base)] text-[#656a6c]">
                       Belum ada layanan yang tersedia
                     </p>
@@ -405,8 +405,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
 
             {/* Detailed Tasks */}
             {organization.tasks_detail && organization.tasks_detail.length > 0 && (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[20px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[20px]">
                   Rincian Tugas
                 </h2>
                 <div className="space-y-[16px]">
@@ -422,7 +422,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                           {task.category}
                         </span>
                       </div>
-                      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                         {task.title}
                       </h4>
                       <p className="text-[var(--text-base)] text-[#656a6c] mb-[12px]">
@@ -454,8 +454,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
         {/* Tab: Struktur Organisasi */}
         {activeTab === 'structure' && (
           <div className="space-y-[24px]">
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[20px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[20px]">
                 Anggota Tim
               </h2>
               <div className="space-y-[16px]">
@@ -481,7 +481,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
 
                     {/* Info */}
                     <div className="flex-1">
-                      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">
+                      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
                         {member.name}
                       </h4>
                       <p className="text-[var(--text-sm)] text-[#656a6c] mb-[4px]">
@@ -513,7 +513,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
           <div className="space-y-[24px]">
             {/* Building Photo */}
             {organization.building_photo_url && (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] overflow-hidden">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden">
                 <img
                   src={organization.building_photo_url}
                   alt={`Gedung ${organization.name}`}
@@ -523,8 +523,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
             )}
 
             {/* Contact Info */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
                 Informasi Kontak
               </h2>
               <div className="space-y-[20px]">
@@ -555,7 +555,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#656a6c] mb-[4px]">
                       Telepon
                     </div>
-                    <div className="text-[var(--text-base)] text-[#2f3031]">
+                    <div className="text-[var(--text-base)] text-[#323232]">
                       {organization.contact.phone}
                       {organization.contact.extension && ` ext. ${organization.contact.extension}`}
                     </div>
@@ -571,7 +571,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#656a6c] mb-[4px]">
                       Lokasi
                     </div>
-                    <div className="text-[var(--text-base)] text-[#2f3031]">
+                    <div className="text-[var(--text-base)] text-[#323232]">
                       {organization.contact.location}
                     </div>
                   </div>
@@ -586,7 +586,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#656a6c] mb-[4px]">
                       Jam Operasional
                     </div>
-                    <div className="text-[var(--text-base)] text-[#2f3031]">
+                    <div className="text-[var(--text-base)] text-[#323232]">
                       {organization.contact.office_hours}
                     </div>
                   </div>
@@ -596,8 +596,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
 
             {/* Address Detail */}
             {organization.address_detail && (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
                   Detail Alamat
                 </h2>
                 <div className="space-y-[12px]">
@@ -605,7 +605,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <Building2 className="w-[20px] h-[20px] text-[#656a6c] mt-[2px]" />
                     <div>
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Jalan</div>
-                      <div className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <div className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                         {organization.address_detail.street}
                       </div>
                     </div>
@@ -614,7 +614,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <MapPin className="w-[20px] h-[20px] text-[#656a6c] mt-[2px]" />
                     <div>
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Kota / Provinsi</div>
-                      <div className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <div className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                         {organization.address_detail.city}, {organization.address_detail.province}
                       </div>
                     </div>
@@ -623,7 +623,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <Mail className="w-[20px] h-[20px] text-[#656a6c] mt-[2px]" />
                     <div>
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Kode Pos</div>
-                      <div className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <div className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                         {organization.address_detail.postal_code}
                       </div>
                     </div>
@@ -632,7 +632,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                     <Navigation className="w-[20px] h-[20px] text-[#656a6c] mt-[2px]" />
                     <div>
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Koordinat</div>
-                      <div className="text-[var(--text-base)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <div className="text-[var(--text-base)] text-[#323232] font-[var(--font-weight-medium)]">
                         {organization.address_detail.geo_location.lat}, {organization.address_detail.geo_location.lng}
                       </div>
                     </div>
@@ -642,9 +642,9 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                 {/* Mock Map Placeholder */}
                 <div className="mt-[24px] w-full h-[200px] bg-[#f9f9f9] rounded-[8px] flex items-center justify-center border border-[#EFEFEF]">
                   <div className="text-center">
-                    <MapPin className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[8px]" />
+                    <MapPin className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[8px]" />
                     <div className="text-[var(--text-sm)] text-[#656a6c]">Peta Lokasi</div>
-                    <div className="text-[var(--text-xs)] text-[#808489] mt-[4px]">
+                    <div className="text-[var(--text-xs)] text-[#727272] mt-[4px]">
                       Lat: {organization.address_detail.geo_location.lat}, Lng: {organization.address_detail.geo_location.lng}
                     </div>
                   </div>
@@ -660,8 +660,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
             {organization.performance_scores && organization.performance_scores.length > 0 ? (
               <>
                 {/* Performance Summary */}
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
                     Ringkasan Kinerja
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px]">
@@ -672,7 +672,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Skor Terkini</div>
                     </div>
                     <div className="p-[20px] bg-[#f9f9f9] rounded-[8px] text-center">
-                      <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">
+                      <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
                         {Math.round(
                           organization.performance_scores.reduce((acc, curr) => acc + curr.score, 0) /
                             organization.performance_scores.length
@@ -681,7 +681,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Rata-rata</div>
                     </div>
                     <div className="p-[20px] bg-[#f9f9f9] rounded-[8px] text-center">
-                      <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">
+                      <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
                         {organization.performance_scores.length}
                       </div>
                       <div className="text-[var(--text-sm)] text-[#656a6c]">Periode Evaluasi</div>
@@ -690,8 +690,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                 </div>
 
                 {/* Performance Trend Chart */}
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
                     Trend Nilai Evaluasi
                   </h2>
                   <ResponsiveContainer width="100%" height={300}>
@@ -728,8 +728,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                 </div>
 
                 {/* Performance Details */}
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[20px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+                  <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[20px]">
                     Detail Capaian per Periode
                   </h2>
                   <div className="space-y-[12px]">
@@ -741,7 +741,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                         <div className="flex items-center gap-[12px]">
                           <Calendar className="w-[20px] h-[20px] text-[#656a6c]" />
                           <div>
-                            <div className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                            <div className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                               {score.period}
                             </div>
                             <div className="text-[var(--text-sm)] text-[#656a6c]">{score.category}</div>
@@ -750,7 +750,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                         <div className="flex items-center gap-[8px]">
                           <div
                             className="text-[var(--text-xl)] font-[var(--font-weight-medium)]"
-                            style={{ color: score.score >= 80 ? bgColor : '#808489' }}
+                            style={{ color: score.score >= 80 ? bgColor : '#727272' }}
                           >
                             {score.score}
                           </div>
@@ -764,8 +764,8 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                 </div>
               </>
             ) : (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[48px] text-center">
-                <BarChart3 className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[48px] text-center">
+                <BarChart3 className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
                 <p className="text-[var(--text-base)] text-[#656a6c]">
                   Belum ada data capaian kinerja yang tersedia
                 </p>

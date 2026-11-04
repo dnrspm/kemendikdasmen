@@ -295,7 +295,7 @@ export function WidgetKehadiran() {
             className="flex flex-col items-center justify-center gap-[4px] py-[12px] px-[8px] rounded-tl-[var(--radius-card)] rounded-tr-[var(--radius-card)] border-t border-l border-r transition-all w-full flex-1"
             style={{
               borderColor: canClockIn ? 'var(--primary)' : '#E0E0E0',
-              backgroundColor: canClockIn ? 'var(--primary)' : '#F7F7F7',
+              backgroundColor: canClockIn ? 'var(--primary)' : '#F9F9F9',
               cursor: canClockIn ? 'pointer' : 'not-allowed',
               opacity: isLupaClockIn ? 0.5 : 1,
             }}
@@ -359,7 +359,7 @@ export function WidgetKehadiran() {
             className="flex flex-col items-center justify-center gap-[4px] py-[12px] px-[8px] rounded-tl-[var(--radius-card)] rounded-tr-[var(--radius-card)] border-t border-l border-r transition-all w-full flex-1"
             style={{
               borderColor: canClockOut ? 'var(--primary)' : '#E0E0E0',
-              backgroundColor: canClockOut ? 'var(--primary)' : '#F7F7F7',
+              backgroundColor: canClockOut ? 'var(--primary)' : '#F9F9F9',
               cursor: canClockOut ? 'pointer' : 'not-allowed',
               opacity: (generalStatus === 'belum-presensi' && !isLupaClockIn) ? 0.45 : 1,
             }}

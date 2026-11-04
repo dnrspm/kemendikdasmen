@@ -48,7 +48,7 @@ export function MenuUtamaGrid({
         >
           <img alt="" src={item.icon} className="size-[48px] object-contain shrink-0" />
           <span
-            className="font-['Inter',sans-serif] font-semibold text-[#2f3031] line-clamp-2"
+            className="font-['Inter',sans-serif] font-semibold text-[#323232] line-clamp-2"
             style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}
           >
             {item.name}

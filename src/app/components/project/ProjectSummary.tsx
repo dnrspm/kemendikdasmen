@@ -96,8 +96,8 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
           icon={<Clock className="w-[24px] h-[24px]" />}
           title="Sedang Dikerjakan"
           value={metrics.inProgress.toString()}
-          iconBg="bg-[#0B5FEF]/10"
-          iconColor="text-[#0B5FEF]"
+          iconBg="bg-[#0954D9]/10"
+          iconColor="text-[#0954D9]"
         />
         <SummaryCard
           icon={<CheckCircle2 className="w-[24px] h-[24px]" />}
@@ -124,8 +124,8 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
       </div>
 
       {/* Project Progress Section - Grouped by Priority */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
-        <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+        <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
           Progres SKP
         </h2>
 
@@ -146,7 +146,7 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
 
         {relevantEpics.length === 0 && (
           <div className="py-[48px] text-center">
-            <TrendingUp className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
+            <TrendingUp className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
             <p className="text-[var(--text-base)] text-[#656a6c]">
               Belum ada SKP yang tersedia
             </p>
@@ -163,7 +163,7 @@ function PriorityGroup({ priority, epics }: { priority: ProgramPriority; epics: 
   const config = getPriorityConfig(priority);
 
   return (
-    <div className="border border-[#c7c7c7] rounded-[8px] overflow-hidden">
+    <div className="border border-[#ADADAD] rounded-[8px] overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between p-[16px] hover:bg-[#f9f9f9] transition-colors"
@@ -215,18 +215,18 @@ function SummaryCard({
   iconColor: string;
 }) {
   return (
-    <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+    <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
       <div className="flex items-center gap-[16px]">
         <div className={`w-[48px] h-[48px] rounded-[8px] ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
           {icon}
         </div>
         <div>
-          <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">
+          <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
             {value}
           </div>
           <div className="text-[var(--text-sm)] text-[#656a6c]">{title}</div>
           {subtitle && (
-            <div className="text-[var(--text-xs)] text-[#808489] mt-[2px]">{subtitle}</div>
+            <div className="text-[var(--text-xs)] text-[#727272] mt-[2px]">{subtitle}</div>
           )}
         </div>
       </div>
@@ -242,7 +242,7 @@ function EpicCard({ epic }: { epic: Epic }) {
   return (
     <div className="border border-[#EFEFEF] rounded-[8px] p-[20px] hover:shadow-md transition-shadow cursor-pointer">
       <div className="flex items-start justify-between mb-[12px]">
-        <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] flex-1">
+        <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] flex-1">
           {epic.name}
         </h3>
         <span
@@ -266,7 +266,7 @@ function EpicCard({ epic }: { epic: Epic }) {
       <div className="mb-[12px]">
         <div className="flex items-center justify-between mb-[8px]">
           <span className="text-[var(--text-sm)] text-[#656a6c]">Progres</span>
-          <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+          <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
             {epic.progress}%
           </span>
         </div>

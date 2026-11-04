@@ -46,8 +46,8 @@ export function MenuLainnyaModal({ open, onClose, onNavigate }: Props) {
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label="Menu Utama Portal Kemendikdasmen" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[640px] max-h-[92vh] overflow-y-auto p-[20px]">
         <div className="flex items-center justify-between pb-[12px] border-b border-[#e4e4e4] mb-[16px]">
-          <h2 className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-lg)' }}>Menu Utama Portal Kemendikdasmen</h2>
-          <button onClick={onClose} aria-label="Close" className="border border-[#1a5fe0] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#1a5fe0]" /></button>
+          <h2 className="font-semibold text-[#323232]" style={{ fontSize: 'var(--text-lg)' }}>Menu Utama Portal Kemendikdasmen</h2>
+          <button onClick={onClose} aria-label="Close" className="border border-[#0954D9] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#0954D9]" /></button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px]">
           {items.map((it) => (

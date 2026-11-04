@@ -81,7 +81,7 @@ export function ProjectManagement({
       {/* Page Header with Unit Selector */}
       <div className="bg-white border-b border-[#EFEFEF]">
         <div className="px-[24px] py-[20px] flex items-center justify-between">
-          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031]">Manajemen Tugas</h1>
+          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">Manajemen Tugas</h1>
 
           {/* Unit Utama Selector */}
           <div className="flex items-center gap-[8px]">
@@ -89,7 +89,7 @@ export function ProjectManagement({
             <select
               value={selectedUnitId}
               onChange={(e) => setSelectedUnitId(e.target.value)}
-              className="px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
             >
               {organizations.map(org => (
                 <option key={org.id} value={org.id}>

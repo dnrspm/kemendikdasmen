@@ -60,7 +60,7 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
           className={`flex items-center gap-[6px] py-[6px] pr-[12px] cursor-pointer rounded-[4px] transition-colors ${
             isSelected
               ? 'bg-primary/10 text-primary'
-              : 'text-[#2f3031] hover:bg-[#f9f9f9]'
+              : 'text-[#323232] hover:bg-[#f9f9f9]'
           }`}
           style={{ paddingLeft: `${8 + level * 18}px` }}
           onClick={() => handleSelect(unit)}
@@ -68,7 +68,7 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
           <button
             type="button"
             onClick={hasChildren ? (e) => toggleExpand(unit.id, e) : undefined}
-            className="w-[16px] h-[16px] flex items-center justify-center shrink-0 text-[#808489]"
+            className="w-[16px] h-[16px] flex items-center justify-center shrink-0 text-[#727272]"
           >
             {hasChildren ? (
               isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />
@@ -96,9 +96,9 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
       <button
         type="button"
         onClick={() => setIsOpen(prev => !prev)}
-        className="flex items-center gap-[8px] px-[12px] py-[8px] border border-[#808489] rounded-[4px] bg-white hover:border-primary transition-colors text-left min-w-[260px] max-w-[420px]"
+        className="flex items-center gap-[8px] px-[12px] py-[8px] border border-[#828282] rounded-[4px] bg-white hover:border-primary transition-colors text-left min-w-[260px] max-w-[420px]"
       >
-        <span className="flex-1 text-[var(--text-sm)] text-[#2f3031] truncate">{displayName}</span>
+        <span className="flex-1 text-[var(--text-sm)] text-[#323232] truncate">{displayName}</span>
         <ChevronDown
           className={`w-[16px] h-[16px] shrink-0 text-[#656a6c] transition-transform ${isOpen ? 'rotate-180' : ''}`}
         />

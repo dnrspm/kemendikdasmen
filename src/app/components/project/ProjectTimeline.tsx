@@ -81,9 +81,9 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
   return (
     <div className="space-y-[24px]">
       {/* Timeline Header */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[24px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
         <div className="flex items-center justify-between mb-[16px]">
-          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
             Tampilan Linimasa
           </h2>
           <div className="flex items-center gap-[12px]">
@@ -121,7 +121,7 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
       </div>
 
       {/* Timeline Content */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] overflow-hidden">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden">
         <div className="overflow-x-auto">
           <div className="min-w-[1200px]">
             {/* Timeline Header - Months */}
@@ -167,7 +167,7 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
                         )}
                         <div className="flex-1">
                           <div className="flex items-center gap-[8px] mb-[4px]">
-                            <span className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                            <span className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                               {epic.name}
                             </span>
                             {epic.program_priority && (
@@ -218,7 +218,7 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
                     <div key={task.id} className="flex border-b border-[#EFEFEF] hover:bg-[#f9f9f9] transition-colors bg-[#fafafa]">
                       <div className="w-[400px] p-[16px] pl-[56px] border-r border-[#EFEFEF]">
                         <div className="flex items-center gap-[8px] mb-[4px]">
-                          <span className="text-[var(--text-sm)] text-[#2f3031]">
+                          <span className="text-[var(--text-sm)] text-[#323232]">
                             {task.title}
                           </span>
                         </div>
@@ -253,7 +253,7 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
 
             {epicsWithTasks.length === 0 && (
               <div className="py-[48px] text-center">
-                <Calendar className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
+                <Calendar className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
                 <p className="text-[var(--text-base)] text-[#656a6c]">
                   Belum ada SKP yang tersedia
                 </p>
@@ -299,7 +299,7 @@ function TimelineBar({
   const widthPercent = (duration / totalDays) * 100;
   const todayPercent = (todayOffset / totalDays) * 100;
 
-  let barColor = type === 'epic' ? '#906CEF' : '#0B5FEF';
+  let barColor = type === 'epic' ? '#906CEF' : '#0954D9';
   if (isCompleted) barColor = '#4CA375';
   if (isOverdue) barColor = '#E02D38';
 

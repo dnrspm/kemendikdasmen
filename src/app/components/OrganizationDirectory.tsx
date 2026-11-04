@@ -40,7 +40,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
 
   // Generate color based on name
   const getColorFromName = (name: string) => {
-    const colors = ['#0B5FEF', '#4CA375', '#906CEF', '#EDA62B', '#E02D38'];
+    const colors = ['#0954D9', '#4CA375', '#906CEF', '#EDA62B', '#E02D38'];
     const index = name.length % colors.length;
     return colors[index];
   };
@@ -76,7 +76,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                 <Building2 className="w-[32px] h-[32px] text-primary" />
               </div>
               <div className="flex-1">
-                <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">Organisasi & Unit Utama</h1>
+                <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">Organisasi & Unit Utama</h1>
                 <p className="text-[var(--text-base)] text-[#656a6c]">Temukan informasi lengkap tentang seluruh unit utama di Kementerian Pendidikan Dasar dan Menengah</p>
               </div>
             </div>
@@ -96,18 +96,18 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
           <div className="flex flex-col md:flex-row gap-[16px]">
             {/* Search Bar */}
             <div className="relative flex-1">
-              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489]" />
+              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
               <input
                 type="text"
                 placeholder="Cari nama unit kerja..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[48px] pl-[48px] pr-[48px] border border-[#808489] rounded-[4px] text-[16px] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[48px] pl-[48px] pr-[48px] border border-[#828282] rounded-[4px] text-[16px] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-[16px] top-1/2 -translate-y-1/2 text-[#808489] hover:text-foreground transition-colors"
+                  className="absolute right-[16px] top-1/2 -translate-y-1/2 text-[#727272] hover:text-foreground transition-colors"
                 >
                   <X className="w-[20px] h-[20px]" />
                 </button>
@@ -115,7 +115,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center gap-[8px] bg-white border border-[#808489] rounded-[4px] p-[4px]">
+            <div className="flex items-center gap-[8px] bg-white border border-[#828282] rounded-[4px] p-[4px]">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-[8px] rounded-[4px] transition-colors ${
@@ -168,7 +168,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
               return (
                 <div
                   key={org.id}
-                  className={`bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group ${
+                  className={`bg-white rounded-[8px] border border-[#ADADAD] p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group ${
                     viewMode === 'list' ? 'flex items-start gap-[20px]' : 'flex flex-col'
                   }`}
                   onClick={() => onNavigateToDetail(org.id)}
@@ -236,15 +236,15 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                     {/* Footer Info */}
                     <div className="flex items-center justify-between pt-[12px] border-t border-[#EFEFEF] mt-auto">
                       <div className="flex items-center gap-[8px]">
-                        <div className="text-[var(--text-xs)] text-[#808489]">
+                        <div className="text-[var(--text-xs)] text-[#727272]">
                           {org.members.length} anggota
                         </div>
                         <div className="w-[4px] h-[4px] rounded-full bg-[#c7c7c7]" />
-                        <div className="text-[var(--text-xs)] text-[#808489]">
+                        <div className="text-[var(--text-xs)] text-[#727272]">
                           {org.services.length} tugas
                         </div>
                       </div>
-                      <ChevronRight className="w-[20px] h-[20px] text-[#808489] group-hover:text-primary transition-colors" />
+                      <ChevronRight className="w-[20px] h-[20px] text-[#727272] group-hover:text-primary transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -253,9 +253,9 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
           </div>
         ) : (
           // Empty State
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[64px] text-center">
-            <Building2 className="w-[64px] h-[64px] text-[#808489] mx-auto mb-[16px]" />
-            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[64px] text-center">
+            <Building2 className="w-[64px] h-[64px] text-[#727272] mx-auto mb-[16px]" />
+            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
               Tidak Ada Unit Kerja Ditemukan
             </h3>
             <p className="text-[var(--text-sm)] text-[#656a6c] mb-[24px]">

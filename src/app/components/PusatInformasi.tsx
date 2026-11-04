@@ -75,7 +75,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       icon: Users,
       title: 'Kepegawaian',
       description: 'Informasi kepegawaian dan administrasi',
-      color: '#0B5FEF',
+      color: '#0954D9',
       articleCount: 15,
       isNew: false
     },
@@ -115,7 +115,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       icon: Settings,
       title: 'Wiyata Kinarya',
       description: 'Sistem manajemen kinerja',
-      color: '#0B5FEF',
+      color: '#0954D9',
       articleCount: 9,
       isNew: false
     },
@@ -155,7 +155,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       icon: Mail,
       title: 'Email Kemendikdasmen',
       description: 'Email resmi kementerian',
-      color: '#0B5FEF',
+      color: '#0954D9',
       articleCount: 11,
       isNew: false
     },
@@ -200,14 +200,14 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       title: 'Cara Mengajukan Cuti Tahunan',
       category: 'Kepegawaian',
       views: 3421,
-      categoryColor: '#0B5FEF'
+      categoryColor: '#0954D9'
     },
     {
       id: 'trending-2',
       title: 'Komponen Gaji Pegawai',
       category: 'Kepegawaian',
       views: 2876,
-      categoryColor: '#0B5FEF'
+      categoryColor: '#0954D9'
     },
     {
       id: 'trending-3',
@@ -228,7 +228,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       title: 'Tunjangan Kinerja (Tukin)',
       category: 'Kepegawaian',
       views: 1987,
-      categoryColor: '#0B5FEF'
+      categoryColor: '#0954D9'
     }
   ];
 
@@ -350,13 +350,13 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
       {/* Page Title */}
       <div className="bg-white border-b border-[#EFEFEF]">
         <div className="max-w-[1280px] mx-auto px-[24px] py-[24px]">
-          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
             Pusat Informasi
           </h1>
           
           {/* Search Bar with Suggestions */}
           <div className="relative">
-            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489] z-10" />
+            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272] z-10" />
             <input
               type="text"
               placeholder="Cari informasi, panduan, atau FAQ..."
@@ -367,7 +367,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               }}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-              className="w-full h-[48px] pl-[48px] pr-[100px] border border-[#808489] rounded-[4px] text-[16px] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[48px] pl-[48px] pr-[100px] border border-[#828282] rounded-[4px] text-[16px] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
             />
             
             {/* Clear button */}
@@ -377,7 +377,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                   setSearchQuery('');
                   setShowSuggestions(false);
                 }}
-                className="absolute right-[90px] top-1/2 -translate-y-1/2 text-[#808489] hover:text-foreground transition-colors"
+                className="absolute right-[90px] top-1/2 -translate-y-1/2 text-[#727272] hover:text-foreground transition-colors"
               >
                 <X className="w-[18px] h-[18px]" />
               </button>
@@ -388,7 +388,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               <select
                 value={selectedFilter}
                 onChange={(e) => setSelectedFilter(e.target.value)}
-                className="h-[32px] px-[12px] border border-[#c7c7c7] rounded-[4px] text-[var(--text-sm)] text-foreground bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] cursor-pointer"
+                className="h-[32px] px-[12px] border border-[#ADADAD] rounded-[4px] text-[var(--text-sm)] text-foreground bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] cursor-pointer"
               >
                 <option value="all">Semua</option>
                 <option value="new">Terbaru</option>
@@ -397,7 +397,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
             
             {/* Search Suggestions Dropdown */}
             {showSuggestions && searchSuggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-[8px] bg-white border border-[#c7c7c7] rounded-[var(--radius-card)] shadow-lg z-50 max-h-[300px] overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 mt-[8px] bg-white border border-[#ADADAD] rounded-[var(--radius-card)] shadow-lg z-50 max-h-[300px] overflow-y-auto">
                 {searchSuggestions.map((suggestion, index) => {
                   if (suggestion.type === 'category') {
                     const IconComponent = suggestion.icon;
@@ -464,7 +464,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
           <section>
             <div className="flex items-center gap-[12px] mb-[24px]">
               <TrendingUp className="w-[28px] h-[28px] text-[#E02D38]" />
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
                 Artikel Terpopuler
               </h2>
             </div>
@@ -472,7 +472,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               {trendingArticles.map((article, index) => (
                 <div
                   key={article.id}
-                  className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group relative"
+                  className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group relative"
                 >
                   {/* Trending Badge */}
                   {index < 3 && (
@@ -497,7 +497,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                         </span>
                       </div>
                       
-                      <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#808489]">
+                      <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#727272]">
                         <TrendingUp className="w-[14px] h-[14px]" />
                         <span>{article.views.toLocaleString()} views</span>
                       </div>
@@ -510,7 +510,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
 
           {/* Kategori Informasi */}
           <section>
-            <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[24px]">
+            <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
               Kategori Informasi
             </h2>
             
@@ -521,7 +521,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                   return (
                     <button
                       key={index}
-                      className="bg-white rounded-[8px] border border-[#c7c7c7] p-[16px] text-left hover:shadow-md hover:scale-[1.02] transition-all relative"
+                      className="bg-white rounded-[8px] border border-[#ADADAD] p-[16px] text-left hover:shadow-md hover:scale-[1.02] transition-all relative"
                       onClick={() => onNavigateToKategori && onNavigateToKategori(category.title)}
                     >
                       {/* New Badge */}
@@ -546,7 +546,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                         </p>
                       </div>
                       
-                      <p className="text-[var(--text-xs)] text-[#808489] mt-[8px]">
+                      <p className="text-[var(--text-xs)] text-[#727272] mt-[8px]">
                         {category.articleCount} artikel tersedia
                       </p>
                     </button>
@@ -554,9 +554,9 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                 })}
               </div>
             ) : (
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[48px] text-center">
-                <Search className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[16px]" />
-                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[48px] text-center">
+                <Search className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
+                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                   Tidak Ada Hasil
                 </h3>
                 <p className="text-[var(--text-sm)] text-[#656a6c]">
@@ -570,20 +570,20 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
           <section id="faq-section">
             <div className="flex items-center gap-[12px] mb-[24px]">
               <HelpCircle className="w-[28px] h-[28px] text-primary" />
-              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
                 Pertanyaan yang Sering Diajukan (FAQ)
               </h2>
             </div>
             
             {/* FAQ Search */}
             <div className="relative mb-[20px]">
-              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#808489]" />
+              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#727272]" />
               <input
                 type="text"
                 placeholder="Cari pertanyaan..."
                 value={faqSearchQuery}
                 onChange={(e) => setFaqSearchQuery(e.target.value)}
-                className="w-full h-[44px] pl-[44px] pr-[16px] border border-[#c7c7c7] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[44px] pl-[44px] pr-[16px] border border-[#ADADAD] rounded-[4px] text-[var(--text-sm)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
             </div>
             
@@ -597,7 +597,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                   return (
                     <details
                       key={originalIndex}
-                      className="bg-white rounded-[8px] border border-[#c7c7c7] overflow-hidden group"
+                      className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden group"
                     >
                       <summary className="px-[20px] py-[16px] cursor-pointer list-none hover:bg-muted transition-colors">
                         <div className="flex items-center justify-between">
@@ -605,7 +605,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                             {faq.question}
                           </h3>
                           <svg
-                            className="w-[20px] h-[20px] text-[#808489] transition-transform group-open:rotate-180 shrink-0 ml-[12px]"
+                            className="w-[20px] h-[20px] text-[#727272] transition-transform group-open:rotate-180 shrink-0 ml-[12px]"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -633,7 +633,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                               className={`flex items-center gap-[6px] px-[12px] py-[6px] rounded-[4px] border transition-all ${
                                 userVote === 'up'
                                   ? 'bg-primary text-primary-foreground border-primary'
-                                  : 'bg-white text-[#656a6c] border-[#c7c7c7] hover:bg-muted'
+                                  : 'bg-white text-[#656a6c] border-[#ADADAD] hover:bg-muted'
                               }`}
                             >
                               <span className="text-[16px]">👍</span>
@@ -646,7 +646,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                               className={`flex items-center gap-[6px] px-[12px] py-[6px] rounded-[4px] border transition-all ${
                                 userVote === 'down'
                                   ? 'bg-destructive text-destructive-foreground border-destructive'
-                                  : 'bg-white text-[#656a6c] border-[#c7c7c7] hover:bg-muted'
+                                  : 'bg-white text-[#656a6c] border-[#ADADAD] hover:bg-muted'
                               }`}
                             >
                               <span className="text-[16px]">👎</span>
@@ -661,8 +661,8 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                   );
                 })
               ) : (
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[32px] text-center">
-                  <HelpCircle className="w-[48px] h-[48px] text-[#808489] mx-auto mb-[12px]" />
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[32px] text-center">
+                  <HelpCircle className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[12px]" />
                   <p className="text-[var(--text-sm)] text-[#656a6c]">
                     Tidak ada FAQ yang cocok dengan pencarian Anda
                   </p>
@@ -672,7 +672,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
           </section>
 
           {/* CTA Pusat Bantuan */}
-          <section className="bg-gradient-to-r from-[#0B5FEF] to-[#4C8DF6] rounded-[8px] p-[32px] text-white">
+          <section className="bg-gradient-to-r from-[#0954D9] to-[#4C8DF6] rounded-[8px] p-[32px] text-white">
             <div className="flex flex-col md:flex-row items-center justify-between gap-[24px]">
               <div className="flex flex-col gap-[8px] flex-1">
                 <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)]">

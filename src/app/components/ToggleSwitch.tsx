@@ -13,7 +13,7 @@ export function ToggleSwitch({ checked, onChange, title }: ToggleSwitchProps) {
       title={title}
       className="relative w-[50px] h-[28px] shrink-0 cursor-pointer transition-colors rounded-[16px]"
       style={{
-        backgroundColor: checked ? '#0b5fef' : '#f5f5f5',
+        backgroundColor: checked ? '#0954D9' : '#f5f5f5',
         border: checked ? 'none' : '1px solid #c9cbcf',
       }}
     >

@@ -96,8 +96,8 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
 
   const columns: { id: TaskStatus; label: string; color: string; bgColor: string }[] = [
     { id: 'pengusulan', label: 'Pengusulan Tugas', color: 'border-[#906CEF]', bgColor: 'bg-[#E9D5FF]' },
-    { id: 'belum_dikerjakan', label: 'Belum Dikerjakan', color: 'border-[#808489]', bgColor: 'bg-[#E5E7EB]' },
-    { id: 'sedang_dikerjakan', label: 'Sedang Dikerjakan', color: 'border-[#0B5FEF]', bgColor: 'bg-[#DBEAFE]' },
+    { id: 'belum_dikerjakan', label: 'Belum Dikerjakan', color: 'border-[#828282]', bgColor: 'bg-[#E5E7EB]' },
+    { id: 'sedang_dikerjakan', label: 'Sedang Dikerjakan', color: 'border-[#0954D9]', bgColor: 'bg-[#DBEAFE]' },
     { id: 'perlu_reviu', label: 'Perlu Tinjauan Atasan', color: 'border-[#F59E0B]', bgColor: 'bg-[#FED7AA]' },
     { id: 'selesai', label: 'Selesai', color: 'border-[#4CA375]', bgColor: 'bg-[#D1FAE5]' }
   ];
@@ -105,24 +105,24 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
   return (
     <div className="space-y-[24px]">
       {/* Kanban Controls */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
         <div className="flex flex-col gap-[16px]">
           {/* Top Row: Search, View Toggle, and Create Button */}
           <div className="flex gap-[16px]">
             {/* Search */}
             <div className="relative flex-1">
-              <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489]" />
+              <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
               <input
                 type="text"
                 placeholder="Cari tugas..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#808489] rounded-[4px] text-[var(--text-base)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#828282] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center gap-[4px] border border-[#808489] rounded-[4px] p-[4px]">
+            <div className="flex items-center gap-[4px] border border-[#828282] rounded-[4px] p-[4px]">
               <button
                 onClick={() => setViewMode('kanban')}
                 className={`flex items-center gap-[6px] px-[12px] py-[6px] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] transition-colors ${
@@ -170,7 +170,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                     setLocalFilterBiro(e.target.value);
                     setLocalFilterTimKerja('all'); // Reset Tim Kerja when Biro changes
                   }}
-                  className="w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Unit Kerja</option>
                   {biros.map(biro => (
@@ -187,7 +187,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 <select
                   value={localFilterTimKerja}
                   onChange={(e) => setLocalFilterTimKerja(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Tim Kerja</option>
                   {timKerjas
@@ -206,7 +206,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 <select
                   value={filterAssignee}
                   onChange={(e) => setFilterAssignee(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Pelaku</option>
                   {uniqueAssignees.map(assignee => (
@@ -224,7 +224,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
               <select
                 value={filterEpic}
                 onChange={(e) => setFilterEpic(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="all">Semua SKP</option>
                 {epics.map(epic => (
@@ -295,10 +295,10 @@ function KanbanColumn({
   return (
     <div className="w-[340px] shrink-0">
       {/* Column Header */}
-      <div className={`${column.bgColor} rounded-t-[8px] border-t-4 ${column.color} border-x border-[#c7c7c7] p-[16px] sticky top-0 z-10`}>
+      <div className={`${column.bgColor} rounded-t-[8px] border-t-4 ${column.color} border-x border-[#ADADAD] p-[16px] sticky top-0 z-10`}>
         <div className="flex items-center justify-between mb-[12px]">
           <div className="flex items-center gap-[8px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
               {column.label}
             </h3>
             <span className="px-[8px] py-[2px] bg-[#EFEFEF] text-[var(--text-xs)] text-[#656a6c] font-[var(--font-weight-medium)] rounded-full">
@@ -316,14 +316,14 @@ function KanbanColumn({
       </div>
 
       {/* Column Body */}
-      <div className="bg-[#f9f9f9] border-x border-b border-[#c7c7c7] rounded-b-[8px] p-[12px] min-h-[400px] max-h-[calc(100vh-400px)] overflow-y-auto space-y-[12px]">
+      <div className="bg-[#f9f9f9] border-x border-b border-[#ADADAD] rounded-b-[8px] p-[12px] min-h-[400px] max-h-[calc(100vh-400px)] overflow-y-auto space-y-[12px]">
         {tasks.map(task => (
           <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
         ))}
 
         {tasks.length === 0 && (
           <div className="py-[32px] text-center">
-            <p className="text-[var(--text-sm)] text-[#808489]">
+            <p className="text-[var(--text-sm)] text-[#727272]">
               Tidak ada tugas
             </p>
           </div>
@@ -343,11 +343,11 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
 
   return (
     <div
-      className="bg-white rounded-[8px] border border-[#c7c7c7] p-[16px] cursor-pointer hover:shadow-md transition-shadow"
+      className="bg-white rounded-[8px] border border-[#ADADAD] p-[16px] cursor-pointer hover:shadow-md transition-shadow"
       onClick={onClick}
     >
       {/* Task Title */}
-      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px] line-clamp-2">
+      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px] line-clamp-2">
         {task.title}
       </h4>
 
@@ -414,8 +414,8 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
   const getStatusColor = (status: TaskStatus) => {
     const colors: Record<TaskStatus, string> = {
       pengusulan: 'text-[#906CEF] bg-[#906CEF]/10',
-      belum_dikerjakan: 'text-[#808489] bg-[#808489]/10',
-      sedang_dikerjakan: 'text-[#0B5FEF] bg-[#0B5FEF]/10',
+      belum_dikerjakan: 'text-[#727272] bg-[#727272]/10',
+      sedang_dikerjakan: 'text-[#0954D9] bg-[#0954D9]/10',
       perlu_reviu: 'text-[#F59E0B] bg-[#F59E0B]/10',
       selesai: 'text-[#4CA375] bg-[#4CA375]/10',
       diblokir: 'text-[#E02D38] bg-[#E02D38]/10'
@@ -424,27 +424,27 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
   };
 
   return (
-    <div className="bg-white rounded-[8px] border border-[#c7c7c7] overflow-hidden">
+    <div className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-[#f9f9f9] border-b border-[#c7c7c7]">
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+            <tr className="bg-[#f9f9f9] border-b border-[#ADADAD]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 ID Tugas
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 Judul
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 SKP
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 Status
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 Pelaku
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                 Tenggat
               </th>
             </tr>
@@ -452,7 +452,7 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
           <tbody>
             {tasks.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-[16px] py-[48px] text-center text-[var(--text-sm)] text-[#808489]">
+                <td colSpan={6} className="px-[16px] py-[48px] text-center text-[var(--text-sm)] text-[#727272]">
                   Tidak ada tugas ditemukan
                 </td>
               </tr>
@@ -472,7 +472,7 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
                       <span className="text-[var(--text-sm)] text-[#656a6c]">{task.id}</span>
                     </td>
                     <td className="px-[16px] py-[12px]">
-                      <span className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <span className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                         {task.title}
                       </span>
                     </td>

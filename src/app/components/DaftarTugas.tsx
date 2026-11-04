@@ -26,7 +26,7 @@ export function DaftarTugas() {
           <button
             key={t.id}
             type="button"
-            className="flex items-start gap-[8px] px-[16px] py-[8px] rounded-[4px] bg-[#f4f4f4] text-left hover:bg-[#ececec] transition-colors"
+            className="flex items-start gap-[8px] px-[16px] py-[8px] rounded-[4px] bg-[#F1F1F1] text-left hover:bg-[#ececec] transition-colors"
           >
             <span className="relative shrink-0">
               <img alt="" src={t.icon} className="size-[48px] object-contain" />
@@ -37,8 +37,8 @@ export function DaftarTugas() {
               ) : null}
             </span>
             <span className="flex flex-col">
-              <span className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{t.group}</span>
-              <span className="text-[#0b5fef]" style={{ fontSize: '16px', fontWeight: 700, lineHeight: '24px' }}>{t.label}</span>
+              <span className="text-[#323232]" style={{ fontSize: '16px', lineHeight: '24px' }}>{t.group}</span>
+              <span className="text-[#0954D9]" style={{ fontSize: '16px', fontWeight: 700, lineHeight: '24px' }}>{t.label}</span>
             </span>
           </button>
         ))}

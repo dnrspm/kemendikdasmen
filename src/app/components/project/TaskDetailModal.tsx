@@ -99,7 +99,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
         <div className="flex items-start justify-between p-[24px] border-b border-[#EFEFEF]">
           <div className="flex-1">
             <div className="flex items-center gap-[12px] mb-[8px]">
-              <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#808489]">
+              <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#727272]">
                 {task.id}
               </span>
               <span
@@ -112,7 +112,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                 {getStatusLabel(currentStatus)}
               </span>
             </div>
-            <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#2f3031]">
+            <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
               {task.title}
             </h2>
           </div>
@@ -131,7 +131,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
             <div className="lg:col-span-2 space-y-[24px]">
               {/* Description */}
               <div>
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
                   Deskripsi
                 </h3>
                 <p className="text-[var(--text-base)] text-[#656a6c] leading-[1.6] whitespace-pre-line">
@@ -148,7 +148,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       <FolderKanban className="w-[16px] h-[16px]" />
                       <span>SKP</span>
                     </div>
-                    <div className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                    <div className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                       {epic.name}
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       <Building2 className="w-[16px] h-[16px]" />
                       <span>Tim Kerja</span>
                     </div>
-                    <div className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                    <div className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                       {timKerja.name}
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       <Building2 className="w-[16px] h-[16px]" />
                       <span>Unit Kerja</span>
                     </div>
-                    <div className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                    <div className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                       {biro.name}
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <Building2 className="w-[16px] h-[16px]" />
                     <span>Unit Utama</span>
                   </div>
-                  <div className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                  <div className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                     Sekretariat Jenderal
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               <div>
                 <div className="flex items-center gap-[8px] mb-[16px]">
                   <MessageSquare className="w-[20px] h-[20px] text-[#656a6c]" />
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                     Catatan Penting ({notes.length})
                   </h3>
                 </div>
@@ -209,10 +209,10 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                           <User className="w-[16px] h-[16px] text-primary" />
                         </div>
                         <div>
-                          <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                          <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                             {note.user_name}
                           </div>
-                          <div className="text-[var(--text-xs)] text-[#808489]">
+                          <div className="text-[var(--text-xs)] text-[#727272]">
                             {new Date(note.created_at).toLocaleDateString('id-ID', {
                               day: 'numeric',
                               month: 'short',
@@ -230,7 +230,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   ))}
 
                   {notes.length === 0 && (
-                    <div className="text-center py-[24px] text-[var(--text-sm)] text-[#808489]">
+                    <div className="text-center py-[24px] text-[var(--text-sm)] text-[#727272]">
                       Belum ada catatan penting
                     </div>
                   )}
@@ -241,7 +241,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       placeholder="Tambahkan catatan penting..."
                       value={newNote}
                       onChange={(e) => setNewNote(e.target.value)}
-                      className="w-full min-h-[80px] p-[12px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
+                      className="w-full min-h-[80px] p-[12px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
                     />
                     <div className="flex items-center justify-end gap-[8px] mt-[12px]">
                       <button
@@ -265,7 +265,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               <div>
                 <div className="flex items-center gap-[8px] mb-[16px]">
                   <Activity className="w-[20px] h-[20px] text-[#656a6c]" />
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                     Linimasa Aktivitas
                   </h3>
                 </div>
@@ -275,11 +275,11 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <div key={log.id} className="flex gap-[12px]">
                       <div className="w-[8px] h-[8px] rounded-full bg-primary mt-[6px] shrink-0" />
                       <div className="flex-1">
-                        <div className="text-[var(--text-sm)] text-[#2f3031]">
+                        <div className="text-[var(--text-sm)] text-[#323232]">
                           <span className="font-[var(--font-weight-medium)]">{log.user_name}</span>
                           {' '}{log.details}
                         </div>
-                        <div className="text-[var(--text-xs)] text-[#808489] mt-[2px]">
+                        <div className="text-[var(--text-xs)] text-[#727272] mt-[2px]">
                           {new Date(log.created_at).toLocaleDateString('id-ID', {
                             day: 'numeric',
                             month: 'short',
@@ -292,7 +292,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   ))}
 
                   {activityLogs.length === 0 && (
-                    <div className="text-center py-[24px] text-[var(--text-sm)] text-[#808489]">
+                    <div className="text-center py-[24px] text-[var(--text-sm)] text-[#727272]">
                       Belum ada aktivitas
                     </div>
                   )}
@@ -305,7 +305,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               {/* Approve Button for Pengusulan */}
               {currentStatus === 'pengusulan' && (
                 <div className="border border-[#EFEFEF] rounded-[8px] p-[16px] bg-[#906CEF]/5">
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
                     Persetujuan Tugas
                   </h3>
                   <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px]">
@@ -323,7 +323,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               {/* Review Approval for Perlu Tinjauan Atasan */}
               {currentStatus === 'perlu_reviu' && mockEvidence && (
                 <div className="border border-[#EFEFEF] rounded-[8px] p-[16px] bg-[#F59E0B]/5">
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[12px]">
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px]">
                     Tinjauan Bukti Tugas
                   </h3>
                   <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px]">
@@ -337,10 +337,10 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                         <FileText className="w-[20px] h-[20px] text-[#E02D38]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px] truncate">
+                        <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px] truncate">
                           {mockEvidence.fileName}
                         </div>
-                        <div className="text-[var(--text-xs)] text-[#808489]">
+                        <div className="text-[var(--text-xs)] text-[#727272]">
                           {(mockEvidence.fileSize / 1024).toFixed(2)} MB • Diunggah {new Date(mockEvidence.uploadedAt).toLocaleDateString('id-ID', {
                             day: 'numeric',
                             month: 'short',
@@ -354,7 +354,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                         )}
                       </div>
                     </div>
-                    <button className="mt-[12px] w-full px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] hover:bg-[#f9f9f9] transition-colors">
+                    <button className="mt-[12px] w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] hover:bg-[#f9f9f9] transition-colors">
                       Unduh File
                     </button>
                   </div>
@@ -371,13 +371,13 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
               {/* Status - Hidden for Pengusulan and Perlu Reviu */}
               {currentStatus !== 'pengusulan' && currentStatus !== 'perlu_reviu' && (
                 <div>
-                  <label className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px] block">
+                  <label className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px] block">
                     Ubah Status
                   </label>
                   <select
                     value={currentStatus}
                     onChange={(e) => handleStatusChange(e.target.value)}
-                    className="w-full px-[12px] py-[10px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                    className="w-full px-[12px] py-[10px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                   >
                     <option value="belum_dikerjakan">Belum Dikerjakan</option>
                     <option value="sedang_dikerjakan">Sedang Dikerjakan</option>
@@ -389,7 +389,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
 
               {/* Detail Tugas */}
               <div className="border border-[#EFEFEF] rounded-[8px] p-[16px] space-y-[16px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
                   Detail Tugas
                 </h3>
 
@@ -406,7 +406,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                           <div className="w-[32px] h-[32px] rounded-full bg-primary/10 flex items-center justify-center">
                             <User className="w-[16px] h-[16px] text-primary" />
                           </div>
-                          <span className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                          <span className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                             {assignee.name}
                           </span>
                         </div>
@@ -417,7 +417,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       <div className="w-[32px] h-[32px] rounded-full bg-primary/10 flex items-center justify-center">
                         <User className="w-[16px] h-[16px] text-primary" />
                       </div>
-                      <span className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <span className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                         {task.assignee_name}
                       </span>
                     </div>
@@ -432,10 +432,10 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       <span>Pemberi Tugas</span>
                     </div>
                     <div className="flex items-center gap-[8px]">
-                      <div className="w-[32px] h-[32px] rounded-full bg-[#808489]/10 flex items-center justify-center">
-                        <User className="w-[16px] h-[16px] text-[#808489]" />
+                      <div className="w-[32px] h-[32px] rounded-full bg-[#727272]/10 flex items-center justify-center">
+                        <User className="w-[16px] h-[16px] text-[#727272]" />
                       </div>
-                      <span className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                      <span className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                         {task.reporter_name}
                       </span>
                     </div>
@@ -448,7 +448,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <Calendar className="w-[16px] h-[16px]" />
                     <span>Batas Waktu</span>
                   </div>
-                  <div className="text-[var(--text-sm)] text-[#2f3031] font-[var(--font-weight-medium)]">
+                  <div className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
                     {new Date(task.due_date).toLocaleDateString('id-ID', {
                       day: 'numeric',
                       month: 'long',
@@ -463,7 +463,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <Clock className="w-[16px] h-[16px]" />
                     <span>Dibuat</span>
                   </div>
-                  <div className="text-[var(--text-xs)] text-[#808489]">
+                  <div className="text-[var(--text-xs)] text-[#727272]">
                     {new Date(task.created_at).toLocaleDateString('id-ID', {
                       day: 'numeric',
                       month: 'long',
@@ -480,7 +480,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <Clock className="w-[16px] h-[16px]" />
                     <span>Terakhir Diupdate</span>
                   </div>
-                  <div className="text-[var(--text-xs)] text-[#808489]">
+                  <div className="text-[var(--text-xs)] text-[#727272]">
                     {new Date(task.updated_at).toLocaleDateString('id-ID', {
                       day: 'numeric',
                       month: 'long',
@@ -505,7 +505,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between p-[24px] border-b border-[#EFEFEF]">
-              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031]">
+              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232]">
                 Unggah Bukti Dukung
               </h3>
               <button
@@ -525,7 +525,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
 
               {/* File Upload */}
               <div>
-                <label className="block text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                <label className="block text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                   File Bukti Dukung <span className="text-[#E02D38]">*</span>
                 </label>
                 <div className="relative">
@@ -538,7 +538,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   />
                   <label
                     htmlFor="file-upload"
-                    className="flex items-center justify-center gap-[8px] w-full px-[16px] py-[32px] border-2 border-dashed border-[#808489] rounded-[8px] cursor-pointer hover:border-primary transition-colors bg-[#f9f9f9]"
+                    className="flex items-center justify-center gap-[8px] w-full px-[16px] py-[32px] border-2 border-dashed border-[#828282] rounded-[8px] cursor-pointer hover:border-primary transition-colors bg-[#f9f9f9]"
                   >
                     <Upload className="w-[20px] h-[20px] text-[#656a6c]" />
                     <span className="text-[var(--text-sm)] text-[#656a6c]">
@@ -552,21 +552,21 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                     <span>{uploadedFile.name} ({(uploadedFile.size / 1024).toFixed(2)} KB)</span>
                   </div>
                 )}
-                <p className="mt-[8px] text-[var(--text-xs)] text-[#808489]">
+                <p className="mt-[8px] text-[var(--text-xs)] text-[#727272]">
                   Format: PDF, DOC, DOCX, JPG, PNG. Maks 10MB
                 </p>
               </div>
 
               {/* Notes */}
               <div>
-                <label className="block text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                <label className="block text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                   Catatan (Opsional)
                 </label>
                 <textarea
                   value={uploadNotes}
                   onChange={(e) => setUploadNotes(e.target.value)}
                   placeholder="Tambahkan catatan tentang bukti dukung..."
-                  className="w-full min-h-[100px] px-[12px] py-[10px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
+                  className="w-full min-h-[100px] px-[12px] py-[10px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
                 />
               </div>
             </div>

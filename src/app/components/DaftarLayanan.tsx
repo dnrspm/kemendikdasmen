@@ -388,7 +388,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
       <div className="bg-white border-b border-[#EFEFEF]">
         <div className="max-w-[1280px] mx-auto px-[24px] py-[32px]">
           <div className="mb-[24px]">
-            <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+            <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
               Layanan Portal Kemdikdasmen
             </h1>
             <p className="text-[var(--text-base)] text-[#656a6c]">
@@ -398,13 +398,13 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
 
           {/* Search Bar */}
           <div className="relative w-full">
-            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#808489]" />
+            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
             <input
               type="text"
               placeholder="Cari layanan..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[48px] pl-[48px] pr-[16px] border border-[#808489] rounded-[4px] text-[16px] text-[#2f3031] placeholder:text-[#808489] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[48px] pl-[48px] pr-[16px] border border-[#828282] rounded-[4px] text-[16px] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
             />
           </div>
         </div>
@@ -418,7 +418,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
             <aside className="w-[240px] shrink-0 hidden lg:block">
               <div className="sticky top-[24px]">
                 <div className="bg-white border border-[#E2E8F0] rounded-[8px] p-[16px]">
-                  <h3 className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#2f3031] mb-[12px] uppercase tracking-wider">Kategori LayanaN</h3>
+                  <h3 className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] mb-[12px] uppercase tracking-wider">Kategori LayanaN</h3>
                   <nav className="space-y-[4px]">
                     {timKerjaList.map((timKerja) => {
                       const items = groupedLayanan[timKerja];
@@ -436,7 +436,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
                           className={`w-full text-left px-[12px] py-[8px] rounded-[4px] text-[var(--text-sm)] transition-all ${
                             isActive
                               ? 'bg-[#EBF2FF] text-[#1A5BA6] font-[var(--font-weight-medium)]'
-                              : 'text-[#656a6c] hover:bg-[#F9FAFB] hover:text-[#2f3031]'
+                              : 'text-[#656a6c] hover:bg-[#F9FAFB] hover:text-[#323232]'
                           }`}
                         >
                           {timKerja}
@@ -457,7 +457,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
                 return (
                   <div key={timKerja} ref={el => sectionRefs.current[timKerja] = el} data-section={timKerja}>
                     {/* Tim Kerja Header */}
-                    <h2 className="text-[var(--text-xl)] font-[var(--font-weight-bold)] text-[#2f3031] mb-[16px]">
+                    <h2 className="text-[var(--text-xl)] font-[var(--font-weight-bold)] text-[#323232] mb-[16px]">
                       {timKerja}
                     </h2>
 
@@ -487,7 +487,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
 
                               {/* Content */}
                               <div className="flex-1">
-                                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+                                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                                   {layanan.name}
                                 </h3>
                                 <p className="text-[var(--text-sm)] text-[#656a6c] leading-relaxed">
@@ -506,10 +506,10 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
           </div>
         ) : (
           // Empty State
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[64px] text-center">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[64px] text-center">
             <div className="max-w-[400px] mx-auto">
-              <Search className="w-[64px] h-[64px] text-[#808489] mx-auto mb-[16px]" />
-              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[8px]">
+              <Search className="w-[64px] h-[64px] text-[#727272] mx-auto mb-[16px]" />
+              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
                 Layanan Tidak Ditemukan
               </h3>
               <p className="text-[var(--text-sm)] text-[#656a6c] mb-[24px]">

@@ -117,8 +117,8 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
           {/* Notification List */}
           <div className="max-h-[320px] overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="m-[12px] rounded-[6px] bg-[#f4f4f4] px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
-                <Info className="size-[18px] text-[#1a5fe0]" />
+              <div className="m-[12px] rounded-[6px] bg-[#F1F1F1] px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
+                <Info className="size-[18px] text-[#0954D9]" />
                 <p className="text-[14px]" style={{ color: 'var(--muted-foreground)' }}>
                   Tidak ada pemberitahuan baru.
                 </p>

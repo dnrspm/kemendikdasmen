@@ -33,16 +33,16 @@ export function KehadiranHariIni({
   return (
     <div className="bg-card border rounded-[var(--radius-card)] overflow-hidden w-full" style={{ borderColor: '#c7c7c7' }}>
       <div className="px-[20px] py-[16px] flex flex-col gap-[8px]" style={{ backgroundColor: '#eaf3fe' }}>
-        <span className="font-['Inter',sans-serif] uppercase text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>
+        <span className="font-['Inter',sans-serif] uppercase text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>
           Halo, {userName}!
         </span>
-        <span className="font-['Inter',sans-serif] text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+        <span className="font-['Inter',sans-serif] text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>
           Selamat datang di Portal Sivitas Kemendikdasmen. Kelola Administrasi Pegawai dalam Satu Platform
         </span>
       </div>
 
       <div className="px-[20px] py-[16px] flex flex-col gap-[12px]">
-        <p className="font-['Inter',sans-serif] uppercase text-[#65696c]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '16px' }}>
+        <p className="font-['Inter',sans-serif] uppercase text-[#727272]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '16px' }}>
           Kehadiran Hari Ini | {today}
         </p>
 
@@ -57,13 +57,13 @@ export function KehadiranHariIni({
 
         <div className="flex items-stretch">
           <div className="flex flex-col gap-[2px] flex-1">
-            <span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Masuk</span>
-            <span className="text-[#2f3031]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenMasuk}</span>
+            <span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Masuk</span>
+            <span className="text-[#323232]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenMasuk}</span>
           </div>
           <div className="w-px mx-[16px]" style={{ backgroundColor: 'var(--border)' }} />
           <div className="flex flex-col gap-[2px] flex-1">
-            <span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Keluar</span>
-            <span className="text-[#2f3031]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenKeluar}</span>
+            <span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Keluar</span>
+            <span className="text-[#323232]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenKeluar}</span>
           </div>
         </div>
 

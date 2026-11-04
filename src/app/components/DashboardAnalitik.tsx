@@ -47,7 +47,7 @@ export function DashboardAnalitik({ onBack, onBackToHome }: DashboardAnalitikPro
         <div className="px-[24px] py-[20px]">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#2f3031] mb-[4px]">Dasbor Eksekutif</h1>
+              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">Dasbor Eksekutif</h1>
               <p className="text-[var(--text-sm)] text-[#656a6c]">Dasbor Eksekutif SDM ASN</p>
             </div>
 
@@ -55,11 +55,11 @@ export function DashboardAnalitik({ onBack, onBackToHome }: DashboardAnalitikPro
             <div className="flex items-end gap-[16px] ml-auto">
               {/* Filter Jabatan */}
               <div className="flex flex-col gap-[6px]">
-                <span className="text-[var(--text-sm)] text-[#2f3031]"> Filter Jabatan</span>
+                <span className="text-[var(--text-sm)] text-[#323232]"> Filter Jabatan</span>
                 <select
                   value={selectedJabatan}
                   onChange={(e) => setSelectedJabatan(e.target.value)}
-                  className="h-[42px] min-w-[260px] max-w-[420px] px-[13px] bg-white border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] focus:outline-none appearance-none pr-[36px]"
+                  className="h-[42px] min-w-[260px] max-w-[420px] px-[13px] bg-white border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] focus:outline-none appearance-none pr-[36px]"
                   style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23656A6C' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
                 >
                   <option value="semua">Semua Jabatan</option>
@@ -74,7 +74,7 @@ export function DashboardAnalitik({ onBack, onBackToHome }: DashboardAnalitikPro
 
               {/* Filter Unit */}
               <div className="flex flex-col gap-[6px]">
-                <span className="text-[var(--text-sm)] text-[#2f3031]"> Filter Unit</span>
+                <span className="text-[var(--text-sm)] text-[#323232]"> Filter Unit</span>
                 <HierarchicalFilter selectedUnit={selectedUnit} onSelect={setSelectedUnit} />
               </div>
             </div>
@@ -165,7 +165,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
     <div className="space-y-[32px]">
       {/* Page Title */}
       <div>
-        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
           Ringkasan Eksekutif
         </h2>
         <p className="text-[var(--text-sm)] text-[#656a6c]">
@@ -212,7 +212,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">Sinyal Stabilitas Organisasi</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">Sinyal Stabilitas Organisasi</h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
           </div>
           <span className="text-[var(--text-xs)] text-[#656a6c]">Apakah struktur organisasi stabil dalam beberapa periode ke depan?</span>
@@ -220,9 +220,9 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[16px] mb-[20px]">
           {/* Snapshot keterisian */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[8px]">Keterisian Jabatan</div>
-            <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[6px]">{keterisianPct}%</div>
+            <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[6px]">{keterisianPct}%</div>
             <div className="w-full bg-[#EFEFEF] rounded-full h-[6px] mb-[8px]">
               <div className="bg-[#16A34A] h-[6px] rounded-full" style={{ width: `${keterisianPct}%` }} />
             </div>
@@ -235,14 +235,14 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
           {/* Jabatan manajerial kosong */}
           <div className="bg-[#FEF3C7] rounded-[8px] border border-[#D97706] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#D97706] uppercase tracking-wide mb-[8px] font-[var(--font-weight-semibold)]">Jabatan Manajerial Kosong</div>
-            <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[4px]">{jabatanStrukturalKosong}</div>
+            <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[4px]">{jabatanStrukturalKosong}</div>
             <div className="text-[var(--text-xs)] text-[#656a6c]">
               JPT: <span className="font-[var(--font-weight-semibold)] text-[#D97706]">{eselon12}</span> | Admin: {Math.round(jabatanStrukturalKosong * 0.4)} | Pengawas: {Math.round(jabatanStrukturalKosong * 0.35)}
             </div>
           </div>
 
           {/* Proyeksi kekosongan pensiun */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[8px]">Proyeksi Pensiun 2026</div>
             <div className="text-[36px] font-[var(--font-weight-bold)] text-[#DC2626] mb-[4px]">{totalPensiun2026}</div>
             <div className="text-[var(--text-xs)] text-[#656a6c]">
@@ -251,20 +251,20 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
           </div>
 
           {/* Indikasi unit/jabatan paling rawan */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[8px]">Unit Paling Rawan</div>
             <div className="space-y-[6px]">
               <div className="flex items-center gap-[6px]">
                 <div className="w-[6px] h-[6px] rounded-full bg-[#DC2626] shrink-0"></div>
-                <span className="text-[var(--text-xs)] text-[#2f3031]">Biro OSDM — Vacancy + Pensiun</span>
+                <span className="text-[var(--text-xs)] text-[#323232]">Biro OSDM — Vacancy + Pensiun</span>
               </div>
               <div className="flex items-center gap-[6px]">
                 <div className="w-[6px] h-[6px] rounded-full bg-[#D97706] shrink-0"></div>
-                <span className="text-[var(--text-xs)] text-[#2f3031]">Ditjen GTK — Pensiun Tinggi</span>
+                <span className="text-[var(--text-xs)] text-[#323232]">Ditjen GTK — Pensiun Tinggi</span>
               </div>
               <div className="flex items-center gap-[6px]">
                 <div className="w-[6px] h-[6px] rounded-full bg-[#D97706] shrink-0"></div>
-                <span className="text-[var(--text-xs)] text-[#2f3031]">Dit. SMK — Pensiun Tinggi</span>
+                <span className="text-[var(--text-xs)] text-[#323232]">Dit. SMK — Pensiun Tinggi</span>
               </div>
             </div>
           </div>
@@ -275,7 +275,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">Sinyal Kinerja dan Talenta</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">Sinyal Kinerja dan Talenta</h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
           </div>
           <span className="text-[var(--text-xs)] text-[#656a6c]">Apakah people engine organisasi cukup kuat?</span>
@@ -283,8 +283,8 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[20px]">
           {/* Distribusi Kinerja */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">Distribusi Hasil Kinerja ASN</h3>
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">Distribusi Hasil Kinerja ASN</h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[12px]">Triwulan 1 2026</p>
             <div className="flex items-center gap-[16px] mb-[16px]">
               <div className="text-center">
@@ -305,14 +305,14 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
                 <XAxis dataKey="name" tick={{ fontSize: 10 }} />
                 <YAxis hide />
                 <Tooltip />
-                <Area type="monotone" dataKey="value" stroke="#0B5FEF" fill="#0B5FEF" fillOpacity={0.15} />
+                <Area type="monotone" dataKey="value" stroke="#0954D9" fill="#0954D9" fillOpacity={0.15} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
           {/* Distribusi Kelompok Talenta */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px] shrink-0">Distribusi Kelompok Talenta</h3>
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px] shrink-0">Distribusi Kelompok Talenta</h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[12px] shrink-0">Triwulan 1 2026 — Nine-Box</p>
             <div className="grid grid-cols-3 gap-[4px] flex-1 mb-[12px]">
               {[
@@ -336,12 +336,12 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
         </div>
 
         {/* Pengembangan Kompetensi Snapshot */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">Snapshot Pengembangan Kompetensi</h3>
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">Snapshot Pengembangan Kompetensi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[20px]">
             <div>
               <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[8px]">Perencanaan Bangkom</div>
-              <div className="text-[28px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[6px]">85%</div>
+              <div className="text-[28px] font-[var(--font-weight-bold)] text-[#323232] mb-[6px]">85%</div>
               <div className="w-full bg-[#EFEFEF] rounded-full h-[6px]">
                 <div className="bg-primary h-[6px] rounded-full" style={{ width: '85%' }} />
               </div>
@@ -370,14 +370,14 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       {/* Section 3: 3-Column Cards Row — Detail */}
       <div>
         <div className="flex items-center gap-[16px] mb-[20px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">Detail Tiga Sinyal Utama</h3>
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">Detail Tiga Sinyal Utama</h3>
           <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
         </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
         {/* Card 1 — Kinerja Pegawai */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
           <div className="flex items-center justify-between mb-[16px] shrink-0">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">
               Kinerja Pegawai
             </h3>
             <span className="px-[8px] py-[4px] rounded-[4px] text-[var(--text-xs)] bg-[#f9f9f9] text-[#656a6c]">
@@ -391,19 +391,19 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Area type="monotone" dataKey="value" stroke="#0B5FEF" fill="#0B5FEF" fillOpacity={0.2} />
+              <Area type="monotone" dataKey="value" stroke="#0954D9" fill="#0954D9" fillOpacity={0.2} />
             </AreaChart>
           </ResponsiveContainer>
 
           <p className="mt-[16px] text-[var(--text-sm)] text-[#656a6c] shrink-0">
-            <span className="font-[var(--font-weight-semibold)] text-[#2f3031]">{kinerjaPositifPct}%</span> kinerjanya diatas baik, bisa dipertahankan di periode selanjutnya.
+            <span className="font-[var(--font-weight-semibold)] text-[#323232]">{kinerjaPositifPct}%</span> kinerjanya diatas baik, bisa dipertahankan di periode selanjutnya.
           </p>
         </div>
 
         {/* Card 2 — Komposisi Talenta (Nine-Box) */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
           <div className="flex items-center justify-between mb-[16px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">
               Komposisi Talenta
             </h3>
             <span className="px-[8px] py-[4px] rounded-[4px] text-[var(--text-xs)] bg-[#f9f9f9] text-[#656a6c]">
@@ -434,7 +434,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
                           ? 'bg-primary text-white border-primary'
                           : col.highlight === 'secondary'
                           ? 'bg-[#BFDBFE] text-primary border-primary'
-                          : 'bg-[#f9f9f9] text-[#2f3031] border-[#EFEFEF]'
+                          : 'bg-[#f9f9f9] text-[#323232] border-[#EFEFEF]'
                       }`}
                     >
                       <div className="text-[var(--text-xs)] mb-[4px] opacity-70">{col.label}</div>
@@ -447,7 +447,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
           </div>
 
           <p className="text-[var(--text-sm)] text-[#656a6c]">
-            Berdasarkan Nine-Box, <span className="font-[var(--font-weight-semibold)] text-[#2f3031]">{c5AsStr}</span> masih di kelompok V dan kelompok rencana suksesi yaitu VII, VIII, IX sudah di <span className="font-[var(--font-weight-semibold)] text-[#2f3031]">{talentaSuksesiStr}</span>.
+            Berdasarkan Nine-Box, <span className="font-[var(--font-weight-semibold)] text-[#323232]">{c5AsStr}</span> masih di kelompok V dan kelompok rencana suksesi yaitu VII, VIII, IX sudah di <span className="font-[var(--font-weight-semibold)] text-[#323232]">{talentaSuksesiStr}</span>.
           </p>
         </div>
 
@@ -465,7 +465,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
             <div>
               <div className="flex items-center justify-between mb-[8px]">
                 <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#D97706]">Manajerial Kosong</span>
-                <span className="text-[20px] font-[var(--font-weight-bold)] text-[#2f3031]">{jabatanStrukturalKosong}</span>
+                <span className="text-[20px] font-[var(--font-weight-bold)] text-[#323232]">{jabatanStrukturalKosong}</span>
               </div>
               <div className="space-y-[4px] pl-[12px] border-l-2 border-[#D97706]/30">
                 {[
@@ -475,7 +475,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
                 ].map(item => (
                   <div key={item.label} className="flex items-center justify-between">
                     <span className="text-[var(--text-xs)] text-[#656a6c]">{item.label}</span>
-                    <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031]">{item.val}</span>
+                    <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232]">{item.val}</span>
                   </div>
                 ))}
               </div>
@@ -487,7 +487,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
             <div>
               <div className="flex items-center justify-between mb-[8px]">
                 <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#DC2626]">Manajerial Pensiun s.d. Tw 4</span>
-                <span className="text-[20px] font-[var(--font-weight-bold)] text-[#2f3031]">{jabatanKritis}</span>
+                <span className="text-[20px] font-[var(--font-weight-bold)] text-[#323232]">{jabatanKritis}</span>
               </div>
               <div className="space-y-[4px] pl-[12px] border-l-2 border-[#DC2626]/30">
                 {[
@@ -497,7 +497,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
                 ].map(item => (
                   <div key={item.label} className="flex items-center justify-between">
                     <span className="text-[var(--text-xs)] text-[#656a6c]">{item.label}</span>
-                    <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031]">{item.val}</span>
+                    <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232]">{item.val}</span>
                   </div>
                 ))}
               </div>
@@ -524,10 +524,10 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
 // Trend Card Component
 function TrendCard({ label, value, trend, data }: { label: string; value: string; trend: string; data: any[] }) {
   return (
-    <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+    <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
       <div className="text-[var(--text-sm)] text-[#656a6c] mb-[12px]">{label}</div>
       <div className="flex items-end justify-between mb-[12px]">
-        <div className="text-[32px] font-[var(--font-weight-bold)] text-[#2f3031]">{value}</div>
+        <div className="text-[32px] font-[var(--font-weight-bold)] text-[#323232]">{value}</div>
         <div className="flex items-center gap-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#16A34A]">
           <TrendingUp className="w-[16px] h-[16px]" />
           <span>{trend}</span>
@@ -535,7 +535,7 @@ function TrendCard({ label, value, trend, data }: { label: string; value: string
       </div>
       <ResponsiveContainer width="100%" height={60}>
         <LineChart data={data}>
-          <Line type="monotone" dataKey="value" stroke="#0B5FEF" strokeWidth={2} dot={false} />
+          <Line type="monotone" dataKey="value" stroke="#0954D9" strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -631,29 +631,29 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                 <div className="text-[var(--text-sm)] mb-[8px] uppercase tracking-wide opacity-90">Total Pegawai</div>
                 <div className="text-[36px] font-[var(--font-weight-bold)]">{totalASN.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Total PNS</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{totalPNS.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{totalPNS.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Total PPPK</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{totalPPPK.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{totalPPPK.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">PPPK Paruh Waktu</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{pppkParuhWaktu.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{pppkParuhWaktu.toLocaleString()}</div>
               </div>
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Non ASN</div>
-                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031]">{nonASN.toLocaleString()}</div>
+                <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232]">{nonASN.toLocaleString()}</div>
               </div>
             </div>
 
             {/* Charts Row 1 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
               {/* Komposisi Jenis Pegawai - Donut Chart */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Komposisi Jenis Pegawai
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -685,8 +685,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               </div>
 
               {/* Distribusi Usia */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Distribusi Usia
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -704,8 +704,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             {/* Charts Row 2 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
               {/* Komposisi Jenis Kelamin - Donut Chart */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Komposisi Jenis Kelamin
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -737,8 +737,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               </div>
 
               {/* Distribusi Masa Kerja */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Distribusi Masa Kerja
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -756,8 +756,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             {/* Charts Row 3 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
               {/* Angkatan ASN */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Angkatan ASN Berdasarkan TMT CPNS
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -772,9 +772,9 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               </div>
 
               {/* Proyeksi Pensiun */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                 <div className="flex items-center justify-between mb-[16px]">
-                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">
+                  <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">
                     Proyeksi Pensiun 5 Thn
                   </h3>
                   <div className="flex items-center gap-[6px] bg-amber-100 px-[8px] py-[4px] rounded-[4px]">
@@ -807,21 +807,21 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-[20px]">
               {/* Left - 2 KPI Cards */}
               <div className="space-y-[20px]">
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                   <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Jenjang Terbanyak</div>
-                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[8px]">S1 / D4</div>
-                  <div className="text-[var(--text-sm)] text-[#0B5FEF] font-[var(--font-weight-medium)]">65% dari total</div>
+                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[8px]">S1 / D4</div>
+                  <div className="text-[var(--text-sm)] text-[#0954D9] font-[var(--font-weight-medium)]">65% dari total</div>
                 </div>
-                <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+                <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
                   <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] uppercase tracking-wide">Proporsi S2/S3</div>
-                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[8px]">12%</div>
+                  <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[8px]">12%</div>
                   <div className="text-[var(--text-sm)] text-[#656a6c]">Kapasitas kepemimpinan strategis</div>
                 </div>
               </div>
 
               {/* Right - Chart */}
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Distribusi Pendidikan Terakhir
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -838,8 +838,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
 
             {/* Row 2: 2 Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Pendidikan berdasarkan Jenis Pegawai
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -856,8 +856,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                 </ResponsiveContainer>
               </div>
 
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Pendidikan berdasarkan Rentang Usia
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -885,8 +885,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
 
             {/* Row 1 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Jumlah Pegawai per Unit Kerja
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -900,8 +900,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                 </ResponsiveContainer>
               </div>
 
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Komposisi Pegawai per Unit Kerja
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -919,8 +919,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             </div>
 
             {/* Row 2: Full-width */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                 Komposisi Jenis Jabatan per Unit Kerja
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -939,8 +939,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
 
             {/* Row 3 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Sebaran Pusat vs UPT/Daerah
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -971,8 +971,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                 </div>
               </div>
 
-              <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+              <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                   Sebaran Tipe Unit
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -1005,8 +1005,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             </div>
 
             {/* Row 4: Breakdown Manajerial (Conditional) */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[8px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[8px]">
                 Breakdown Manajerial
               </h3>
               <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px]">
@@ -1047,8 +1047,8 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             </div>
 
             {/* Row 5: Full-width */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
                 Sebaran Pegawai Berdasarkan Wilayah Provinsi Utama
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -1076,7 +1076,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               <select
                 value={selectedMatrix}
                 onChange={(e) => setSelectedMatrix(e.target.value)}
-                className="px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="pendidikan-usia">Pendidikan × Rentang Usia</option>
                 <option value="jenis-pegawai-usia">Jenis Pegawai × Rentang Usia</option>
@@ -1095,7 +1095,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               </select>
 
               <div className="flex items-center gap-[12px]">
-                <label className="text-[var(--text-sm)] text-[#2f3031]">Tampilkan Persentase Baris</label>
+                <label className="text-[var(--text-sm)] text-[#323232]">Tampilkan Persentase Baris</label>
                 <button
                   onClick={() => setShowPersentase(!showPersentase)}
                   className={`w-[44px] h-[24px] rounded-full transition-colors relative ${
@@ -1112,19 +1112,19 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             </div>
 
             {/* Heatmap Table */}
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] overflow-x-auto">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
                   <tr>
-                    <th className="border border-[#EFEFEF] p-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031] bg-[#f9f9f9]">
+                    <th className="border border-[#EFEFEF] p-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232] bg-[#f9f9f9]">
                       Kategori
                     </th>
                     {matrixConfig.columns.map((col) => (
-                      <th key={col} className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031] bg-[#f9f9f9]">
+                      <th key={col} className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232] bg-[#f9f9f9]">
                         {col}
                       </th>
                     ))}
-                    <th className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#2f3031] bg-[#EFEFEF]">
+                    <th className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] bg-[#EFEFEF]">
                       Total
                     </th>
                   </tr>
@@ -1132,7 +1132,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                 <tbody>
                   {matrixConfig.data.map((row: any) => (
                     <tr key={row.kategori}>
-                      <td className="border border-[#EFEFEF] p-[12px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">
+                      <td className="border border-[#EFEFEF] p-[12px] text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
                         {row.kategori}
                       </td>
                       {matrixConfig.columns.map((col) => {
@@ -1143,7 +1143,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                           </td>
                         );
                       })}
-                      <td className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#2f3031] bg-[#f9f9f9]">
+                      <td className="border border-[#EFEFEF] p-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] bg-[#f9f9f9]">
                         {row.total.toLocaleString()}
                       </td>
                     </tr>
@@ -1174,7 +1174,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
     <div className="space-y-[32px]">
       {/* Page Title */}
       <div>
-        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
           Profil ASN Kemendikdasmen
         </h2>
         <p className="text-[var(--text-sm)] text-[#656a6c]">
@@ -1183,7 +1183,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
       </div>
 
       {/* Sub-tab Navigation */}
-      <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[16px]">
+      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[16px]">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-[16px]">
           <div className="flex flex-wrap gap-[8px]">
             <button
@@ -1233,7 +1233,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             <select
               value={filterJabatan}
               onChange={(e) => setFilterJabatan(e.target.value)}
-              className="px-[12px] py-[8px] border border-[#808489] rounded-[4px] text-[var(--text-sm)] text-[#2f3031] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
             >
               <option value="semua">Seluruh Jabatan</option>
               <option value="manajerial">Seluruh Manajerial</option>
@@ -1365,7 +1365,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
     <div className="space-y-[32px]">
       {/* Page Title */}
       <div>
-        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
           Keterisian Jabatan
         </h2>
         <p className="text-[var(--text-sm)] text-[#656a6c]">
@@ -1405,7 +1405,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">
               A. Keterisian Jabatan Saat Ini
             </h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
@@ -1415,11 +1415,11 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
 
         {/* KPI Row — % Keterisian & Kekosongan with Trend */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px] mb-[24px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-sm)] text-[#656a6c] mb-[4px]">% Keterisian Jabatan</div>
             <div className="flex items-end justify-between mb-[8px]">
               <div>
-                <div className="text-[40px] font-[var(--font-weight-bold)] text-[#2f3031] leading-none">{keterisianPct}%</div>
+                <div className="text-[40px] font-[var(--font-weight-bold)] text-[#323232] leading-none">{keterisianPct}%</div>
                 <div className="flex items-center gap-[4px] text-[var(--text-sm)] text-[#16A34A] mt-[6px]">
                   <TrendingUp className="w-[14px] h-[14px]" />
                   <span>+2% vs Tw 4 2025</span>
@@ -1438,7 +1438,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             </div>
           </div>
 
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-sm)] text-[#656a6c] mb-[4px]">% Kekosongan Jabatan</div>
             <div className="flex items-end justify-between mb-[8px]">
               <div>
@@ -1463,9 +1463,9 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
         </div>
 
         {/* Jabatan Detail Kosong — Filter Tabs */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] mb-[24px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] mb-[24px]">
           {/* Header */}
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[24px]">
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-[#323232] mb-[24px]">
             Jabatan Detail Kosong
           </h3>
 
@@ -1486,9 +1486,9 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                     border: active ? '2px solid #0954d9' : '1px solid #c7c7c7',
                   }}
                 >
-                  <p className="text-[16px] font-normal text-[#2f3031] mb-[8px]">{label}</p>
-                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '28px', fontWeight: 700, color: '#2f3031', lineHeight: 1, marginBottom: '8px' }}>{count}</p>
-                  <p className="text-[16px] font-normal text-[#2f3031]">Jabatan kosong</p>
+                  <p className="text-[16px] font-normal text-[#323232] mb-[8px]">{label}</p>
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '28px', fontWeight: 700, color: '#323232', lineHeight: 1, marginBottom: '8px' }}>{count}</p>
+                  <p className="text-[16px] font-normal text-[#323232]">Jabatan kosong</p>
                 </button>
               );
             })}
@@ -1499,15 +1499,15 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#EFEFEF]">
-                  <th className="text-left py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#2f3031] uppercase">Jabatan</th>
-                  <th className="text-left py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#2f3031] uppercase">Unit</th>
-                  <th className="text-center py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#2f3031] uppercase">Lama Kosong</th>
+                  <th className="text-left py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#323232] uppercase">Jabatan</th>
+                  <th className="text-left py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#323232] uppercase">Unit</th>
+                  <th className="text-center py-[8px] px-[12px] text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#323232] uppercase">Lama Kosong</th>
                 </tr>
               </thead>
               <tbody>
                 {jabatanKosongDetail[jabatanFilter].map((item, idx) => (
                   <tr key={idx} className="border-b border-[#f9f9f9] hover:bg-[#f9f9f9]">
-                    <td className="py-[10px] px-[12px] text-[var(--text-sm)] text-[#2f3031]">{item.jabatan}</td>
+                    <td className="py-[10px] px-[12px] text-[var(--text-sm)] text-[#323232]">{item.jabatan}</td>
                     <td className="py-[10px] px-[12px] text-[var(--text-sm)] text-[#656a6c]">{item.unit}</td>
                     <td className="py-[10px] px-[12px] text-center">
                       <span className={`px-[8px] py-[3px] rounded-full text-[var(--text-xs)] font-[var(--font-weight-medium)] ${
@@ -1528,10 +1528,10 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
 
         {/* View Level Organisasi — Top 5 Stable & Bottom 5 At-Risk */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <div className="w-[8px] h-[8px] rounded-full bg-[#DC2626]"></div>
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Bottom 5 Unit Paling Rawan</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Bottom 5 Unit Paling Rawan</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Kekosongan jabatan</p>
             <div className="space-y-[10px]">
@@ -1539,7 +1539,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
                   <div className="flex-1">
-                    <div className="text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                    <div className="text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   </div>
                   <div className="flex items-center gap-[8px]">
                     <div className="w-[80px] bg-[#EFEFEF] rounded-full h-[6px]">
@@ -1552,17 +1552,17 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             </div>
           </div>
 
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <div className="w-[8px] h-[8px] rounded-full bg-[#16A34A]"></div>
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Top 5 Unit Paling Stabil</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Top 5 Unit Paling Stabil</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Keterisian jabatan tertinggi berdasarkan persentase</p>
             <div className="space-y-[10px]">
               {top5Stable.map((row, idx) => (
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                  <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                  <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   <div className="flex items-center gap-[8px]">
                     <div className="w-[80px] bg-[#EFEFEF] rounded-full h-[6px]">
                       <div className="bg-[#16A34A] h-[6px] rounded-full" style={{ width: `${row.pct}%` }} />
@@ -1576,8 +1576,8 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
         </div>
 
         {/* View Per Jabatan — Top jabatan paling sering lowong */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
             Jabatan Paling Sering Lowong
           </h3>
           <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Posisi yang kosong ≥ 3 bulan dalam setahun terakhir</p>
@@ -1586,7 +1586,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
               <div key={idx} className="flex items-center gap-[12px] p-[10px] rounded-[6px] bg-[#f9f9f9]">
                 <div className="w-[24px] h-[24px] rounded-full bg-[#D97706] text-white text-[var(--text-xs)] font-[var(--font-weight-semibold)] flex items-center justify-center shrink-0">{idx + 1}</div>
                 <div className="flex-1">
-                  <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#2f3031]">{item.jabatan}</div>
+                  <div className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">{item.jabatan}</div>
                   <div className="text-[var(--text-xs)] text-[#656a6c]">{item.jenis}</div>
                 </div>
                 <div className="text-right">
@@ -1603,7 +1603,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">
               B. Risiko Kekosongan karena Pensiun
             </h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
@@ -1612,8 +1612,8 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
         </div>
 
         {/* Forecast per Triwulan — quarterly only, no cumulative */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] mb-[24px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] mb-[24px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
             Forecast Lowong per Triwulan (Pensiun 2026)
           </h3>
           <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">
@@ -1636,8 +1636,8 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
         </div>
 
         {/* Pensiun per Unit Utama */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] mb-[24px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] mb-[24px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
             Pensiun per Unit Utama
           </h3>
           <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Jumlah pegawai yang akan pensiun s.d. akhir 2026, per unit kerja utama</p>
@@ -1653,7 +1653,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             ]).map((row, idx) => (
               <div key={idx} className="flex items-center gap-[12px]">
                 <div className="shrink-0 text-[var(--text-xs)] text-[#9ca3af] w-[20px] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                 <div className="w-[140px]">
                   <div className="flex justify-between text-[var(--text-xs)] text-[#656a6c] mb-[4px]">
                     <span>{row.jumlah} orang</span>
@@ -1683,7 +1683,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                   {item.risk}
                 </span>
               </div>
-              <div className="text-[36px] font-[var(--font-weight-bold)] text-[#2f3031] mb-[8px]">{item.count}</div>
+              <div className="text-[36px] font-[var(--font-weight-bold)] text-[#323232] mb-[8px]">{item.count}</div>
               <div className="text-[var(--text-xs)] text-[#656a6c]">
                 Periode sebelumnya: <span className="font-[var(--font-weight-semibold)]">{item.prev}</span>
                 <span className="ml-[6px] text-[#DC2626]">(+{item.count - item.prev})</span>
@@ -1694,8 +1694,8 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
 
         {/* Pensiun berdasarkan Jabatan — Manajerial vs Non-Manajerial */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Top Jabatan Manajerial yang Pensiun
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Jabatan yang paling banyak ditinggalkan s.d. akhir 2026</p>
@@ -1712,8 +1712,8 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Top Jabatan Non-Manajerial yang Pensiun
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Berdasarkan kelas jabatan (1–15) s.d. akhir 2026</p>
@@ -1742,17 +1742,17 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
 
         {/* Unit yang Paling Terdampak */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <AlertTriangle className="w-[16px] h-[16px] text-[#DC2626]" />
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Top 5 Unit Paling Berisiko</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Top 5 Unit Paling Berisiko</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Unit yang kehilangan paling banyak pegawai dari pensiun</p>
             <div className="space-y-[10px]">
               {unitPensiunRisk.map((row, idx) => (
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                  <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                  <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   <div className="text-right">
                     <div className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#DC2626]">{row.akan_pensiun} orang</div>
                     <div className="text-[var(--text-xs)] text-[#9ca3af]">{row.pct_dari_total}% dari total</div>
@@ -1762,17 +1762,17 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
             </div>
           </div>
 
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <CheckCircle className="w-[16px] h-[16px] text-[#16A34A]" />
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Bottom 5 Unit Paling Aman</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Bottom 5 Unit Paling Aman</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Unit yang paling tidak berisiko kehilangan pegawai dari pensiun</p>
             <div className="space-y-[10px]">
               {unitPensiunSafe.map((row, idx) => (
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                  <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                  <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   <div className="text-right">
                     <div className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#16A34A]">{row.akan_pensiun} orang</div>
                     <div className="text-[var(--text-xs)] text-[#9ca3af]">{row.pct_dari_total}% dari total</div>
@@ -1864,7 +1864,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
     <div className="space-y-[32px]">
       {/* Page Title */}
       <div>
-        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">Kinerja & Talenta ASN</h2>
+        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">Kinerja & Talenta ASN</h2>
         <p className="text-[var(--text-sm)] text-[#656a6c]">
           Update terakhir: 24 April 2026, 09:00 WIB
         </p>
@@ -1898,9 +1898,9 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
 
       {/* Distribusi Ninebox — with color groups */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
-        <div className="lg:col-span-2 bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+        <div className="lg:col-span-2 bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
           <div className="flex items-center justify-between mb-[16px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">
               Distribusi Kelompok Talenta (Nine-Box)
             </h3>
             <span className="px-[8px] py-[4px] rounded-[4px] text-[var(--text-xs)] bg-[#f9f9f9] text-[#656a6c]">
@@ -1971,33 +1971,33 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         </div>
 
         {/* Highlight — 3 facts per color group */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[16px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[16px]">
             Highlight per Kelompok
           </h3>
           <div className="space-y-[16px]">
             <div className="p-[12px] rounded-[6px] bg-[#DCFCE7] border border-[#16A34A]">
               <div className="text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#16A34A] mb-[8px] uppercase">Box 7-9 — Suksesi</div>
               <div classNam font-bolde="space-y-[4px]">
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• {talentaSuksesiStr} talenta siap suksesi (box 7-9)</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• Terkonsentrasi di Setjen dan Ditjen GTK</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• Proporsi meningkat 1.2% dari Tw 4 2025</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• {talentaSuksesiStr} talenta siap suksesi (box 7-9)</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• Terkonsentrasi di Setjen dan Ditjen GTK</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• Proporsi meningkat 1.2% dari Tw 4 2025</p>
               </div>
             </div>
             <div className="p-[12px] rounded-[6px] bg-[#FEF3C7] border border-[#D97706]">
               <div className="text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#D97706] mb-[8px] uppercase">Box 4-6 — Standar</div>
               <div className="space-y-[4px]">
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• {c5AsStr} di kelompok standar (terbesar)</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• 78% memiliki potensi upgrade ke box atas</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• Rekomendasi: percepat bangkom untuk akselerasi</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• {c5AsStr} di kelompok standar (terbesar)</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• 78% memiliki potensi upgrade ke box atas</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• Rekomendasi: percepat bangkom untuk akselerasi</p>
               </div>
             </div>
             <div className="p-[12px] rounded-[6px] bg-[#FEE2E2] border border-[#DC2626]">
               <div className="text-[var(--text-xs)] font-[var(--font-weight-semibold)] text-[#DC2626] mb-[8px] uppercase">Box 1-3 — Perlu Perhatian</div>
               <div className="space-y-[4px]">
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• {perhatianPct}% berada di kelompok perhatian</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• Paling banyak di unit Biro OSDM dan Dit. SMK</p>
-                <p className="text-[var(--text-xs)] text-[#2f3031]">• 3 unit mengalami peningkatan box 1-3 dari periode lalu</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• {perhatianPct}% berada di kelompok perhatian</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• Paling banyak di unit Biro OSDM dan Dit. SMK</p>
+                <p className="text-[var(--text-xs)] text-[#323232]">• 3 unit mengalami peningkatan box 1-3 dari periode lalu</p>
               </div>
             </div>
           </div>
@@ -2007,7 +2007,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section A: Kinerja ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">
             A. Kinerja ASN
           </h3>
           <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
@@ -2016,9 +2016,9 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         {/* Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px] mb-[24px]">
           {/* Distribusi Hasil Kinerja */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center justify-between mb-[16px]">
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">
                 Distribusi Hasil Kinerja
               </h3>
               <span className="px-[8px] py-[4px] rounded-[4px] text-[var(--text-xs)] bg-[#f9f9f9] text-[#656a6c]">
@@ -2030,14 +2030,14 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                 <XAxis dataKey="name" tick={{ fontSize: 10 }} />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="value" stroke="#0B5FEF" fill="#0B5FEF" fillOpacity={0.2} />
+                <Area type="monotone" dataKey="value" stroke="#0954D9" fill="#0954D9" fillOpacity={0.2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
 
           {/* Tren Triwulanan */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Tren Triwulanan
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">
@@ -2056,7 +2056,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
           </div>
 
           {/* KPI */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="space-y-[20px]">
               <div>
                 <div className="text-[var(--text-sm)] text-[#656a6c] mb-[8px] font-bold">Persentase Pegawai dengan Predikat Kinerja Positif</div>
@@ -2074,8 +2074,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
 
         {/* Row 2: Distribusi per Jenis Jabatan + Top Jabatan Perlu Perhatian */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px] shrink-0">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px] shrink-0">
               Distribusi Hasil Kerja per Jenis Jabatan
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px] shrink-0">
@@ -2117,10 +2117,10 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
           </div>
 
           {/* Top Jabatan Perlu Perhatian — dipindah ke sini */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center justify-between mb-[16px]">
               <div>
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
                   Top Jabatan "Perlu Perhatian"
                 </h3>
                 <p className="text-[var(--text-xs)] text-[#656a6c]">
@@ -2149,7 +2149,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                           {item.kategori}
                         </span>
                       </td>
-                      <td className="py-[10px] px-[8px] text-[var(--text-sm)] text-[#2f3031]">{item.jabatan}</td>
+                      <td className="py-[10px] px-[8px] text-[var(--text-sm)] text-[#323232]">{item.jabatan}</td>
                       <td className="py-[10px] px-[8px] text-right">
                         <span className="text-[var(--text-sm)] font-[var(--font-weight-semibold)]" style={{ color: item.color }}>{item.jumlah}</span>
                       </td>
@@ -2166,17 +2166,17 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
 
         {/* Row 3: Perbandingan antar unit — Top 5 / Bottom 5 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <div className="w-[8px] h-[8px] rounded-full bg-primary"></div>
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Top 5 Unit Kinerja Positif Tertinggi</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Top 5 Unit Kinerja Positif Tertinggi</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Proporsi kinerja positif (Baik + Sangat Baik)</p>
             <div className="space-y-[10px]">
               {top5UnitKinerja.map((row, idx) => (
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                  <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                  <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   <div className="flex items-center gap-[8px]">
                     <div className="w-[80px] bg-[#EFEFEF] rounded-full h-[6px]">
                       <div className="bg-primary h-[6px] rounded-full" style={{ width: `${row.positif}%` }} />
@@ -2187,17 +2187,17 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
               ))}
             </div>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="flex items-center gap-[8px] mb-[4px]">
               <div className="w-[8px] h-[8px] rounded-full bg-[#D97706]"></div>
-              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031]">Bottom 5 Unit Pegawai Perlu Perhatian Tertinggi</h3>
+              <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232]">Bottom 5 Unit Pegawai Perlu Perhatian Tertinggi</h3>
             </div>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Unit dengan proporsi kinerja perlu perhatian terbanyak</p>
             <div className="space-y-[10px]">
               {bottom5UnitKinerja.map((row, idx) => (
                 <div key={idx} className="flex items-center gap-[10px]">
                   <div className="w-[20px] text-[var(--text-xs)] text-[#9ca3af] text-center font-[var(--font-weight-semibold)]">{idx + 1}</div>
-                  <div className="flex-1 text-[var(--text-sm)] text-[#2f3031]">{row.unit}</div>
+                  <div className="flex-1 text-[var(--text-sm)] text-[#323232]">{row.unit}</div>
                   <div className="flex items-center gap-[8px]">
                     <div className="w-[80px] bg-[#EFEFEF] rounded-full h-[6px]">
                       <div className="bg-[#D97706] h-[6px] rounded-full" style={{ width: `${row.positif}%` }} />
@@ -2212,10 +2212,10 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
 
         {/* Row 4: Distribusi Hasil Kerja per Unit — full width */}
         <div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
             <div className="flex items-center justify-between mb-[16px]">
               <div>
-                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+                <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
                   Distribusi Hasil Kerja per Unit
                 </h3>
                 <p className="text-[var(--text-xs)] text-[#656a6c]">
@@ -2293,7 +2293,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section B: Pemetaan Talenta ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">
             B. Pemetaan Talenta ASN
           </h3>
           <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
@@ -2302,8 +2302,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         {/* Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
           {/* Tren Rata-rata Aspek */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px] shrink-0">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px] shrink-0">
               Tren Rata-rata Aspek Penilaian
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px] shrink-0">
@@ -2323,8 +2323,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
           </div>
 
           {/* Aspek Penilaian Ninebox — with median */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Aspek Penilaian Ninebox
             </h3>
             <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px]">
@@ -2370,8 +2370,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         {/* Row 2: Driver Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
           {/* Penjabaran Aspek Kinerja */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Penjabaran Aspek Kinerja
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">
@@ -2392,8 +2392,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
           </div>
 
           {/* Penjabaran Aspek Potensial */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
               Penjabaran Aspek Potensial
             </h3>
             <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">
@@ -2421,7 +2421,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section C: Pengembangan Kompetensi: Rencana vs Realisasi */}
       <div style={{ display: 'none' }}>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">
             C. Pengembangan Kompetensi: Rencana vs Realisasi
           </h3>
           <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
@@ -2431,7 +2431,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px] mb-[24px]">
 
           {/* ── KIRI: Perencanaan Bangkom ── */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             {/* Gauge */}
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[10px]">Perencanaan Bangkom</div>
             <div className="flex items-end justify-between mb-[6px]">
@@ -2489,7 +2489,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
           </div>
 
           {/* ── KANAN: Realisasi Pelatihan ── */}
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             {/* Gauge */}
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[10px]">Realisasi Pelatihan</div>
             <div className="flex items-end justify-between mb-[6px]">
@@ -2545,8 +2545,8 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
         </div>
 
         {/* Tren Perencanaan & Realisasi — full width */}
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] mb-[24px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] mb-[24px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
             Tren Perencanaan dan Realisasi Pelatihan
           </h3>
           <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">
@@ -2638,7 +2638,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
   return (
     <div className="space-y-[32px]">
       <div>
-        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">Tata Kelola Organisasi</h2>
+        <h2 className="text-[24px] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">Tata Kelola Organisasi</h2>
         <p className="text-[var(--text-sm)] text-[#656a6c]">Update terakhir: 24 April 2026, 09:00 WIB</p>
       </div>
 
@@ -2668,16 +2668,16 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">A. Penilaian SAKIP</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">A. Penilaian SAKIP</h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
           </div>
           <span className="text-[var(--text-xs)] text-[#656a6c]">Fokus: akuntabilitas kinerja organisasi secara tahunan</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px] mb-[20px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Nilai SAKIP Terbaru</div>
             <div className="flex items-end gap-[12px] mb-[8px]">
-              <div className="text-[48px] font-[var(--font-weight-bold)] text-[#2f3031] leading-none">{sakipPredikat.nilai}</div>
+              <div className="text-[48px] font-[var(--font-weight-bold)] text-[#323232] leading-none">{sakipPredikat.nilai}</div>
               <div className="mb-[4px]">
                 <div className="text-[24px] font-[var(--font-weight-bold)] text-primary">{sakipPredikat.predikat}</div>
                 <div className="text-[var(--text-xs)] text-[#656a6c]">Predikat</div>
@@ -2689,7 +2689,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
             </div>
             <p className="text-[var(--text-xs)] text-[#9ca3af] italic">Tren meningkat — akuntabilitas kinerja semakin kuat.</p>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px] shrink-0">Tren Nilai SAKIP (2021–2025)</div>
             <ResponsiveContainer width="100%" className="flex-1 min-h-0">
               <BarChart data={trendSakipData}>
@@ -2703,13 +2703,13 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Aspek Penilaian SAKIP</div>
             <div className="space-y-[10px]">
               {aspekSAKIP.map((item, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between text-[var(--text-xs)] mb-[3px]">
-                    <span className="text-[#2f3031]">{item.aspek}</span>
+                    <span className="text-[#323232]">{item.aspek}</span>
                     <div className="flex items-center gap-[6px]">
                       <span className={`font-[var(--font-weight-semibold)] ${dc(item.delta)}`}>{ds(item.delta)}{item.delta}</span>
                       <span className="text-[#656a6c]">{item.nilai}/{item.maxNilai}</span>
@@ -2727,8 +2727,8 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#2f3031] mb-[4px]">Distribusi Unit per Predikat SAKIP</h3>
+        <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">Distribusi Unit per Predikat SAKIP</h3>
           <p className="text-[var(--text-xs)] text-[#656a6c] mb-[16px]">Perbandingan nilai akhir unit utama vs tahun sebelumnya</p>
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -2743,8 +2743,8 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               <tbody>
                 {unitSakipData.map((row, idx) => (
                   <tr key={idx} className="border-b border-[#f9f9f9] hover:bg-[#f9f9f9]">
-                    <td className="py-[10px] px-[12px] text-[var(--text-sm)] text-[#2f3031]">{row.unit}</td>
-                    <td className="py-[10px] px-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#2f3031]">{row.nilai}</td>
+                    <td className="py-[10px] px-[12px] text-[var(--text-sm)] text-[#323232]">{row.unit}</td>
+                    <td className="py-[10px] px-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-semibold)] text-[#323232]">{row.nilai}</td>
                     <td className="py-[10px] px-[12px] text-center">
                       <span className={`px-[8px] py-[3px] rounded-full text-[var(--text-xs)] font-[var(--font-weight-semibold)] ${row.predikat === 'AA' ? 'bg-[#DCFCE7] text-[#16A34A]' : row.predikat === 'A' ? 'bg-[#EFF6FF] text-primary' : 'bg-[#FEF3C7] text-[#D97706]'}`}>{row.predikat}</span>
                     </td>
@@ -2764,13 +2764,13 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">B. Zona Integritas (ZI)</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">B. Zona Integritas (ZI)</h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
           </div>
           <span className="text-[var(--text-xs)] text-[#656a6c]">Fokus: kematangan integritas unit kerja</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px] mb-[20px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Predikat ZI Terbaru</div>
             <div className="inline-block px-[28px] py-[14px] rounded-[8px] bg-primary text-white mb-[10px]">
               <div className="text-[40px] font-[var(--font-weight-bold)]">WBBM</div>
@@ -2781,7 +2781,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               <span>+2 unit baru raih WBBM vs tahun lalu</span>
             </div>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px] shrink-0">Tren ZI 5 Tahun</div>
             <ResponsiveContainer width="100%" className="flex-1 min-h-0">
               <BarChart data={trendZIStackedData}>
@@ -2796,13 +2796,13 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">6 Aspek Pembangunan ZI</div>
             <div className="space-y-[8px]">
               {aspekZIData.map((item, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between text-[var(--text-xs)] mb-[3px]">
-                    <span className="text-[#2f3031]">{item.aspek}</span>
+                    <span className="text-[#323232]">{item.aspek}</span>
                     <div className="flex items-center gap-[6px]">
                       <span className={`font-[var(--font-weight-semibold)] ${dc(item.delta)}`}>{ds(item.delta)}{item.delta}</span>
                       <span className="text-[#656a6c]">{item.nilai}</span>
@@ -2826,7 +2826,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
             { label: 'WBK', color: '#3B82F6', bg: '#EFF6FF', units: unitZIData.wbk },
             { label: 'WBBM', color: '#10B981', bg: '#ECFDF5', units: unitZIData.wbbm },
           ] as const).map(group => (
-            <div key={group.label} className="bg-white rounded-[8px] border border-[#c7c7c7] p-[16px]">
+            <div key={group.label} className="bg-white rounded-[8px] border border-[#ADADAD] p-[16px]">
               <div className="flex items-center gap-[8px] mb-[12px]">
                 <span className="px-[10px] py-[4px] rounded-full text-[var(--text-xs)] font-[var(--font-weight-semibold)]" style={{ backgroundColor: group.bg, color: group.color }}>{group.label}</span>
                 <span className="text-[var(--text-xs)] text-[#9ca3af]">{group.units.length} unit</span>
@@ -2834,7 +2834,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               <div className="space-y-[6px]">
                 {group.units.map((u, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <span className="text-[var(--text-xs)] text-[#2f3031]">{u.unit}</span>
+                    <span className="text-[var(--text-xs)] text-[#323232]">{u.unit}</span>
                     <span className="text-[var(--text-xs)] text-[#DC2626]">Lemah: {u.aspekLemah}</span>
                   </div>
                 ))}
@@ -2848,13 +2848,13 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">C. Indeks Kapabilitas Kelembagaan</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">C. Indeks Kapabilitas Kelembagaan</h3>
             <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
           </div>
           <span className="text-[var(--text-xs)] text-[#656a6c]">Berdasarkan PermenPANRB No. 4 Tahun 2026</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px] mb-[20px]">
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] text-center">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-center">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Level Terbaru</div>
             <div className="text-[56px] font-[var(--font-weight-bold)] text-primary leading-none mb-[4px]">P4</div>
             <div className="text-[var(--text-sm)] text-[#656a6c] mb-[10px]">Skor: 74/100</div>
@@ -2864,7 +2864,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
             </div>
             <p className="text-[var(--text-xs)] text-[#9ca3af] italic">Tren meningkat — organisasi semakin matang secara kelembagaan.</p>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px] shrink-0">Tren Skor Kelembagaan (2021–2025)</div>
             <ResponsiveContainer width="100%" className="flex-1 min-h-0">
               <BarChart data={trendKelembagaanData}>
@@ -2878,13 +2878,13 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
             <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">4 Aspek Penilaian</div>
             <div className="space-y-[10px]">
               {aspekKelembagaan.map((item, idx) => (
                 <div key={idx}>
                   <div className="flex justify-between text-[var(--text-xs)] mb-[3px]">
-                    <span className="text-[#2f3031]">{item.aspek}</span>
+                    <span className="text-[#323232]">{item.aspek}</span>
                     <div className="flex items-center gap-[6px]">
                       <span className={`font-[var(--font-weight-semibold)] ${dc(item.delta)}`}>{ds(item.delta)}{item.delta}</span>
                       <span className="text-[#656a6c]">{item.nilai}</span>
@@ -2909,12 +2909,12 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
             { label: 'Paling Membaik', color: '#D97706', items: unitKelembagaan.membaik },
             { label: 'Stagnan', color: '#9ca3af', items: unitKelembagaan.stagnan },
           ] as const).map(group => (
-            <div key={group.label} className="bg-white rounded-[8px] border border-[#c7c7c7] p-[14px]">
+            <div key={group.label} className="bg-white rounded-[8px] border border-[#ADADAD] p-[14px]">
               <div className="text-[var(--text-xs)] font-[var(--font-weight-semibold)] uppercase tracking-wide mb-[10px]" style={{ color: group.color }}>{group.label}</div>
               <div className="space-y-[6px]">
                 {group.items.map((u, i) => (
                   <div key={i} className="flex items-center justify-between">
-                    <span className="text-[var(--text-xs)] text-[#2f3031]">{u.unit}</span>
+                    <span className="text-[var(--text-xs)] text-[#323232]">{u.unit}</span>
                     <span className="text-[var(--text-xs)] font-[var(--font-weight-semibold)]" style={{ color: group.color }}>{u.val}</span>
                   </div>
                 ))}
@@ -2929,31 +2929,31 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
         <div>
           <div className="mb-[20px]">
             <div className="flex items-center gap-[16px] mb-[4px]">
-              <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#2f3031]">D. Reformasi Birokrasi</h3>
+              <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-[#323232]">D. Reformasi Birokrasi</h3>
               <div className="flex-1 h-[1px] bg-[#EFEFEF]"></div>
             </div>
             <span className="text-[var(--text-xs)] text-[#656a6c]">Fokus: kemajuan transformasi tata kelola — hanya tersedia di level Kementerian</span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
               <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Nilai RB Terbaru</div>
               <div className="flex items-end gap-[8px] mb-[16px]">
-                <div className="text-[48px] font-[var(--font-weight-bold)] text-[#2f3031] leading-none">91.56</div>
+                <div className="text-[48px] font-[var(--font-weight-bold)] text-[#323232] leading-none">91.56</div>
                 <div className="mb-[4px] text-[20px] font-[var(--font-weight-bold)] text-[#4CA375]">AA</div>
               </div>
               <div className="space-y-[8px]">
                 <div className="flex justify-between text-[var(--text-sm)]">
                   <span className="text-[#656a6c]">RB General</span>
-                  <span className="font-[var(--font-weight-semibold)] text-[#2f3031]">84.7</span>
+                  <span className="font-[var(--font-weight-semibold)] text-[#323232]">84.7</span>
                 </div>
                 <div className="flex justify-between text-[var(--text-sm)]">
                   <span className="text-[#656a6c]">RB Tematik 2025</span>
-                  <span className="font-[var(--font-weight-semibold)] text-[#2f3031]">6.86</span>
+                  <span className="font-[var(--font-weight-semibold)] text-[#323232]">6.86</span>
                 </div>
               </div>
               <p className="mt-[12px] text-[var(--text-xs)] text-[#9ca3af] italic">Konsisten meningkat dan selalu di atas rerata nasional.</p>
             </div>
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px] flex flex-col">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] flex flex-col">
               <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px] shrink-0">Tren Nilai RB (2021–2025)</div>
               <ResponsiveContainer width="100%" className="flex-1 min-h-0">
                 <BarChart data={trendRBData}>
@@ -2967,7 +2967,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div className="bg-white rounded-[8px] border border-[#c7c7c7] p-[20px]">
+            <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
               <div className="text-[var(--text-xs)] text-[#656a6c] uppercase tracking-wide mb-[12px]">Area Utama Penguatan RB</div>
               <div className="space-y-[8px]">
                 {areaRB.map((item, idx) => {
@@ -2975,7 +2975,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                   return (
                     <div key={idx}>
                       <div className="flex justify-between text-[var(--text-xs)] mb-[3px]">
-                        <span className="text-[#2f3031]">{item.area}</span>
+                        <span className="text-[#323232]">{item.area}</span>
                         <span className={`font-[var(--font-weight-semibold)] ${atTarget ? 'text-[#16A34A]' : 'text-[#D97706]'}`}>{item.nilai} {atTarget ? '✓' : '↑'}</span>
                       </div>
                       <div className="w-full bg-[#EFEFEF] rounded-full h-[5px]">
