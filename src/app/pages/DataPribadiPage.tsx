@@ -1,4 +1,5 @@
 import { Tabs } from '@/app/components/seragam/Tabs';
+import { Checkbox } from '@/app/components/seragam/Checkbox';
 import { ChipGroup } from '@/app/components/seragam/Chip';
 import { Banner } from '@/app/components/seragam/Banner';
 import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
@@ -722,13 +723,11 @@ function ProtoBar({ admin, setAdmin }: { admin: boolean; setAdmin: (v: boolean) 
       <span className="inline-flex items-center gap-[6px]" style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}><SlidersHorizontal className="size-[12px]" />Kontrol prototipe · Opsi 3: Tabel per tahun</span>
       <span className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Bukan bagian produk</span>
       <label className="inline-flex items-center gap-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>Skenario (AC EK-5)
-        <select value={scenario} onChange={(e) => setScenario(e.target.value)} aria-label="Skenario prototipe" className="max-w-full rounded-[4px] border border-sd-gray-50 bg-white px-[8px] py-[4px]" style={{ fontSize: '12px' }}>
+        <select value={scenario} onChange={(e) => setScenario(e.target.value)} aria-label="Skenario prototipe" className="max-w-full rounded-[4px] border border-sd-gray-50 bg-white px-[8px] py-[4px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" style={{ fontSize: '12px' }}>
           {SCENARIOS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </label>
-      <label className="inline-flex items-center gap-[6px] cursor-pointer" style={{ fontSize: '12px', lineHeight: '16px' }}>
-        <input type="checkbox" checked={admin} onChange={(e) => setAdmin(e.target.checked)} /> Tampilan admin, lihat pegawai lain (EK-5.8)
-      </label>
+      <Checkbox checked={admin} onChange={(e) => setAdmin(e.target.checked)} label="Tampilan admin, lihat pegawai lain (EK-5.8)" />
     </div>
   );
 }

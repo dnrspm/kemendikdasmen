@@ -87,7 +87,7 @@ export function CreateProjectModal({
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Masukkan nama SKP"
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
             </div>
 
@@ -101,7 +101,7 @@ export function CreateProjectModal({
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Masukkan deskripsi SKP"
                 rows={4}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white resize-none"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white resize-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
             </div>
 
@@ -113,7 +113,7 @@ export function CreateProjectModal({
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as EpicStatus })}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="belum_dimulai">Belum Dimulai</option>
                 <option value="sedang_dikerjakan">Sedang Dikerjakan</option>
@@ -131,7 +131,7 @@ export function CreateProjectModal({
               <select
                 value={formData.sasaran_kinerja_id}
                 onChange={(e) => setFormData({ ...formData, sasaran_kinerja_id: e.target.value })}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="">Tidak terkait</option>
                 {sasaranKinerjas.map((sk) => (
@@ -154,7 +154,7 @@ export function CreateProjectModal({
                     type="date"
                     value={formData.start_date}
                     onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                    className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                    className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   />
                   <Calendar className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] text-sd-gray-60 pointer-events-none" />
                 </div>
@@ -170,7 +170,7 @@ export function CreateProjectModal({
                     type="date"
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                    className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                    className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   />
                   <Calendar className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] text-sd-gray-60 pointer-events-none" />
                 </div>

@@ -274,7 +274,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                 placeholder="Cari nama atau nomor dokumen..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[40px] pl-[42px] pr-[16px] border border-sd-gray-30 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[40px] pl-[42px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
             </div>
 

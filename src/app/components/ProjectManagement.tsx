@@ -89,7 +89,7 @@ export function ProjectManagement({
             <select
               value={selectedUnitId}
               onChange={(e) => setSelectedUnitId(e.target.value)}
-              className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             >
               {organizations.map(org => (
                 <option key={org.id} value={org.id}>

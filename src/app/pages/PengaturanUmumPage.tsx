@@ -1,4 +1,5 @@
 import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
+import { Checkbox } from '@/app/components/seragam/Checkbox';
 import { useState } from 'react';
 import { Header } from '@/app/components/Header';
 import {
@@ -432,7 +433,7 @@ function PemberitahuanUmumContent({
             placeholder="Cari judul berita..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-[36px] pr-[36px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full pl-[36px] pr-[36px] py-[8px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             style={{ fontSize: 'var(--text-sm)' }}
           />
           {searchQuery && (
@@ -567,7 +568,7 @@ function PemberitahuanUmumContent({
                   onChange={(e) =>
                     setFormData({ ...formData, judul: e.target.value })
                   }
-                  className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   style={{ fontSize: 'var(--text-sm)' }}
                 />
               </div>
@@ -625,7 +626,7 @@ function PemberitahuanUmumContent({
                     onChange={(e) =>
                       setFormData({ ...formData, linkUrl: e.target.value })
                     }
-                    className="w-full pl-[36px] pr-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    className="w-full pl-[36px] pr-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                     style={{ fontSize: 'var(--text-sm)' }}
                   />
                 </div>
@@ -651,7 +652,7 @@ function PemberitahuanUmumContent({
                       onChange={(e) =>
                         setFormData({ ...formData, jadwalPublikasi: e.target.value })
                       }
-                      className="w-full px-[12px] py-[10px] pr-[40px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none"
+                      className="w-full px-[12px] py-[10px] pr-[40px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground appearance-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                       style={{ fontSize: 'var(--text-sm)' }}
                       placeholder="Pilih tanggal"
                     />
@@ -680,7 +681,7 @@ function PemberitahuanUmumContent({
                       onChange={(e) =>
                         setFormData({ ...formData, jadwalHilang: e.target.value })
                       }
-                      className="w-full px-[12px] py-[10px] pr-[40px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary appearance-none"
+                      className="w-full px-[12px] py-[10px] pr-[40px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground appearance-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                       style={{ fontSize: 'var(--text-sm)' }}
                       placeholder="Pilih tanggal"
                     />
@@ -694,26 +695,11 @@ function PemberitahuanUmumContent({
 
               {/* Pin Checkbox */}
               <div className="flex items-center gap-[8px]">
-                <input
-                  type="checkbox"
-                  id="pin-checkbox"
+                <Checkbox
                   checked={formData.pinned}
-                  onChange={(e) =>
-                    setFormData({ ...formData, pinned: e.target.checked })
-                  }
-                  className="w-[16px] h-[16px] rounded-[2px] border border-[color:var(--border)]/30 accent-primary cursor-pointer"
+                  onChange={(e) => setFormData({ ...formData, pinned: e.target.checked })}
+                  label="Pin informasi di bagian atas"
                 />
-                <label
-                  htmlFor="pin-checkbox"
-                  className="text-foreground cursor-pointer"
-                  style={{
-                    fontSize: 'var(--text-sm)',
-                    fontStyle: 'italic',
-                    fontWeight: 'var(--font-weight-normal)',
-                  }}
-                >
-                  Pin informasi di bagian atas
-                </label>
               </div>
 
               {/* Info Box */}
@@ -977,7 +963,7 @@ function UserContent() {
           <input
             type="text"
             placeholder="Cari pengguna..."
-            className="w-full pl-[36px] pr-[12px] py-[8px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full pl-[36px] pr-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             style={{ fontSize: 'var(--text-sm)' }}
           />
         </div>
@@ -1630,7 +1616,7 @@ function BannerUtamaContent() {
                   placeholder="Masukkan judul informasi"
                   value={formData.judul}
                   onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-                  className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   style={{ fontSize: 'var(--text-sm)' }}
                 />
               </div>
@@ -1721,7 +1707,7 @@ function BannerUtamaContent() {
                     type="date"
                     value={formData.jadwalPublikasi}
                     onChange={(e) => setFormData({ ...formData, jadwalPublikasi: e.target.value })}
-                    className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                     style={{ fontSize: 'var(--text-sm)' }}
                   />
                 </div>
@@ -1738,7 +1724,7 @@ function BannerUtamaContent() {
                     type="date"
                     value={formData.jadwalHilang}
                     onChange={(e) => setFormData({ ...formData, jadwalHilang: e.target.value })}
-                    className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                    className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                     style={{ fontSize: 'var(--text-sm)' }}
                   />
                 </div>
@@ -2177,7 +2163,7 @@ function InformasiSistemContent() {
                   placeholder="Masukkan judul informasi"
                   value={formData.judul}
                   onChange={(e) => setFormData({ ...formData, judul: e.target.value })}
-                  className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                  className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground placeholder:text-muted-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   style={{ fontSize: 'var(--text-sm)' }}
                 />
               </div>
@@ -2230,7 +2216,7 @@ function InformasiSistemContent() {
                       type="date"
                       value={formData.jadwalPublikasi}
                       onChange={(e) => setFormData({ ...formData, jadwalPublikasi: e.target.value })}
-                      className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                      className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                       style={{ fontSize: 'var(--text-sm)' }}
                     />
                   </div>
@@ -2252,7 +2238,7 @@ function InformasiSistemContent() {
                       type="date"
                       value={formData.jadwalHilang}
                       onChange={(e) => setFormData({ ...formData, jadwalHilang: e.target.value })}
-                      className="w-full px-[12px] py-[10px] border border-[color:var(--border)]/30 rounded-[var(--radius)] bg-input-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+                      className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] bg-white text-foreground outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                       style={{ fontSize: 'var(--text-sm)' }}
                     />
                   </div>

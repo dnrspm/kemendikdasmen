@@ -115,7 +115,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                     required
                     value={formData.jenis}
                     onChange={(e) => setFormData({ ...formData, jenis: e.target.value })}
-                    className="w-full h-[48px] px-[16px] pr-[40px] border border-sd-gray-50 rounded-[var(--radius)] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
+                    className="w-full h-[48px] px-[16px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white appearance-none cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   >
                     <option value="">Pilih jenis</option>
                     {jenisOptions.map((option) => (
@@ -139,7 +139,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                     required
                     value={formData.kategori}
                     onChange={(e) => setFormData({ ...formData, kategori: e.target.value })}
-                    className="w-full h-[48px] px-[16px] pr-[40px] border border-sd-gray-50 rounded-[var(--radius)] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] appearance-none cursor-pointer"
+                    className="w-full h-[48px] px-[16px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white appearance-none cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   >
                     <option value="">Pilih kategori</option>
                     {kategoriOptions.map((option) => (
@@ -164,7 +164,7 @@ export function PusatBantuan({ onBack, onNavigateToPusatInformasi }: PusatBantua
                   value={formData.detailPertanyaan}
                   onChange={(e) => setFormData({ ...formData, detailPertanyaan: e.target.value })}
                   placeholder="Jelaskan pertanyaan, permintaan, keluhan, atau saran Anda secara detail..."
-                  className="w-full px-[16px] py-[12px] border border-sd-gray-50 rounded-[var(--radius)] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] placeholder:text-sd-gray-60 resize-none"
+                  className="w-full px-[16px] py-[12px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white placeholder:text-sd-gray-60 resize-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 />
               </div>
 

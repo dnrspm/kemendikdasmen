@@ -378,7 +378,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
           <div className="space-y-[24px]">
             <p className="text-[var(--text-sm)] text-sd-gray-60">Eksplorasi komparasi data pegawai dalam bentuk matriks agregat.</p>
             <div className="flex items-center justify-between">
-              <select value={selectedMatrix} onChange={(e) => setSelectedMatrix(e.target.value)} className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
+              <select value={selectedMatrix} onChange={(e) => setSelectedMatrix(e.target.value)} className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]">
                 <option value="pendidikan-usia">Pendidikan × Rentang Usia</option>
                 <option value="jenis-pegawai-usia">Jenis Pegawai × Rentang Usia</option>
                 <option value="unit-kerja-pendidikan">Unit Kerja × Pendidikan</option>
@@ -487,7 +487,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
           </div>
           <div className="flex items-center gap-[8px]">
             <span className="text-[12px] text-sd-gray-60 uppercase tracking-wide">Filter Jenis Jabatan</span>
-            <select value={filterJabatan} onChange={(e) => setFilterJabatan(e.target.value)} className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
+            <select value={filterJabatan} onChange={(e) => setFilterJabatan(e.target.value)} className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]">
               <option value="semua">Seluruh Jabatan</option>
               <option value="manajerial">Seluruh Manajerial</option>
               <option value="jpt">JPT</option>

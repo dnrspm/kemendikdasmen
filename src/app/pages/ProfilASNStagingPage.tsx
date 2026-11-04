@@ -177,7 +177,7 @@ function MatriksKomparasi() {
   const shade = (v: number, max = 17) => (v === 0 ? 'var(--sd-blue-5)' : v > max / 2 ? 'var(--sd-blue-70)' : '#d6e6fd');
   const cell = (v: number) => ({ background: shade(v), color: v > 8 ? '#fff' : 'var(--sd-gray-90)' });
   return (
-    <Card title="Kelompok JF dengan Jenjang JF" right={<select className="border border-sd-gray-30 rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }}><option>Kelompok JF dengan Jenjang JF</option></select>}>
+    <Card title="Kelompok JF dengan Jenjang JF" right={<select className="border border-sd-gray-50 rounded-[4px] px-[10px] py-[8px] bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" style={{ fontSize: 'var(--text-sm)' }}><option>Kelompok JF dengan Jenjang JF</option></select>}>
       <p className="mb-[8px] inline-block float-right rounded-[4px] border border-[#f1c27a] bg-sd-warning-surface text-[#8a5a00] px-[8px] py-[2px]" style={{ fontSize: 'var(--text-xs)' }}>Mengabaikan filter jabatan</p>
       <div className="overflow-x-auto clear-both">
         <table className="w-full text-center border border-[#e4e4e4]" style={{ fontSize: 'var(--text-xs)' }}>

@@ -46,7 +46,7 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
               placeholder="Cari sasaran kinerja..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
           </div>
           <div className="grid grid-cols-2 gap-[12px]">
@@ -56,7 +56,7 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
                 value="biro-osdm"
                 onChange={() => {}}
                 disabled
-                className="w-full px-[12px] py-[8px] border border-sd-gray-30 rounded-[4px] text-[var(--text-sm)] text-sd-gray-60 bg-sd-gray-0 cursor-not-allowed opacity-70"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-60 bg-sd-gray-0 cursor-not-allowed opacity-70 outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="biro-osdm">Biro OSDM</option>
               </select>
@@ -66,7 +66,7 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
               <select
                 value={filterSasaranProgram}
                 onChange={(e) => setFilterSasaranProgram(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="all">Semua Sasaran Program</option>
                 {sasaranPrograms.map(sp => (

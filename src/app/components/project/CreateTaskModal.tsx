@@ -120,7 +120,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               {...register('title', { required: 'Judul tugas harus diisi' })}
               type="text"
               placeholder="Masukkan judul tugas..."
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             {errors.title && (
               <div className="flex items-center gap-[4px] text-[var(--text-xs)] text-sd-red-60">
@@ -139,7 +139,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               {...register('description', { required: 'Deskripsi harus diisi' })}
               placeholder="Deskripsikan tugas ini..."
               rows={4}
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white resize-none"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white resize-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             {errors.description && (
               <div className="flex items-center gap-[4px] text-[var(--text-xs)] text-sd-red-60">
@@ -158,7 +158,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               </label>
               <select
                 {...register('biro_id', { required: 'Biro harus dipilih' })}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="">Pilih Biro</option>
                 {biros.map(biro => (
@@ -182,7 +182,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               </label>
               <select
                 {...register('tim_kerja_id', { required: 'Tim Kerja harus dipilih' })}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 disabled={!selectedBiro}
               >
                 <option value="">Pilih Tim Kerja</option>
@@ -213,7 +213,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
             </label>
             <select
               {...register('epic_id')}
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             >
               <option value="">Tidak terkait SKP</option>
               {teamEpics.map(epic => (
@@ -231,7 +231,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
             </label>
             <select
               {...register('status', { required: true })}
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             >
               <option value="pengusulan">Pengusulan Tugas</option>
               <option value="belum_dikerjakan">Belum Dikerjakan</option>
@@ -250,7 +250,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               {...register('assignee_name', { required: 'Pelaku tugas harus diisi' })}
               type="text"
               placeholder="Nama pelaku tugas..."
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             {errors.assignee_name && (
               <div className="flex items-center gap-[4px] text-[var(--text-xs)] text-sd-red-60">
@@ -270,7 +270,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
                 {...register('due_date', { required: 'Batas waktu harus diisi' })}
                 type="date"
                 id="due_date_input"
-                className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                className="w-full px-[12px] py-[8px] pr-[40px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 bg-white [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
               <CalendarIcon
                 className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] text-sd-gray-60 pointer-events-none"
@@ -293,7 +293,7 @@ export function CreateTaskModal({ isOpen, onClose, onSubmit, teamId }: CreateTas
               {...register('labels')}
               type="text"
               placeholder="Pisahkan dengan koma (misal: design, urgent, review)"
-              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             <p className="text-[var(--text-xs)] text-sd-gray-60">
               Masukkan label yang dipisahkan dengan koma

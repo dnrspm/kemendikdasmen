@@ -59,7 +59,7 @@ export function DashboardAnalitik({ onBack, onBackToHome }: DashboardAnalitikPro
                 <select
                   value={selectedJabatan}
                   onChange={(e) => setSelectedJabatan(e.target.value)}
-                  className="h-[42px] min-w-[260px] max-w-[420px] px-[13px] bg-white border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 focus:outline-none appearance-none pr-[36px]"
+                  className="h-[42px] min-w-[260px] max-w-[420px] px-[13px] bg-white border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 appearance-none pr-[36px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%23656A6C' stroke-width='1.33333' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
                 >
                   <option value="semua">Semua Jabatan</option>
@@ -1076,7 +1076,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
               <select
                 value={selectedMatrix}
                 onChange={(e) => setSelectedMatrix(e.target.value)}
-                className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="pendidikan-usia">Pendidikan × Rentang Usia</option>
                 <option value="jenis-pegawai-usia">Jenis Pegawai × Rentang Usia</option>
@@ -1233,7 +1233,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
             <select
               value={filterJabatan}
               onChange={(e) => setFilterJabatan(e.target.value)}
-              className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             >
               <option value="semua">Seluruh Jabatan</option>
               <option value="manajerial">Seluruh Manajerial</option>

@@ -102,7 +102,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                 placeholder="Cari nama unit kerja..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[48px] pl-[48px] pr-[48px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[48px] pl-[48px] pr-[48px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
               {searchQuery && (
                 <button

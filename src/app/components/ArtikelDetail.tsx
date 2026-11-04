@@ -403,7 +403,7 @@ export function ArtikelDetail({
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder="Bagikan pengalaman Anda dengan artikel ini, atau sarankan perbaikan..."
-                    className="w-full min-h-[120px] p-[12px] border border-border rounded-[var(--radius)] text-[var(--text-sm)] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none bg-input-background"
+                    className="w-full min-h-[120px] p-[12px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-foreground placeholder:text-muted-foreground resize-none bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   />
                   <div className="flex items-center gap-[12px]">
                     <button

@@ -367,7 +367,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               }}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-              className="w-full h-[48px] pl-[48px] pr-[100px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[48px] pl-[48px] pr-[100px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             
             {/* Clear button */}
@@ -388,7 +388,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               <select
                 value={selectedFilter}
                 onChange={(e) => setSelectedFilter(e.target.value)}
-                className="h-[32px] px-[12px] border border-sd-gray-30 rounded-[4px] text-[var(--text-sm)] text-foreground bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)] cursor-pointer"
+                className="h-[32px] px-[12px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-foreground bg-white cursor-pointer outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="all">Semua</option>
                 <option value="new">Terbaru</option>
@@ -583,7 +583,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                 placeholder="Cari pertanyaan..."
                 value={faqSearchQuery}
                 onChange={(e) => setFaqSearchQuery(e.target.value)}
-                className="w-full h-[44px] pl-[44px] pr-[16px] border border-sd-gray-30 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[44px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
             </div>
             

@@ -770,7 +770,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                     placeholder="Cari jabatan..."
                     value={satkerSearchQuery}
                     onChange={(e) => setSatkerSearchQuery(e.target.value)}
-                    className="w-full h-[42px] pl-[42px] pr-[38px] border rounded-[var(--radius)] focus:outline-none focus:border-[var(--primary)] transition-colors"
+                    className="w-full h-[42px] pl-[42px] pr-[38px] border rounded-[4px] transition-colors outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                     style={{
                       borderColor: satkerSearchQuery ? 'var(--primary)' : 'var(--sd-gray-10)',
                       fontSize: 'var(--text-sm)',
@@ -883,7 +883,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                     if (!e.target.value) setSelectedJabatan(null);
                   }}
                   onFocus={() => { if (searchQuery) setShowDropdown(true); }}
-                  className="w-full h-[48px] pl-[48px] pr-[44px] border rounded-[var(--radius)] focus:outline-none"
+                  className="w-full h-[48px] pl-[48px] pr-[44px] border rounded-[4px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   style={{
                     borderColor: 'var(--sd-gray-20)',
                     fontSize: 'var(--text-base)',

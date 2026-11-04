@@ -241,7 +241,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                       placeholder="Tambahkan catatan penting..."
                       value={newNote}
                       onChange={(e) => setNewNote(e.target.value)}
-                      className="w-full min-h-[80px] p-[12px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
+                      className="w-full min-h-[80px] p-[12px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 resize-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                     />
                     <div className="flex items-center justify-end gap-[8px] mt-[12px]">
                       <button
@@ -377,7 +377,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   <select
                     value={currentStatus}
                     onChange={(e) => handleStatusChange(e.target.value)}
-                    className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                    className="w-full px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                   >
                     <option value="belum_dikerjakan">Belum Dikerjakan</option>
                     <option value="sedang_dikerjakan">Sedang Dikerjakan</option>
@@ -566,7 +566,7 @@ export function TaskDetailModal({ task, onClose }: TaskDetailModalProps) {
                   value={uploadNotes}
                   onChange={(e) => setUploadNotes(e.target.value)}
                   placeholder="Tambahkan catatan tentang bukti dukung..."
-                  className="w-full min-h-[100px] px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] resize-none"
+                  className="w-full min-h-[100px] px-[12px] py-[10px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 placeholder:text-sd-gray-60 resize-none outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 />
               </div>
             </div>

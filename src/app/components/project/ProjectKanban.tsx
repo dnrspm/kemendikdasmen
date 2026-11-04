@@ -117,7 +117,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 placeholder="Cari tugas..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               />
             </div>
 
@@ -170,7 +170,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                     setLocalFilterBiro(e.target.value);
                     setLocalFilterTimKerja('all'); // Reset Tim Kerja when Biro changes
                   }}
-                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 >
                   <option value="all">Semua Unit Kerja</option>
                   {biros.map(biro => (
@@ -187,7 +187,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 <select
                   value={localFilterTimKerja}
                   onChange={(e) => setLocalFilterTimKerja(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 >
                   <option value="all">Semua Tim Kerja</option>
                   {timKerjas
@@ -206,7 +206,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 <select
                   value={filterAssignee}
                   onChange={(e) => setFilterAssignee(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
                 >
                   <option value="all">Semua Pelaku</option>
                   {uniqueAssignees.map(assignee => (
@@ -224,7 +224,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
               <select
                 value={filterEpic}
                 onChange={(e) => setFilterEpic(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
               >
                 <option value="all">Semua SKP</option>
                 {epics.map(epic => (

@@ -41,9 +41,9 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
       {filterOpen && !hideFilter && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] p-[12px] bg-sd-gray-0 border border-[#eee] rounded-[8px]">
-          <input className="border border-sd-gray-30 rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Cari nama atau NIP" style={{ fontSize: 'var(--text-sm)' }} />
-          <input className="border border-sd-gray-30 rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Unit kerja" style={{ fontSize: 'var(--text-sm)' }} />
-          <input className="border border-sd-gray-30 rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Status" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-sd-gray-50 rounded-[4px] px-[10px] py-[8px] bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" placeholder="Cari nama atau NIP" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-sd-gray-50 rounded-[4px] px-[10px] py-[8px] bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" placeholder="Unit kerja" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-sd-gray-50 rounded-[4px] px-[10px] py-[8px] bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" placeholder="Status" style={{ fontSize: 'var(--text-sm)' }} />
         </div>
       )}
 
@@ -86,7 +86,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           <span className="flex items-center gap-[6px]">
             Menampilkan 1 - {rows.length} dari {rows.length} data <span aria-hidden>·</span>
             <span className="relative inline-flex items-center">
-              <select aria-label="Jumlah per halaman" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="appearance-none bg-transparent pr-[16px] text-sd-gray-90 cursor-pointer">
+              <select aria-label="Jumlah per halaman" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="appearance-none bg-transparent pr-[16px] text-sd-gray-90 cursor-pointer rounded-[4px] outline-none focus-visible:shadow-[0_0_0_2px_var(--sd-interactive-focused)]">
                 {[5, 10, 20, 50].map((n) => <option key={n} value={n}>{n}</option>)}
               </select>
               <ChevronDown className="size-[14px] absolute right-0 pointer-events-none" />
