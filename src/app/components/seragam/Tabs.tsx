@@ -24,7 +24,7 @@ export function Tabs({ items, active, onChange, fill = false, className = '' }: 
             className={`${fill ? 'flex-1' : ''} whitespace-nowrap grid place-items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px]`}
             style={{ height: '46px', outlineColor: color.actionDefault }}
           >
-            <span className="relative inline-flex items-center gap-[6px] pt-[8px] pb-[16px]" style={{ ...typeAction, color: on ? color.actionDefault : color.textSubdued }}>
+            <span className="relative inline-flex items-center gap-[6px] pt-[6px] pb-[16px]" style={{ ...typeAction, color: on ? color.actionDefault : color.textSubdued }}>
               {label}
               {count !== undefined && <span className="rounded-full px-[8px]" style={{ background: '#f0f0f0', color: color.textDefault, fontSize: '12px', lineHeight: '18px' }}>{count}</span>}
               {on && <span className="absolute bottom-0 -left-[6px] -right-[6px]" style={{ height: '4px', background: color.actionDefault }} />}

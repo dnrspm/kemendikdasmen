@@ -32,11 +32,27 @@ export const color = {
   warningText: '#8B5104',   // text/warning = Yellow/70
 } as const;
 
-/** Mobile/Action (Figma): Inter 15/22 semibold. */
-export const typeAction = { fontSize: '15px', lineHeight: '22px', fontWeight: 600 } as const;
-/** Desktop/Body (Figma): Inter 16/24 regular. */
-export const typeBody = { fontSize: '16px', lineHeight: '24px' } as const;
-export const typeLabel = { fontSize: '14px', lineHeight: '20px' } as const;
+/**
+ * Tipografi Desktop (Figma Seragam Dasar, halaman Typography, Inter):
+ * heading-large 22/28 semibold, heading-medium 19/24 semibold, heading-small 17/22 medium,
+ * subHeading 14/16 semibold (huruf kapital, letter-spacing 0.5px), action 16/24 semibold,
+ * body 16/24 regular, body-small 14/20 regular, helper 12/16 regular, helper-bold 12/16 semibold.
+ */
+export const type = {
+  headingLarge: { fontSize: '22px', lineHeight: '28px', fontWeight: 600 },
+  headingMedium: { fontSize: '19px', lineHeight: '24px', fontWeight: 600 },
+  headingSmall: { fontSize: '17px', lineHeight: '22px', fontWeight: 500 },
+  subHeading: { fontSize: '14px', lineHeight: '16px', fontWeight: 600, letterSpacing: '0.5px' },
+  action: { fontSize: '16px', lineHeight: '24px', fontWeight: 600 },
+  body: { fontSize: '16px', lineHeight: '24px', fontWeight: 400 },
+  bodySmall: { fontSize: '14px', lineHeight: '20px', fontWeight: 400 },
+  helper: { fontSize: '12px', lineHeight: '16px', fontWeight: 400 },
+  helperBold: { fontSize: '12px', lineHeight: '16px', fontWeight: 600 },
+} as const;
+/** Teks tombol dan tab di desktop = Desktop/Action. (Mobile/Action = 15/22.) */
+export const typeAction = type.action;
+export const typeBody = type.body;
+export const typeLabel = type.bodySmall;
 
 export const radius = { control: '4px', card: '8px' } as const;
 
