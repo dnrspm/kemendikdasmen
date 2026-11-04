@@ -6,6 +6,7 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
 import { Tabs } from '@/app/components/seragam/Tabs';
+import { Badge } from '@/app/components/seragam/Badge';
 import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
@@ -255,8 +256,8 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
 /* ---------- Tab ---------- */
 /* Gaya pill/chip dan tombol mengikuti staging dan sistem ini. */
-const outlineBtn = 'flex items-center gap-[8px] border border-[#a8a8a8] rounded-[4px] bg-white px-[16px] py-[8px] text-[#2f3031] hover:bg-[#f4f4f4]';
-const outlineTxt = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+const outlineBtn = buttonClass('outline', 'md');
+const outlineTxt = buttonStyle;
 
 const Diperbarui = () => (
   <p className="text-[#6b6f73]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
@@ -273,7 +274,7 @@ function SubPills({ items, active, onChange }: { items: string[]; active: number
 }
 
 const Tag = ({ bg, children }: { bg: string; children: ReactNode }) => (
-  <span className="inline-block rounded-full px-[10px] py-[2px] text-[#2f3031] whitespace-nowrap" style={{ background: bg, fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{children}</span>
+  <Badge tone={bg === '#fae1ae' ? 'amber' : bg === '#fce9e9' ? 'red' : bg === '#a6d8f8' ? 'blue' : 'gray'}>{children}</Badge>
 );
 
 export function cell(t: Tabel, k: string, b: Rec): ReactNode {

@@ -1,5 +1,6 @@
 import { Tabs } from '@/app/components/seragam/Tabs';
 import { Banner } from '@/app/components/seragam/Banner';
+import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -100,34 +101,28 @@ function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: b
         <span className="text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
         <button
           onClick={() => to && navigate(to)}
-          className="flex items-center gap-[6px] rounded-[6px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031]"
-          style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+          className={buttonClass('outline', 'md')}
+          style={buttonStyle}
         >
           <UserPlus className="size-[20px]" /> Tambah
         </button>
       </div>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="border-y border-[#efefef]">
-            <th className="p-[8px] text-left text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '48px' }}>NO</th>
-            {tabel.kolom.map((c) => (
-              <th key={c} className="p-[8px] text-left text-[#2f3031] uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px' }}>{c}</th>
-            ))}
-            <th className="p-[8px] text-center text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '60px' }}>AKSI</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tabel.baris.map((b, i) => (
-            <tr key={i} className={i % 2 === 0 ? 'bg-[#fafafa]' : ''}>
-              <td className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{i + 1}</td>
-              {tabel.kolom.map((c) => (
-                <td key={c} className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{hidden ? MASK : selKeluarga(tabel, c, b)}</td>
-              ))}
-              <td className="p-[12px_8px] text-center"><MoreAction /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="-mx-[16px] -mb-[16px]">
+      <StagingDataTable
+        hideFilter
+        showPagination={false}
+        columns={[
+          { key: 'no', label: 'No', width: '48px' },
+          ...tabel.kolom.map((c) => ({ key: c, label: c })),
+          { key: 'aksi', label: 'Aksi', width: '60px' },
+        ]}
+        rows={tabel.baris.map((b, i) => {
+          const r: Record<string, React.ReactNode> = { no: i + 1, aksi: <MoreAction /> };
+          tabel.kolom.forEach((c) => { r[c] = hidden ? '••••••••' : selKeluarga(tabel, c, b); });
+          return r;
+        })}
+      />
+      </div>
     </div>
   );
 }
@@ -664,8 +659,8 @@ function KinerjaTabel() {
         {scenario !== 'loading' && (
           <button
             onClick={() => setShowChart(true)}
-            className="inline-flex items-center gap-[8px] rounded-[4px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031] hover:bg-[#f7f7f7]"
-            style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+            className={buttonClass('outline', 'md')}
+            style={buttonStyle}
           >
             <ChartLine className="size-[18px]" />
             Lihat Grafik
@@ -675,8 +670,8 @@ function KinerjaTabel() {
           onClick={getData}
           disabled={fetching}
           title="Ambil data penilaian NIP ini dari eSKP. Data baru akan menimpa data lama."
-          className="inline-flex items-center gap-[8px] rounded-[4px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031] hover:bg-[#f7f7f7] disabled:cursor-not-allowed disabled:opacity-60"
-          style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+          className={buttonClass('outline', 'md')}
+          style={buttonStyle}
         >
           <RefreshCw className={`size-[18px] ${fetching ? 'animate-spin' : ''}`} />
           {fetching ? 'Mengambil Data…' : 'Perbarui Data'}
@@ -885,7 +880,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
                     </button>
-                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className="bg-[#2f3031] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[8px] " style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+                    <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className={buttonClass('primary', 'md')} style={buttonStyle}>
                       <FilePenLine className="size-[16px]" /> Ubah Data
                     </button>
                   </div>

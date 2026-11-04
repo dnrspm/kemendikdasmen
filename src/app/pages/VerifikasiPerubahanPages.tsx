@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { Tabs } from '@/app/components/seragam/Tabs';
+import { Badge } from '@/app/components/seragam/Badge';
 import { Banner } from '@/app/components/seragam/Banner';
 import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
@@ -14,19 +15,10 @@ import {
 
 type Role = 'admin' | 'komite';
 
-// Palet badge dari Figma (Seragam Mobile): latar pastel, teks gelap seragam.
-const BADGE_FG = '#2f3031';
-const TONE_STYLE = {
-  green: '#a9e5c1', amber: '#fae1ae', red: '#fce9e9', blue: '#a6d8f8',
-} as const;
+const TONE_MAP = { green: 'green', amber: 'amber', red: 'red', blue: 'blue' } as const;
 
 function StatusBadge({ status, short }: { status: StatusUsulan; short?: boolean }) {
-  const bg = TONE_STYLE[STATUS_TONE[status]];
-  return (
-    <span className="inline-block rounded-full px-[10px] py-[2px] whitespace-nowrap" style={{ background: bg, color: BADGE_FG, fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>
-      {short ? STATUS_SHORT[status] : STATUS_LABEL[status]}
-    </span>
-  );
+  return <Badge tone={TONE_MAP[STATUS_TONE[status]]}>{short ? STATUS_SHORT[status] : STATUS_LABEL[status]}</Badge>;
 }
 
 function PageShell({ title, subtitle, role, children }: { title: string; subtitle: string; role: Role; children: ReactNode }) {
