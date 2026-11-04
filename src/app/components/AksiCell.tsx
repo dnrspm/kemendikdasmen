@@ -16,7 +16,7 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
           <button
             key={a.label}
             onClick={a.onClick}
-            className={`border rounded-[4px] px-[12px] py-[4px] font-semibold bg-white whitespace-nowrap ${a.danger ? 'border-[#e0243a] text-[#e0243a] hover:bg-[#fdeaea]' : 'border-[#a8a8a8] hover:bg-[#f4f4f4]'}`}
+            className={`border rounded-[4px] px-[12px] py-[4px] font-semibold bg-white whitespace-nowrap ${a.danger ? 'border-[#c62828] text-[#c62828] hover:bg-[#fdeaea]' : 'border-[#a8a8a8] hover:bg-[#f4f4f4]'}`}
             style={{ fontSize: 'var(--text-sm)' }}
           >
             {a.label}
@@ -30,7 +30,7 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
       <DropdownMenuTrigger asChild><button aria-label="Aksi"><MoreVertical className="size-[18px] text-[#45474a]" /></button></DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {items.map((a) => (
-          <DropdownMenuItem key={a.label} onSelect={a.onClick} className={a.danger ? 'text-[#e0243a]' : ''}>{a.icon} {a.label}</DropdownMenuItem>
+          <DropdownMenuItem key={a.label} onSelect={a.onClick} className={a.danger ? 'text-[#c62828]' : ''}>{a.icon} {a.label}</DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>

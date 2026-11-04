@@ -87,7 +87,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
     <div className="border-b border-[#eee]">
       <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-[#808489]" />
+          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-[#6b6f73]" />
           <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="w-full border border-[#c7c7c7] rounded-[4px] pl-[32px] pr-[10px] py-[8px] bg-white" style={st} />
         </div>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-[#a8a8a8] rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
@@ -176,9 +176,9 @@ function Stepper({ steps }: { steps: Step[] }) {
               {marker}
               {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? '#2d8a4e' : '#e4e4e4' }} />}
             </div>
-            <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[24px]'}`}>
-              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? '#808489' : '#2f3031', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
-              {st.info && <span className="text-[#65696c]" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
+            <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[16px]'}`}>
+              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? '#6b6f73' : '#2f3031', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
+              {st.info && <span className="text-[#6b6f73]" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
             </div>
           </li>
         );
@@ -206,7 +206,7 @@ function Field({ label, children, muted }: { label: string; children: ReactNode;
   return (
     <div className="min-w-0">
       <p className="text-[#65696c]" style={SMALL}>{label}</p>
-      <div className={`break-words ${muted ? 'text-[#808489]' : 'text-[#2f3031]'}`} style={BODY}>{children}</div>
+      <div className={`break-words ${muted ? 'text-[#6b6f73]' : 'text-[#2f3031]'}`} style={BODY}>{children}</div>
     </div>
   );
 }
@@ -221,9 +221,9 @@ function PerubahanPanel({ u }: { u: Usulan }) {
         <h4 className="px-[16px] py-[12px] border-b border-[#efefef] text-[#2f3031]" style={HEADING}>{k}</h4>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]">
           <div className="p-[16px]">
-            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-[#808489]">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
+            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-[#6b6f73]">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
           </div>
-          <div className="hidden md:grid place-items-center px-[8px] text-[#808489]"><ArrowRight className="size-[20px]" /></div>
+          <div className="hidden md:grid place-items-center px-[8px] text-[#6b6f73]"><ArrowRight className="size-[20px]" /></div>
           <div className="p-[16px]">
             <Field label="Data Baru (Usulan)">{v}</Field>
           </div>
@@ -319,13 +319,13 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {/* Isi sidebar menempel di atas saat kolom utama di-scroll; latar putih tetap setinggi modal. */}
             <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
             <div className="flex flex-col gap-[4px]">
-              <p className="text-[#65696c] mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
+              <p className="text-[#45474a] mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
               <p className="text-[#2f3031]" style={VALUE}>{u.nama}</p>
               <p className="text-[#65696c]" style={SMALL}>NIP {u.nip}</p>
               <p className="text-[#65696c]" style={SMALL}>{shortUnit(u.unit)}</p>
             </div>
             <div className="flex flex-col gap-[16px] border-t border-[#c7c7c7] pt-[20px] mt-[4px]">
-              <h4 className="text-[#65696c]" style={TH_STYLE}>Alur Pengusulan</h4>
+              <h4 className="text-[#45474a]" style={TH_STYLE}>Alur Pengusulan</h4>
               <Stepper steps={steps} />
               {u.status === 'gagal-siasn' && <p className="rounded-[6px] bg-[#fce9e9] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
               {u.status === 'berhasil-siasn' && <p className="rounded-[6px] bg-[#fef6e0] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
@@ -349,13 +349,13 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={`border border-[#e0243a] text-[#e0243a] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={`border border-[#c62828] text-[#c62828] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
                 <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={`border border-[#e0243a] text-[#e0243a] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={`border border-[#c62828] text-[#c62828] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
                 <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
               </>
             )}

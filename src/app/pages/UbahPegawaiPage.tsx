@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
-import { ArrowLeft, Construction, Eye, Pencil, Plus, Trash2, UserPlus, X, FileText } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Construction, Eye, Pencil, Plus, Trash2, UserPlus, X, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
@@ -100,30 +100,46 @@ type Aksi =
   | { tipe: 'ubah-kolom'; tabel: Tabel; field: string; lama: string }
   | { tipe: 'detail'; tabel: Tabel; baris: Rec };
 
-const inputCls = 'w-full border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white text-[#2f3031]';
+const inputCls = 'w-full border border-[#c7c7c7] rounded-[4px] px-[12px] py-[8px] bg-white text-[#2f3031]';
 const st = { fontSize: 'var(--text-sm)' } as const;
 const LABEL = { fontSize: '14px', lineHeight: '20px' } as const;           // label/keterangan
 const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const; // nilai
 const TD = { fontSize: '16px', lineHeight: '24px' } as const;
 const TH = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
 
-function Modal({ title, onClose, children, footer }: { title: string; onClose: () => void; children: ReactNode; footer: ReactNode }) {
+/* Modal pengajuan: struktur dan skala tipografi sama dengan modal Detail Usulan di halaman Verifikasi. */
+function Modal({ title, wide, onClose, children, footer }: { title: string; wide?: boolean; onClose: () => void; children: ReactNode; footer: ReactNode }) {
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[560px] max-h-[92vh] flex flex-col">
-        <div className="flex items-center justify-between px-[20px] py-[14px] border-b border-[#e4e4e4]">
-          <h2 style={{ fontSize: 'var(--text-lg)' }}>{title}</h2>
-          <button onClick={onClose} aria-label="Close" className="border border-[#1a5fe0] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#1a5fe0]" /></button>
+      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[12px] w-full ${wide ? 'max-w-[760px]' : 'max-w-[640px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
+        <div className="flex items-center justify-between gap-[16px] px-[24px] py-[14px] border-b border-[#e4e4e4]">
+          <h2 className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
         </div>
-        <div className="overflow-y-auto p-[20px] flex flex-col gap-[14px]">{children}</div>
-        <div className="flex justify-end gap-[8px] px-[20px] py-[12px] border-t border-[#e4e4e4]">{footer}</div>
+        <div className="overflow-y-auto bg-[#f7f7f7] px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
+        <div className="flex justify-end gap-[8px] px-[24px] py-[12px] border-t border-[#e4e4e4] bg-white">{footer}</div>
       </div>
     </div>
   );
 }
 
-const btnGhost = 'border border-[#a8a8a8] rounded-[4px] px-[16px] py-[8px] font-semibold';
-const btnPrimary = 'bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold disabled:opacity-50';
+const btnBase = 'rounded-[4px] px-[16px] py-[8px]';
+const btnText = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+const btnGhost = `${btnBase} border border-[#a8a8a8] text-[#2f3031] hover:bg-[#f4f4f4]`;
+const btnPrimary = `${btnBase} bg-[#1a5fe0] text-white disabled:opacity-50`;
+const btnDanger = `${btnBase} bg-[#e0243a] text-white`;
+
+function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
+  return (
+    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+      <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-[#efefef]">
+        <h4 className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h4>
+        {right && <span className="text-[#65696c]" style={LABEL}>{right}</span>}
+      </div>
+      <div className="p-[16px]">{children}</div>
+    </section>
+  );
+}
 
 function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, { tipe: 'detail' }>; pribadi: Rec; onClose: () => void; onDone: (r: { field: string; nilai: string; komite: boolean }) => void }) {
   const fields = aksi.tipe === 'ubah-baris' ? fieldsOf(aksi.baris).map(([k]) => k) : [];
@@ -134,7 +150,8 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
   const kategori = aksi.tipe === 'ubah-pribadi' ? 'Data Pribadi' : aksi.tabel.data;
   const lama = aksi.tipe === 'ubah-pribadi' ? pribadi[aksi.field] : aksi.tipe === 'ubah-kolom' ? aksi.lama : aksi.tipe === 'ubah-baris' ? aksi.baris[field] : '';
   const jenis: Jenis = aksi.tipe === 'tambah' ? 'Tambah' : aksi.tipe === 'hapus' ? 'Hapus' : 'Ubah';
-  const title = jenis === 'Ubah' ? `Ubah Data: ${aksi.tipe === 'ubah-pribadi' ? field : `${kategori} › ${field}`}` : jenis === 'Tambah' ? `Tambah ${kategori}` : `Hapus ${kategori}`;
+  const headline = `${jenis === 'Tambah' ? 'Penambahan' : jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${jenis === 'Ubah' ? field : kategori}`;
+  const tone = jenis === 'Tambah' ? '#a9e5c1' : jenis === 'Ubah' ? '#a6d8f8' : '#fce9e9';
 
   const detail: [string, string][] =
     aksi.tipe === 'ubah-pribadi' || aksi.tipe === 'ubah-baris' || aksi.tipe === 'ubah-kolom' ? [[field, nilai]]
@@ -151,43 +168,77 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
   return (
     <Modal
-      title={title}
+      title="Ajukan Perubahan Data"
+      wide={aksi.tipe === 'tambah'}
       onClose={onClose}
-      footer={<><button onClick={onClose} className={btnGhost} style={st}>Batal</button><button disabled={!valid} onClick={kirim} className={btnPrimary} style={st}>Ajukan Perubahan</button></>}
+      footer={<>
+        <button onClick={onClose} className={btnGhost} style={btnText}>Batal</button>
+        <button disabled={!valid} onClick={kirim} className={jenis === 'Hapus' ? btnDanger : btnPrimary} style={btnText}>
+          {jenis === 'Tambah' ? 'Ajukan Penambahan' : jenis === 'Hapus' ? 'Ajukan Penghapusan' : 'Ajukan Perubahan'}
+        </button>
+      </>}
     >
-      <p className="rounded-[6px] bg-[#eaf3fe] px-[12px] py-[8px] text-[#0b3f9e]" style={LABEL}>
-        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Komite Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
-      </p>
+      <div className="flex items-center gap-[12px]">
+        <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#2f3031]" style={{ background: tone }}>
+          {jenis === 'Tambah' ? <Plus className="size-[20px]" /> : jenis === 'Ubah' ? <Pencil className="size-[19px]" /> : <Trash2 className="size-[19px]" />}
+        </div>
+        <h3 className="text-[#2f3031]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
+      </div>
 
       {aksi.tipe === 'ubah-baris' && (
-        <label className="flex flex-col gap-[4px]"><span className="font-semibold" style={st}>Field yang diubah (satu field per pengajuan)</span>
+        <Panel title="Field yang Diubah" right="Satu field per pengajuan">
           <Select value={field} onValueChange={(v) => { setField(v); setNilai(''); }}>
-            <SelectTrigger className="w-full bg-white border-[#c7c7c7]" style={st}><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-full bg-white border-[#c7c7c7]" style={TD}><SelectValue /></SelectTrigger>
             <SelectContent>{fields.map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}</SelectContent>
           </Select>
-        </label>
+        </Panel>
       )}
 
       {jenis === 'Ubah' && (
-        <>
-          <div><p className="text-[#65696c]" style={LABEL}>Data saat ini</p><p className="text-[#2f3031]" style={VALUE}>{lama || '-'}</p></div>
-          <label className="flex flex-col gap-[4px]"><span className="font-semibold" style={st}>Data baru</span>
-            <input autoFocus value={nilai} onChange={(e) => setNilai(e.target.value)} className={inputCls} style={TD} />
-          </label>
-        </>
+        <Panel title={field}>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-x-[16px] gap-y-[12px] items-start">
+            <div>
+              <p className="text-[#65696c]" style={LABEL}>Data Saat Ini</p>
+              <p className="text-[#6b6f73] break-words" style={TD}>{lama || '-'}</p>
+            </div>
+            <div className="hidden md:grid place-items-center self-center text-[#6b6f73]"><ArrowRight className="size-[20px]" /></div>
+            <label className="block">
+              <span className="block text-[#65696c]" style={LABEL}>Data Baru</span>
+              <input autoFocus value={nilai} onChange={(e) => setNilai(e.target.value)} className={inputCls} style={TD} />
+            </label>
+          </div>
+        </Panel>
       )}
 
-      {aksi.tipe === 'tambah' && aksi.tabel.kolom.map((k, i) => (
-        <label key={k} className="flex flex-col gap-[4px]"><span className="font-semibold" style={st}>{k}{i === 0 && ' *'}</span>
-          <input value={tambah[k] ?? ''} onChange={(e) => setTambah({ ...tambah, [k]: e.target.value })} className={inputCls} style={TD} />
-        </label>
-      ))}
+      {aksi.tipe === 'tambah' && (
+        <Panel title="Data yang Ditambahkan">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px]">
+            {aksi.tabel.kolom.map((k, i) => (
+              <label key={k} className="block">
+                <span className="block text-[#65696c]" style={LABEL}>{k}{i === 0 && ' *'}</span>
+                <input value={tambah[k] ?? ''} onChange={(e) => setTambah({ ...tambah, [k]: e.target.value })} className={inputCls} style={TD} />
+              </label>
+            ))}
+          </div>
+        </Panel>
+      )}
 
       {aksi.tipe === 'hapus' && (
-        <div className="grid grid-cols-2 gap-[12px]">
-          {fieldsOf(aksi.baris).map(([k, v]) => <div key={k}><p className="text-[#65696c]" style={LABEL}>{k}</p><p className="text-[#2f3031]" style={VALUE}>{v}</p></div>)}
-        </div>
+        <Panel title="Data yang Dihapus">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px]">
+            {fieldsOf(aksi.baris).map(([k, v]) => (
+              <div key={k} className="min-w-0">
+                <p className="text-[#65696c]" style={LABEL}>{k}</p>
+                <p className="text-[#2f3031] break-words" style={TD}>{v}</p>
+              </div>
+            ))}
+          </div>
+        </Panel>
       )}
+
+      <p className="text-[#65696c]" style={LABEL}>
+        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Komite Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
+      </p>
     </Modal>
   );
 }
@@ -198,7 +249,7 @@ const outlineBtn = 'flex items-center gap-[8px] border border-[#a8a8a8] rounded-
 const outlineTxt = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
 
 const Diperbarui = () => (
-  <p className="text-[#808489]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
+  <p className="text-[#6b6f73]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
 );
 
 function SubPills({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
@@ -219,7 +270,7 @@ function cell(t: Tabel, k: string, b: Rec): ReactNode {
   const v = b[k];
   if (k === 'Nama' && b._asn) return <span className="inline-flex items-center gap-[6px] flex-wrap">{v}<Tag bg="#fae1ae">ASN</Tag></span>;
   if (k === 'Jenis Kelamin') return <Tag bg={v === 'Perempuan' ? '#fce9e9' : '#a6d8f8'}>{v}</Tag>;
-  if (v === 'Data tidak lengkap') return <span className="text-[#e02d38]">{v}</span>;
+  if (v === 'Data tidak lengkap') return <span className="text-[#c62828]">{v}</span>;
   return v;
 }
 
@@ -304,7 +355,7 @@ function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => 
           </div>
         </section>
       ))}
-      <p className="text-[#808489]" style={LABEL}>NIP tidak dapat diubah dari halaman ini.</p>
+      <p className="text-[#6b6f73]" style={LABEL}>NIP tidak dapat diubah dari halaman ini.</p>
     </div>
   );
 }
@@ -345,7 +396,7 @@ export function UbahPegawaiPage() {
           <img alt="" src={imgTut} className="size-[72px] shrink-0 rounded-full object-cover" />
           <div className="min-w-0 flex flex-col gap-[6px]">
             <p className="text-[#2f3031]" style={VALUE}>{AHMAD_PROFIL.nama}</p>
-            <p className="text-[#808489]" style={TD}>{nip ?? AHMAD_PROFIL.nip}</p>
+            <p className="text-[#6b6f73]" style={TD}>{nip ?? AHMAD_PROFIL.nip}</p>
             <div className="flex items-center gap-[8px] flex-wrap mt-[4px]">
               <span className="rounded-[4px] border border-[#a8a8a8] px-[6px] text-[#2f3031]" style={{ fontFamily: 'ui-monospace, monospace', fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>III/d</span>
               <span className="rounded-[4px] bg-[#9ae5b9] px-[6px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
@@ -373,7 +424,7 @@ export function UbahPegawaiPage() {
               <div className="rounded-[6px] bg-[#f4f4f4] py-[56px] flex flex-col items-center gap-[8px] text-center">
                 <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-[#b98900]" /></div>
                 <p className="text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
-                <p className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
+                <p className="text-[#6b6f73]" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
               </div>
             )}
           </div>
