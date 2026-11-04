@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, SlidersHorizontal } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, Pencil, Trash2, ArrowRight } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -24,10 +24,6 @@ function StatusBadge({ status, short }: { status: StatusUsulan; short?: boolean 
       {short ? STATUS_SHORT[status] : STATUS_LABEL[status]}
     </span>
   );
-}
-
-function AsalText({ asal }: { asal: Asal }) {
-  return <span className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>Diajukan oleh {asal}</span>;
 }
 
 function PageShell({ title, subtitle, role, children }: { title: string; subtitle: string; role: Role; children: ReactNode }) {
@@ -122,119 +118,137 @@ const applyFilters = (rows: Usulan[], f: Filters) =>
     (!f.asal || u.asal === f.asal) && (!f.status || u.status === f.status));
 
 /* ---------- Stepper alur status ---------- */
-type Step = { label: string; state: 'done' | 'current' | 'todo' | 'failed' | 'skipped' };
+type Step = { label: string; info?: string; state: 'done' | 'current' | 'todo' | 'failed' | 'skipped' };
 
 function buildSteps(u: Usulan, showSiasn: boolean): Step[] {
   const s = u.status;
   const pegawai = u.asal === 'Pegawai';
+  const info = (k: keyof Usulan['log']) => {
+    const l = u.log[k];
+    return l ? `${l.oleh} · ${l.waktu}${l.catatan ? ` · Catatan: ${l.catatan}` : ''}` : undefined;
+  };
   const steps: Step[] = [];
-  steps.push({ label: pegawai ? 'Diajukan Pegawai' : 'Diajukan Admin Satker', state: 'done' });
+  // Pengaju sudah tampil di kolom samping, jadi langkah ini hanya menampilkan waktunya.
+  steps.push({ label: 'Usulan Diajukan', info: u.log.ajukan?.waktu, state: 'done' });
   if (pegawai) {
     steps.push({
       label: s === 'ditolak-admin' ? 'Pengusulan Ditolak Admin Satker' : 'Verifikasi Admin Satker',
+      info: info('admin'),
       state: s === 'menunggu-diverifikasi' ? 'current' : s === 'ditolak-admin' ? 'failed' : 'done',
     });
   } else {
-    steps.push({ label: 'Verifikasi Admin Satker (otomatis)', state: 'done' });
+    steps.push({ label: 'Verifikasi Admin Satker (otomatis)', info: info('admin'), state: 'done' });
   }
   if (s === 'ditolak-admin') return steps;
-  const needKomite = perluKomite(u) || !['menunggu-diverifikasi'].includes(s);
-  if (needKomite) {
-    const pendingKomite = s === 'menunggu-komite';
-    const before = s === 'menunggu-diverifikasi';
+  if (perluKomite(u)) {
     steps.push({
       label: s === 'ditolak-komite' ? 'Pengusulan Ditolak Komite Talenta' : 'Persetujuan Komite Talenta',
-      state: before ? 'todo' : pendingKomite ? 'current' : s === 'ditolak-komite' ? 'failed' : 'done',
+      info: info('komite'),
+      state: s === 'menunggu-diverifikasi' ? 'todo' : s === 'menunggu-komite' ? 'current' : s === 'ditolak-komite' ? 'failed' : 'done',
     });
     if (s === 'ditolak-komite') return steps;
-    if (showSiasn) {
-      const sync = s === 'disetujui-komite' ? 'current' : s === 'gagal-siasn' ? 'failed' : ['berhasil-siasn', 'berhasil-diperbarui'].includes(s) ? 'done' : 'todo';
-      steps.push({ label: s === 'gagal-siasn' ? 'Gagal Sinkronisasi ke SIASN' : 'Sinkronisasi ke SIASN', state: sync });
-      steps.push({ label: 'Pembaruan Data pada Portal', state: s === 'berhasil-diperbarui' ? 'done' : s === 'berhasil-siasn' ? 'current' : 'todo' });
-    }
   } else {
     steps.push({ label: 'Persetujuan Komite Talenta (tidak diperlukan)', state: 'skipped' });
+  }
+  if (showSiasn) {
+    const sync = s === 'disetujui-komite' ? 'current' : s === 'gagal-siasn' ? 'failed' : ['berhasil-siasn', 'berhasil-diperbarui'].includes(s) ? 'done' : 'todo';
+    steps.push({ label: s === 'gagal-siasn' ? 'Gagal Sinkronisasi ke SIASN' : 'Sinkronisasi ke SIASN', info: info('siasn'), state: sync });
+    steps.push({ label: 'Pembaruan Data pada Portal', info: info('portal'), state: s === 'berhasil-diperbarui' ? 'done' : s === 'berhasil-siasn' ? 'current' : 'todo' });
   }
   return steps;
 }
 
+/** Penanda langkah tanpa angka: selesai (centang), berjalan (cincin biru), menunggu (cincin abu), gagal (silang). */
 function Stepper({ steps }: { steps: Step[] }) {
-  const color = { done: '#2d8a4e', current: '#1a5fe0', todo: '#c7c7c7', failed: '#e0243a', skipped: '#c7c7c7' } as const;
   return (
-    <ol className="flex flex-col gap-[10px]">
-      {steps.map((st, i) => (
-        <li key={i} className="flex items-center gap-[10px]" style={{ fontSize: 'var(--text-sm)', color: st.state === 'todo' || st.state === 'skipped' ? '#808489' : '#2f3031' }}>
-          <span className="size-[20px] rounded-full grid place-items-center text-white shrink-0" style={{ background: color[st.state] }}>
-            {st.state === 'done' ? <Check className="size-[12px]" /> : st.state === 'failed' ? <X className="size-[12px]" /> : <span style={{ fontSize: '11px' }}>{i + 1}</span>}
-          </span>
-          <span style={{ fontWeight: st.state === 'current' ? 600 : 400, textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
-          {st.state === 'current' && <span className="text-[#1a5fe0]" style={{ fontSize: '12px' }}>Sedang berjalan</span>}
-        </li>
-      ))}
+    <ol>
+      {steps.map((st, i) => {
+        const last = i === steps.length - 1;
+        const muted = st.state === 'todo' || st.state === 'skipped';
+        const marker =
+          st.state === 'done' ? <span className="size-[20px] rounded-full bg-[#2d8a4e] grid place-items-center text-white"><Check className="size-[12px]" /></span>
+          : st.state === 'failed' ? <span className="size-[20px] rounded-full bg-[#e0243a] grid place-items-center text-white"><X className="size-[12px]" /></span>
+          : st.state === 'current' ? <span className="size-[20px] rounded-full border-2 border-[#1a5fe0] bg-white grid place-items-center"><span className="size-[8px] rounded-full bg-[#1a5fe0]" /></span>
+          : <span className="size-[20px] rounded-full border-2 border-[#c7c7c7] bg-white" />;
+        return (
+          <li key={i} className="flex gap-[12px]">
+            <div className="flex flex-col items-center">
+              {marker}
+              {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? '#2d8a4e' : '#e4e4e4' }} />}
+            </div>
+            <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[24px]'}`}>
+              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? '#808489' : '#2f3031', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
+              {st.info && <span className="text-[#65696c]" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
+            </div>
+          </li>
+        );
+      })}
     </ol>
   );
 }
 
-/* ---------- Perbandingan data usulan vs SIASN (data contoh; isi final menunggu mapping) ---------- */
+/* ---------- Perubahan: data lama (SIASN) dan data baru (usulan); data SIASN contoh, isi final menunggu mapping ---------- */
 const SIASN_LAMA: Record<string, string> = {
   'Jabatan': 'Analis Kebijakan Ahli Muda', 'Nomor SK': 'SK/2025/0042', 'TMT Jabatan': '1 Oktober 2025', 'Berlaku Sampai': '12 September 2028',
   'Alamat': 'Jl. Lama No. 5, Jakarta Pusat', 'Nomor HP': '-', 'Email Lain': '-', 'Nomor KK': '3171000000000000',
 };
 const siasnValue = (u: Usulan, k: string, v: string) => (u.jenis === 'Tambah' ? '-' : u.jenis === 'Ubah' ? u.lama ?? SIASN_LAMA[k] ?? '-' : v);
 
-function ComparePanel({ u }: { u: Usulan }) {
-  if (u.asal === 'Admin Satker') {
-    return (
-      <div className="border border-dashed border-[#c7c7c7] rounded-[6px] p-[14px] bg-[#fafafa]">
-        <p className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</p>
-        <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan data SIASN untuk usulan ini menunggu konfirmasi mapping.</p>
-      </div>
-    );
-  }
-  // Tambah/Hapus memuat satu data utuh yang sudah tampil di kartu Detail; tabel compare hanya bermakna untuk Ubah.
-  if (u.jenis !== 'Ubah') {
-    return (
-      <div className="flex items-center justify-between gap-[12px] border border-[#efefef] rounded-[6px] bg-[#f4f4f4] px-[14px] py-[10px]">
-        <span className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</span>
-        <span className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>
-          {u.jenis === 'Tambah' ? 'Data belum ada di SIASN (data baru)' : 'Data ditemukan di SIASN'}
-        </span>
-      </div>
-    );
-  }
-  const rows = u.detail.map(([k, v]) => ({ k, v, s: siasnValue(u, k, v) }));
+/* Skala tipografi modal: judul 19 · judul bagian dan nilai 16 · label dan keterangan 14. */
+const BODY = { fontSize: '16px', lineHeight: '24px' } as const;
+const SMALL = { fontSize: '14px', lineHeight: '20px' } as const;
+const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+/** Label kecil kolom samping: 14px, huruf biasa, abu. */
+const TH_STYLE = { fontSize: '14px', fontWeight: 500, lineHeight: '20px' } as const;
+const HEADING = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+
+function Field({ label, children, muted }: { label: string; children: ReactNode; muted?: boolean }) {
   return (
-    <div className="border border-[#efefef] rounded-[6px] overflow-hidden">
-      <div className="flex items-center justify-between bg-[#f4f4f4] px-[14px] py-[8px]">
-        <span className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</span>
-        <span className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>1 field diubah</span>
-      </div>
-      <div>
-        <table className="w-full text-left" style={{ fontSize: 'var(--text-sm)' }}>
-          <thead className="sticky top-0 bg-white">
-            <tr className="border-b border-[#e4e4e4] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
-              <th className="px-[14px] py-[6px] font-semibold w-[28%]">Field</th>
-              <th className="px-[14px] py-[6px] font-semibold">Data Baru (Usulan)</th>
-              <th className="px-[14px] py-[6px] font-semibold">Data Lama (SIASN)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.k} className={'bg-[#fef6e0]'}>
-                <td className="px-[14px] py-[6px] text-[#65696c]">{r.k}</td>
-                <td className="px-[14px] py-[6px] font-semibold">{r.v}</td>
-                <td className="px-[14px] py-[6px]">{r.s}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="min-w-0">
+      <p className="text-[#65696c]" style={SMALL}>{label}</p>
+      <div className={`break-words ${muted ? 'text-[#808489]' : 'text-[#2f3031]'}`} style={BODY}>{children}</div>
     </div>
+  );
+}
+
+/** Inti modal: apa yang berubah. Ubah = lama menjadi baru; Tambah/Hapus = data utuh. */
+function PerubahanPanel({ u }: { u: Usulan }) {
+  const dariAdmin = u.asal === 'Admin Satker';
+  if (u.jenis === 'Ubah') {
+    const [k, v] = u.detail[0];
+    return (
+      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+        <h4 className="px-[16px] py-[12px] border-b border-[#efefef] text-[#2f3031]" style={HEADING}>{k}</h4>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]">
+          <div className="p-[16px]">
+            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-[#808489]">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
+          </div>
+          <div className="hidden md:grid place-items-center px-[8px] text-[#808489]"><ArrowRight className="size-[20px]" /></div>
+          <div className="p-[16px]">
+            <Field label="Data Baru (Usulan)">{v}</Field>
+          </div>
+        </div>
+      </section>
+    );
+  }
+  return (
+    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+      <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-[#efefef]">
+        <h4 className="text-[#2f3031]" style={HEADING}>{u.jenis === 'Tambah' ? 'Data yang Ditambahkan' : 'Data yang Dihapus'}</h4>
+        {!dariAdmin && <span className="text-[#65696c]" style={SMALL}>{u.jenis === 'Tambah' ? 'Belum ada di SIASN' : 'Ditemukan di SIASN'}</span>}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
+        {u.detail.map(([k, v]) => <Field key={k} label={k}>{v}</Field>)}
+      </div>
+    </section>
   );
 }
 
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
+
+const btnBase = 'rounded-[4px] px-[16px] py-[8px]';
+const btnText = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
 
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
@@ -245,81 +259,104 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   };
   const close = (msg: string) => { toast.success(msg); onClose(); };
   const canRetry = role === 'admin' && u.status === 'gagal-siasn';
+  const field = u.detail[0]?.[0] ?? u.data;
+  const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${u.jenis === 'Ubah' ? field : u.data}`;
+  const tone = u.jenis === 'Tambah' ? '#a9e5c1' : u.jenis === 'Ubah' ? '#a6d8f8' : '#fce9e9';
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[880px] max-h-[92vh] flex flex-col">
-        <div className="flex items-center justify-between px-[20px] py-[14px] border-b border-[#e4e4e4]">
-          <h2 style={{ fontSize: 'var(--text-lg)' }}>Detail Usulan Perubahan: <b className="uppercase">{u.data}</b></h2>
-          <button onClick={onClose} aria-label="Close" className="border border-[#1a5fe0] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#1a5fe0]" /></button>
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between gap-[16px] px-[24px] py-[14px] border-b border-[#e4e4e4]">
+          <h2 className="text-[#2f3031]" style={HEADING}>Detail Usulan Perubahan</h2>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
         </div>
-        <div className="overflow-y-auto p-[20px] flex flex-col gap-[14px]">
-          <div className="flex items-center gap-[14px] bg-[#f4f4f4] rounded-[8px] p-[12px]">
-            <div className="size-[48px] rounded-full bg-[#d6e6fd]" />
-            <div className="flex-1">
-              <p className="font-semibold">{u.nama}</p>
-              <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{u.nip}</p>
-              <p className="flex gap-[6px] flex-wrap mt-[2px] items-center"><Chip tone="blue">{u.golongan}</Chip><span style={{ fontSize: '11px' }}>{u.jabatan}</span></p>
-              <p className="text-[#65696c] mt-[2px]" style={{ fontSize: '11px' }}>{u.unit}</p>
+
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Kolom utama (kanan di layar lebar): apa yang berubah, bukti, dan keputusan */}
+          <div className="order-1 lg:order-2 bg-[#f7f7f7] p-[24px] flex flex-col gap-[24px]">
+            <div className="flex items-center gap-[12px]">
+              <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#2f3031]" style={{ background: tone }}>
+                {u.jenis === 'Tambah' ? <Plus className="size-[20px]" /> : u.jenis === 'Ubah' ? <Pencil className="size-[19px]" /> : <Trash2 className="size-[19px]" />}
+              </div>
+              <h3 className="flex-1 min-w-0 text-[#2f3031]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
+              <StatusBadge status={u.status} short />
             </div>
-            <div className="flex flex-col items-end gap-[4px]"><AsalText asal={u.asal} /><StatusBadge status={u.status} short /></div>
-          </div>
 
-          {role === 'admin' && mode === 'verifikasi' && <ComparePanel u={u} />}
+            <PerubahanPanel u={u} />
 
-          <div className="border border-[#efefef] rounded-[6px] p-[14px]">
-            <p className="font-semibold mb-[10px]" style={{ fontSize: 'var(--text-sm)' }}>Alur Pengusulan</p>
-            <Stepper steps={steps} />
-            {u.status === 'gagal-siasn' && <p className="mt-[10px] text-[#a11d1d]" style={{ fontSize: 'var(--text-xs)' }}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
-            {u.status === 'berhasil-siasn' && <p className="mt-[10px] text-[#7a5a00]" style={{ fontSize: 'var(--text-xs)' }}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
-            {u.catatan && <p className="mt-[10px]" style={{ fontSize: 'var(--text-xs)' }}>Catatan: {u.catatan}</p>}
-          </div>
+            {u.asal === 'Admin Satker' && (
+              <p className="text-[#65696c] -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan dengan data SIASN menunggu konfirmasi mapping.</p>
+            )}
 
-          <div className="border border-[#efefef] rounded-[6px] overflow-hidden">
-            <div className="flex items-center justify-between bg-[#f4f4f4] px-[14px] py-[8px]">
-              <span className="flex items-center gap-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Detail <Chip tone={u.jenis === 'Hapus' ? 'red' : 'green'}>{u.jenis === 'Tambah' ? 'Penambahan Data' : u.jenis === 'Ubah' ? 'Perubahan Data' : 'Penghapusan Data'}</Chip></span>
-              <span style={{ fontSize: 'var(--text-xs)' }}>Diajukan pada: 29 Oktober 2026 09:32 WIB</span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[16px] gap-y-[12px] p-[14px]">
-              {u.detail.map(([k, v]) => (
-                <div key={k}>
-                  <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{k}</p>
-                  <p className="font-semibold text-[#2d8a4e]" style={{ fontSize: 'var(--text-sm)' }}>{v}</p>
+            {u.dokumen.length > 0 && (
+              <section className="flex flex-col gap-[8px]">
+                <h4 className="text-[#2f3031]" style={HEADING}>Dokumen Pendukung</h4>
+                <ul className="bg-white border border-[#e4e4e4] rounded-[8px] divide-y divide-[#efefef]">
+                  {u.dokumen.map((d) => (
+                    <li key={d} className="flex items-center justify-between gap-[12px] px-[16px] py-[12px]">
+                      <span className="flex items-center gap-[8px] text-[#2f3031]" style={BODY}><FileText className="size-[18px] text-[#65696c]" /> {d}</span>
+                      <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="text-[#0b5fef] hover:underline" style={{ ...SMALL, fontWeight: 600 }}>Lihat File</button>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {mode !== 'lihat' && (
+              <section className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px] flex flex-col gap-[8px]">
+                <div className="flex items-baseline justify-between gap-[12px]">
+                  <h4 className="text-[#2f3031]" style={HEADING}>Catatan</h4>
+                  <span className="text-[#65696c]" style={SMALL}>Wajib diisi jika menolak</span>
                 </div>
-              ))}
-            </div>
+                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className="w-full border border-[#c7c7c7] rounded-[4px] px-[12px] py-[8px] text-[#2f3031]" style={BODY} />
+              </section>
+            )}
           </div>
 
-
-          {mode !== 'lihat' && (
-            <div>
-              <label className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Catatan (wajib diisi jika menolak)</label>
-              <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={2} className="mt-[4px] w-full border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px]" style={{ fontSize: 'var(--text-sm)' }} />
+          {/* Kolom samping (kiri di layar lebar): konteks pegawai, status, dan alur */}
+          <aside className="order-2 lg:order-1 bg-white border-t lg:border-t-0 lg:border-r border-[#e4e4e4]">
+            {/* Isi sidebar menempel di atas saat kolom utama di-scroll; latar putih tetap setinggi modal. */}
+            <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-[4px]">
+              <p className="text-[#65696c] mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
+              <p className="text-[#2f3031]" style={VALUE}>{u.nama}</p>
+              <p className="text-[#65696c]" style={SMALL}>NIP {u.nip}</p>
+              <p className="text-[#65696c]" style={SMALL}>{shortUnit(u.unit)}</p>
             </div>
-          )}
+            <div className="flex flex-col gap-[16px] border-t border-[#c7c7c7] pt-[20px] mt-[4px]">
+              <h4 className="text-[#65696c]" style={TH_STYLE}>Alur Pengusulan</h4>
+              <Stepper steps={steps} />
+              {u.status === 'gagal-siasn' && <p className="rounded-[6px] bg-[#fce9e9] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
+              {u.status === 'berhasil-siasn' && <p className="rounded-[6px] bg-[#fef6e0] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
+            </div>
+            </div>
+          </aside>
+          </div>
         </div>
-        <div className="flex items-center justify-between px-[20px] py-[12px] border-t border-[#e4e4e4]">
-          <button onClick={onClose} className="border border-[#a8a8a8] rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
+
+        <div className="flex items-center justify-between gap-[12px] px-[24px] py-[12px] border-t border-[#e4e4e4] bg-white">
+          <button onClick={onClose} className={`${btnBase} border border-[#a8a8a8] text-[#2f3031] hover:bg-[#f4f4f4]`} style={btnText}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
           <div className="flex gap-[8px]">
             {canRetry && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className="flex items-center gap-[6px] bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}><RotateCcw className="size-[14px]" /> Coba Lagi</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={`flex items-center gap-[6px] bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
             )}
             {u.status === 'disetujui-komite' && role === 'admin' && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Jalankan Sinkronisasi SIASN</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Jalankan Sinkronisasi SIASN</button>
             )}
             {u.status === 'berhasil-siasn' && role === 'admin' && (
-              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Simpan ke Portal</button>
+              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Simpan ke Portal</button>
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className="bg-[#e0243a] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✕ Tolak</button>
-                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✓ Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={`border border-[#e0243a] text-[#e0243a] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
+                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className="bg-[#e0243a] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✕ Tolak</button>
-                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✓ Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={`border border-[#e0243a] text-[#e0243a] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
+                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
               </>
             )}
           </div>

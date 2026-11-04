@@ -13,6 +13,9 @@ export type StatusUsulan =
 export type Asal = 'Pegawai' | 'Admin Satker';
 export type Jenis = 'Tambah' | 'Ubah' | 'Hapus';
 
+export type LogKey = 'ajukan' | 'admin' | 'komite' | 'siasn' | 'portal';
+export type LogItem = { oleh: string; waktu: string; catatan?: string };
+
 export type Usulan = {
   id: number;
   nama: string;
@@ -26,6 +29,12 @@ export type Usulan = {
   status: StatusUsulan;
   catatan?: string;
   detail: [string, string][];
+  /** Dokumen pendukung yang dilampirkan pada pengajuan (label). */
+  dokumen: string[];
+  /** Riwayat langkah: siapa dan kapan (jejak audit). */
+  log: Partial<Record<LogKey, LogItem>>;
+  /** Waktu pengajuan, mis. "29 Oktober 2026 09:32 WIB". */
+  diajukan: string;
   /** Nilai lama (khusus Ubah) saat diajukan dari halaman edit. */
   lama?: string;
 };
@@ -126,12 +135,62 @@ const DATA_BARU: Record<string, string> = {
   'Nomor KK': '3171000000000001', 'Status Perkawinan': 'Menikah', 'Nomor BPJS': '0001234567890', 'NPWP': '12.345.678.9-012.000',
 };
 
-const mk = (id: number, nama: string, nip: string, data: string, jenis: Jenis, asal: Asal, status: StatusUsulan, field?: string): Usulan => ({
-  id, nama, nip, unit: UNIT_FULL,
-  golongan: nip === AHMAD_NIP ? 'III/d' : 'III/c',
-  jabatan: nip === AHMAD_NIP ? 'Kepala Seksi Pemetaan Mutu dan Supervisi' : 'Analis Kebijakan Ahli Muda',
-  data, jenis, asal, status, detail: jenis === 'Ubah' ? fieldUbah(data, field) : detailFor(data),
-});
+const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+const pad = (n: number) => String(n).padStart(2, '0');
+const formatWaktu = (d: Date) => `${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())} WIB`;
+const tambahMenit = (d: Date, m: number) => new Date(d.getTime() + m * 60000);
+
+/** Dokumen pendukung yang lazim dilampirkan per kategori (usulan Hapus tidak memerlukan dokumen). */
+export function dokumenFor(data: string, jenis: Jenis, field?: string): string[] {
+  if (jenis === 'Hapus') return [];
+  if (data === 'Data Pribadi') {
+    const m: Record<string, string[]> = {
+      'NIK': ['KTP'], 'Nomor KK': ['Kartu Keluarga'], 'Status Perkawinan': ['Akta Menikah'],
+      'Nama Lengkap': ['Dokumen Pendukung Perubahan Nama'], 'Tanggal Lahir': ['Akta Kelahiran'],
+    };
+    return m[field ?? ''] ?? [];
+  }
+  const m: Record<string, string[]> = {
+    Jabatan: ['SK Jabatan'], Sertifikasi: ['Berkas Sertifikat'], Pasangan: ['Kartu Keluarga', 'Akta Menikah'],
+    'Orang Tua': ['Kartu Keluarga', 'Akta Kelahiran'], Anak: ['Akta Kelahiran'], Pendidikan: ['Ijazah'], Kepangkatan: ['SK Pangkat'],
+  };
+  return m[data] ?? [];
+}
+
+/** Menyusun jejak langkah sesuai status saat ini, dihitung mundur dari waktu pengajuan. */
+function buatLog(u: Pick<Usulan, 'nama' | 'asal' | 'status' | 'data' | 'jenis' | 'detail'>, t0: Date): Usulan['log'] {
+  const log: Usulan['log'] = {};
+  const st = u.status;
+  const pegawai = u.asal === 'Pegawai';
+  log.ajukan = { oleh: pegawai ? u.nama : 'Admin Satker', waktu: formatWaktu(t0) };
+  if (pegawai) {
+    if (st !== 'menunggu-diverifikasi') log.admin = { oleh: 'Admin Satker', waktu: formatWaktu(tambahMenit(t0, 70)), catatan: st === 'ditolak-admin' ? 'Dokumen tidak sesuai' : undefined };
+  } else {
+    log.admin = { oleh: 'Otomatis (diajukan Admin Satker)', waktu: formatWaktu(t0) };
+  }
+  if (st === 'ditolak-admin') return log;
+  const lewatKomite = ['disetujui-komite', 'ditolak-komite', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st);
+  if (perluKomite(u) && lewatKomite) log.komite = { oleh: 'Komite Talenta', waktu: formatWaktu(tambahMenit(t0, 1500)), catatan: st === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined };
+  if (['berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st)) log.siasn = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1505)) };
+  if (st === 'berhasil-diperbarui') log.portal = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1506)) };
+  return log;
+}
+
+const waktuContoh = (id: number) => new Date(2026, 9, 20 + (id % 14), 8 + (id % 9), (id * 7) % 60);
+
+const mk = (id: number, nama: string, nip: string, data: string, jenis: Jenis, asal: Asal, status: StatusUsulan, field?: string): Usulan => {
+  const detail = jenis === 'Ubah' ? fieldUbah(data, field) : detailFor(data);
+  const t0 = waktuContoh(id);
+  return {
+    id, nama, nip, unit: UNIT_FULL,
+    golongan: nip === AHMAD_NIP ? 'III/d' : 'III/c',
+    jabatan: nip === AHMAD_NIP ? 'Kepala Seksi Pemetaan Mutu dan Supervisi' : 'Analis Kebijakan Ahli Muda',
+    data, jenis, asal, status, detail, diajukan: formatWaktu(t0),
+    dokumen: dokumenFor(data, jenis, jenis === 'Ubah' ? detail[0][0] : undefined),
+    log: buatLog({ nama, asal, status, data, jenis, detail }, t0),
+    catatan: status === 'ditolak-admin' ? 'Dokumen tidak sesuai' : status === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined,
+  };
+};
 
 const seed: Usulan[] = [
   mk(1, AHMAD, AHMAD_NIP, 'Pasangan', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
@@ -148,7 +207,7 @@ const seed: Usulan[] = [
   mk(12, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Admin Satker', 'disetujui-komite', 'Nomor SK'),
   mk(13, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', 'Alamat'),
   mk(14, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', 'Nomor HP'),
-  mk(15, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'menunggu-diverifikasi'),
+  mk(15, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'menunggu-komite'),
   mk(16, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'berhasil-diperbarui', 'Email Lain'),
   mk(17, AHMAD, AHMAD_NIP, 'Pendidikan', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
 ];
@@ -167,23 +226,34 @@ export function useUsulan() {
 
 const patch = (id: number, p: Partial<Usulan>) => { state = state.map((u) => (u.id === id ? { ...u, ...p } : u)); emit(); };
 
+const logTambah = (u: Usulan, kunci: LogKey, oleh: string, catatan?: string): Usulan['log'] => ({ ...u.log, [kunci]: { oleh, waktu: formatWaktu(new Date()), catatan } });
+
 /** Admin Satker memverifikasi usulan pegawai. Data pokok tidak perlu Komite, langsung sinkronisasi. */
 export function verifikasiAdmin(id: number, setuju: boolean, catatan?: string) {
   const u = state.find((x) => x.id === id);
   if (!u) return;
-  if (!setuju) return patch(id, { status: 'ditolak-admin', catatan });
-  patch(id, { status: perluKomite(u) ? 'menunggu-komite' : 'berhasil-diperbarui', catatan });
+  const log = logTambah(u, 'admin', 'Admin Satker', catatan);
+  if (!setuju) return patch(id, { status: 'ditolak-admin', catatan, log });
+  patch(id, { status: perluKomite(u) ? 'menunggu-komite' : 'berhasil-diperbarui', catatan, log });
 }
 
 export function putusKomite(id: number, setuju: boolean, catatan?: string) {
-  patch(id, { status: setuju ? 'disetujui-komite' : 'ditolak-komite', catatan });
+  const u = state.find((x) => x.id === id);
+  if (!u) return;
+  patch(id, { status: setuju ? 'disetujui-komite' : 'ditolak-komite', catatan, log: logTambah(u, 'komite', 'Komite Talenta', catatan) });
 }
 
 /** Simulasi sinkronisasi SIASN setelah disetujui Komite (Admin Satker dapat coba lagi bila gagal). */
 export function sinkronSiasn(id: number, berhasil: boolean) {
-  patch(id, { status: berhasil ? 'berhasil-siasn' : 'gagal-siasn' });
+  const u = state.find((x) => x.id === id);
+  if (!u) return;
+  patch(id, { status: berhasil ? 'berhasil-siasn' : 'gagal-siasn', log: logTambah(u, 'siasn', 'Sistem') });
 }
-export function simpanPortal(id: number) { patch(id, { status: 'berhasil-diperbarui' }); }
+export function simpanPortal(id: number) {
+  const u = state.find((x) => x.id === id);
+  if (!u) return;
+  patch(id, { status: 'berhasil-diperbarui', log: logTambah(u, 'portal', 'Sistem') });
+}
 
 export const AHMAD_PROFIL = { nama: AHMAD, nip: AHMAD_NIP };
 
@@ -196,9 +266,12 @@ export function ajukanUsulan(i: { nama: string; nip: string; data: string; jenis
     id: Math.max(0, ...state.map((u) => u.id)) + 1, nama: i.nama, nip: i.nip, unit: UNIT_FULL,
     golongan: i.nip === AHMAD_NIP ? 'III/d' : 'III/c',
     jabatan: i.nip === AHMAD_NIP ? 'Kepala Seksi Pemetaan Mutu dan Supervisi' : 'Analis Kebijakan Ahli Muda',
-    data: i.data, jenis: i.jenis, asal: 'Admin Satker', status: 'menunggu-komite', detail: i.detail, lama: i.lama,
+    data: i.data, jenis: i.jenis, asal: 'Admin Satker', status: 'menunggu-komite', detail: i.detail, lama: i.lama, diajukan: formatWaktu(new Date()),
+    dokumen: dokumenFor(i.data, i.jenis, i.jenis === 'Ubah' ? i.detail[0]?.[0] : undefined), log: {},
   };
-  const u = { ...base, status: (perluKomite(base) ? 'menunggu-komite' : 'berhasil-diperbarui') as StatusUsulan };
+  const status = (perluKomite(base) ? 'menunggu-komite' : 'berhasil-diperbarui') as StatusUsulan;
+  const now = new Date();
+  const u = { ...base, status, log: buatLog({ ...base, status }, now) };
   state = [u, ...state];
   emit();
   return u;
