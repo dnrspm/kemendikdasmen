@@ -17,7 +17,7 @@ export const Checkbox = forwardRef<HTMLInputElement, Omit<InputHTMLAttributes<HT
           />
           <span className={`size-[18px] rounded-[4px] border border-sd-gray-50 bg-white transition-shadow
             peer-hover:border-sd-blue-70 peer-checked:border-sd-blue-70 peer-checked:bg-sd-blue-70
-            peer-disabled:border-sd-border-disabled peer-disabled:bg-sd-badge-neutral ${RING}`} />
+            peer-disabled:border-sd-border-disabled peer-disabled:bg-sd-badge-neutral ${RING} ${indeterminate ? 'border-sd-blue-70 bg-sd-blue-70' : ''}`} />
           <svg aria-hidden viewBox="0 0 18 18" className="pointer-events-none absolute size-[18px] text-white opacity-0 peer-checked:opacity-100" style={indeterminate ? { opacity: 1 } : undefined}>
             {indeterminate ? <path d="M4.5 9h9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /> : <path d="M4.5 9.5l3 3 6-6.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />}
           </svg>
