@@ -245,7 +245,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                     className="relative py-[16px] transition-all"
                   >
                     <span
-                      className="text-[15px] leading-[22px] whitespace-nowrap"
+                      className="text-[16px] leading-[22px] whitespace-nowrap"
                       style={{
                         fontWeight: 'var(--font-weight-semibold)',
                         color: isActive ? 'var(--sd-blue-70)' : '#65686c',

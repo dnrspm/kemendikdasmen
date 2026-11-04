@@ -198,7 +198,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
                   <h3 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-sd-gray-90">Proyeksi Pensiun 5 Thn</h3>
                   <div className="flex items-center gap-[6px] bg-amber-100 px-[8px] py-[4px] rounded-[4px]">
                     <AlertTriangle className="w-[14px] h-[14px] text-amber-600" />
-                    <span className="text-[11px] text-amber-800">Mengabaikan filter jabatan</span>
+                    <span className="text-[12px] text-amber-800">Mengabaikan filter jabatan</span>
                   </div>
                 </div>
                 <ResponsiveContainer width="100%" height={250}>
@@ -486,7 +486,7 @@ export function ProfilASNPage({ onBack, onBackToHome }: ProfilASNPageProps) {
             ))}
           </div>
           <div className="flex items-center gap-[8px]">
-            <span className="text-[10px] text-sd-gray-60 uppercase tracking-wide">Filter Jenis Jabatan</span>
+            <span className="text-[12px] text-sd-gray-60 uppercase tracking-wide">Filter Jenis Jabatan</span>
             <select value={filterJabatan} onChange={(e) => setFilterJabatan(e.target.value)} className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]">
               <option value="semua">Seluruh Jabatan</option>
               <option value="manajerial">Seluruh Manajerial</option>

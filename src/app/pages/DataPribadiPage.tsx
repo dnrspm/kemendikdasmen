@@ -641,7 +641,7 @@ function KinerjaTabel() {
     <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[8px] border border-[#cfd2d4]">
       <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-[#cfd2d4] p-[16px]">
         <div>
-          <h3 className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
+          <h3 className="text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
           {showSync && (
             <div className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
               Dicek dari eSKP: {syncAt}
@@ -843,7 +843,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[12px] flex flex-col gap-[12px]">
               <div className="flex gap-[10px]">
-                <div className="size-[64px] shrink-0 bg-sd-gray-5 grid place-items-center text-[10px] text-sd-gray-60">QR</div>
+                <div className="size-[64px] shrink-0 bg-sd-gray-5 grid place-items-center text-[12px] text-sd-gray-60">QR</div>
                 <div>
                   <p style={{ fontSize: '12px', lineHeight: '16px' }}>Scan QR untuk melihat profil publik (Kartu Pegawai). Klik gambar untuk memperbesar.</p>
                   <a className="text-sd-blue-70 inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>

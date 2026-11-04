@@ -82,7 +82,7 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
               <div className="absolute right-0 mt-[8px] w-[220px] bg-white border border-[#e4e4e4] rounded-[8px] shadow-lg p-[12px] z-50">
                 <p className="font-semibold text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Ahmad Wijaya</p>
                 <p className="text-sd-blue-70" style={{ fontSize: '12px' }}>ahmad.wijaya@kemendikdasmen.go.id</p>
-                <p className="text-sd-gray-60 mb-[10px]" style={{ fontSize: '11px' }}>NIP: 198704182018031001</p>
+                <p className="text-sd-gray-60 mb-[10px]" style={{ fontSize: '12px' }}>NIP: 198704182018031001</p>
                 <button className="w-full flex items-center gap-[8px] border border-sd-blue-70 rounded-[4px] px-[10px] py-[6px] hover:bg-sd-blue-5" style={{ fontSize: 'var(--text-sm)' }}>
                   <LogOut className="size-[16px]" /> Keluar
                 </button>

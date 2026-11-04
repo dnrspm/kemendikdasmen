@@ -27,7 +27,7 @@ export function Field({ label, required, full, children, hint }: { label: string
         {label} {required && <span className="text-[#d8142c]">*</span>}
       </span>
       {children}
-      {hint && <span className="text-sd-gray-60" style={{ fontSize: '11px' }}>{hint}</span>}
+      {hint && <span className="text-sd-gray-60" style={{ fontSize: '12px' }}>{hint}</span>}
     </label>
   );
 }
@@ -79,7 +79,7 @@ export function FileField({ label, hint, required }: { label: string; hint: stri
   return (
     <div className="flex flex-col gap-[6px] md:col-span-2">
       <span style={{ fontSize: '16px', fontWeight: 500, lineHeight: '24px' }}>{label} {required && <span className="text-[#d8142c]">*</span>}</span>
-      <span className="text-sd-gray-60" style={{ fontSize: '11px' }}>{hint}</span>
+      <span className="text-sd-gray-60" style={{ fontSize: '12px' }}>{hint}</span>
       <div className="flex items-center gap-[8px]">
         <label className="flex-1 border border-sd-gray-50 rounded-[4px] px-[12px] py-[10px] flex items-center gap-[8px] text-sd-gray-50 cursor-pointer" style={{ fontSize: '16px', lineHeight: '24px' }}>
           <Paperclip className="size-[16px]" /> Pilih File

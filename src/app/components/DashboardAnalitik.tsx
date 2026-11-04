@@ -177,7 +177,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div className="bg-sd-blue-90 rounded-[8px] p-[24px] text-white">
         <div className="flex items-center gap-[12px] mb-[16px]">
           <Lightbulb className="w-[24px] h-[24px]" />
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)]">
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)]">
             Sintesis Eksekutif
           </h3>
         </div>
@@ -212,7 +212,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Stabilitas Organisasi</h3>
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Stabilitas Organisasi</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Apakah struktur organisasi stabil dalam beberapa periode ke depan?</span>
@@ -275,7 +275,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Kinerja dan Talenta</h3>
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Kinerja dan Talenta</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Apakah people engine organisasi cukup kuat?</span>
@@ -370,7 +370,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       {/* Section 3: 3-Column Cards Row — Detail */}
       <div>
         <div className="flex items-center gap-[16px] mb-[20px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Detail Tiga Sinyal Utama</h3>
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Detail Tiga Sinyal Utama</h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
         </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
@@ -779,7 +779,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
                   </h3>
                   <div className="flex items-center gap-[6px] bg-amber-100 px-[8px] py-[4px] rounded-[4px]">
                     <AlertTriangle className="w-[14px] h-[14px] text-amber-600" />
-                    <span className="text-[11px] text-amber-800">Mengabaikan filter jabatan</span>
+                    <span className="text-[12px] text-amber-800">Mengabaikan filter jabatan</span>
                   </div>
                 </div>
                 <ResponsiveContainer width="100%" height={250}>
@@ -1229,7 +1229,7 @@ function ProfilASN({ selectedUnit, unitData }: { selectedUnit: string; unitData:
           </div>
 
           <div className="flex items-center gap-[8px]">
-            <span className="text-[10px] text-sd-gray-60 uppercase tracking-wide">Filter Jenis Jabatan</span>
+            <span className="text-[12px] text-sd-gray-60 uppercase tracking-wide">Filter Jenis Jabatan</span>
             <select
               value={filterJabatan}
               onChange={(e) => setFilterJabatan(e.target.value)}
@@ -1405,7 +1405,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
               A. Keterisian Jabatan Saat Ini
             </h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -1603,7 +1603,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
               B. Risiko Kekosongan karena Pensiun
             </h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -1706,7 +1706,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                 <YAxis dataKey="jabatan" type="category" width={110} tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <Bar dataKey="value" fill="var(--sd-yellow-50)" radius={[0, 4, 4, 0]}>
-                  <LabelList dataKey="value" position="right" style={{ fontSize: '11px', fill: 'var(--sd-gray-60)' }} />
+                  <LabelList dataKey="value" position="right" style={{ fontSize: '12px', fill: 'var(--sd-gray-60)' }} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -1733,7 +1733,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                 <YAxis dataKey="jabatan" type="category" width={150} tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <Bar dataKey="value" fill="var(--sd-blue-50)" radius={[0, 4, 4, 0]}>
-                  <LabelList dataKey="value" position="right" style={{ fontSize: '11px', fill: 'var(--sd-gray-60)' }} />
+                  <LabelList dataKey="value" position="right" style={{ fontSize: '12px', fill: 'var(--sd-gray-60)' }} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -2007,7 +2007,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section A: Kinerja ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             A. Kinerja ASN
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2084,7 +2084,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
             <div className="flex flex-col flex-1 gap-[10px] min-h-0">
               {kinerjaPerJabatanData.map((row) => (
                 <div key={row.jenis} className="flex items-center gap-[8px] flex-1 min-h-0">
-                  <div className="shrink-0 text-right text-[11px] text-sd-gray-60" style={{ width: 80 }}>
+                  <div className="shrink-0 text-right text-[12px] text-sd-gray-60" style={{ width: 80 }}>
                     {row.jenis}
                   </div>
                   <div className="flex flex-1 min-h-[24px] h-full rounded-[2px] relative">
@@ -2098,7 +2098,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                       const val = (row as Record<string, number>)[cat.key];
                       return (
                         <div key={cat.key} style={{ width: `${val}%`, backgroundColor: cat.color }} className="flex items-center justify-center" title={`${cat.key}: ${val}%`}>
-                          {val > 8 && <span className="text-[9px] font-[var(--font-weight-semibold)] text-white">{val}%</span>}
+                          {val > 8 && <span className="text-[12px] font-[var(--font-weight-semibold)] text-white">{val}%</span>}
                         </div>
                       );
                     })}
@@ -2110,7 +2110,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
               {[{ key: 'Sangat Kurang', color: 'var(--sd-red-60)' }, { key: 'Kurang', color: 'var(--sd-yellow-30)' }, { key: 'Cukup', color: 'var(--sd-yellow-10)' }, { key: 'Baik', color: 'var(--sd-blue-40)' }, { key: 'Sangat Baik', color: 'var(--sd-blue-80)' }].map(cat => (
                 <div key={cat.key} className="flex items-center gap-[5px]">
                   <div className="w-[8px] h-[8px] rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                  <span className="text-[11px] text-sd-gray-60">{cat.key}</span>
+                  <span className="text-[12px] text-sd-gray-60">{cat.key}</span>
                 </div>
               ))}
             </div>
@@ -2231,7 +2231,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
               <div className="space-y-[10px]">
                 {kinerjaPerUnitData.map((row) => (
                   <div key={row.unit} className="flex items-center gap-[8px]">
-                    <div className="shrink-0 text-right text-[11px] text-sd-gray-60" style={{ width: 88 }}>
+                    <div className="shrink-0 text-right text-[12px] text-sd-gray-60" style={{ width: 88 }}>
                       {row.unit}
                     </div>
                     <div className="flex flex-1 h-[24px] rounded-[2px] relative">
@@ -2251,18 +2251,18 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                             title={`${cat.key}: ${val}%`}
                           >
                             {val > 8 && (
-                              <span className="text-[9px] font-[var(--font-weight-semibold)] text-white">{val}%</span>
+                              <span className="text-[12px] font-[var(--font-weight-semibold)] text-white">{val}%</span>
                             )}
                           </div>
                         );
                       })}
                     </div>
-                    <div className="shrink-0 text-[10px] text-sd-gray-40">100%</div>
+                    <div className="shrink-0 text-[12px] text-sd-gray-40">100%</div>
                   </div>
                 ))}
               </div>
               {/* X-axis tick labels */}
-              <div className="flex justify-between text-[10px] text-sd-gray-40 mt-[8px]" style={{ paddingLeft: 96, paddingRight: 36 }}>
+              <div className="flex justify-between text-[12px] text-sd-gray-40 mt-[8px]" style={{ paddingLeft: 96, paddingRight: 36 }}>
                 <span>0%</span>
                 <span>25%</span>
                 <span>50%</span>
@@ -2280,7 +2280,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                 ].map((cat) => (
                   <div key={cat.key} className="flex items-center gap-[5px]">
                     <div className="w-[8px] h-[8px] rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                    <span className="text-[11px] text-sd-gray-60">{cat.key}</span>
+                    <span className="text-[12px] text-sd-gray-60">{cat.key}</span>
                   </div>
                 ))}
               </div>
@@ -2293,7 +2293,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section B: Pemetaan Talenta ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             B. Pemetaan Talenta ASN
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2405,7 +2405,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                 <XAxis dataKey="bulan" tick={{ fontSize: 11 }} />
                 <YAxis domain={[0, 1800]} />
                 <Tooltip />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Line type="monotone" dataKey="asesmen_kompetensi" stroke="var(--sd-blue-90)" name="Asesmen Kompetensi" strokeWidth={2} />
                 <Line type="monotone" dataKey="asesmen_potensi" stroke="var(--sd-blue-40)" name="Asesmen Potensi" strokeWidth={2} />
                 <Line type="monotone" dataKey="pelatihan" stroke="var(--sd-yellow-50)" name="Pelatihan" strokeWidth={2} />
@@ -2421,7 +2421,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section C: Pengembangan Kompetensi: Rencana vs Realisasi */}
       <div style={{ display: 'none' }}>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             C. Pengembangan Kompetensi: Rencana vs Realisasi
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2469,21 +2469,21 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                   { unit: 'Dit. SMK',         sudah: 68, belum: 32 },
                 ]).map((row, idx) => (
                   <div key={idx} className="flex items-center gap-[8px]">
-                    <div className="shrink-0 text-[10px] text-sd-gray-60 text-right" style={{ width: 96 }}>{row.unit}</div>
+                    <div className="shrink-0 text-[12px] text-sd-gray-60 text-right" style={{ width: 96 }}>{row.unit}</div>
                     <div className="flex flex-1 h-[18px] rounded-[2px] overflow-hidden">
                       <div className="flex items-center justify-center bg-primary/70" style={{ width: `${row.sudah}%` }}>
-                        {row.sudah > 14 && <span className="text-[9px] font-[var(--font-weight-semibold)] text-white">{row.sudah}%</span>}
+                        {row.sudah > 14 && <span className="text-[12px] font-[var(--font-weight-semibold)] text-white">{row.sudah}%</span>}
                       </div>
                       <div className="flex items-center justify-center bg-sd-red-5" style={{ width: `${row.belum}%` }}>
-                        {row.belum > 10 && <span className="text-[9px] font-[var(--font-weight-semibold)] text-sd-red-60">{row.belum}%</span>}
+                        {row.belum > 10 && <span className="text-[12px] font-[var(--font-weight-semibold)] text-sd-red-60">{row.belum}%</span>}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="flex gap-[14px] mt-[10px]">
-                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-primary/70"></div><span className="text-[10px] text-sd-gray-60">Sudah berencana</span></div>
-                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-red-5 border border-sd-red-60"></div><span className="text-[10px] text-sd-gray-60">Belum berencana</span></div>
+                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-primary/70"></div><span className="text-[12px] text-sd-gray-60">Sudah berencana</span></div>
+                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-red-5 border border-sd-red-60"></div><span className="text-[12px] text-sd-gray-60">Belum berencana</span></div>
               </div>
             </div>
           </div>
@@ -2519,7 +2519,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                   const gap = d.plan - d.realisasi;
                   return (
                     <div key={idx} className="flex items-center gap-[8px]">
-                      <div className="shrink-0 text-[10px] text-sd-gray-60" style={{ width: 80 }}>{d.unit}</div>
+                      <div className="shrink-0 text-[12px] text-sd-gray-60" style={{ width: 80 }}>{d.unit}</div>
                       <div className="flex-1 relative h-[18px]">
                         <div className="absolute inset-0 flex">
                           <div className="bg-sd-yellow-50/25 rounded-sm" style={{ width: `${d.realisasi}%` }}></div>
@@ -2529,15 +2529,15 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
                           <div className="w-[2px] h-full bg-sd-red-60"></div>
                         </div>
                       </div>
-                      <div className="shrink-0 text-[10px] text-sd-yellow-50 w-[32px] text-right">{d.realisasi}%</div>
-                      <div className="shrink-0 text-[10px] text-sd-red-60 w-[32px] text-right">-{gap}%</div>
+                      <div className="shrink-0 text-[12px] text-sd-yellow-50 w-[32px] text-right">{d.realisasi}%</div>
+                      <div className="shrink-0 text-[12px] text-sd-red-60 w-[32px] text-right">-{gap}%</div>
                     </div>
                   );
                 })}
               </div>
               <div className="flex gap-[14px] mt-[10px]">
-                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-yellow-50/25"></div><span className="text-[10px] text-sd-gray-60">Realisasi</span></div>
-                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-red-60/15 border border-sd-red-60"></div><span className="text-[10px] text-sd-gray-60">Gap ke rencana</span></div>
+                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-yellow-50/25"></div><span className="text-[12px] text-sd-gray-60">Realisasi</span></div>
+                <div className="flex items-center gap-[4px]"><div className="w-[9px] h-[9px] rounded-sm bg-sd-red-60/15 border border-sd-red-60"></div><span className="text-[12px] text-sd-gray-60">Gap ke rencana</span></div>
               </div>
               <p className="text-[var(--text-xs)] text-sd-gray-40 mt-[8px] italic">Itjen gap terkecil — best practice untuk unit lain.</p>
             </div>
@@ -2668,7 +2668,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">A. Penilaian SAKIP</h3>
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">A. Penilaian SAKIP</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: akuntabilitas kinerja organisasi secara tahunan</span>
@@ -2698,7 +2698,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                 <YAxis domain={[70, 90]} tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <Bar dataKey="value" fill="var(--sd-yellow-30)" radius={[4, 4, 0, 0]}>
-                  <LabelList dataKey="value" position="top" style={{ fontSize: '11px', fill: 'var(--sd-gray-60)' }} />
+                  <LabelList dataKey="value" position="top" style={{ fontSize: '12px', fill: 'var(--sd-gray-60)' }} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -2764,7 +2764,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">B. Zona Integritas (ZI)</h3>
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">B. Zona Integritas (ZI)</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: kematangan integritas unit kerja</span>
@@ -2789,7 +2789,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                 <XAxis dataKey="year" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Bar dataKey="Belum ZI" stackId="a" fill="var(--sd-red-60)" />
                 <Bar dataKey="WBK" stackId="a" fill="var(--sd-blue-50)" />
                 <Bar dataKey="WBBM" stackId="a" fill="#10B981" />
@@ -2848,7 +2848,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">C. Indeks Kapabilitas Kelembagaan</h3>
+            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">C. Indeks Kapabilitas Kelembagaan</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Berdasarkan PermenPANRB No. 4 Tahun 2026</span>
@@ -2873,7 +2873,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                 <YAxis domain={[50, 80]} tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <Bar dataKey="nilai" fill="#8B5CF6" radius={[4, 4, 0, 0]}>
-                  <LabelList dataKey="nilai" position="top" style={{ fontSize: '11px', fill: 'var(--sd-gray-60)' }} />
+                  <LabelList dataKey="nilai" position="top" style={{ fontSize: '12px', fill: 'var(--sd-gray-60)' }} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -2929,7 +2929,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
         <div>
           <div className="mb-[20px]">
             <div className="flex items-center gap-[16px] mb-[4px]">
-              <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">D. Reformasi Birokrasi</h3>
+              <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">D. Reformasi Birokrasi</h3>
               <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
             </div>
             <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: kemajuan transformasi tata kelola — hanya tersedia di level Kementerian</span>
@@ -2961,7 +2961,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
                   <XAxis dataKey="year" tick={{ fontSize: 11 }} />
                   <YAxis domain={[70, 95]} tick={{ fontSize: 11 }} />
                   <Tooltip />
-                  <Legend wrapperStyle={{ fontSize: '11px' }} />
+                  <Legend wrapperStyle={{ fontSize: '12px' }} />
                   <Bar dataKey="Kemendikdasmen" fill="var(--sd-blue-50)" />
                   <Bar dataKey="Rerata Nasional" fill="var(--sd-yellow-30)" />
                 </BarChart>

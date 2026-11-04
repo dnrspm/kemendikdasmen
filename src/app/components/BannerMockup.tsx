@@ -128,7 +128,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
             {content.points.slice(0, 4).map((point, index) => (
               <div key={index} className="flex items-center gap-[8px]">
                 <div className="w-[6px] h-[6px] bg-white rounded-full flex-shrink-0"></div>
-                <span className="font-['Inter',sans-serif] font-medium text-white/90 text-[13px] leading-tight">
+                <span className="font-['Inter',sans-serif] font-medium text-white/90 text-[14px] leading-tight">
                   {point}
                 </span>
               </div>

@@ -199,7 +199,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
                           {notification.title}
                         </h3>
                         <span
-                          className="text-[13px] whitespace-nowrap flex-shrink-0"
+                          className="text-[14px] whitespace-nowrap flex-shrink-0"
                           style={{
                             color: 'var(--muted-foreground)',
                           }}

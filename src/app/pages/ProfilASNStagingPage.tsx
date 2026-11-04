@@ -44,7 +44,7 @@ function Card({ title, right, children, className = '' }: { title: string; right
 function BarCard({ title, rows, xLabel, right, className }: { title: string; rows: (string | number)[][]; xLabel: string; right?: ReactNode; className?: string }) {
   return (
     <Card title={title} right={right} className={className}>
-      <p className="text-sd-gray-60 mb-[4px]" style={{ fontSize: '11px' }}>Jumlah Pegawai</p>
+      <p className="text-sd-gray-60 mb-[4px]" style={{ fontSize: '12px' }}>Jumlah Pegawai</p>
       <div style={{ height: 270 }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={toData(rows)} margin={{ top: 20, right: 16, left: 0, bottom: 8 }}>

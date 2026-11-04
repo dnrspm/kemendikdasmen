@@ -31,7 +31,7 @@ export function DaftarTugas() {
             <span className="relative shrink-0">
               <img alt="" src={t.icon} className="size-[48px] object-contain" />
               {t.badge ? (
-                <span className="absolute -top-[2px] -right-[2px] min-w-[18px] h-[18px] px-[4px] rounded-full bg-[#c8102e] text-white text-[11px] font-semibold flex items-center justify-center">
+                <span className="absolute -top-[2px] -right-[2px] min-w-[18px] h-[18px] px-[4px] rounded-full bg-[#c8102e] text-white text-[12px] font-semibold flex items-center justify-center">
                   {t.badge}
                 </span>
               ) : null}

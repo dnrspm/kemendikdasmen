@@ -10,7 +10,7 @@ export function NotificationDrawer({ open, onClose, items }: { open: boolean; on
   const Pill = ({ id, label, count }: { id: 'semua' | 'belum'; label: string; count: number }) => (
     <button onClick={() => setFilter(id)} className={`rounded-full border px-[12px] py-[2px] flex items-center gap-[6px] ${filter === id ? 'border-sd-blue-70 bg-sd-blue-5' : 'border-sd-gray-50'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
       {label}
-      <span className="min-w-[16px] h-[16px] px-[4px] rounded-full bg-[#d8142c] text-white grid place-items-center" style={{ fontSize: '10px' }}>{count}</span>
+      <span className="min-w-[16px] h-[16px] px-[4px] rounded-full bg-[#d8142c] text-white grid place-items-center" style={{ fontSize: '12px' }}>{count}</span>
     </button>
   );
   return (
@@ -30,7 +30,7 @@ export function NotificationDrawer({ open, onClose, items }: { open: boolean; on
           <div key={n.id} className="rounded-[6px] bg-sd-gray-5 px-[12px] py-[10px] mb-[8px]">
             <div className="flex justify-between gap-[8px]">
               <span className="font-semibold" style={{ fontSize: 'var(--text-xs)' }}>{n.title}</span>
-              <span className="text-sd-gray-60" style={{ fontSize: '11px' }}>{n.time}</span>
+              <span className="text-sd-gray-60" style={{ fontSize: '12px' }}>{n.time}</span>
             </div>
             <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>{n.message}</p>
           </div>

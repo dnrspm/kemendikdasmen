@@ -201,7 +201,7 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
                   percentage={relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0}
                   color={getProgressColor(relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0)}
                 />
-                <span className="text-[13px] text-sd-gray-90 text-center">
+                <span className="text-[14px] text-sd-gray-90 text-center">
                   Target: {ikp.target}{ikp.unit}
                 </span>
               </div>

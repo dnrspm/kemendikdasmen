@@ -79,7 +79,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
         {/* Badge for unread notifications */}
         {unreadCount > 0 && (
           <span
-            className="absolute top-[4px] right-[4px] flex items-center justify-center min-w-[18px] h-[18px] px-[4px] rounded-full text-white text-[11px] font-[var(--font-weight-semibold)]"
+            className="absolute top-[4px] right-[4px] flex items-center justify-center min-w-[18px] h-[18px] px-[4px] rounded-full text-white text-[12px] font-[var(--font-weight-semibold)]"
             style={{
               backgroundColor: 'var(--destructive)',
             }}
@@ -161,7 +161,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
                         {notification.title}
                       </h4>
                       <p
-                        className="text-[13px] mb-[4px] line-clamp-2"
+                        className="text-[14px] mb-[4px] line-clamp-2"
                         style={{
                           color: 'var(--muted-foreground)',
                         }}
