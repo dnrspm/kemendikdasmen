@@ -48,11 +48,11 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       )}
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse" style={{ fontSize: '16px', lineHeight: '24px' }}>
+        <table className="w-full text-left border-collapse" style={{ fontSize: '15px', lineHeight: '22px' }}>
           <thead>
-            <tr className="border-y border-[#e4e4e4]">
+            <tr className="border-t border-[#e4e4e4] shadow-[0_2px_1px_0_rgba(0,0,0,0.05)]">
               {columns.map((c) => (
-                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#65696c] align-top`} style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: c.width }}>
+                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#2F3031] align-top`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
                   {c.label}
                 </th>
               ))}
