@@ -46,12 +46,12 @@ export function MenuLainnyaModal({ open, onClose, onNavigate }: Props) {
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label="Menu Utama Portal Kemendikdasmen" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[12px] w-full max-w-[640px] max-h-[92vh] overflow-y-auto p-[20px]">
         <div className="flex items-center justify-between pb-[12px] border-b border-[#e4e4e4] mb-[16px]">
-          <h2 className="font-semibold text-[#323232]" style={{ fontSize: 'var(--text-lg)' }}>Menu Utama Portal Kemendikdasmen</h2>
-          <button onClick={onClose} aria-label="Close" className="border border-[#0954D9] rounded-[4px] p-[2px]"><X className="size-[16px] text-[#0954D9]" /></button>
+          <h2 className="font-semibold text-sd-gray-90" style={{ fontSize: 'var(--text-lg)' }}>Menu Utama Portal Kemendikdasmen</h2>
+          <button onClick={onClose} aria-label="Close" className="border border-sd-blue-70 rounded-[4px] p-[2px]"><X className="size-[16px] text-sd-blue-70" /></button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px]">
           {items.map((it) => (
-            <button key={it.name} onClick={() => { it.onClick?.(); if (it.onClick) onClose(); }} className="flex items-center gap-[12px] px-[12px] py-[6px] rounded-[4px] bg-[#eaf3fe] hover:bg-[#dbeafc] text-left">
+            <button key={it.name} onClick={() => { it.onClick?.(); if (it.onClick) onClose(); }} className="flex items-center gap-[12px] px-[12px] py-[6px] rounded-[4px] bg-sd-blue-5 hover:bg-[#dbeafc] text-left">
               <img alt="" src={it.icon} className="size-[40px] object-contain shrink-0" />
               <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{it.name}</span>
             </button>

@@ -49,16 +49,16 @@ type Row = (string | boolean | undefined)[];
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
     <section className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
         {icon} {title}
       </header>
       <div className={`grid gap-x-[16px] gap-y-[14px] p-[16px] ${cols === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {rows.map(([label, value, info]) => (
           <div key={label as string} className={`flex flex-col gap-[2px] ${full.includes(label as string) ? 'col-span-2' : ''}`}>
-            <span className="text-[#727272] flex items-center gap-[4px]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            <span className="text-sd-gray-60 flex items-center gap-[4px]" style={{ fontSize: '14px', lineHeight: '20px' }}>
               {label as string} {info ? <Info className="size-[13px]" /> : null}
             </span>
-            <span className="text-[#323232] break-words" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+            <span className="text-sd-gray-90 break-words" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
               {hidden ? '••••••••••••••' : (value as string)}
             </span>
           </div>
@@ -78,7 +78,7 @@ const col = (key: string, label: string, width?: string): Column => ({ key, labe
 
 function Updated() {
   return (
-    <p className="px-[16px] pt-[12px] pb-[16px] text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+    <p className="px-[16px] pt-[12px] pb-[16px] text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
       Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span>
     </p>
   );
@@ -91,7 +91,7 @@ function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: b
   return (
     <div className="rounded-[8px] bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] p-[16px] mb-[16px]">
       <div className="flex items-center justify-between pb-[12px]">
-        <span className="text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
+        <span className="text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
         <button
           onClick={() => to && navigate(to)}
           className={buttonClass('outline', 'md')}
@@ -124,9 +124,9 @@ function Keluarga({ hidden, onToggle }: { hidden: boolean; onToggle: () => void 
   return (
     <div>
       <div className="flex items-center justify-between px-[16px] pt-[12px] pb-[16px]">
-        <span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></span>
-        <button onClick={onToggle} aria-label="Tampilkan atau sembunyikan data" aria-pressed={!hidden} className="rounded-[4px] p-[4px] hover:bg-[#F1F1F1]">
-          {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
+        <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></span>
+        <button onClick={onToggle} aria-label="Tampilkan atau sembunyikan data" aria-pressed={!hidden} className="rounded-[4px] p-[4px] hover:bg-sd-gray-5">
+          {hidden ? <EyeOff className="size-[20px] text-sd-gray-80" /> : <Eye className="size-[20px] text-sd-gray-80" />}
         </button>
       </div>
       <Banner tone="warning" title="Usulan Perubahan Data" className="m-[16px]">
@@ -293,19 +293,19 @@ const NO_DATA = ['Belum tersedia', 'Tidak dinilai', 'Dalam Penilaian'];
 // Dua rona: biru = sesuai/di atas ekspektasi atau Baik/Sangat Baik; merah = di bawah ekspektasi atau di bawah Baik.
 // Level dibedakan lewat kepekatan warna + ikon (ikon jadi penanda cadangan bagi pengguna buta warna). Kontras teks >= 4.5:1.
 type PillStyle = { bg: string; fg: string; icon: 'up' | 'ok' | 'eq' | 'down' };
-const BIRU_PEKAT: PillStyle = { bg: '#0954D9', fg: '#ffffff', icon: 'up' };
+const BIRU_PEKAT: PillStyle = { bg: 'var(--sd-blue-70)', fg: '#ffffff', icon: 'up' };
 const BIRU_MUDA: PillStyle = { bg: '#cde0ff', fg: '#0a3a8c', icon: 'ok' };
 const PRED_STYLE: Record<string, PillStyle> = {
   'Sangat Baik': BIRU_PEKAT, Baik: BIRU_MUDA,
   'Butuh Perbaikan': { bg: '#ffe1e1', fg: '#8a1c1c', icon: 'down' },
   Kurang: { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
-  'Sangat Kurang': { bg: '#DF2121', fg: '#ffffff', icon: 'down' },
+  'Sangat Kurang': { bg: 'var(--sd-red-60)', fg: '#ffffff', icon: 'down' },
   'Di Atas Ekspektasi': BIRU_PEKAT, 'Sesuai Ekspektasi': { ...BIRU_MUDA, icon: 'eq' },
   'Di Bawah Ekspektasi': { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
 };
 const FLAT: Record<'biru' | 'merah' | 'hijau', { bg: string; fg: string; dot: string }> = {
-  biru: { bg: '#cde0ff', fg: '#0a3a8c', dot: '#0954D9' },
-  merah: { bg: '#ffbdbd', fg: '#7a1212', dot: '#DF2121' },
+  biru: { bg: '#cde0ff', fg: '#0a3a8c', dot: 'var(--sd-blue-70)' },
+  merah: { bg: '#ffbdbd', fg: '#7a1212', dot: 'var(--sd-red-60)' },
   hijau: { bg: '#cdf0dc', fg: '#0f5a2e', dot: '#16803c' }, // khusus Opsi 3: Sangat Baik / Di Atas Ekspektasi
 };
 const PILL_ICON = { up: ArrowUp, ok: Check, eq: Equal, down: ArrowDown };
@@ -328,9 +328,9 @@ function tipText(v: string, r: KRow): string {
 function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
   // Data kosong bukan status: tampil sebagai teks abu polos, bukan pill.
-  if (NO_DATA.includes(v)) return <span className="text-[#727272]" style={{ fontSize: '16px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
+  if (NO_DATA.includes(v)) return <span className="text-sd-gray-60" style={{ fontSize: '16px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
   const variant = useContext(PillCtx);
-  const base = PRED_STYLE[v] ?? { bg: '#efefef', fg: '#323232', icon: null };
+  const base = PRED_STYLE[v] ?? { bg: 'var(--sd-badge-neutral)', fg: 'var(--sd-gray-90)', icon: null };
   const tone = base.icon === 'down' ? 'merah' : 'biru';
   const Icon = base.icon ? PILL_ICON[base.icon] : null;
   let badge;
@@ -341,7 +341,7 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   } else if (variant === '3' && base.icon && Icon) {
     // Tanpa pill: ikon berwarna + teks standar.
     badge = (
-      <span className="inline-flex items-center gap-[6px] text-[#323232]" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
+      <span className="inline-flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
         <span className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full" style={{ background: FLAT[tone3].bg, color: FLAT[tone3].dot }}>
           <Icon className="size-[14px]" strokeWidth={2.5} aria-hidden="true" />
         </span>{v}
@@ -375,9 +375,9 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
       onKeyDown={(e) => { if (e.key === 'Escape') setPos(null); }}
     >
       {badge}
-      <Info className="size-[16px] text-[#727272]" aria-hidden="true" />
+      <Info className="size-[16px] text-sd-gray-60" aria-hidden="true" />
       {pos && (
-        <span role="tooltip" className="fixed z-[60] rounded-[4px] bg-[#323232] px-[10px] py-[8px] text-white" style={{ left: pos.left, top: pos.top, width: 260, fontSize: '12px', lineHeight: '18px', fontWeight: 400, boxShadow: '0 2px 8px rgba(0,0,0,.2)' }}>
+        <span role="tooltip" className="fixed z-[60] rounded-[4px] bg-sd-gray-90 px-[10px] py-[8px] text-white" style={{ left: pos.left, top: pos.top, width: 260, fontSize: '12px', lineHeight: '18px', fontWeight: 400, boxShadow: '0 2px 8px rgba(0,0,0,.2)' }}>
           {tt}
         </span>
       )}
@@ -405,7 +405,7 @@ const PLOT_TOP = 8;
 function RotatedTick({ x = 0, y = 0, payload }: { x?: number; y?: number; payload?: { value: string } }) {
   return (
     <g transform={`translate(${x},${y})`}>
-      <text textAnchor="end" fill="#727272" fontSize={14} dy={4} transform="rotate(-45)">{payload?.value}</text>
+      <text textAnchor="end" fill="var(--sd-gray-60)" fontSize={14} dy={4} transform="rotate(-45)">{payload?.value}</text>
     </g>
   );
 }
@@ -448,7 +448,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   const plotH = CHART_H - PLOT_TOP - xH;
   const lo = Math.min(...ticks) - 0.5;
   const hi = Math.max(...ticks) + 0.5;
-  const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-[#0954D9] bg-[#ecf5fe] text-[#0954D9]' : 'border-[#323232] bg-white text-[#323232]'}`;
+  const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`;
   const pillStyle = { borderRadius: '24px', fontSize: '14px', fontWeight: 600, lineHeight: '20px' } as const;
 
   return (
@@ -459,7 +459,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
           ['Indikator', 'Indikator', INDIKATOR, ind, (k: string) => setInd(k as Indikator)],
         ] as const).map(([title, aria, opts, cur, set]) => (
           <div key={title} className="flex items-center gap-[16px]">
-            <span className="w-[80px] shrink-0 text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>{title}</span>
+            <span className="w-[80px] shrink-0 text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{title}</span>
             <div className="flex flex-wrap gap-[8px]" role="group" aria-label={aria}>
               {opts.map(([k, l]) => (
                 <button key={k} onClick={() => set(k)} aria-pressed={cur === k} className={pill(cur === k)} style={pillStyle}>{l}</button>
@@ -473,7 +473,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
           {/* Label sumbu Y dibuat terpisah agar tetap terlihat saat grafik digeser. */}
           <div className="relative shrink-0" style={{ width: 180, height: CHART_H }} aria-hidden="true">
             {ticks.map((v) => (
-              <span key={v} className="absolute right-[16px] whitespace-nowrap text-[#727272]" style={{ top: PLOT_TOP + ((hi - v) / (hi - lo)) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{labelOf(v)}</span>
+              <span key={v} className="absolute right-[16px] whitespace-nowrap text-sd-gray-60" style={{ top: PLOT_TOP + ((hi - v) / (hi - lo)) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{labelOf(v)}</span>
             ))}
           </div>
           <div className="min-w-0 flex-1">
@@ -481,15 +481,15 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
               <ResponsiveContainer>
                 <LineChart data={data} margin={{ top: PLOT_TOP, right: 24, bottom: 0, left: 0 }}>
                   <CartesianGrid horizontal={false} vertical={false} />
-                  {ticks.map((v) => <ReferenceLine key={v} y={v} stroke="#efefef" />)}
-                  <XAxis dataKey="label" interval={0} height={xH} tickMargin={rotate ? 12 : 16} padding={{ left: rotate ? 56 : 16, right: 16 }} tick={rotate ? <RotatedTick /> : { fontSize: 14, fill: '#727272' }} axisLine={false} tickLine={false} />
+                  {ticks.map((v) => <ReferenceLine key={v} y={v} stroke="var(--sd-badge-neutral)" />)}
+                  <XAxis dataKey="label" interval={0} height={xH} tickMargin={rotate ? 12 : 16} padding={{ left: rotate ? 56 : 16, right: 16 }} tick={rotate ? <RotatedTick /> : { fontSize: 14, fill: 'var(--sd-gray-60)' }} axisLine={false} tickLine={false} />
                   <YAxis hide domain={[lo, hi]} ticks={ticks} width={0} />
                   <ChartTooltip
                     content={({ active, payload }) => {
                       if (!active || !payload?.length) return null;
                       const d = payload[0].payload as CP;
                       return (
-                        <div className="rounded-[4px] bg-[#323232] px-[10px] py-[8px] text-white" style={{ fontSize: '12px', lineHeight: '18px' }}>
+                        <div className="rounded-[4px] bg-sd-gray-90 px-[10px] py-[8px] text-white" style={{ fontSize: '12px', lineHeight: '18px' }}>
                           <div style={{ fontWeight: 600 }}>{d.label}</div>
                           <div>{INDIKATOR.find(([k]) => k === ind)![1]}: {d[ind] ?? NA_TEXT}</div>
                         </div>
@@ -497,17 +497,17 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
                     }}
                   />
                   {/* Garis putus-putus menghubungkan titik data ke titik "Data Tidak Tersedia"; garis penuh di atasnya hanya antar-data. */}
-                  <Line type="linear" dataKey="path" stroke="#b5b8bb" strokeWidth={1.5} strokeDasharray="4 4" dot={false} activeDot={false} isAnimationActive={false} />
-                  <Line type="linear" dataKey="level" stroke="#0954D9" strokeWidth={2} dot={{ r: 4, fill: '#0954D9', stroke: '#0954D9', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#0954D9', stroke: '#0954D9', strokeWidth: 0 }} isAnimationActive={false} />
+                  <Line type="linear" dataKey="path" stroke="var(--sd-gray-30)" strokeWidth={1.5} strokeDasharray="4 4" dot={false} activeDot={false} isAnimationActive={false} />
+                  <Line type="linear" dataKey="level" stroke="var(--sd-blue-70)" strokeWidth={2} dot={{ r: 4, fill: 'var(--sd-blue-70)', stroke: 'var(--sd-blue-70)', strokeWidth: 0 }} activeDot={{ r: 6, fill: 'var(--sd-blue-70)', stroke: 'var(--sd-blue-70)', strokeWidth: 0 }} isAnimationActive={false} />
                   {/* Titik abu di baris "Data Tidak Tersedia" untuk periode yang kosong. */}
-                  {<Line type="linear" dataKey="na" stroke="none" dot={{ r: 4, fill: '#b5b8bb', stroke: '#b5b8bb', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#b5b8bb', stroke: '#b5b8bb', strokeWidth: 0 }} isAnimationActive={false} />}
+                  {<Line type="linear" dataKey="na" stroke="none" dot={{ r: 4, fill: 'var(--sd-gray-30)', stroke: 'var(--sd-gray-30)', strokeWidth: 0 }} activeDot={{ r: 6, fill: 'var(--sd-gray-30)', stroke: 'var(--sd-gray-30)', strokeWidth: 0 }} isAnimationActive={false} />}
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </div>
         </div>
       ) : (
-        <p className="py-[32px] text-center text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Belum ada data untuk ditampilkan pada grafik.</p>
+        <p className="py-[32px] text-center text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Belum ada data untuk ditampilkan pada grafik.</p>
       )}
     </div>
   );
@@ -523,8 +523,8 @@ function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: nu
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-[16px]" onClick={onClose}>
       <div role="dialog" aria-modal="true" aria-label="Grafik Riwayat Penilaian Kinerja" className="w-full max-w-[960px] max-h-full overflow-auto rounded-[8px] bg-white p-[24px]" style={{ boxShadow: '0 8px 24px rgba(0,0,0,.2)' }} onClick={(e) => e.stopPropagation()}>
         <div className="mb-[16px] flex items-center justify-between gap-[12px]">
-          <span className="text-[#323232]" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik Riwayat Penilaian Kinerja</span>
-          <button onClick={onClose} aria-label="Tutup" className="rounded-[4px] p-[4px] text-[#727272] hover:bg-[#F9F9F9]"><X className="size-[20px]" /></button>
+          <span className="text-sd-gray-90" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik Riwayat Penilaian Kinerja</span>
+          <button onClick={onClose} aria-label="Tutup" className="rounded-[4px] p-[4px] text-sd-gray-60 hover:bg-sd-gray-0"><X className="size-[20px]" /></button>
         </div>
         <KinerjaChart annual={annual} quarterly={quarterly} />
       </div>
@@ -584,10 +584,10 @@ function KinerjaTabel() {
   };
   const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersFull(y)));
 
-  const th = 'px-[16px] py-[16px] text-left uppercase text-[#727272] bg-white border-y border-[#efefef]';
+  const th = 'px-[16px] py-[16px] text-left uppercase text-sd-gray-60 bg-white border-y border-sd-badge-neutral';
   const thStyle = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
-  const td = 'px-[16px] py-[12px] border-b border-[#efefef] text-[#323232] bg-white';
-  const tdOpen = td.replace('bg-white', 'bg-[#fafafa]');
+  const td = 'px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-90 bg-white';
+  const tdOpen = td.replace('bg-white', 'bg-sd-gray-0');
   const tdStyle = { fontSize: '16px', lineHeight: '24px' } as const;
   const sub = { fontSize: '14px', lineHeight: '20px', fontWeight: 400 } as const;
   // Garis biru di tepi kiri baris rincian triwulan (tanpa menggeser isi).
@@ -596,10 +596,10 @@ function KinerjaTabel() {
     const rowsFor = quartersFull(y);
     if (y === 2026 && KMESSAGES[scenario]) {
       return (
-        <tr><td colSpan={4} className={`${tdOpen} text-[#727272]`} role="status" style={{ ...tdStyle, ...bar }}>
+        <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
           {scenario === 'error' && (
-            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-[#828282] bg-white px-[14px] py-[4px] text-[#323232]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
+            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-sd-gray-50 bg-white px-[14px] py-[4px] text-sd-gray-90" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
           )}
         </td></tr>
       );
@@ -607,14 +607,14 @@ function KinerjaTabel() {
     return (
       <>
         {y === 2026 && scenario === 'stale' && (
-          <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-[#efefef] bg-[#fafafa]" style={bar}>
-            <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+          <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0" style={bar}>
+            <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
           </td></tr>
         )}
         {rowsFor.every((r) => !isFilled(r)) && (
-          <tr><td colSpan={4} className={`${tdOpen} text-[#727272]`} role="status" style={{ ...tdStyle, ...bar }}>
+          <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
             Belum ada data triwulan untuk tahun {y}.
           </td></tr>
         )}
@@ -622,14 +622,14 @@ function KinerjaTabel() {
           <tr key={r.tw}>
             <td className={tdOpen} style={{ ...tdStyle, ...bar }}>
               Triwulan {r.tw}
-              <span className="block text-[#727272]" style={sub}>{BULAN_TW[r.tw]}</span>
+              <span className="block text-sd-gray-60" style={sub}>{BULAN_TW[r.tw]}</span>
             </td>
             {/* Hasil Kerja, Perilaku Kerja, dan Predikat adalah indikator mandiri: tiap sel kosong menampilkan badge sendiri. */}
             <td className={tdOpen} style={tdStyle}>{!r.belum && r.hk ? <PredBadge v={r.hk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
             <td className={tdOpen} style={tdStyle}>{!r.belum && r.pk ? <PredBadge v={r.pk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
             <td className={tdOpen} style={tdStyle}>
               {!r.belum && r.pred ? <PredBadge v={r.pred} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}
-              {r.prov && <span className="ml-[6px] whitespace-nowrap text-[#727272]" style={sub}>Belum final</span>}
+              {r.prov && <span className="ml-[6px] whitespace-nowrap text-sd-gray-60" style={sub}>Belum final</span>}
             </td>
           </tr>
         ))}
@@ -641,9 +641,9 @@ function KinerjaTabel() {
     <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[8px] border border-[#cfd2d4]">
       <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-[#cfd2d4] p-[16px]">
         <div>
-          <h3 className="text-[#323232]" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
+          <h3 className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
           {showSync && (
-            <div className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            <div className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
               Dicek dari eSKP: {syncAt}
             </div>
           )}
@@ -683,7 +683,7 @@ function KinerjaTabel() {
               const isOpen = open === y;
               return (
                 <Fragment key={y}>
-                  <tr onClick={() => toggle(y)} className={`cursor-pointer ${isOpen ? '' : 'hover:bg-[#fafafa]'}`}>
+                  <tr onClick={() => toggle(y)} className={`cursor-pointer ${isOpen ? '' : 'hover:bg-sd-gray-0'}`}>
                     <td className={td} style={{ ...tdStyle, fontWeight: isOpen ? 600 : 400 }}>{y}</td>
                     <td className={td} style={tdStyle}>{a?.hk ? <PredBadge v={a.hk} /> : <PredBadge v="Belum tersedia" />}</td>
                     <td className={td} style={tdStyle}>{a?.pk ? <PredBadge v={a.pk} /> : <PredBadge v="Belum tersedia" />}</td>
@@ -694,7 +694,7 @@ function KinerjaTabel() {
                           onClick={(e) => { e.stopPropagation(); toggle(y); }}
                           aria-expanded={isOpen}
                           aria-label={`${isOpen ? 'Tutup' : 'Buka'} rincian triwulan ${y}`}
-                          className="grid size-[32px] place-items-center rounded-full text-[#323232] hover:bg-black/5"
+                          className="grid size-[32px] place-items-center rounded-full text-sd-gray-90 hover:bg-black/5"
                         >
                           {isOpen ? <ChevronUp className="size-[20px]" /> : <ChevronDown className="size-[20px]" />}
                         </button>
@@ -708,7 +708,7 @@ function KinerjaTabel() {
           </tbody>
         </table>
       </div>
-      <p className="border-t border-[#cfd2d4] p-[16px] text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+      <p className="border-t border-[#cfd2d4] p-[16px] text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
         Hasil penilaian kinerja tahunan bukan merupakan gabungan dari penilaian kinerja triwulan 1-4.
       </p>
     </div>
@@ -718,11 +718,11 @@ function KinerjaTabel() {
 function ProtoBar({ admin, setAdmin }: { admin: boolean; setAdmin: (v: boolean) => void }) {
   const { scenario, setScenario } = useContext(ProtoCtx);
   return (
-    <div role="region" aria-label="Kontrol prototipe" className="flex flex-wrap items-center gap-[16px] border-b border-dashed border-[#828282] bg-[#f1f1f1] px-[24px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>
+    <div role="region" aria-label="Kontrol prototipe" className="flex flex-wrap items-center gap-[16px] border-b border-dashed border-sd-gray-50 bg-sd-gray-5 px-[24px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>
       <span className="inline-flex items-center gap-[6px]" style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600 }}><SlidersHorizontal className="size-[12px]" />Kontrol prototipe · Opsi 3: Tabel per tahun</span>
-      <span className="text-[#727272]" style={{ fontSize: '12px', lineHeight: '16px' }}>Bukan bagian produk</span>
+      <span className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Bukan bagian produk</span>
       <label className="inline-flex items-center gap-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>Skenario (AC EK-5)
-        <select value={scenario} onChange={(e) => setScenario(e.target.value)} aria-label="Skenario prototipe" className="max-w-full rounded-[4px] border border-[#828282] bg-white px-[8px] py-[4px]" style={{ fontSize: '12px' }}>
+        <select value={scenario} onChange={(e) => setScenario(e.target.value)} aria-label="Skenario prototipe" className="max-w-full rounded-[4px] border border-sd-gray-50 bg-white px-[8px] py-[4px]" style={{ fontSize: '12px' }}>
           {SCENARIOS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
         </select>
       </label>
@@ -746,7 +746,7 @@ function SubTabContent({ tab }: { tab: string }) {
       let v: React.ReactNode = sample(c, i);
       if (c === 'Status') v = '-';
       if (c === 'Jenjang') v = ['S-1/Sarjana', 'S-2', 'S-3/Doktor'][i % 3];
-      if (c === 'Keterangan') v = i === 1 ? <span style={{ color: '#e02d38' }}>Data tidak lengkap</span> : 'Dalam Negeri';
+      if (c === 'Keterangan') v = i === 1 ? <span style={{ color: 'var(--sd-red-60)' }}>Data tidak lengkap</span> : 'Dalam Negeri';
       if (c === 'Nama Sekolah') v = ['Kampus Contoh A', 'Kampus Contoh B', 'UNIVERSITAS CONTOH'][i % 3];
       if (c === 'Jurusan') v = ['S-1 MANAJEMEN', 'S-1 ADMINISTRASI', 'S-3 MANAJEMEN DAN BISNIS'][i % 3];
       if (c === 'Pangkat') v = ['Penata', 'Penata', 'Penata Tingkat I'][i];
@@ -765,7 +765,7 @@ function SubTabContent({ tab }: { tab: string }) {
 
   const usulanRows = (d.usulanCols ? Array.from({ length: d.usulan ?? 0 }) : []).map((_, i) => {
     const r: Record<string, React.ReactNode> = { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu Verifikasi Data</Chip>, jenis: ['Tambah', 'Ubah', 'Hapus'][i % 3] };
-    d.usulanCols!.forEach((c) => { r[c] = c === 'Berkas' ? <span className="inline-flex items-center gap-[4px] text-[#0954D9]">File</span> : sample(c, i); });
+    d.usulanCols!.forEach((c) => { r[c] = c === 'Berkas' ? <span className="inline-flex items-center gap-[4px] text-sd-blue-70">File</span> : sample(c, i); });
     return r;
   });
   const usulanTableCols: Column[] = [col('aksi', 'Aksi', '60px'), col('status', 'Status'), col('jenis', 'Jenis'), ...(d.usulanCols ?? []).map((c) => col(c, c))];
@@ -777,7 +777,7 @@ function SubTabContent({ tab }: { tab: string }) {
       <div className="flex items-center justify-between pr-[16px]">
         <Updated />
         {d.tambah && (
-          <button className="flex items-center gap-[8px] rounded-[4px] bg-[#323232] px-[16px] py-[8px] text-white" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+          <button className="flex items-center gap-[8px] rounded-[4px] bg-sd-gray-90 px-[16px] py-[8px] text-white" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
             <Plus className="size-[20px]" /> Tambah
           </button>
         )}
@@ -813,12 +813,12 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
           {admin && (
-            <div className="flex items-center gap-[6px] mb-[8px] text-[#727272]" style={{ fontSize: '12px', lineHeight: '16px' }}>
-              Profil Pegawai <ChevronRight className="size-[14px]" /> <span className="text-[#323232]" style={{ fontWeight: 500 }}>Data Pribadi Pegawai</span>
+            <div className="flex items-center gap-[6px] mb-[8px] text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>
+              Profil Pegawai <ChevronRight className="size-[14px]" /> <span className="text-sd-gray-90" style={{ fontWeight: 500 }}>Data Pribadi Pegawai</span>
             </div>
           )}
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{admin ? 'Data Pribadi Pegawai' : 'Data Pribadi'}</h1>
-          <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{admin ? 'Melihat data pribadi pegawai yang dipilih' : 'Kelola data pribadi Anda di Portal Kemendikdasmen'}</p>
+          <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{admin ? 'Data Pribadi Pegawai' : 'Data Pribadi'}</h1>
+          <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>{admin ? 'Melihat data pribadi pegawai yang dipilih' : 'Kelola data pribadi Anda di Portal Kemendikdasmen'}</p>
         </div>
 
         {showNotice && (
@@ -833,29 +833,29 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
               <img alt="" src={imgPhoto} className="w-full object-cover bg-[#d9d9d9]" style={{ height: 279 }} />
               <div className="p-[16px] text-center flex flex-col gap-[6px]">
-                <h2 className="uppercase text-[#323232]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
-                <p className="text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+                <h2 className="uppercase text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
+                <p className="text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                   {admin ? 'Pranata Komputer Ahli Pertama' : 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten'}
                 </p>
-                <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>(Karir)<br />TMT 1 Oktober 2023</p>
+                <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>(Karir)<br />TMT 1 Oktober 2023</p>
               </div>
             </div>
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[12px] flex flex-col gap-[12px]">
               <div className="flex gap-[10px]">
-                <div className="size-[64px] shrink-0 bg-[#F1F1F1] grid place-items-center text-[10px] text-[#727272]">QR</div>
+                <div className="size-[64px] shrink-0 bg-sd-gray-5 grid place-items-center text-[10px] text-sd-gray-60">QR</div>
                 <div>
                   <p style={{ fontSize: '12px', lineHeight: '16px' }}>Scan QR untuk melihat profil publik (Kartu Pegawai). Klik gambar untuk memperbesar.</p>
-                  <a className="text-[#0954D9] inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
+                  <a className="text-sd-blue-70 inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
                 </div>
               </div>
-              <button className="w-full border border-[#ADADAD] rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-[#F9F9F9]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+              <button className="w-full border border-sd-gray-30 rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-sd-gray-0" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                 <Download className="size-[16px]" /> Unduh QR
               </button>
             </div>
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-              <header className="px-[16px] py-[12px] bg-[#fafafa] border-b border-[#eee] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Unit Organisasi</header>
+              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Unit Organisasi</header>
               <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '16px', lineHeight: '24px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
               </ul>
@@ -868,10 +868,10 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             {tab === 0 ? (
               <div className="p-[14px] flex flex-col gap-[14px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span></span>
+                  <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span></span>
                   <div className="flex items-center gap-[12px]">
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
-                      {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
+                      {hidden ? <EyeOff className="size-[20px] text-sd-gray-80" /> : <Eye className="size-[20px] text-sd-gray-80" />}
                     </button>
                     <button onClick={() => navigate('/kepegawaian/ubah-data-pribadi')} className={buttonClass('primary', 'md')} style={buttonStyle}>
                       <FilePenLine className="size-[16px]" /> Ubah Data
@@ -898,10 +898,10 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
       </div>
     </KepegawaianLayout>
     {onPenilaian && (
-      <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-[#828282] bg-[#f1f1f1] px-[10px] py-[6px]" style={{ fontSize: '14px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
+      <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-sd-gray-50 bg-sd-gray-5 px-[10px] py-[6px]" style={{ fontSize: '14px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
         <span style={{ fontWeight: 600 }}>Gaya pill</span>
         {PILL_VARIANTS.map((k) => (
-          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-[#0954D9] bg-[#ecf5fe] text-[#0954D9]' : 'border-[#323232] bg-white text-[#323232]'}`} style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
+          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`} style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
         ))}
       </div>
     )}

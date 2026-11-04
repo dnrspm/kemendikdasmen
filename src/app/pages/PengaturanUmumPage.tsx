@@ -1357,7 +1357,7 @@ function BannerUtamaContent() {
         >
           <AlertTriangle
             className="shrink-0"
-            style={{ width: '16px', height: '16px', color: '#F59E0B' }}
+            style={{ width: '16px', height: '16px', color: 'var(--sd-yellow-30)' }}
           />
           <p className="text-foreground" style={{ fontSize: 'var(--text-sm)' }}>
             Mode pengaturan urutan aktif. Gunakan tombol panah atau drag & drop untuk mengubah posisi banner, lalu klik &quot;Simpan Urutan&quot; untuk menyimpan perubahan.
@@ -1997,7 +1997,7 @@ function InformasiSistemContent() {
           >
             <AlertTriangle
               className="shrink-0 mt-[2px]"
-              style={{ width: '16px', height: '16px', color: '#F59E0B' }}
+              style={{ width: '16px', height: '16px', color: 'var(--sd-yellow-30)' }}
             />
             <div>
               <p className="text-foreground" style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-weight-medium)' }}>

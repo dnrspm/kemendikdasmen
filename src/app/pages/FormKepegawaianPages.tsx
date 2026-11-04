@@ -10,8 +10,8 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
           <BackLink to="/kepegawaian" />
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-[#323232]" style={{ fontSize: '14px', fontWeight: 400, lineHeight: '20px' }}>{subtitle}</p>
+          <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-sd-gray-90" style={{ fontSize: '14px', fontWeight: 400, lineHeight: '20px' }}>{subtitle}</p>
         </div>
         {children}
       </div>

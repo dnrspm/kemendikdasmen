@@ -83,10 +83,10 @@ function totalAll(l: LevelKebutuhan) { return totalKeahlian(l) + totalKeterampil
 // ─── Static Data ──────────────────────────────────────────────────────────────
 
 const units: Unit[] = [
-  { id: 'setjen',        nama: 'Sekretariat Jenderal',                               singkatan: 'Setjen',        warna: '#0954D9' },
-  { id: 'ditjen-paud',   nama: 'Ditjen PAUD Dikdasmen',                              singkatan: 'PAUD Dikdasmen',warna: '#4CA375' },
+  { id: 'setjen',        nama: 'Sekretariat Jenderal',                               singkatan: 'Setjen',        warna: 'var(--sd-blue-70)' },
+  { id: 'ditjen-paud',   nama: 'Ditjen PAUD Dikdasmen',                              singkatan: 'PAUD Dikdasmen',warna: 'var(--sd-success-border)' },
   { id: 'ditjen-gtk',    nama: 'Ditjen Guru dan Tenaga Kependidikan',                singkatan: 'Ditjen GTK',    warna: '#906CEF' },
-  { id: 'ditjen-vokasi', nama: 'Ditjen Pendidikan Vokasi',                           singkatan: 'Ditjen Vokasi', warna: '#EDA62B' },
+  { id: 'ditjen-vokasi', nama: 'Ditjen Pendidikan Vokasi',                           singkatan: 'Ditjen Vokasi', warna: 'var(--sd-warning-border)' },
   { id: 'bskap',         nama: 'Badan Standar, Kurikulum, dan Asesmen Pendidikan',   singkatan: 'BSKAP',         warna: '#E0452A' },
   { id: 'badan-bahasa',  nama: 'Badan Pengembangan dan Pembinaan Bahasa',            singkatan: 'Badan Bahasa',  warna: '#0E9A8E' },
   { id: 'itjen',         nama: 'Inspektorat Jenderal',                               singkatan: 'Itjen',         warna: '#C4541E' },
@@ -333,18 +333,18 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
   const totKeterampilan = totalKeterampilan(levels);
 
   return (
-    <div className="border border-[#E2E8F0] rounded-[var(--radius-card)] overflow-hidden">
+    <div className="border border-sd-gray-10 rounded-[var(--radius-card)] overflow-hidden">
       <table className="w-full">
         <thead>
           <tr style={{ backgroundColor: 'var(--secondary)' }}>
             <th
-              className="px-[14px] py-[8px] text-left border-b border-[#E2E8F0]"
+              className="px-[14px] py-[8px] text-left border-b border-sd-gray-10"
               style={{ fontSize: 'var(--text-xs)', color: 'var(--muted-foreground)', fontWeight: 'var(--font-weight-medium)' }}
             >
               Level
             </th>
             <th
-              className="px-[14px] py-[8px] text-right border-b border-[#E2E8F0] w-[80px]"
+              className="px-[14px] py-[8px] text-right border-b border-sd-gray-10 w-[80px]"
               style={{ fontSize: 'var(--text-xs)', color: 'var(--muted-foreground)', fontWeight: 'var(--font-weight-medium)' }}
             >
               Tersedia
@@ -356,7 +356,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
           <tr>
             <td
               colSpan={2}
-              className="px-[14px] py-[6px] border-b border-[#E2E8F0]"
+              className="px-[14px] py-[6px] border-b border-sd-gray-10"
               style={{
                 fontSize: 'var(--text-xs)',
                 fontWeight: 'var(--font-weight-medium)',
@@ -370,7 +370,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
             </td>
           </tr>
           {keahlianRows.map((row) => (
-            <tr key={row.label} className="border-b border-[#F0F0F0]">
+            <tr key={row.label} className="border-b border-sd-gray-5">
               <td
                 className="px-[14px] py-[8px]"
                 style={{ fontSize: 'var(--text-sm)', color: 'var(--foreground)' }}
@@ -390,7 +390,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
             </tr>
           ))}
           {/* Keahlian subtotal */}
-          <tr className="border-b border-[#E2E8F0]" style={{ backgroundColor: 'var(--secondary)' }}>
+          <tr className="border-b border-sd-gray-10" style={{ backgroundColor: 'var(--secondary)' }}>
             <td
               className="px-[14px] py-[7px]"
               style={{ fontSize: 'var(--text-xs)', color: 'var(--foreground)', fontWeight: 'var(--font-weight-medium)' }}
@@ -409,7 +409,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
           <tr>
             <td
               colSpan={2}
-              className="px-[14px] py-[6px] border-b border-[#E2E8F0]"
+              className="px-[14px] py-[6px] border-b border-sd-gray-10"
               style={{
                 fontSize: 'var(--text-xs)',
                 fontWeight: 'var(--font-weight-medium)',
@@ -423,7 +423,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
             </td>
           </tr>
           {keterampilanRows.map((row) => (
-            <tr key={row.label} className="border-b border-[#F0F0F0]">
+            <tr key={row.label} className="border-b border-sd-gray-5">
               <td
                 className="px-[14px] py-[8px]"
                 style={{ fontSize: 'var(--text-sm)', color: 'var(--foreground)' }}
@@ -443,7 +443,7 @@ function LevelTable({ levels }: { levels: LevelKebutuhan }) {
             </tr>
           ))}
           {/* Keterampilan subtotal */}
-          <tr className="border-b border-[#E2E8F0]" style={{ backgroundColor: 'var(--secondary)' }}>
+          <tr className="border-b border-sd-gray-10" style={{ backgroundColor: 'var(--secondary)' }}>
             <td
               className="px-[14px] py-[7px]"
               style={{ fontSize: 'var(--text-xs)', color: 'var(--foreground)', fontWeight: 'var(--font-weight-medium)' }}
@@ -560,7 +560,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
       <Header onLogoClick={onBack} />
 
       {/* Breadcrumb */}
-      <div className="border-b" style={{ backgroundColor: 'var(--card)', borderColor: '#EFEFEF' }}>
+      <div className="border-b" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-badge-neutral)' }}>
         <div className="max-w-[1440px] mx-auto px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]">
             <button onClick={onBack} className="flex items-center gap-[6px] transition-colors hover:opacity-70" style={{ fontSize: 'var(--text-sm)', color: 'var(--muted-foreground)' }}>
@@ -584,9 +584,9 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
       </div>
 
       {/* Page Header */}
-      <div className="border-b" style={{ backgroundColor: 'var(--card)', borderColor: '#EFEFEF' }}>
+      <div className="border-b" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-badge-neutral)' }}>
         <div className="max-w-[1440px] mx-auto px-[24px] py-[28px] flex items-start gap-[16px]">
-          <div className="w-[48px] h-[48px] rounded-[var(--radius-card)] flex items-center justify-center shrink-0" style={{ backgroundColor: '#EBF2FF' }}>
+          <div className="w-[48px] h-[48px] rounded-[var(--radius-card)] flex items-center justify-center shrink-0" style={{ backgroundColor: 'var(--sd-blue-5)' }}>
             <MapPin className="w-[24px] h-[24px]" style={{ color: 'var(--primary)' }} />
           </div>
           <div>
@@ -602,7 +602,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
         {/* Tab Toggle */}
         <div
           className="inline-flex gap-[4px] p-[5px] rounded-[var(--radius-card)] border mb-[32px]"
-          style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}
+          style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}
         >
           {([ 
             { key: 'unit',    icon: Building2, label: 'Cari berdasarkan Unit' },
@@ -656,7 +656,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                     className="text-left p-[16px] rounded-[var(--radius-card)] border transition-all"
                     style={{
                       backgroundColor: isActive ? unit.warna : 'var(--card)',
-                      borderColor: isActive ? unit.warna : '#E2E8F0',
+                      borderColor: isActive ? unit.warna : 'var(--sd-gray-10)',
                       boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.15)' : undefined,
                     }}
                   >
@@ -715,7 +715,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                         className="text-left p-[14px] rounded-[var(--radius-card)] border transition-all"
                         style={{
                           backgroundColor: isActive ? `${selectedUnit.warna}15` : 'var(--card)',
-                          borderColor: isActive ? selectedUnit.warna : '#E2E8F0',
+                          borderColor: isActive ? selectedUnit.warna : 'var(--sd-gray-10)',
                           borderWidth: isActive ? '2px' : '1px',
                         }}
                       >
@@ -772,7 +772,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                     onChange={(e) => setSatkerSearchQuery(e.target.value)}
                     className="w-full h-[42px] pl-[42px] pr-[38px] border rounded-[var(--radius)] focus:outline-none focus:border-[var(--primary)] transition-colors"
                     style={{
-                      borderColor: satkerSearchQuery ? 'var(--primary)' : '#E2E8F0',
+                      borderColor: satkerSearchQuery ? 'var(--primary)' : 'var(--sd-gray-10)',
                       fontSize: 'var(--text-sm)',
                       color: 'var(--foreground)',
                       backgroundColor: 'var(--input-background)',
@@ -792,16 +792,16 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
 
             {/* Jabatan list */}
             {selectedSatker && jabatanInSatker.length > 0 && (
-              <div className="border rounded-[var(--radius-card)] overflow-hidden" style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}>
-                <div className="px-[24px] py-[14px] border-b flex items-center justify-between" style={{ borderColor: '#E2E8F0' }}>
+              <div className="border rounded-[var(--radius-card)] overflow-hidden" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}>
+                <div className="px-[24px] py-[14px] border-b flex items-center justify-between" style={{ borderColor: 'var(--sd-gray-10)' }}>
                   <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)' }}>
                     Daftar Jabatan — {selectedSatker.singkatan}
                   </p>
-                  <span className="px-[10px] py-[3px] rounded-[12px]" style={{ fontSize: 'var(--text-xs)', backgroundColor: '#EBF2FF', color: 'var(--primary)' }}>
+                  <span className="px-[10px] py-[3px] rounded-[12px]" style={{ fontSize: 'var(--text-xs)', backgroundColor: 'var(--sd-blue-5)', color: 'var(--primary)' }}>
                     {jabatanInSatker.length} jabatan
                   </span>
                 </div>
-                <div className="divide-y" style={{ borderColor: '#E2E8F0' }}>
+                <div className="divide-y" style={{ borderColor: 'var(--sd-gray-10)' }}>
                   {jabatanInSatker.map(({ jabatan, distribusi }) => {
                     const totK = totalKeahlian(distribusi.levels);
                     const totT = totalKeterampilan(distribusi.levels);
@@ -809,7 +809,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                       <button
                         key={jabatan.id}
                         onClick={() => setDetailJabatan({ jabatan, distribusi, satker: selectedSatker })}
-                        className="w-full px-[24px] py-[16px] transition-colors text-left flex items-center justify-between gap-[16px] group hover:bg-[#F9FAFB]"
+                        className="w-full px-[24px] py-[16px] transition-colors text-left flex items-center justify-between gap-[16px] group hover:bg-sd-gray-0"
                       >
                         <div className="flex items-center gap-[12px] flex-1 min-w-0">
                           <div className="w-[36px] h-[36px] rounded-[8px] flex items-center justify-center shrink-0" style={{ backgroundColor: `${selectedUnit!.warna}15` }}>
@@ -849,7 +849,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
 
             {/* Empty state */}
             {!selectedUnit && (
-              <div className="border rounded-[var(--radius-card)] p-[64px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}>
+              <div className="border rounded-[var(--radius-card)] p-[64px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}>
                 <Building2 className="w-[48px] h-[48px] mx-auto mb-[16px]" style={{ color: 'var(--muted-foreground)', opacity: 0.3 }} />
                 <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)', marginBottom: '8px' }}>
                   Pilih Unit Utama
@@ -885,7 +885,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                   onFocus={() => { if (searchQuery) setShowDropdown(true); }}
                   className="w-full h-[48px] pl-[48px] pr-[44px] border rounded-[var(--radius)] focus:outline-none"
                   style={{
-                    borderColor: '#c7c7c7',
+                    borderColor: 'var(--sd-gray-20)',
                     fontSize: 'var(--text-base)',
                     color: 'var(--foreground)',
                     backgroundColor: 'var(--input-background)',
@@ -902,13 +902,13 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
 
                 {/* Dropdown */}
                 {showDropdown && searchQuery && searchResults.length > 0 && (
-                  <div className="absolute top-full mt-[6px] left-0 right-0 border rounded-[var(--radius-card)] shadow-lg z-50 overflow-hidden max-h-[280px] overflow-y-auto" style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}>
+                  <div className="absolute top-full mt-[6px] left-0 right-0 border rounded-[var(--radius-card)] shadow-lg z-50 overflow-hidden max-h-[280px] overflow-y-auto" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}>
                     {searchResults.map((j) => (
                       <button
                         key={j.id}
                         onClick={() => { setSelectedJabatan(j); setSearchQuery(j.nama); setShowDropdown(false); }}
-                        className="w-full px-[16px] py-[12px] text-left transition-colors border-b last:border-b-0 hover:bg-[#F9FAFB]"
-                        style={{ borderColor: '#F0F0F0' }}
+                        className="w-full px-[16px] py-[12px] text-left transition-colors border-b last:border-b-0 hover:bg-sd-gray-0"
+                        style={{ borderColor: 'var(--sd-gray-5)' }}
                       >
                         <span style={{ fontSize: 'var(--text-sm)', color: 'var(--foreground)' }}>{j.nama}</span>
                       </button>
@@ -916,7 +916,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                   </div>
                 )}
                 {showDropdown && searchQuery && searchResults.length === 0 && (
-                  <div className="absolute top-full mt-[6px] left-0 right-0 border rounded-[var(--radius-card)] shadow-lg z-50 px-[16px] py-[20px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}>
+                  <div className="absolute top-full mt-[6px] left-0 right-0 border rounded-[var(--radius-card)] shadow-lg z-50 px-[16px] py-[20px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}>
                     <p style={{ fontSize: 'var(--text-sm)', color: 'var(--muted-foreground)' }}>Jabatan tidak ditemukan</p>
                   </div>
                 )}
@@ -943,10 +943,10 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                       key={satker.id}
                       onClick={() => setDetailJabatanModeB({ jabatan: selectedJabatan, distribusi, satker, unit })}
                       className="border rounded-[var(--radius-card)] overflow-hidden transition-all hover:shadow-md hover:border-[var(--primary)]"
-                      style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}
+                      style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}
                     >
                       {/* Card header */}
-                      <div className="px-[20px] py-[14px] border-b flex items-center gap-[10px]" style={{ borderColor: '#E2E8F0' }}>
+                      <div className="px-[20px] py-[14px] border-b flex items-center gap-[10px]" style={{ borderColor: 'var(--sd-gray-10)' }}>
                         <div className="w-[10px] h-[10px] rounded-full shrink-0" style={{ backgroundColor: unit.warna }} />
                         <div className="min-w-0 flex-1 text-left">
                           <p className="truncate" style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)' }}>
@@ -966,7 +966,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
                           <span style={{ fontSize: 'var(--text-xs)', color: 'var(--muted-foreground)' }}>Keterampilan</span>
                           <span style={{ fontSize: 'var(--text-sm)', color: 'var(--foreground)', fontWeight: 'var(--font-weight-medium)' }}>{totalKeterampilan(distribusi.levels)}</span>
                         </div>
-                        <div className="pt-[8px] border-t" style={{ borderColor: '#F0F0F0' }}>
+                        <div className="pt-[8px] border-t" style={{ borderColor: 'var(--sd-gray-5)' }}>
                           <div className="flex items-center justify-between">
                             <span style={{ fontSize: 'var(--text-xs)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)' }}>Total</span>
                             <span style={{ fontSize: 'var(--text-lg)', color: 'var(--foreground)', fontWeight: 'var(--font-weight-medium)' }}>{totalAll(distribusi.levels)}</span>
@@ -981,7 +981,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
 
             {/* Empty state */}
             {!selectedJabatan && (
-              <div className="border rounded-[var(--radius-card)] p-[64px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: '#E2E8F0' }}>
+              <div className="border rounded-[var(--radius-card)] p-[64px] text-center" style={{ backgroundColor: 'var(--card)', borderColor: 'var(--sd-gray-10)' }}>
                 <Search className="w-[48px] h-[48px] mx-auto mb-[16px]" style={{ color: 'var(--muted-foreground)', opacity: 0.3 }} />
                 <p style={{ fontSize: 'var(--text-base)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)', marginBottom: '8px' }}>
                   Cari Jabatan Fungsional
@@ -1000,7 +1000,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-[24px]">
           <div className="rounded-[var(--radius-card)] w-full max-w-[520px] max-h-[90vh] flex flex-col shadow-2xl overflow-hidden" style={{ backgroundColor: 'var(--card)' }}>
             {/* Modal header */}
-            <div className="px-[24px] py-[20px] border-b flex items-start justify-between gap-[12px]" style={{ borderColor: '#E2E8F0' }}>
+            <div className="px-[24px] py-[20px] border-b flex items-start justify-between gap-[12px]" style={{ borderColor: 'var(--sd-gray-10)' }}>
               <div>
                 <p style={{ fontSize: 'var(--text-lg)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)', marginBottom: '4px' }}>
                   {detailJabatan.jabatan.nama}
@@ -1021,7 +1021,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
               <LevelTable levels={detailJabatan.distribusi.levels} />
             </div>
             {/* Modal footer */}
-            <div className="px-[24px] py-[16px] border-t flex justify-end" style={{ borderColor: '#E2E8F0' }}>
+            <div className="px-[24px] py-[16px] border-t flex justify-end" style={{ borderColor: 'var(--sd-gray-10)' }}>
               <button
                 onClick={() => setDetailJabatan(null)}
                 className="px-[20px] py-[9px] border rounded-[var(--radius-button)] transition-colors"
@@ -1046,7 +1046,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-[24px]">
           <div className="rounded-[var(--radius-card)] w-full max-w-[520px] max-h-[90vh] flex flex-col shadow-2xl overflow-hidden" style={{ backgroundColor: 'var(--card)' }}>
             {/* Modal header */}
-            <div className="px-[24px] py-[20px] border-b flex items-start justify-between gap-[12px]" style={{ borderColor: '#E2E8F0' }}>
+            <div className="px-[24px] py-[20px] border-b flex items-start justify-between gap-[12px]" style={{ borderColor: 'var(--sd-gray-10)' }}>
               <div>
                 <p style={{ fontSize: 'var(--text-lg)', fontWeight: 'var(--font-weight-medium)', color: 'var(--foreground)', marginBottom: '4px' }}>
                   {detailJabatanModeB.jabatan.nama}
@@ -1067,7 +1067,7 @@ export function PetaJabatan({ onBack, onNavigateToLayanan }: PetaJabatanProps) {
               <LevelTable levels={detailJabatanModeB.distribusi.levels} />
             </div>
             {/* Modal footer */}
-            <div className="px-[24px] py-[16px] border-t flex justify-end" style={{ borderColor: '#E2E8F0' }}>
+            <div className="px-[24px] py-[16px] border-t flex justify-end" style={{ borderColor: 'var(--sd-gray-10)' }}>
               <button
                 onClick={() => setDetailJabatanModeB(null)}
                 className="px-[20px] py-[9px] border rounded-[var(--radius-button)] transition-colors"

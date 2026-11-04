@@ -63,19 +63,19 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
   const isDataPribadi = clean === '/kepegawaian';
 
   return (
-    <div className="flex flex-col h-screen bg-[#F1F1F1]">
+    <div className="flex flex-col h-screen bg-sd-gray-5">
       {topBar}
       <Header fullWidth />
       <div className="flex flex-1 min-h-0">
         {!collapsed && (
           <aside className="w-[288px] shrink-0 bg-white border-r border-[#e4e4e4] flex flex-col">
-            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-[#eaf3fe]">
+            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-sd-blue-5">
               <img alt="" src={imgStaff} className="size-[20px] object-contain" />
-              <span className="text-[#323232] uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Kepegawaian</span>
+              <span className="text-sd-gray-90 uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Kepegawaian</span>
             </div>
             <button
               onClick={() => navigate('/')}
-              className="flex items-center gap-[10px] px-[16px] py-[8px] bg-[#f3f8ff] text-[#727272] text-left hover:bg-[#eaf3fe]"
+              className="flex items-center gap-[10px] px-[16px] py-[8px] bg-sd-blue-5 text-sd-gray-60 text-left hover:bg-sd-blue-5"
               style={{ fontSize: '12px', fontWeight: 400, lineHeight: '16px' }}
             >
               <Home className="size-[16px]" /> Kembali ke Beranda Portal
@@ -84,7 +84,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
             <nav className="flex-1 overflow-y-auto p-[8px] flex flex-col gap-[4px]">
               <button
                 onClick={() => navigate('/kepegawaian')}
-                className={`flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left ${isDataPribadi ? 'bg-[#f0f0f0]' : 'hover:bg-[#F9F9F9]'}`}
+                className={`flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left ${isDataPribadi ? 'bg-sd-gray-5' : 'hover:bg-sd-gray-0'}`}
                 style={{ fontSize: '16px', lineHeight: '24px', fontWeight: isDataPribadi ? 600 : 400 }}
               >
                 <User className="size-[20px]" /> Data Pribadi
@@ -96,7 +96,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
                   <div key={g.id}>
                     <button
                       onClick={() => setOpen(isOpen ? null : g.id)}
-                      className="w-full flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left hover:bg-[#F9F9F9]"
+                      className="w-full flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left hover:bg-sd-gray-0"
                       style={{ fontSize: '16px', lineHeight: '24px' }}
                     >
                       {g.icon}
@@ -109,7 +109,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
                           <button
                             key={c.path}
                             onClick={() => navigate(c.path)}
-                            className={`pl-[40px] pr-[8px] py-[9px] text-left rounded-[4px] ${clean === c.path ? 'bg-[#f0f0f0]' : 'hover:bg-[#F9F9F9]'}`}
+                            className={`pl-[40px] pr-[8px] py-[9px] text-left rounded-[4px] ${clean === c.path ? 'bg-sd-gray-5' : 'hover:bg-sd-gray-0'}`}
                             style={{ fontSize: '16px', lineHeight: '24px', fontWeight: clean === c.path ? 600 : 400 }}
                           >
                             {c.label}
@@ -124,7 +124,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
 
             <button
               onClick={() => setCollapsed(true)}
-              className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-[#323232] hover:bg-[#F9F9F9]"
+              className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-90 hover:bg-sd-gray-0"
               style={{ fontSize: '12px', fontWeight: 400, lineHeight: '16px' }}
             >
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu

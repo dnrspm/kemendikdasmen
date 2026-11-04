@@ -361,12 +361,12 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
   }, [filteredLayanan]);
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen w-full">
+    <div className="bg-sd-gray-0 min-h-screen w-full">
       {/* Header */}
       <Header onLogoClick={onBack} />
 
       {/* Breadcrumbs */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]" aria-label="Breadcrumb">
             <button
@@ -385,26 +385,26 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
       </div>
 
       {/* Page Header */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1280px] mx-auto px-[24px] py-[32px]">
           <div className="mb-[24px]">
-            <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+            <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
               Layanan Portal Kemdikdasmen
             </h1>
-            <p className="text-[var(--text-base)] text-[#656a6c]">
+            <p className="text-[var(--text-base)] text-sd-gray-60">
               Temukan dan akses layanan kepegawaian, organisasi, dan pelatihan dalam satu platform
             </p>
           </div>
 
           {/* Search Bar */}
           <div className="relative w-full">
-            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
+            <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-sd-gray-60" />
             <input
               type="text"
               placeholder="Cari layanan..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[48px] pl-[48px] pr-[16px] border border-[#828282] rounded-[4px] text-[16px] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[48px] pl-[48px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
             />
           </div>
         </div>
@@ -417,8 +417,8 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
             {/* Side Navigation - Sticky */}
             <aside className="w-[240px] shrink-0 hidden lg:block">
               <div className="sticky top-[24px]">
-                <div className="bg-white border border-[#E2E8F0] rounded-[8px] p-[16px]">
-                  <h3 className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] mb-[12px] uppercase tracking-wider">Kategori LayanaN</h3>
+                <div className="bg-white border border-sd-gray-10 rounded-[8px] p-[16px]">
+                  <h3 className="text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 mb-[12px] uppercase tracking-wider">Kategori LayanaN</h3>
                   <nav className="space-y-[4px]">
                     {timKerjaList.map((timKerja) => {
                       const items = groupedLayanan[timKerja];
@@ -435,8 +435,8 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
                           }}
                           className={`w-full text-left px-[12px] py-[8px] rounded-[4px] text-[var(--text-sm)] transition-all ${
                             isActive
-                              ? 'bg-[#EBF2FF] text-[#1A5BA6] font-[var(--font-weight-medium)]'
-                              : 'text-[#656a6c] hover:bg-[#F9FAFB] hover:text-[#323232]'
+                              ? 'bg-sd-blue-5 text-sd-blue-70 font-[var(--font-weight-medium)]'
+                              : 'text-sd-gray-60 hover:bg-sd-gray-0 hover:text-sd-gray-90'
                           }`}
                         >
                           {timKerja}
@@ -457,7 +457,7 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
                 return (
                   <div key={timKerja} ref={el => sectionRefs.current[timKerja] = el} data-section={timKerja}>
                     {/* Tim Kerja Header */}
-                    <h2 className="text-[var(--text-xl)] font-[var(--font-weight-bold)] text-[#323232] mb-[16px]">
+                    <h2 className="text-[var(--text-xl)] font-[var(--font-weight-bold)] text-sd-gray-90 mb-[16px]">
                       {timKerja}
                     </h2>
 
@@ -477,20 +477,20 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
                                 onNavigateToRepositoriSurat();
                               }
                             }}
-                            className="group w-full bg-white border border-[#E2E8F0] rounded-[8px] p-[20px] hover:border-[#1A5BA6] hover:shadow-sm transition-all text-left"
+                            className="group w-full bg-white border border-sd-gray-10 rounded-[8px] p-[20px] hover:border-sd-blue-70 hover:shadow-sm transition-all text-left"
                           >
                             <div className="flex items-start gap-[16px]">
                               {/* Icon Container */}
-                              <div className="w-[48px] h-[48px] rounded-[8px] bg-[#EBF2FF] flex items-center justify-center shrink-0">
-                                <Icon className="w-[24px] h-[24px] text-[#1A5BA6]" />
+                              <div className="w-[48px] h-[48px] rounded-[8px] bg-sd-blue-5 flex items-center justify-center shrink-0">
+                                <Icon className="w-[24px] h-[24px] text-sd-blue-70" />
                               </div>
 
                               {/* Content */}
                               <div className="flex-1">
-                                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+                                <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
                                   {layanan.name}
                                 </h3>
-                                <p className="text-[var(--text-sm)] text-[#656a6c] leading-relaxed">
+                                <p className="text-[var(--text-sm)] text-sd-gray-60 leading-relaxed">
                                   {layanan.description}
                                 </p>
                               </div>
@@ -506,13 +506,13 @@ export function DaftarLayanan({ onBack, onNavigateToRepositoriSurat, onNavigateT
           </div>
         ) : (
           // Empty State
-          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[64px] text-center">
+          <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[64px] text-center">
             <div className="max-w-[400px] mx-auto">
-              <Search className="w-[64px] h-[64px] text-[#727272] mx-auto mb-[16px]" />
-              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+              <Search className="w-[64px] h-[64px] text-sd-gray-60 mx-auto mb-[16px]" />
+              <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
                 Layanan Tidak Ditemukan
               </h3>
-              <p className="text-[var(--text-sm)] text-[#656a6c] mb-[24px]">
+              <p className="text-[var(--text-sm)] text-sd-gray-60 mb-[24px]">
                 Coba gunakan kata kunci yang berbeda atau hapus pencarian
               </p>
               <button

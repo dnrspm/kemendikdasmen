@@ -80,7 +80,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9]">
+    <div className="min-h-screen bg-sd-gray-0">
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10" style={{ borderColor: 'var(--border)' }}>
         <div className="max-w-[1280px] mx-auto px-[24px] py-[20px]">

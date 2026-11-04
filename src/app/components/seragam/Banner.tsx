@@ -6,11 +6,11 @@ export type BannerTone = 'info' | 'warning' | 'success' | 'critical' | 'neutral'
 
 /** Warna banner dari Figma (Banner Default Desktop): token surface dan border per tipe (default). */
 const TONE: Record<BannerTone, { bg: string; border: string; icon: ReactNode; iconColor: string }> = {
-  success: { bg: '#E2F5E0', border: '#4CA375', iconColor: '#2D8A4E', icon: <CircleCheck className="size-[20px] shrink-0" /> },
-  warning: { bg: '#FFEFD6', border: '#EDA62B', iconColor: '#B57F21', icon: <TriangleAlert className="size-[20px] shrink-0" /> },
-  critical: { bg: '#FEEDF2', border: '#DF2121', iconColor: '#DF2121', icon: <CircleAlert className="size-[20px] shrink-0" /> },
-  info: { bg: '#E3F4FC', border: '#AFDEF9', iconColor: '#0954D9', icon: <Info className="size-[20px] shrink-0" /> },
-  neutral: { bg: '#F1F1F1', border: '#828282', iconColor: '#45474A', icon: <Info className="size-[20px] shrink-0" /> },
+  success: { bg: 'var(--sd-green-5)', border: 'var(--sd-success-border)', iconColor: '#2D8A4E', icon: <CircleCheck className="size-[20px] shrink-0" /> },
+  warning: { bg: 'var(--sd-warning-surface)', border: 'var(--sd-warning-border)', iconColor: '#B57F21', icon: <TriangleAlert className="size-[20px] shrink-0" /> },
+  critical: { bg: 'var(--sd-red-5)', border: 'var(--sd-red-60)', iconColor: 'var(--sd-red-60)', icon: <CircleAlert className="size-[20px] shrink-0" /> },
+  info: { bg: 'var(--sd-cyan-5)', border: 'var(--sd-cyan-10)', iconColor: 'var(--sd-blue-70)', icon: <Info className="size-[20px] shrink-0" /> },
+  neutral: { bg: 'var(--sd-gray-5)', border: 'var(--sd-gray-50)', iconColor: '#45474A', icon: <Info className="size-[20px] shrink-0" /> },
 };
 
 /**

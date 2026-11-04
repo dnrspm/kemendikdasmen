@@ -3,7 +3,7 @@ import { ArrowLeft, Download, Filter, ChevronDown } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, LabelList, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { Header } from '@/app/components/Header';
 
-const BLUE = '#3578c0';
+const BLUE = 'var(--sd-blue-70)';
 const tabs = ['Ringkasan Umum ASN', 'Jenjang Pendidikan ASN', 'Gambaran Umum Unit Organisasi', 'Matriks Komparasi'];
 
 const stats = [
@@ -13,10 +13,10 @@ const stats = [
 const gender = [
   { name: 'Laki-laki', value: 29, fill: '#1fa57a' },
   { name: 'Perempuan', value: 12, fill: '#6db1ea' },
-  { name: 'Belum diketahui', value: 1, fill: '#e9a93a' },
-  { name: '-', value: 9, fill: '#e9a93a' },
+  { name: 'Belum diketahui', value: 1, fill: 'var(--sd-warning-border)' },
+  { name: '-', value: 9, fill: 'var(--sd-warning-border)' },
   { name: '- ', value: 9, fill: '#8678d9' },
-  { name: 'Belum diketahui ', value: 15, fill: '#3578c0' },
+  { name: 'Belum diketahui ', value: 15, fill: 'var(--sd-blue-70)' },
 ];
 const usia = [['<=25', 1], ['26-30', 0], ['31-35', 12], ['36-40', 35], ['41-45', 5], ['46-50', 2], ['>50', 3]];
 const golPPPK = [['PPP-B', 1], ['PPP-C', 1], ['PPP-D', 1]];
@@ -33,7 +33,7 @@ function Card({ title, right, children, className = '' }: { title: string; right
   return (
     <section className={`bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden ${className}`}>
       <header className="flex items-center justify-between px-[16px] py-[12px] border-b border-[#eee]">
-        <h3 className="text-[#727272]" style={{ fontSize: 'var(--text-base)', fontWeight: 600 }}>{title}</h3>
+        <h3 className="text-sd-gray-60" style={{ fontSize: 'var(--text-base)', fontWeight: 600 }}>{title}</h3>
         {right}
       </header>
       <div className="p-[16px]">{children}</div>
@@ -44,7 +44,7 @@ function Card({ title, right, children, className = '' }: { title: string; right
 function BarCard({ title, rows, xLabel, right, className }: { title: string; rows: (string | number)[][]; xLabel: string; right?: ReactNode; className?: string }) {
   return (
     <Card title={title} right={right} className={className}>
-      <p className="text-[#727272] mb-[4px]" style={{ fontSize: '11px' }}>Jumlah Pegawai</p>
+      <p className="text-sd-gray-60 mb-[4px]" style={{ fontSize: '11px' }}>Jumlah Pegawai</p>
       <div style={{ height: 270 }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={toData(rows)} margin={{ top: 20, right: 16, left: 0, bottom: 8 }}>
@@ -63,7 +63,7 @@ function BarCard({ title, rows, xLabel, right, className }: { title: string; row
 
 function Pill({ children, active, onClick }: { children: ReactNode; active?: boolean; onClick?: () => void }) {
   return (
-    <button onClick={onClick} className={`rounded-full border px-[12px] py-[2px] ${active ? 'border-[#0954D9] bg-[#eaf3fe] text-[#0954D9]' : 'border-[#323232]'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+    <button onClick={onClick} className={`rounded-full border px-[12px] py-[2px] ${active ? 'border-sd-blue-70 bg-sd-blue-5 text-sd-blue-70' : 'border-sd-gray-90'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
       {children}
     </button>
   );
@@ -104,14 +104,14 @@ function Pendidikan() {
     <div className="flex flex-col gap-[16px]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-[16px]">
         <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px]">
-          <p className="text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>Jenjang Pendidikan Terbanyak</p>
-          <p className="font-semibold text-[#323232]" style={{ fontSize: '24px' }}>Belum diketahui</p>
-          <p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>30 pegawai</p>
+          <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>Jenjang Pendidikan Terbanyak</p>
+          <p className="font-semibold text-sd-gray-90" style={{ fontSize: '24px' }}>Belum diketahui</p>
+          <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>30 pegawai</p>
         </div>
         <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px]">
-          <p className="text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>Proporsi S2/S3</p>
-          <p className="font-semibold text-[#323232]" style={{ fontSize: '24px' }}>8</p>
-          <p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>pegawai</p>
+          <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>Proporsi S2/S3</p>
+          <p className="font-semibold text-sd-gray-90" style={{ fontSize: '24px' }}>8</p>
+          <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>pegawai</p>
         </div>
       </div>
       <BarCard title="Distribusi Pendidikan Terakhir" rows={pendidikan} xLabel="Jenjang Pendidikan" />
@@ -119,8 +119,8 @@ function Pendidikan() {
   );
 }
 
-const jenisUnit = [{ name: 'Pusat', value: 35, fill: '#3578c0' }, { name: 'UPT', value: 20, fill: '#e9a93a' }, { name: 'Belum Diketahui', value: 17, fill: '#1fa57a' }];
-const upt = [{ name: 'Balai', value: 10, fill: '#3578c0' }, { name: 'Balai Besar', value: 9, fill: '#e9a93a' }, { name: 'Kantor', value: 5, fill: '#1fa57a' }];
+const jenisUnit = [{ name: 'Pusat', value: 35, fill: 'var(--sd-blue-70)' }, { name: 'UPT', value: 20, fill: 'var(--sd-warning-border)' }, { name: 'Belum Diketahui', value: 17, fill: '#1fa57a' }];
+const upt = [{ name: 'Balai', value: 10, fill: 'var(--sd-blue-70)' }, { name: 'Balai Besar', value: 9, fill: 'var(--sd-warning-border)' }, { name: 'Kantor', value: 5, fill: '#1fa57a' }];
 const perUnit = [['Belum Diketahui', 17], ['Ditjen PAUD, Dikdas, dan Dikmen', 2], ['Ditjen GTK', 13], ['Pengujian Klasifikasi Tipe K1', 18], ['Sekretariat Jenderal', 25]];
 
 function Donut({ title, data }: { title: string; data: { name: string; value: number; fill: string }[] }) {
@@ -145,7 +145,7 @@ function UnitOrganisasi() {
       <Donut title="Sebaran ASN di Unit Utama dan UPT" data={jenisUnit} />
       <Donut title="Sebaran ASN di UPT" data={upt} />
       <Card title="Sebaran ASN Manajerial di Satuan Kerja">
-        <div className="bg-[#F1F1F1] rounded-[6px] h-[280px] grid place-items-center text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>
+        <div className="bg-sd-gray-5 rounded-[6px] h-[280px] grid place-items-center text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>
           Data belum tersedia untuk kombinasi filter ini.
         </div>
       </Card>
@@ -173,19 +173,19 @@ function MatriksKomparasi() {
     ['Pranata Komputer Ahli Muda', 0, 2, 0], ['Pranata Komputer Ahli Pertama', 17, 0, 0],
   ];
   const tot = [17, 2, 3, 22];
-  const shade = (v: number, max = 17) => (v === 0 ? '#eaf3fe' : v > max / 2 ? '#3578c0' : '#d6e6fd');
-  const cell = (v: number) => ({ background: shade(v), color: v > 8 ? '#fff' : '#323232' });
+  const shade = (v: number, max = 17) => (v === 0 ? 'var(--sd-blue-5)' : v > max / 2 ? 'var(--sd-blue-70)' : '#d6e6fd');
+  const cell = (v: number) => ({ background: shade(v), color: v > 8 ? '#fff' : 'var(--sd-gray-90)' });
   return (
-    <Card title="Kelompok JF dengan Jenjang JF" right={<select className="border border-[#ADADAD] rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }}><option>Kelompok JF dengan Jenjang JF</option></select>}>
-      <p className="mb-[8px] inline-block float-right rounded-[4px] border border-[#f1c27a] bg-[#fff8ec] text-[#8a5a00] px-[8px] py-[2px]" style={{ fontSize: 'var(--text-xs)' }}>Mengabaikan filter jabatan</p>
+    <Card title="Kelompok JF dengan Jenjang JF" right={<select className="border border-sd-gray-30 rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }}><option>Kelompok JF dengan Jenjang JF</option></select>}>
+      <p className="mb-[8px] inline-block float-right rounded-[4px] border border-[#f1c27a] bg-sd-warning-surface text-[#8a5a00] px-[8px] py-[2px]" style={{ fontSize: 'var(--text-xs)' }}>Mengabaikan filter jabatan</p>
       <div className="overflow-x-auto clear-both">
         <table className="w-full text-center border border-[#e4e4e4]" style={{ fontSize: 'var(--text-xs)' }}>
-          <thead className="bg-[#F1F1F1]">
+          <thead className="bg-sd-gray-5">
             <tr><th rowSpan={2} className="p-[10px] w-[48px]">NO</th><th rowSpan={2} className="p-[10px]">KELOMPOK JABATAN FUNGSIONAL</th><th colSpan={4} className="p-[10px]">JENJANG JABATAN FUNGSIONAL</th></tr>
             <tr>{['Pertama', 'Muda', 'Madya', 'JUMLAH'].map((h) => <th key={h} className="p-[10px]">{h}</th>)}</tr>
           </thead>
           <tbody>
-            <tr className="bg-[#F1F1F1] font-semibold"><td /><td className="p-[10px]">JUMLAH KESELURUHAN</td>{tot.map((v, i) => <td key={i}>{v}</td>)}</tr>
+            <tr className="bg-sd-gray-5 font-semibold"><td /><td className="p-[10px]">JUMLAH KESELURUHAN</td>{tot.map((v, i) => <td key={i}>{v}</td>)}</tr>
             {rows.map(([n, a, b, c], i) => (
               <tr key={n} className="border-t border-[#e4e4e4]">
                 <td className="p-[10px]">{i + 1}</td><td className="p-[10px]">{n}</td>
@@ -203,29 +203,29 @@ function MatriksKomparasi() {
 export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
   const [tab, setTab] = useState(0);
   return (
-    <div className="min-h-screen bg-[#F1F1F1]">
+    <div className="min-h-screen bg-sd-gray-5">
       <Header />
       <div className="bg-white">
         <div className="max-w-[1280px] mx-auto px-[24px] pt-[24px]">
           <div className="flex items-center justify-between">
-            <button onClick={onBack} className="flex items-center gap-[6px] text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>
+            <button onClick={onBack} className="flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>
               <ArrowLeft className="size-[14px]" /> Kembali
             </button>
-            <span className="flex items-center gap-[6px] text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>
+            <span className="flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>
               <span className="size-[8px] rounded-full bg-[#1fa57a]" /> Data diperbarui pada 02/11/2026 01:00 WIB
             </span>
           </div>
-          <h1 className="font-semibold text-[#323232] mt-[12px]" style={{ fontSize: '24px' }}>Profil ASN Kemendikdasmen</h1>
-          <p className="text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>Lihat statistik dan profil ASN Kemendikdasmen secara agregat</p>
+          <h1 className="font-semibold text-sd-gray-90 mt-[12px]" style={{ fontSize: '24px' }}>Profil ASN Kemendikdasmen</h1>
+          <p className="text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Lihat statistik dan profil ASN Kemendikdasmen secara agregat</p>
           <div className="flex items-end justify-between mt-[16px]">
             <div className="flex gap-[24px] overflow-x-auto">
               {tabs.map((t, i) => (
-                <button key={t} onClick={() => setTab(i)} className={`py-[14px] whitespace-nowrap border-b-[3px] ${i === tab ? 'border-[#0954D9]' : 'border-transparent'}`} style={{ fontSize: 'var(--text-base)', fontWeight: i === tab ? 600 : 500 }}>
+                <button key={t} onClick={() => setTab(i)} className={`py-[14px] whitespace-nowrap border-b-[3px] ${i === tab ? 'border-sd-blue-70' : 'border-transparent'}`} style={{ fontSize: 'var(--text-base)', fontWeight: i === tab ? 600 : 500 }}>
                   {t}
                 </button>
               ))}
             </div>
-            <button className="mb-[8px] bg-[#323232] text-white rounded-[4px] px-[16px] py-[10px] flex items-center gap-[8px] font-semibold">
+            <button className="mb-[8px] bg-sd-gray-90 text-white rounded-[4px] px-[16px] py-[10px] flex items-center gap-[8px] font-semibold">
               <Download className="size-[16px]" /> Export
             </button>
           </div>
@@ -237,9 +237,9 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
           <Filter className="size-[16px]" /> <span className="font-semibold">Filter</span>
           {['Unit Kerja: Seluruh', ...(tab === 3 ? [] : ['Jabatan: Seluruh']), 'Mode: Absolut', 'Periode: View Terbaru'].map((f) => {
             const [k, v] = f.split(': ');
-            return <span key={f} className="rounded-full border border-[#323232] px-[10px] py-[1px]"><b>{k}:</b> {v}</span>;
+            return <span key={f} className="rounded-full border border-sd-gray-90 px-[10px] py-[1px]"><b>{k}:</b> {v}</span>;
           })}
-          <button className="ml-auto border border-[#0954D9] text-[#0954D9] rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
+          <button className="ml-auto border border-sd-blue-70 text-sd-blue-70 rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
             Ubah filter <ChevronDown className="size-[14px]" />
           </button>
         </div>

@@ -96,22 +96,22 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
           icon={<Clock className="w-[24px] h-[24px]" />}
           title="Sedang Dikerjakan"
           value={metrics.inProgress.toString()}
-          iconBg="bg-[#0954D9]/10"
-          iconColor="text-[#0954D9]"
+          iconBg="bg-sd-blue-70/10"
+          iconColor="text-sd-blue-70"
         />
         <SummaryCard
           icon={<CheckCircle2 className="w-[24px] h-[24px]" />}
           title="Selesai"
           value={metrics.completed.toString()}
-          iconBg="bg-[#4CA375]/10"
-          iconColor="text-[#4CA375]"
+          iconBg="bg-sd-success-border/10"
+          iconColor="text-sd-success-border"
         />
         <SummaryCard
           icon={<AlertCircle className="w-[24px] h-[24px]" />}
           title="Terlambat"
           value={metrics.overdue.toString()}
-          iconBg="bg-[#E02D38]/10"
-          iconColor="text-[#E02D38]"
+          iconBg="bg-sd-red-60/10"
+          iconColor="text-sd-red-60"
         />
         <SummaryCard
           icon={<TrendingUp className="w-[24px] h-[24px]" />}
@@ -124,8 +124,8 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
       </div>
 
       {/* Project Progress Section - Grouped by Priority */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
-        <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[24px]">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[24px]">
+        <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[24px]">
           Progres SKP
         </h2>
 
@@ -146,8 +146,8 @@ export function ProjectSummary({ organization, level }: ProjectSummaryProps) {
 
         {relevantEpics.length === 0 && (
           <div className="py-[48px] text-center">
-            <TrendingUp className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
-            <p className="text-[var(--text-base)] text-[#656a6c]">
+            <TrendingUp className="w-[48px] h-[48px] text-sd-gray-60 mx-auto mb-[16px]" />
+            <p className="text-[var(--text-base)] text-sd-gray-60">
               Belum ada SKP yang tersedia
             </p>
           </div>
@@ -163,10 +163,10 @@ function PriorityGroup({ priority, epics }: { priority: ProgramPriority; epics: 
   const config = getPriorityConfig(priority);
 
   return (
-    <div className="border border-[#ADADAD] rounded-[8px] overflow-hidden">
+    <div className="border border-sd-gray-30 rounded-[8px] overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-[16px] hover:bg-[#f9f9f9] transition-colors"
+        className="w-full flex items-center justify-between p-[16px] hover:bg-sd-gray-0 transition-colors"
         style={{ borderLeftWidth: '4px', borderLeftColor: config.color }}
       >
         <div className="flex items-center gap-[12px]">
@@ -176,14 +176,14 @@ function PriorityGroup({ priority, epics }: { priority: ProgramPriority; epics: 
           >
             {config.label}
           </span>
-          <span className="text-[var(--text-sm)] text-[#656a6c]">
+          <span className="text-[var(--text-sm)] text-sd-gray-60">
             {epics.length} SKP
           </span>
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-[20px] h-[20px] text-[#656a6c]" />
+          <ChevronUp className="w-[20px] h-[20px] text-sd-gray-60" />
         ) : (
-          <ChevronDown className="w-[20px] h-[20px] text-[#656a6c]" />
+          <ChevronDown className="w-[20px] h-[20px] text-sd-gray-60" />
         )}
       </button>
 
@@ -215,18 +215,18 @@ function SummaryCard({
   iconColor: string;
 }) {
   return (
-    <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+    <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px]">
       <div className="flex items-center gap-[16px]">
         <div className={`w-[48px] h-[48px] rounded-[8px] ${iconBg} ${iconColor} flex items-center justify-center shrink-0`}>
           {icon}
         </div>
         <div>
-          <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
+          <div className="text-[var(--text-3xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[4px]">
             {value}
           </div>
-          <div className="text-[var(--text-sm)] text-[#656a6c]">{title}</div>
+          <div className="text-[var(--text-sm)] text-sd-gray-60">{title}</div>
           {subtitle && (
-            <div className="text-[var(--text-xs)] text-[#727272] mt-[2px]">{subtitle}</div>
+            <div className="text-[var(--text-xs)] text-sd-gray-60 mt-[2px]">{subtitle}</div>
           )}
         </div>
       </div>
@@ -240,9 +240,9 @@ function EpicCard({ epic }: { epic: Epic }) {
   const statusLabel = getStatusLabel(epic.status);
 
   return (
-    <div className="border border-[#EFEFEF] rounded-[8px] p-[20px] hover:shadow-md transition-shadow cursor-pointer">
+    <div className="border border-sd-badge-neutral rounded-[8px] p-[20px] hover:shadow-md transition-shadow cursor-pointer">
       <div className="flex items-start justify-between mb-[12px]">
-        <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] flex-1">
+        <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 flex-1">
           {epic.name}
         </h3>
         <span
@@ -253,24 +253,24 @@ function EpicCard({ epic }: { epic: Epic }) {
         </span>
       </div>
 
-      <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px] line-clamp-2">
+      <p className="text-[var(--text-sm)] text-sd-gray-60 mb-[16px] line-clamp-2">
         {epic.description}
       </p>
 
       {epic.rhk_name && (
-        <div className="mb-[12px] text-[var(--text-xs)] text-[#656a6c]">
+        <div className="mb-[12px] text-[var(--text-xs)] text-sd-gray-60">
           <span className="font-[var(--font-weight-medium)]">RHK:</span> {epic.rhk_name}
         </div>
       )}
 
       <div className="mb-[12px]">
         <div className="flex items-center justify-between mb-[8px]">
-          <span className="text-[var(--text-sm)] text-[#656a6c]">Progres</span>
-          <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+          <span className="text-[var(--text-sm)] text-sd-gray-60">Progres</span>
+          <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
             {epic.progress}%
           </span>
         </div>
-        <div className="w-full h-[8px] bg-[#EFEFEF] rounded-full overflow-hidden">
+        <div className="w-full h-[8px] bg-sd-badge-neutral rounded-full overflow-hidden">
           <div
             className="h-full bg-primary rounded-full transition-all"
             style={{ width: `${epic.progress}%` }}
@@ -278,7 +278,7 @@ function EpicCard({ epic }: { epic: Epic }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-[var(--text-xs)] text-[#656a6c]">
+      <div className="flex items-center justify-between text-[var(--text-xs)] text-sd-gray-60">
         <span>{epic.owner_org_name}</span>
         <span>Batas: {new Date(epic.due_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
       </div>

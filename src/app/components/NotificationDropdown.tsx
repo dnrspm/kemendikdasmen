@@ -74,7 +74,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
         className="relative p-[8px] rounded-full hover:bg-[var(--secondary)] transition-colors"
         aria-label="Pemberitahuan"
       >
-        <Bell className="w-[24px] h-[24px] text-[#45474A]" />
+        <Bell className="w-[24px] h-[24px] text-sd-gray-80" />
         
         {/* Badge for unread notifications */}
         {unreadCount > 0 && (
@@ -117,8 +117,8 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
           {/* Notification List */}
           <div className="max-h-[320px] overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="m-[12px] rounded-[6px] bg-[#F1F1F1] px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
-                <Info className="size-[18px] text-[#0954D9]" />
+              <div className="m-[12px] rounded-[6px] bg-sd-gray-5 px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
+                <Info className="size-[18px] text-sd-blue-70" />
                 <p className="text-[14px]" style={{ color: 'var(--muted-foreground)' }}>
                   Tidak ada pemberitahuan baru.
                 </p>

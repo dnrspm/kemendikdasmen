@@ -81,16 +81,16 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
   return (
     <div className="space-y-[24px]">
       {/* Timeline Header */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[24px]">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[24px]">
         <div className="flex items-center justify-between mb-[16px]">
-          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
+          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-sd-gray-90">
             Tampilan Linimasa
           </h2>
           <div className="flex items-center gap-[12px]">
-            <button className="px-[12px] py-[6px] text-[var(--text-sm)] text-[#656a6c] hover:text-primary transition-colors">
+            <button className="px-[12px] py-[6px] text-[var(--text-sm)] text-sd-gray-60 hover:text-primary transition-colors">
               Bulan
             </button>
-            <button className="px-[12px] py-[6px] text-[var(--text-sm)] text-[#656a6c] hover:text-primary transition-colors">
+            <button className="px-[12px] py-[6px] text-[var(--text-sm)] text-sd-gray-60 hover:text-primary transition-colors">
               Minggu
             </button>
             <button className="px-[12px] py-[6px] text-[var(--text-sm)] text-primary font-[var(--font-weight-medium)]">
@@ -103,31 +103,31 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
         <div className="flex items-center gap-[24px] text-[var(--text-sm)]">
           <div className="flex items-center gap-[8px]">
             <div className="w-[16px] h-[8px] bg-[#906CEF] rounded-[2px]" />
-            <span className="text-[#656a6c]">SKP</span>
+            <span className="text-sd-gray-60">SKP</span>
           </div>
           <div className="flex items-center gap-[8px]">
             <div className="w-[16px] h-[8px] bg-primary rounded-[2px]" />
-            <span className="text-[#656a6c]">Tugas</span>
+            <span className="text-sd-gray-60">Tugas</span>
           </div>
           <div className="flex items-center gap-[8px]">
-            <div className="w-[16px] h-[8px] bg-[#4CA375] rounded-[2px]" />
-            <span className="text-[#656a6c]">Selesai</span>
+            <div className="w-[16px] h-[8px] bg-sd-success-border rounded-[2px]" />
+            <span className="text-sd-gray-60">Selesai</span>
           </div>
           <div className="flex items-center gap-[8px]">
-            <div className="w-[16px] h-[8px] bg-[#E02D38] rounded-[2px]" />
-            <span className="text-[#656a6c]">Terlambat</span>
+            <div className="w-[16px] h-[8px] bg-sd-red-60 rounded-[2px]" />
+            <span className="text-sd-gray-60">Terlambat</span>
           </div>
         </div>
       </div>
 
       {/* Timeline Content */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 overflow-hidden">
         <div className="overflow-x-auto">
           <div className="min-w-[1200px]">
             {/* Timeline Header - Months */}
-            <div className="flex border-b border-[#EFEFEF] bg-[#f9f9f9]">
-              <div className="w-[400px] p-[16px] border-r border-[#EFEFEF]">
-                <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#656a6c]">
+            <div className="flex border-b border-sd-badge-neutral bg-sd-gray-0">
+              <div className="w-[400px] p-[16px] border-r border-sd-badge-neutral">
+                <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-60">
                   SKP / Tugas
                 </span>
               </div>
@@ -135,9 +135,9 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
                 {monthLabels.map((month, index) => (
                   <div
                     key={index}
-                    className="flex-1 p-[16px] text-center border-r border-[#EFEFEF] last:border-r-0"
+                    className="flex-1 p-[16px] text-center border-r border-sd-badge-neutral last:border-r-0"
                   >
-                    <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-[#656a6c]">
+                    <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-sd-gray-60">
                       {month}
                     </span>
                   </div>
@@ -150,8 +150,8 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
               {epicsWithTasks.map((epic) => (
                 <div key={epic.id}>
                   {/* Epic Row */}
-                  <div className="flex border-b border-[#EFEFEF] hover:bg-[#f9f9f9] transition-colors">
-                    <div className="w-[400px] p-[16px] border-r border-[#EFEFEF]">
+                  <div className="flex border-b border-sd-badge-neutral hover:bg-sd-gray-0 transition-colors">
+                    <div className="w-[400px] p-[16px] border-r border-sd-badge-neutral">
                       <button
                         onClick={() => toggleEpic(epic.id)}
                         className="flex items-start gap-[8px] w-full text-left"
@@ -159,15 +159,15 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
                         {epic.relatedTasks.length > 0 && (
                           <span className="mt-[2px]">
                             {expandedEpics.has(epic.id) ? (
-                              <ChevronDown className="w-[16px] h-[16px] text-[#656a6c]" />
+                              <ChevronDown className="w-[16px] h-[16px] text-sd-gray-60" />
                             ) : (
-                              <ChevronRight className="w-[16px] h-[16px] text-[#656a6c]" />
+                              <ChevronRight className="w-[16px] h-[16px] text-sd-gray-60" />
                             )}
                           </span>
                         )}
                         <div className="flex-1">
                           <div className="flex items-center gap-[8px] mb-[4px]">
-                            <span className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
+                            <span className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90">
                               {epic.name}
                             </span>
                             {epic.program_priority && (
@@ -182,7 +182,7 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
                               </span>
                             )}
                           </div>
-                          <div className="flex items-center gap-[8px] text-[var(--text-xs)] text-[#656a6c]">
+                          <div className="flex items-center gap-[8px] text-[var(--text-xs)] text-sd-gray-60">
                             <span
                               className="px-[6px] py-[2px] rounded-[4px]"
                               style={{
@@ -215,14 +215,14 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
 
                   {/* Task Rows (when expanded) */}
                   {expandedEpics.has(epic.id) && epic.relatedTasks.map((task) => (
-                    <div key={task.id} className="flex border-b border-[#EFEFEF] hover:bg-[#f9f9f9] transition-colors bg-[#fafafa]">
-                      <div className="w-[400px] p-[16px] pl-[56px] border-r border-[#EFEFEF]">
+                    <div key={task.id} className="flex border-b border-sd-badge-neutral hover:bg-sd-gray-0 transition-colors bg-sd-gray-0">
+                      <div className="w-[400px] p-[16px] pl-[56px] border-r border-sd-badge-neutral">
                         <div className="flex items-center gap-[8px] mb-[4px]">
-                          <span className="text-[var(--text-sm)] text-[#323232]">
+                          <span className="text-[var(--text-sm)] text-sd-gray-90">
                             {task.title}
                           </span>
                         </div>
-                        <div className="flex items-center gap-[8px] text-[var(--text-xs)] text-[#656a6c]">
+                        <div className="flex items-center gap-[8px] text-[var(--text-xs)] text-sd-gray-60">
                           <span
                             className="px-[6px] py-[2px] rounded-[4px]"
                             style={{
@@ -253,8 +253,8 @@ export function ProjectTimeline({ organization, level, filterBiro, filterTimKerj
 
             {epicsWithTasks.length === 0 && (
               <div className="py-[48px] text-center">
-                <Calendar className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
-                <p className="text-[var(--text-base)] text-[#656a6c]">
+                <Calendar className="w-[48px] h-[48px] text-sd-gray-60 mx-auto mb-[16px]" />
+                <p className="text-[var(--text-base)] text-sd-gray-60">
                   Belum ada SKP yang tersedia
                 </p>
               </div>
@@ -299,16 +299,16 @@ function TimelineBar({
   const widthPercent = (duration / totalDays) * 100;
   const todayPercent = (todayOffset / totalDays) * 100;
 
-  let barColor = type === 'epic' ? '#906CEF' : '#0954D9';
-  if (isCompleted) barColor = '#4CA375';
-  if (isOverdue) barColor = '#E02D38';
+  let barColor = type === 'epic' ? '#906CEF' : 'var(--sd-blue-70)';
+  if (isCompleted) barColor = 'var(--sd-success-border)';
+  if (isOverdue) barColor = 'var(--sd-red-60)';
 
   return (
     <div className="relative h-full py-[20px]">
       {/* Today line */}
       {todayPercent >= 0 && todayPercent <= 100 && (
         <div
-          className="absolute top-0 bottom-0 w-[2px] bg-[#E02D38] z-10"
+          className="absolute top-0 bottom-0 w-[2px] bg-sd-red-60 z-10"
           style={{ left: `${todayPercent}%` }}
         />
       )}

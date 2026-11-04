@@ -267,7 +267,7 @@ export function ArtikelDetail({
                 </div>
                 {rating > 0 && (
                   <div className="flex items-center gap-[6px] text-[var(--text-sm)] text-muted-foreground">
-                    <Star className="w-[16px] h-[16px] fill-[#EDA62B] text-[#EDA62B]" />
+                    <Star className="w-[16px] h-[16px] fill-sd-warning-border text-sd-warning-border" />
                     <span>{rating.toFixed(1)} ({totalRatings} rating{totalRatings !== 1 ? 's' : ''})</span>
                   </div>
                 )}
@@ -325,8 +325,8 @@ export function ArtikelDetail({
                     <Star
                       className={`w-[32px] h-[32px] ${
                         star <= userRating
-                          ? 'fill-[#EDA62B] text-[#EDA62B]'
-                          : 'text-border hover:text-[#EDA62B]'
+                          ? 'fill-sd-warning-border text-sd-warning-border'
+                          : 'text-border hover:text-sd-warning-border'
                       }`}
                     />
                   </button>

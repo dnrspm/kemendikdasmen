@@ -28,10 +28,10 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
   }
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild><button aria-label="Aksi"><MoreVertical className="size-[18px] text-[#45474a]" /></button></DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild><button aria-label="Aksi"><MoreVertical className="size-[18px] text-sd-gray-80" /></button></DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {items.map((a) => (
-          <DropdownMenuItem key={a.label} onSelect={a.onClick} className={a.danger ? 'text-[#DF2121]' : ''}>{a.icon} {a.label}</DropdownMenuItem>
+          <DropdownMenuItem key={a.label} onSelect={a.onClick} className={a.danger ? 'text-sd-red-60' : ''}>{a.icon} {a.label}</DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>

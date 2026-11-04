@@ -57,12 +57,12 @@ export function ProjectManagement({
   const level = getOrganizationLevel();
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen w-full flex flex-col">
+    <div className="bg-sd-gray-0 min-h-screen w-full flex flex-col">
       {/* Header */}
       <Header onLogoClick={onBackToHome} />
 
       {/* Breadcrumbs */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]" aria-label="Breadcrumb">
             <button
@@ -79,17 +79,17 @@ export function ProjectManagement({
       </div>
 
       {/* Page Header with Unit Selector */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="px-[24px] py-[20px] flex items-center justify-between">
-          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">Manajemen Tugas</h1>
+          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-sd-gray-90">Manajemen Tugas</h1>
 
           {/* Unit Utama Selector */}
           <div className="flex items-center gap-[8px]">
-            <span className="text-[var(--text-sm)] text-[#656a6c]">Unit Utama:</span>
+            <span className="text-[var(--text-sm)] text-sd-gray-60">Unit Utama:</span>
             <select
               value={selectedUnitId}
               onChange={(e) => setSelectedUnitId(e.target.value)}
-              className="px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
             >
               {organizations.map(org => (
                 <option key={org.id} value={org.id}>
@@ -104,7 +104,7 @@ export function ProjectManagement({
       {/* Main Content Area with Sidebar */}
       <div className="flex flex-1">
         {/* Sidebar */}
-        <div className="w-[240px] bg-white border-r border-[#EFEFEF] overflow-y-auto sticky top-[64px] self-start h-[calc(100vh-64px)] z-40">
+        <div className="w-[240px] bg-white border-r border-sd-badge-neutral overflow-y-auto sticky top-[64px] self-start h-[calc(100vh-64px)] z-40">
           <nav className="p-[16px]">
             <div className="space-y-[4px]">
               {/* Sasaran Program */}
@@ -117,7 +117,7 @@ export function ProjectManagement({
                 className={`w-full flex items-center gap-[12px] px-[12px] py-[10px] text-[var(--text-sm)] font-[var(--font-weight-medium)] rounded-[6px] transition-colors ${
                   activeTab === 'sasaran-program'
                     ? 'bg-primary/10 text-primary'
-                    : 'text-[#656a6c] hover:bg-[#f9f9f9] hover:text-foreground'
+                    : 'text-sd-gray-60 hover:bg-sd-gray-0 hover:text-foreground'
                 }`}
               >
                 <Target className="w-[18px] h-[18px]" />
@@ -134,7 +134,7 @@ export function ProjectManagement({
                 className={`w-full flex items-center gap-[12px] px-[12px] py-[10px] text-[var(--text-sm)] font-[var(--font-weight-medium)] rounded-[6px] transition-colors ${
                   activeTab === 'sasaran-kinerja'
                     ? 'bg-primary/10 text-primary'
-                    : 'text-[#656a6c] hover:bg-[#f9f9f9] hover:text-foreground'
+                    : 'text-sd-gray-60 hover:bg-sd-gray-0 hover:text-foreground'
                 }`}
               >
                 <TrendingUp className="w-[18px] h-[18px]" />
@@ -151,7 +151,7 @@ export function ProjectManagement({
                 className={`w-full flex items-center gap-[12px] px-[12px] py-[10px] text-[var(--text-sm)] font-[var(--font-weight-medium)] rounded-[6px] transition-colors ${
                   activeTab === 'sasaran-kinerja-pegawai'
                     ? 'bg-primary/10 text-primary'
-                    : 'text-[#656a6c] hover:bg-[#f9f9f9] hover:text-foreground'
+                    : 'text-sd-gray-60 hover:bg-sd-gray-0 hover:text-foreground'
                 }`}
               >
                 <FolderKanban className="w-[18px] h-[18px]" />

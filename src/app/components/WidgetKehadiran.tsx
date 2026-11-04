@@ -55,7 +55,7 @@ function getClockInLabelConfig(label: ClockInLabel): LabelConfig | null {
     case 'tepat-waktu':
       return {
         text: 'Tepat Waktu',
-        color: '#1B5E20',
+        color: 'var(--sd-green-70)',
         bgColor: '#E8F5E9',
       };
     case 'terlambat':
@@ -80,7 +80,7 @@ function getClockOutLabelConfig(label: ClockOutLabel): LabelConfig | null {
     case 'tepat-waktu':
       return {
         text: 'Tepat Waktu',
-        color: '#1B5E20',
+        color: 'var(--sd-green-70)',
         bgColor: '#E8F5E9',
       };
     case 'pulang-awal':
@@ -121,8 +121,8 @@ function getGeneralStatusConfig(
       return {
         badge: 'Belum Presensi',
         badgeColor: '#616161',
-        badgeBg: '#F5F5F5',
-        dotColor: '#9E9E9E',
+        badgeBg: 'var(--sd-modal-header)',
+        dotColor: 'var(--sd-gray-40)',
         pesan: 'Belum presensi masuk hari ini',
       };
     case 'sedang-bekerja':
@@ -145,7 +145,7 @@ function getGeneralStatusConfig(
       }
       return {
         badge: 'Selesai Bekerja',
-        badgeColor: '#1B5E20',
+        badgeColor: 'var(--sd-green-70)',
         badgeBg: '#E8F5E9',
         dotColor: '#4CAF50',
         pesan: 'Sudah presensi lengkap hari ini',
@@ -233,7 +233,7 @@ export function WidgetKehadiran() {
   return (
     <div
       className="bg-white flex flex-col gap-0 rounded-[var(--radius-card)] border relative w-full overflow-hidden h-[280px]"
-      style={{ borderColor: '#c7c7c7' }}
+      style={{ borderColor: 'var(--sd-gray-20)' }}
     >
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="px-[20px] pt-[20px] pb-[16px] flex items-start justify-between">
@@ -281,7 +281,7 @@ export function WidgetKehadiran() {
       </div>
 
       {/* ── Divider ──────────────────────────────────────────────────────────── */}
-      <div className="w-full h-[1px]" style={{ backgroundColor: '#EFEFEF' }} />
+      <div className="w-full h-[1px]" style={{ backgroundColor: 'var(--sd-badge-neutral)' }} />
 
       {/* ── Clock In / Clock Out Buttons ─────────────────────────────────────── */}
       <div className="px-[20px] py-[16px] grid grid-cols-2 gap-[8px] flex-1">
@@ -294,8 +294,8 @@ export function WidgetKehadiran() {
             disabled={!canClockIn}
             className="flex flex-col items-center justify-center gap-[4px] py-[12px] px-[8px] rounded-tl-[var(--radius-card)] rounded-tr-[var(--radius-card)] border-t border-l border-r transition-all w-full flex-1"
             style={{
-              borderColor: canClockIn ? 'var(--primary)' : '#E0E0E0',
-              backgroundColor: canClockIn ? 'var(--primary)' : '#F9F9F9',
+              borderColor: canClockIn ? 'var(--primary)' : 'var(--sd-gray-10)',
+              backgroundColor: canClockIn ? 'var(--primary)' : 'var(--sd-gray-0)',
               cursor: canClockIn ? 'pointer' : 'not-allowed',
               opacity: isLupaClockIn ? 0.5 : 1,
             }}
@@ -334,7 +334,7 @@ export function WidgetKehadiran() {
               className="flex items-center justify-center px-[8px] py-[2px] rounded-bl-[var(--radius-card)] rounded-br-[var(--radius-card)] border-b border-l border-r w-full"
               style={{
                 backgroundColor: clockInLabelConfig.bgColor,
-                borderColor: '#E0E0E0',
+                borderColor: 'var(--sd-gray-10)',
               }}
             >
               <span
@@ -358,8 +358,8 @@ export function WidgetKehadiran() {
             disabled={!canClockOut}
             className="flex flex-col items-center justify-center gap-[4px] py-[12px] px-[8px] rounded-tl-[var(--radius-card)] rounded-tr-[var(--radius-card)] border-t border-l border-r transition-all w-full flex-1"
             style={{
-              borderColor: canClockOut ? 'var(--primary)' : '#E0E0E0',
-              backgroundColor: canClockOut ? 'var(--primary)' : '#F9F9F9',
+              borderColor: canClockOut ? 'var(--primary)' : 'var(--sd-gray-10)',
+              backgroundColor: canClockOut ? 'var(--primary)' : 'var(--sd-gray-0)',
               cursor: canClockOut ? 'pointer' : 'not-allowed',
               opacity: (generalStatus === 'belum-presensi' && !isLupaClockIn) ? 0.45 : 1,
             }}
@@ -398,7 +398,7 @@ export function WidgetKehadiran() {
               className="flex items-center justify-center px-[8px] py-[2px] rounded-bl-[var(--radius-card)] rounded-br-[var(--radius-card)] border-b border-l border-r w-full"
               style={{
                 backgroundColor: clockOutLabelConfig.bgColor,
-                borderColor: '#E0E0E0',
+                borderColor: 'var(--sd-gray-10)',
               }}
             >
               <span

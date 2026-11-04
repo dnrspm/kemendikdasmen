@@ -75,10 +75,10 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
     <KepegawaianLayout>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="bg-white border border-[#efefef] rounded-[6px] p-[16px]">{children}</div>
+        <div className="bg-white border border-sd-badge-neutral rounded-[6px] p-[16px]">{children}</div>
       </div>
     </KepegawaianLayout>
   );
@@ -86,7 +86,7 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
 
 const AddButton = () => (
   <div className="flex justify-end mb-[12px]">
-    <button className="bg-[#323232] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+    <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
       <Plus className="size-[16px]" /> Tambah
     </button>
   </div>
@@ -103,35 +103,35 @@ export function MasterDataPage({ slug }: { slug: string }) {
         <table className="w-full text-left" style={{ fontSize: 'var(--text-sm)' }}>
           <thead>
             <tr className="border-y border-[#e4e4e4]">
-              <th className="px-[12px] py-[12px] uppercase text-[#727272] w-[56px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>No</th>
+              <th className="px-[12px] py-[12px] uppercase text-sd-gray-60 w-[56px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>No</th>
               {cfg.columns.map((c) => (
-                <th key={c} className="px-[12px] py-[12px] uppercase text-[#727272]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>{c}</th>
+                <th key={c} className="px-[12px] py-[12px] uppercase text-sd-gray-60" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>{c}</th>
               ))}
-              <th className="px-[12px] py-[12px] uppercase text-[#727272] text-center w-[80px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>Aksi</th>
+              <th className="px-[12px] py-[12px] uppercase text-sd-gray-60 text-center w-[80px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>Aksi</th>
             </tr>
           </thead>
           <tbody>
             {cfg.rows.map((r, i) => (
-              <tr key={i} className={i % 2 === 0 ? 'bg-[#F9F9F9]' : ''}>
+              <tr key={i} className={i % 2 === 0 ? 'bg-sd-gray-0' : ''}>
                 <td className="px-[12px] py-[16px]">{i + 1}</td>
                 {r.map((v, j) => <td key={j} className="px-[12px] py-[16px]">{v}</td>)}
-                <td className="px-[12px] py-[16px] text-center"><button aria-label="Aksi"><MoreVertical className="size-[18px] inline text-[#45474a]" /></button></td>
+                <td className="px-[12px] py-[16px] text-center"><button aria-label="Aksi"><MoreVertical className="size-[18px] inline text-sd-gray-80" /></button></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-between mt-[12px] text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>
+      <div className="flex items-center justify-between mt-[12px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
         <span className="flex items-center gap-[8px]">
           Menampilkan 1 - {Math.min(cfg.rows.length, perPage)} dari {cfg.total} data ·
-          <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-[#ADADAD] rounded-[4px] px-[4px] py-[1px] bg-white">
+          <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-sd-gray-30 rounded-[4px] px-[4px] py-[1px] bg-white">
             {[5, 10, 20, 50].map((n) => <option key={n}>{n}</option>)}
           </select>
           per halaman
         </span>
         <span className="flex items-center gap-[6px]">
           <ChevronLeft className="size-[16px] text-[#bbb]" />
-          <span className="size-[28px] grid place-items-center rounded-[4px] bg-[#0954D9] text-white font-semibold">1</span>
+          <span className="size-[28px] grid place-items-center rounded-[4px] bg-sd-blue-70 text-white font-semibold">1</span>
           <ChevronRight className="size-[16px]" />
         </span>
       </div>
@@ -157,7 +157,7 @@ function TreeNode({ node, depth = 0 }: { node: Node; depth?: number }) {
     <div>
       <button
         onClick={() => node.children && setOpen(!open)}
-        className="flex items-center gap-[6px] py-[6px] hover:bg-[#F9F9F9] w-full text-left rounded-[4px]"
+        className="flex items-center gap-[6px] py-[6px] hover:bg-sd-gray-0 w-full text-left rounded-[4px]"
         style={{ paddingLeft: depth * 20 + 4, fontSize: 'var(--text-sm)' }}
       >
         {node.children ? (open ? <ChevronDown className="size-[16px]" /> : <Caret className="size-[16px]" />) : <span className="size-[16px]" />}
@@ -172,8 +172,8 @@ export function UnitKerjaPage() {
   return (
     <Shell title="Data Unit Kerja" subtitle="Kelola data unit kerja yang digunakan dalam sistem">
       <div className="flex items-center justify-between mb-[12px]">
-        <p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>Klik kanan pada unit kerja untuk menampilkan menu</p>
-        <button className="bg-[#323232] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+        <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Klik kanan pada unit kerja untuk menampilkan menu</p>
+        <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
           <Plus className="size-[16px]" /> Tambah
         </button>
       </div>

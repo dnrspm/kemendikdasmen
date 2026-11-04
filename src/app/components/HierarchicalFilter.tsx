@@ -60,7 +60,7 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
           className={`flex items-center gap-[6px] py-[6px] pr-[12px] cursor-pointer rounded-[4px] transition-colors ${
             isSelected
               ? 'bg-primary/10 text-primary'
-              : 'text-[#323232] hover:bg-[#f9f9f9]'
+              : 'text-sd-gray-90 hover:bg-sd-gray-0'
           }`}
           style={{ paddingLeft: `${8 + level * 18}px` }}
           onClick={() => handleSelect(unit)}
@@ -68,12 +68,12 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
           <button
             type="button"
             onClick={hasChildren ? (e) => toggleExpand(unit.id, e) : undefined}
-            className="w-[16px] h-[16px] flex items-center justify-center shrink-0 text-[#727272]"
+            className="w-[16px] h-[16px] flex items-center justify-center shrink-0 text-sd-gray-60"
           >
             {hasChildren ? (
               isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />
             ) : (
-              <span className="w-[4px] h-[4px] rounded-full bg-[#c7c7c7] inline-block" />
+              <span className="w-[4px] h-[4px] rounded-full bg-sd-gray-20 inline-block" />
             )}
           </button>
           <span
@@ -96,16 +96,16 @@ export function HierarchicalFilter({ selectedUnit, onSelect }: HierarchicalFilte
       <button
         type="button"
         onClick={() => setIsOpen(prev => !prev)}
-        className="flex items-center gap-[8px] px-[12px] py-[8px] border border-[#828282] rounded-[4px] bg-white hover:border-primary transition-colors text-left min-w-[260px] max-w-[420px]"
+        className="flex items-center gap-[8px] px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] bg-white hover:border-primary transition-colors text-left min-w-[260px] max-w-[420px]"
       >
-        <span className="flex-1 text-[var(--text-sm)] text-[#323232] truncate">{displayName}</span>
+        <span className="flex-1 text-[var(--text-sm)] text-sd-gray-90 truncate">{displayName}</span>
         <ChevronDown
-          className={`w-[16px] h-[16px] shrink-0 text-[#656a6c] transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-[16px] h-[16px] shrink-0 text-sd-gray-60 transition-transform ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-[4px] z-50 bg-white border border-[#EFEFEF] rounded-[8px] shadow-lg w-[460px] max-h-[480px] overflow-y-auto py-[8px]">
+        <div className="absolute right-0 top-full mt-[4px] z-50 bg-white border border-sd-badge-neutral rounded-[8px] shadow-lg w-[460px] max-h-[480px] overflow-y-auto py-[8px]">
           {renderTree(orgHierarchy)}
         </div>
       )}

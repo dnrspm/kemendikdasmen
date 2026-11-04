@@ -133,7 +133,7 @@ export default function PortalMainLayout({
           {/* Menu Utama Section */}
           <div 
             className="bg-card border content-stretch flex flex-col gap-[24px] items-start px-[20px] py-[24px] rounded-[var(--radius-card)] w-full relative"
-            style={{ borderColor: '#c7c7c7' }}
+            style={{ borderColor: 'var(--sd-gray-20)' }}
           >
             <div className="flex items-center justify-between w-full">
               <h3 

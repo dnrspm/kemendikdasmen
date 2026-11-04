@@ -17,7 +17,7 @@ function FilledActionSSupervisorAccount() {
     <div className="relative shrink-0 size-[24px]" data-name="Filled / Action / S / supervisor_account">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
         <g id="Filled / Action / S / supervisor_account">
-          <path d={svgPaths.p2a436470} fill="var(--fill-0, #45474A)" id="vector" />
+          <path d={svgPaths.p2a436470} fill="var(--fill-0, #505050)" id="vector" />
         </g>
       </svg>
     </div>
@@ -51,7 +51,7 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
   };
 
   return (
-    <div className="bg-white border-b border-[#EFEFEF] h-[61px] sticky top-0 z-50">
+    <div className="bg-white border-b border-sd-badge-neutral h-[61px] sticky top-0 z-50">
       <div className={`flex items-center justify-between h-full px-[20px] mx-auto ${fullWidth ? 'w-full' : 'max-w-[1440px]'}`}>
         {/* Logo Header */}
         <div className="flex items-center">
@@ -73,17 +73,17 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
           <div className="relative" ref={userRef}>
             <button onClick={() => setUserOpen(!userOpen)} className="flex items-center gap-[12px] cursor-pointer hover:opacity-80 transition-opacity">
               <img alt="" src={imgTutWuri} className="size-[34px] rounded-full object-cover" />
-              <p className="hidden md:block uppercase text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+              <p className="hidden md:block uppercase text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
                 AHMAD WIJAYA
               </p>
-              {userOpen ? <ChevronUp className="w-[24px] h-[24px] text-[#45474A]" /> : <ChevronDown className="w-[24px] h-[24px] text-[#45474A]" />}
+              {userOpen ? <ChevronUp className="w-[24px] h-[24px] text-sd-gray-80" /> : <ChevronDown className="w-[24px] h-[24px] text-sd-gray-80" />}
             </button>
             {userOpen && (
               <div className="absolute right-0 mt-[8px] w-[220px] bg-white border border-[#e4e4e4] rounded-[8px] shadow-lg p-[12px] z-50">
-                <p className="font-semibold text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>Ahmad Wijaya</p>
-                <p className="text-[#0954D9]" style={{ fontSize: '12px' }}>ahmad.wijaya@kemendikdasmen.go.id</p>
-                <p className="text-[#727272] mb-[10px]" style={{ fontSize: '11px' }}>NIP: 198704182018031001</p>
-                <button className="w-full flex items-center gap-[8px] border border-[#0954D9] rounded-[4px] px-[10px] py-[6px] hover:bg-[#f3f8ff]" style={{ fontSize: 'var(--text-sm)' }}>
+                <p className="font-semibold text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Ahmad Wijaya</p>
+                <p className="text-sd-blue-70" style={{ fontSize: '12px' }}>ahmad.wijaya@kemendikdasmen.go.id</p>
+                <p className="text-sd-gray-60 mb-[10px]" style={{ fontSize: '11px' }}>NIP: 198704182018031001</p>
+                <button className="w-full flex items-center gap-[8px] border border-sd-blue-70 rounded-[4px] px-[10px] py-[6px] hover:bg-sd-blue-5" style={{ fontSize: 'var(--text-sm)' }}>
                   <LogOut className="size-[16px]" /> Keluar
                 </button>
               </div>

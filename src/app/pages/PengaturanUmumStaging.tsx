@@ -15,27 +15,27 @@ function Layout({ children }: { children: ReactNode }) {
     <button
       key={path}
       onClick={() => navigate(path)}
-      className={`w-full flex items-center gap-[12px] py-[8px] rounded-[4px] text-left ${indent ? 'pl-[40px] pr-[8px]' : 'px-[8px]'} ${p === path ? 'bg-[#f0f0f0] font-semibold' : 'hover:bg-[#F9F9F9]'}`}
+      className={`w-full flex items-center gap-[12px] py-[8px] rounded-[4px] text-left ${indent ? 'pl-[40px] pr-[8px]' : 'px-[8px]'} ${p === path ? 'bg-sd-gray-5 font-semibold' : 'hover:bg-sd-gray-0'}`}
       style={{ fontSize: 'var(--text-sm)' }}
     >
       {icon}{label}
     </button>
   );
   return (
-    <div className="flex flex-col h-screen bg-[#F1F1F1]">
+    <div className="flex flex-col h-screen bg-sd-gray-5">
       <Header fullWidth />
       <div className="flex flex-1 min-h-0">
         {!collapsed && (
           <aside className="w-[260px] shrink-0 bg-white border-r border-[#e4e4e4] flex flex-col">
-            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-[#eaf3fe]">
+            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-sd-blue-5">
               <img alt="" src={imgSetting} className="size-[20px] object-contain" />
-              <span className="font-semibold text-[#323232] uppercase" style={{ fontSize: 'var(--text-xs)' }}>Pengaturan Umum</span>
+              <span className="font-semibold text-sd-gray-90 uppercase" style={{ fontSize: 'var(--text-xs)' }}>Pengaturan Umum</span>
             </div>
-            <button onClick={() => navigate('/')} className="flex items-center gap-[10px] px-[16px] py-[8px] bg-[#f3f8ff] text-[#45474a] text-left hover:bg-[#eaf3fe]" style={{ fontSize: '12px' }}>
+            <button onClick={() => navigate('/')} className="flex items-center gap-[10px] px-[16px] py-[8px] bg-sd-blue-5 text-sd-gray-80 text-left hover:bg-sd-blue-5" style={{ fontSize: '12px' }}>
               <Home className="size-[16px]" /> Kembali ke Beranda Portal
             </button>
             <nav className="flex-1 overflow-y-auto p-[8px] flex flex-col gap-[4px]">
-              <button onClick={() => setAppOpen(!appOpen)} className="w-full flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] bg-[#f0f0f0] text-left" style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+              <button onClick={() => setAppOpen(!appOpen)} className="w-full flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] bg-sd-gray-5 text-left" style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
                 <Settings className="size-[20px]" /><span className="flex-1">Pengaturan Aplikasi</span>
                 {appOpen ? <ChevronUp className="size-[18px]" /> : <ChevronDown className="size-[18px]" />}
               </button>
@@ -44,13 +44,13 @@ function Layout({ children }: { children: ReactNode }) {
               {item('/pengaturan/informasi-sistem', 'Informasi Sistem', <Info className="size-[20px]" />)}
               {item('/pengaturan/banner-utama', 'Banner Utama', <ImageIcon className="size-[20px]" />)}
             </nav>
-            <button onClick={() => setCollapsed(true)} className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-[#45474a] hover:bg-[#F9F9F9]" style={{ fontSize: '12px' }}>
+            <button onClick={() => setCollapsed(true)} className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-80 hover:bg-sd-gray-0" style={{ fontSize: '12px' }}>
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu
             </button>
           </aside>
         )}
         <main className="flex-1 min-w-0 overflow-y-auto p-[20px]">
-          {collapsed && <button onClick={() => setCollapsed(false)} className="mb-[8px] text-[#0954D9]" style={{ fontSize: 'var(--text-sm)' }}>Tampilkan menu</button>}
+          {collapsed && <button onClick={() => setCollapsed(false)} className="mb-[8px] text-sd-blue-70" style={{ fontSize: 'var(--text-sm)' }}>Tampilkan menu</button>}
           {children}
         </main>
       </div>
@@ -61,8 +61,8 @@ function Layout({ children }: { children: ReactNode }) {
 function Page({ title, subtitle, action, children }: { title: string; subtitle: string; action?: ReactNode; children: ReactNode }) {
   return (
     <Layout>
-      <h1 className="font-semibold text-[#323232]" style={{ fontSize: '24px' }}>{title}</h1>
-      <p className="text-[#323232] mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
+      <h1 className="font-semibold text-sd-gray-90" style={{ fontSize: '24px' }}>{title}</h1>
+      <p className="text-sd-gray-90 mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>{subtitle}</p>
       <div className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px]">
         {action && <div className="flex justify-end mb-[8px]">{action}</div>}
         {children}
@@ -72,7 +72,7 @@ function Page({ title, subtitle, action, children }: { title: string; subtitle: 
 }
 
 const DarkButton = ({ children }: { children: ReactNode }) => (
-  <button className="bg-[#323232] text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+  <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
     <Plus className="size-[16px]" /> {children}
   </button>
 );
@@ -98,8 +98,8 @@ export function UserPage() {
     <Page title="Manajemen Pengguna" subtitle="Kelola pengguna dan role akses">
       <StagingDataTable columns={[col('no', 'No', '56px'), col('nip', 'NIP'), col('nama', 'Nama'), col('roles', 'Roles'), col('aksi', 'Aksi', '80px')]}
         rows={[
-          { no: 1, nip: '100000000000000001', nama: <div><div>Pengguna Contoh Satu</div><div className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>satu@contoh.example</div></div>, roles: 'Pegawai', aksi: <MoreAction /> },
-          { no: 2, nip: '100000000000000002', nama: <div><div>Pengguna Contoh Dua</div><div className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>dua@contoh.example</div></div>, roles: 'Korektor SK, Pegawai', aksi: <MoreAction /> },
+          { no: 1, nip: '100000000000000001', nama: <div><div>Pengguna Contoh Satu</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>satu@contoh.example</div></div>, roles: 'Pegawai', aksi: <MoreAction /> },
+          { no: 2, nip: '100000000000000002', nama: <div><div>Pengguna Contoh Dua</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>dua@contoh.example</div></div>, roles: 'Korektor SK, Pegawai', aksi: <MoreAction /> },
         ]} />
     </Page>
   );
@@ -111,7 +111,7 @@ export function PemberitahuanUmumPage() {
       <StagingDataTable columns={[col('no', 'No', '56px'), col('judul', 'Judul dan Deskripsi Berita'), col('status', 'Status', '140px'), col('aksi', 'Aksi', '80px')]}
         rows={[{
           no: 1,
-          judul: <div><div className="font-medium">Contoh Judul Pemberitahuan</div><div className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>Dipublikasikan pada : 29 Oktober 2026 - 31 Oktober 2026</div><div className="text-[#8a8d90]" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui : 29 Oktober 2026 09:07</div></div>,
+          judul: <div><div className="font-medium">Contoh Judul Pemberitahuan</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>Dipublikasikan pada : 29 Oktober 2026 - 31 Oktober 2026</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui : 29 Oktober 2026 09:07</div></div>,
           status: <Chip tone="blue">Berakhir</Chip>, aksi: <MoreAction />,
         }]} />
     </Page>
@@ -131,9 +131,9 @@ export function BannerUtamaPage() {
   const [tab, setTab] = useState(0);
   return (
     <Page title="Banner" subtitle="Kelola banner yang ditampilkan di halaman utama portal" action={<DarkButton>Buat Banner</DarkButton>}>
-      <p className="mb-[8px] text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>0 dari 5 slot banner aktif</p>
-      <div className="rounded-[8px] bg-[#eaf3fe] border border-[#a9d2f7] p-[12px] mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>
-        <p className="font-semibold flex items-center gap-[6px]"><Info className="size-[16px] text-[#0954D9]" /> Petunjuk Pengaturan Banner</p>
+      <p className="mb-[8px] text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>0 dari 5 slot banner aktif</p>
+      <div className="rounded-[8px] bg-sd-blue-5 border border-[#a9d2f7] p-[12px] mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>
+        <p className="font-semibold flex items-center gap-[6px]"><Info className="size-[16px] text-sd-blue-70" /> Petunjuk Pengaturan Banner</p>
         <ul className="list-disc pl-[28px] mt-[4px]">
           <li>Klik "Atur Urutan" untuk mengubah posisi banner, lalu konfirmasi perubahan.</li>
           <li>Maksimal 5 banner aktif yang dapat ditampilkan secara bersamaan.</li>
@@ -143,10 +143,10 @@ export function BannerUtamaPage() {
       </div>
       <div className="flex gap-[24px] border-b border-[#e4e4e4]">
         {['Aktif', 'Tidak Aktif', 'Dijadwalkan'].map((t, i) => (
-          <button key={t} onClick={() => setTab(i)} className={`py-[10px] border-b-[3px] ${i === tab ? 'border-[#0954D9]' : 'border-transparent'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{t}</button>
+          <button key={t} onClick={() => setTab(i)} className={`py-[10px] border-b-[3px] ${i === tab ? 'border-sd-blue-70' : 'border-transparent'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{t}</button>
         ))}
       </div>
-      <div className="py-[40px] text-center text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>
+      <div className="py-[40px] text-center text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>
         <p className="font-semibold">Data Tidak Ditemukan</p>
         <p>{['Belum ada banner aktif.', 'Belum ada banner tidak aktif.', 'Belum ada banner dijadwalkan.'][tab]}</p>
       </div>

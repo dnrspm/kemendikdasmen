@@ -8,7 +8,7 @@ export function NotificationDrawer({ open, onClose, items }: { open: boolean; on
   const unread = items.filter((n) => !n.isRead);
   const list = filter === 'semua' ? items : unread;
   const Pill = ({ id, label, count }: { id: 'semua' | 'belum'; label: string; count: number }) => (
-    <button onClick={() => setFilter(id)} className={`rounded-full border px-[12px] py-[2px] flex items-center gap-[6px] ${filter === id ? 'border-[#0954D9] bg-[#eaf3fe]' : 'border-[#828282]'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
+    <button onClick={() => setFilter(id)} className={`rounded-full border px-[12px] py-[2px] flex items-center gap-[6px] ${filter === id ? 'border-sd-blue-70 bg-sd-blue-5' : 'border-sd-gray-50'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>
       {label}
       <span className="min-w-[16px] h-[16px] px-[4px] rounded-full bg-[#d8142c] text-white grid place-items-center" style={{ fontSize: '10px' }}>{count}</span>
     </button>
@@ -25,14 +25,14 @@ export function NotificationDrawer({ open, onClose, items }: { open: boolean; on
           <Pill id="belum" label="Belum Dibaca" count={unread.length} />
         </div>
         {list.length === 0 ? (
-          <p className="text-center text-[#727272] py-[32px]" style={{ fontSize: 'var(--text-sm)' }}>Tidak ada pemberitahuan.</p>
+          <p className="text-center text-sd-gray-60 py-[32px]" style={{ fontSize: 'var(--text-sm)' }}>Tidak ada pemberitahuan.</p>
         ) : list.map((n) => (
-          <div key={n.id} className="rounded-[6px] bg-[#f0f0f0] px-[12px] py-[10px] mb-[8px]">
+          <div key={n.id} className="rounded-[6px] bg-sd-gray-5 px-[12px] py-[10px] mb-[8px]">
             <div className="flex justify-between gap-[8px]">
               <span className="font-semibold" style={{ fontSize: 'var(--text-xs)' }}>{n.title}</span>
-              <span className="text-[#727272]" style={{ fontSize: '11px' }}>{n.time}</span>
+              <span className="text-sd-gray-60" style={{ fontSize: '11px' }}>{n.time}</span>
             </div>
-            <p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>{n.message}</p>
+            <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>{n.message}</p>
           </div>
         ))}
       </aside>

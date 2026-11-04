@@ -48,7 +48,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
 
   if (type === 'fitur-portal') {
     return (
-      <div className="relative w-full h-full overflow-hidden bg-[#F59E0B]">
+      <div className="relative w-full h-full overflow-hidden bg-sd-yellow-30">
         <img
           src={imgFiturPortal}
           alt="Pelajari Fitur Portal Lebih Mudah di Sini"
@@ -89,7 +89,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
         <svg width="100%" height="100%" viewBox="0 0 1200 400" preserveAspectRatio="none" className="w-full h-full">
           <defs>
             <pattern id={`diagonalStripes-${type}`} patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(45)">
-              <rect width="20" height="40" fill="#DC2626" />
+              <rect width="20" height="40" fill="var(--sd-red-60)" />
               <rect x="20" width="20" height="40" fill="#FFFFFF" />
             </pattern>
           </defs>

@@ -89,27 +89,27 @@ export function ProjectList({ organization, initialFilters }: ProjectListProps) 
   return (
     <div className="space-y-[24px]">
       {/* Controls */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px]">
         <div className="flex flex-col gap-[16px]">
           {/* Filter Unit Kerja & Tim Kerja */}
           <div className="grid grid-cols-2 gap-[12px]">
             <div className="flex flex-col gap-[8px]">
-              <label className="text-[var(--text-sm)] text-[#656a6c]">Unit Kerja:</label>
+              <label className="text-[var(--text-sm)] text-sd-gray-60">Unit Kerja:</label>
               <select
                 value="biro-osdm"
                 onChange={() => {}}
                 disabled
-                className="w-full px-[12px] py-[8px] border border-[#ADADAD] rounded-[4px] text-[var(--text-sm)] text-[#727272] bg-[#f9f9f9] cursor-not-allowed opacity-70"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-30 rounded-[4px] text-[var(--text-sm)] text-sd-gray-60 bg-sd-gray-0 cursor-not-allowed opacity-70"
               >
                 <option value="biro-osdm">Biro OSDM</option>
               </select>
             </div>
             <div className="flex flex-col gap-[8px]">
-              <label className="text-[var(--text-sm)] text-[#656a6c]">Tim Kerja:</label>
+              <label className="text-[var(--text-sm)] text-sd-gray-60">Tim Kerja:</label>
               <select
                 value={filterTimKerja}
                 onChange={(e) => setFilterTimKerja(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="all">Semua Tim Kerja</option>
                 {localFilterBiro === 'all' ? (
@@ -127,11 +127,11 @@ export function ProjectList({ organization, initialFilters }: ProjectListProps) 
 
           {/* Filter SKP */}
           <div className="flex flex-col gap-[8px]">
-            <label className="text-[var(--text-sm)] text-[#656a6c]">SKP:</label>
+            <label className="text-[var(--text-sm)] text-sd-gray-60">SKP:</label>
             <select
               value={filterEpic}
               onChange={(e) => setFilterEpic(e.target.value)}
-              className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+              className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
             >
               <option value="all">Semua SKP</option>
               {orgProjects.map(epic => (
@@ -153,8 +153,8 @@ export function ProjectList({ organization, initialFilters }: ProjectListProps) 
                 onClick={() => setFilterStatus(value)}
                 className={`px-[20px] py-[10px] rounded-[8px] border-2 text-[var(--text-base)] font-[var(--font-weight-medium)] transition-colors ${
                   filterStatus === value
-                    ? 'border-[#0954D9] text-[#0954D9] bg-white'
-                    : 'border-[#ADADAD] text-[#323232] bg-white hover:border-[#828282]'
+                    ? 'border-sd-blue-70 text-sd-blue-70 bg-white'
+                    : 'border-sd-gray-30 text-sd-gray-90 bg-white hover:border-sd-gray-50'
                 }`}
               >
                 {label}
@@ -182,9 +182,9 @@ export function ProjectList({ organization, initialFilters }: ProjectListProps) 
         ))}
 
         {filteredProjects.length === 0 && (
-          <div className="col-span-full bg-white rounded-[8px] border border-[#ADADAD] p-[40px] text-center">
-            <FolderKanban className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#727272]" />
-            <p className="text-[var(--text-base)] text-[#727272]">Tidak ada SKP ditemukan</p>
+          <div className="col-span-full bg-white rounded-[8px] border border-sd-gray-30 p-[40px] text-center">
+            <FolderKanban className="w-[48px] h-[48px] mx-auto mb-[16px] text-sd-gray-60" />
+            <p className="text-[var(--text-base)] text-sd-gray-60">Tidak ada SKP ditemukan</p>
           </div>
         )}
       </div>
@@ -208,9 +208,9 @@ function statusFromProgress(progress: number): 'belum_dimulai' | 'sedang_dikerja
 }
 
 function progressBarColor(progress: number): string {
-  if (progress >= 100) return '#4CA375';
-  if (progress <= 0) return '#EDA62B';
-  return '#0954D9';
+  if (progress >= 100) return 'var(--sd-success-border)';
+  if (progress <= 0) return 'var(--sd-warning-border)';
+  return 'var(--sd-blue-70)';
 }
 
 function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void }) {
@@ -227,9 +227,9 @@ function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void 
 
   const getStatusColor = (status: ReturnType<typeof statusFromProgress>) => {
     const colors = {
-      belum_dimulai: 'text-[#EDA62B] bg-[#EDA62B]/10',
-      sedang_dikerjakan: 'text-[#0954D9] bg-[#0954D9]/10',
-      selesai: 'text-[#4CA375] bg-[#4CA375]/10',
+      belum_dimulai: 'text-sd-warning-border bg-sd-warning-border/10',
+      sedang_dikerjakan: 'text-sd-blue-70 bg-sd-blue-70/10',
+      selesai: 'text-sd-success-border bg-sd-success-border/10',
     };
     return colors[status];
   };
@@ -240,7 +240,7 @@ function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void 
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] hover:shadow-md transition-shadow cursor-pointer"
+      className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px] hover:shadow-md transition-shadow cursor-pointer"
     >
       {/* Header */}
       <div className="flex items-start gap-[12px] mb-[16px]">
@@ -248,7 +248,7 @@ function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void 
           <FolderKanban className="w-[20px] h-[20px] text-[#906CEF]" />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] line-clamp-2">
+          <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 line-clamp-2">
             {project.name}
           </h3>
         </div>
@@ -257,14 +257,14 @@ function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void 
       {/* PIC & Tim Kerja */}
       <div className="flex flex-col gap-[6px] mb-[16px]">
         <div className="flex items-center gap-[6px]">
-          <User className="w-[14px] h-[14px] text-[#727272] shrink-0" />
-          <span className="text-[var(--text-xs)] text-[#656a6c]">PIC:</span>
-          <span className="text-[var(--text-xs)] text-[#323232] font-[var(--font-weight-medium)]">{picName}</span>
+          <User className="w-[14px] h-[14px] text-sd-gray-60 shrink-0" />
+          <span className="text-[var(--text-xs)] text-sd-gray-60">PIC:</span>
+          <span className="text-[var(--text-xs)] text-sd-gray-90 font-[var(--font-weight-medium)]">{picName}</span>
         </div>
         <div className="flex items-center gap-[6px]">
-          <Users className="w-[14px] h-[14px] text-[#727272] shrink-0" />
-          <span className="text-[var(--text-xs)] text-[#656a6c]">Tim Kerja:</span>
-          <span className="text-[var(--text-xs)] text-[#323232] font-[var(--font-weight-medium)] line-clamp-1">{timKerjaName}</span>
+          <Users className="w-[14px] h-[14px] text-sd-gray-60 shrink-0" />
+          <span className="text-[var(--text-xs)] text-sd-gray-60">Tim Kerja:</span>
+          <span className="text-[var(--text-xs)] text-sd-gray-90 font-[var(--font-weight-medium)] line-clamp-1">{timKerjaName}</span>
         </div>
       </div>
 
@@ -278,10 +278,10 @@ function ProjectCard({ project, onClick }: { project: Epic; onClick: () => void 
       {/* Progress Bar */}
       <div>
         <div className="flex items-center justify-between mb-[8px]">
-          <span className="text-[var(--text-xs)] text-[#656a6c]">Progress</span>
-          <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-[#323232]">{project.progress}%</span>
+          <span className="text-[var(--text-xs)] text-sd-gray-60">Progress</span>
+          <span className="text-[var(--text-xs)] font-[var(--font-weight-medium)] text-sd-gray-90">{project.progress}%</span>
         </div>
-        <div className="w-full h-[6px] bg-[#EFEFEF] rounded-full overflow-hidden">
+        <div className="w-full h-[6px] bg-sd-badge-neutral rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
             style={{ width: `${project.progress}%`, backgroundColor: progressBarColor(project.progress) }}

@@ -184,12 +184,12 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
   };
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen w-full">
+    <div className="bg-sd-gray-0 min-h-screen w-full">
       {/* Header */}
       <Header onLogoClick={onBack} />
 
       {/* Breadcrumbs */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]" aria-label="Breadcrumb">
             <button
@@ -215,12 +215,12 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
       </div>
 
       {/* Page Header */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[32px]">
-          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+          <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
             Repositori Surat Persetujuan Kebutuhan JF
           </h1>
-          <p className="text-[var(--text-base)] text-[#656a6c]">
+          <p className="text-[var(--text-base)] text-sd-gray-60">
             Akses dan unduh surat persetujuan kebutuhan jabatan fungsional dari berbagai tahun
           </p>
         </div>
@@ -228,10 +228,10 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
 
       {/* Main Content */}
       <div className="max-w-[1440px] mx-auto px-[24px] py-[24px]">
-        <div className="bg-white border border-[#E2E8F0] rounded-[8px] overflow-hidden">
+        <div className="bg-white border border-sd-gray-10 rounded-[8px] overflow-hidden">
 
           {/* ── Baris 1: Tab navigasi jenis dokumen ─────────────────────────── */}
-          <div className="px-[24px] border-b border-[#E2E8F0]">
+          <div className="px-[24px] border-b border-sd-gray-10">
             <div className="flex gap-[32px]">
               {([
                 { value: 'surat-jf', label: 'Surat Kebutuhan JF' },
@@ -248,7 +248,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                       className="text-[15px] leading-[22px] whitespace-nowrap"
                       style={{
                         fontWeight: 'var(--font-weight-semibold)',
-                        color: isActive ? '#0954D9' : '#65686c',
+                        color: isActive ? 'var(--sd-blue-70)' : '#65686c',
                       }}
                     >
                       {label}
@@ -256,7 +256,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                     {/* Active underline */}
                     <div
                       className="absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all"
-                      style={{ backgroundColor: isActive ? '#0954D9' : 'transparent' }}
+                      style={{ backgroundColor: isActive ? 'var(--sd-blue-70)' : 'transparent' }}
                     />
                   </button>
                 );
@@ -265,16 +265,16 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
           </div>
 
           {/* ── Baris 2: Search + Filter tahun ──────────────────────────────── */}
-          <div className="px-[24px] py-[16px] border-b border-[#E2E8F0] flex items-center gap-[12px]">
+          <div className="px-[24px] py-[16px] border-b border-sd-gray-10 flex items-center gap-[12px]">
             {/* Search Bar */}
             <div className="flex-1 relative">
-              <Search className="absolute left-[14px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#727272]" />
+              <Search className="absolute left-[14px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-sd-gray-60" />
               <input
                 type="text"
                 placeholder="Cari nama atau nomor dokumen..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[40px] pl-[42px] pr-[16px] border border-[#ADADAD] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[40px] pl-[42px] pr-[16px] border border-sd-gray-30 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
             </div>
 
@@ -282,10 +282,10 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
             <div className="relative">
               <button
                 onClick={() => setShowYearDropdown(!showYearDropdown)}
-                className="flex items-center gap-[8px] h-[40px] px-[14px] border border-[#ADADAD] rounded-[4px] bg-white text-[var(--text-base)] text-[#323232] hover:border-[#1A5BA6] transition-colors min-w-[148px] justify-between"
+                className="flex items-center gap-[8px] h-[40px] px-[14px] border border-sd-gray-30 rounded-[4px] bg-white text-[var(--text-base)] text-sd-gray-90 hover:border-sd-blue-70 transition-colors min-w-[148px] justify-between"
               >
                 <span>{selectedYear === 'all' ? 'Semua Tahun' : selectedYear}</span>
-                <ChevronDown className="w-[16px] h-[16px] text-[#656a6c]" />
+                <ChevronDown className="w-[16px] h-[16px] text-sd-gray-60" />
               </button>
 
               {showYearDropdown && (
@@ -294,7 +294,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                     className="fixed inset-0 z-40"
                     onClick={() => setShowYearDropdown(false)}
                   />
-                  <div className="absolute top-full mt-[8px] right-0 bg-white border border-[#E2E8F0] rounded-[8px] shadow-lg min-w-[148px] z-50">
+                  <div className="absolute top-full mt-[8px] right-0 bg-white border border-sd-gray-10 rounded-[8px] shadow-lg min-w-[148px] z-50">
                     <div className="p-[8px]">
                       <button
                         onClick={() => {
@@ -302,7 +302,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                           setShowYearDropdown(false);
                         }}
                         className={`w-full text-left px-[12px] py-[8px] rounded-[4px] text-[var(--text-sm)] transition-colors ${
-                          selectedYear === 'all' ? 'bg-[#EBF2FF] text-[#1A5BA6]' : 'hover:bg-[#F9FAFB]'
+                          selectedYear === 'all' ? 'bg-sd-blue-5 text-sd-blue-70' : 'hover:bg-sd-gray-0'
                         }`}
                       >
                         Semua Tahun
@@ -315,7 +315,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                             setShowYearDropdown(false);
                           }}
                           className={`w-full text-left px-[12px] py-[8px] rounded-[4px] text-[var(--text-sm)] transition-colors ${
-                            selectedYear === year.toString() ? 'bg-[#EBF2FF] text-[#1A5BA6]' : 'hover:bg-[#F9FAFB]'
+                            selectedYear === year.toString() ? 'bg-sd-blue-5 text-sd-blue-70' : 'hover:bg-sd-gray-0'
                           }`}
                         >
                           {year}
@@ -332,38 +332,38 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
           {filteredDocuments.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-[#F9FAFB] border-b border-[#E2E8F0]">
+                <thead className="bg-sd-gray-0 border-b border-sd-gray-10">
                   <tr>
-                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] uppercase tracking-wider">
+                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 uppercase tracking-wider">
                       Nama Dokumen
                     </th>
-                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] uppercase tracking-wider w-[200px]">
+                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 uppercase tracking-wider w-[200px]">
                       Nomor Dokumen
                     </th>
-                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] uppercase tracking-wider w-[180px]">
+                    <th className="px-[20px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 uppercase tracking-wider w-[180px]">
                       Tipe
                     </th>
-                    <th className="px-[20px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] uppercase tracking-wider w-[100px]">
+                    <th className="px-[20px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 uppercase tracking-wider w-[100px]">
                       Tahun
                     </th>
-                    <th className="px-[20px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] uppercase tracking-wider w-[200px]">
+                    <th className="px-[20px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 uppercase tracking-wider w-[200px]">
                       Aksi
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E2E8F0]">
+                <tbody className="divide-y divide-sd-gray-10">
                   {filteredDocuments.map((doc) => (
-                    <tr key={doc.id} className="hover:bg-[#F9FAFB] transition-colors">
+                    <tr key={doc.id} className="hover:bg-sd-gray-0 transition-colors">
                       {/* Document Name */}
                       <td className="px-[20px] py-[14px]">
-                        <p className="text-[var(--text-base)] text-[#323232] leading-snug">
+                        <p className="text-[var(--text-base)] text-sd-gray-90 leading-snug">
                           {doc.title}
                         </p>
                       </td>
 
                       {/* Document Number */}
                       <td className="px-[20px] py-[14px]">
-                        <p className="text-[var(--text-sm)] text-[#656a6c]">
+                        <p className="text-[var(--text-sm)] text-sd-gray-60">
                           {doc.number}
                         </p>
                       </td>
@@ -372,8 +372,8 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
                       <td className="px-[20px] py-[14px]">
                         <span className={`inline-flex px-[12px] py-[6px] rounded-[16px] text-[var(--text-sm)] font-[var(--font-weight-medium)] ${
                           doc.type === 'Surat JF'
-                            ? 'bg-[#DBEAFE] text-[#1E40AF]'
-                            : 'bg-[#FEF3C7] text-[#92400E]'
+                            ? 'bg-sd-blue-5 text-sd-blue-80'
+                            : 'bg-sd-warning-surface text-[#92400E]'
                         }`}>
                           {doc.type}
                         </span>
@@ -381,7 +381,7 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
 
                       {/* Year */}
                       <td className="px-[20px] py-[14px] text-center">
-                        <span className="text-[var(--text-base)] text-[#323232]">
+                        <span className="text-[var(--text-base)] text-sd-gray-90">
                           {doc.year}
                         </span>
                       </td>
@@ -413,11 +413,11 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
             /* Empty State */
             <div className="p-[64px] text-center">
               <div className="max-w-[400px] mx-auto">
-                <Search className="w-[64px] h-[64px] text-[#727272] mx-auto mb-[16px]" />
-                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+                <Search className="w-[64px] h-[64px] text-sd-gray-60 mx-auto mb-[16px]" />
+                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
                   Dokumen Tidak Ditemukan
                 </h3>
-                <p className="text-[var(--text-sm)] text-[#656a6c] mb-[24px]">
+                <p className="text-[var(--text-sm)] text-sd-gray-60 mb-[24px]">
                   Tidak ada dokumen yang sesuai dengan kriteria pencarian Anda.
                 </p>
                 <button
@@ -440,23 +440,23 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-[24px]">
           <div className="bg-white rounded-[12px] w-full max-w-[800px] max-h-[90vh] flex flex-col shadow-2xl">
             {/* Modal Header */}
-            <div className="flex items-start justify-between p-[24px] border-b border-[#E2E8F0]">
+            <div className="flex items-start justify-between p-[24px] border-b border-sd-gray-10">
               <div className="flex-1 pr-[16px]">
-                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[4px]">
+                <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[4px]">
                   Detail Dokumen
                 </h3>
-                <p className="text-[var(--text-sm)] text-[#656a6c]">
+                <p className="text-[var(--text-sm)] text-sd-gray-60">
                   {detailDocument.title}
                 </p>
-                <p className="text-[var(--text-sm)] text-[#656a6c] mt-[4px]">
+                <p className="text-[var(--text-sm)] text-sd-gray-60 mt-[4px]">
                   {detailDocument.number}
                 </p>
               </div>
               <button
                 onClick={() => setDetailDocument(null)}
-                className="p-[8px] rounded-[6px] hover:bg-[#F9FAFB] transition-colors"
+                className="p-[8px] rounded-[6px] hover:bg-sd-gray-0 transition-colors"
               >
-                <X className="w-[20px] h-[20px] text-[#656a6c]" />
+                <X className="w-[20px] h-[20px] text-sd-gray-60" />
               </button>
             </div>
 
@@ -465,38 +465,38 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
               {detailDocument.type === 'Surat JF' && detailDocument.jfDetails ? (
                 /* JF Detail Table */
                 <div>
-                  <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[16px]">
+                  <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[16px]">
                     Rincian Kebutuhan Jabatan Fungsional
                   </h4>
-                  <div className="border border-[#E2E8F0] rounded-[8px] overflow-hidden">
+                  <div className="border border-sd-gray-10 rounded-[8px] overflow-hidden">
                     <table className="w-full">
-                      <thead className="bg-[#F9FAFB]">
+                      <thead className="bg-sd-gray-0">
                         <tr>
-                          <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0]">
+                          <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10">
                             Jenjang Jabatan
                           </th>
-                          <th className="px-[16px] py-[12px] text-right text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0] w-[200px]">
+                          <th className="px-[16px] py-[12px] text-right text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10 w-[200px]">
                             Jumlah Kebutuhan
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {detailDocument.jfDetails.map((item, idx) => (
-                          <tr key={idx} className="border-b border-[#E2E8F0] last:border-b-0">
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232]">
+                          <tr key={idx} className="border-b border-sd-gray-10 last:border-b-0">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90">
                               {item.jenjang}
                             </td>
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232] text-right">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90 text-right">
                               {item.jumlah}
                             </td>
                           </tr>
                         ))}
                         {/* Total Row */}
-                        <tr className="bg-[#F9FAFB]">
-                          <td className="px-[16px] py-[12px] text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232]">
+                        <tr className="bg-sd-gray-0">
+                          <td className="px-[16px] py-[12px] text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90">
                             Total
                           </td>
-                          <td className="px-[16px] py-[12px] text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] text-right">
+                          <td className="px-[16px] py-[12px] text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 text-right">
                             {detailDocument.jfDetails.reduce((sum, item) => sum + item.jumlah, 0)}
                           </td>
                         </tr>
@@ -507,40 +507,40 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
               ) : detailDocument.type === 'Kepmen' && detailDocument.kepmenDetails ? (
                 /* Kepmen Detail Table */
                 <div>
-                  <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[16px]">
+                  <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[16px]">
                     Peta Jabatan Fungsional
                   </h4>
-                  <div className="border border-[#E2E8F0] rounded-[8px] overflow-hidden">
+                  <div className="border border-sd-gray-10 rounded-[8px] overflow-hidden">
                     <table className="w-full">
-                      <thead className="bg-[#F9FAFB]">
+                      <thead className="bg-sd-gray-0">
                         <tr>
-                          <th className="px-[16px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0] w-[60px]">
+                          <th className="px-[16px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10 w-[60px]">
                             No
                           </th>
-                          <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0]">
+                          <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10">
                             Nama Jabatan
                           </th>
-                          <th className="px-[16px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0] w-[140px]">
+                          <th className="px-[16px] py-[12px] text-center text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10 w-[140px]">
                             Kelas Jabatan
                           </th>
-                          <th className="px-[16px] py-[12px] text-right text-[var(--text-sm)] font-[var(--font-weight-bold)] text-[#323232] border-b border-[#E2E8F0] w-[180px]">
+                          <th className="px-[16px] py-[12px] text-right text-[var(--text-sm)] font-[var(--font-weight-bold)] text-sd-gray-90 border-b border-sd-gray-10 w-[180px]">
                             Persediaan Pegawai
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {detailDocument.kepmenDetails.map((item, idx) => (
-                          <tr key={idx} className="border-b border-[#E2E8F0] last:border-b-0">
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232] text-center">
+                          <tr key={idx} className="border-b border-sd-gray-10 last:border-b-0">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90 text-center">
                               {item.no}
                             </td>
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232]">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90">
                               {item.namaJabatan}
                             </td>
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232] text-center">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90 text-center">
                               {item.kelasJabatan}
                             </td>
-                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-[#323232] text-right">
+                            <td className="px-[16px] py-[10px] text-[var(--text-sm)] text-sd-gray-90 text-right">
                               {item.persediaanPegawai}
                             </td>
                           </tr>
@@ -553,16 +553,16 @@ export function RepositoriSurat({ onBack }: RepositoriSuratProps) {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-[24px] border-t border-[#E2E8F0] flex justify-end gap-[12px]">
+            <div className="p-[24px] border-t border-sd-gray-10 flex justify-end gap-[12px]">
               <button
                 onClick={() => setDetailDocument(null)}
-                className="px-[20px] py-[10px] border border-[#ADADAD] text-[#323232] rounded-[4px] text-[var(--text-base)] font-[var(--font-weight-medium)] hover:bg-[#F9FAFB] transition-colors"
+                className="px-[20px] py-[10px] border border-sd-gray-30 text-sd-gray-90 rounded-[4px] text-[var(--text-base)] font-[var(--font-weight-medium)] hover:bg-sd-gray-0 transition-colors"
               >
                 Tutup
               </button>
               <button
                 onClick={() => handleDownload(detailDocument)}
-                className="flex items-center gap-[8px] px-[20px] py-[10px] bg-[#1A5BA6] text-white rounded-[4px] text-[var(--text-base)] font-[var(--font-weight-medium)] hover:bg-[#154A8C] transition-colors"
+                className="flex items-center gap-[8px] px-[20px] py-[10px] bg-sd-blue-70 text-white rounded-[4px] text-[var(--text-base)] font-[var(--font-weight-medium)] hover:bg-[#154A8C] transition-colors"
               >
                 <Download className="w-[16px] h-[16px]" />
                 Download Dokumen

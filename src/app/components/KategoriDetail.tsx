@@ -41,12 +41,12 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
   const IconComponent = category.icon;
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen w-full">
+    <div className="bg-sd-gray-0 min-h-screen w-full">
       {/* Navigation Header */}
       <Header onLogoClick={onBack} />
 
       {/* Breadcrumbs */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]" aria-label="Breadcrumb">
             <button
@@ -72,7 +72,7 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
       </div>
 
       {/* Category Header */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1280px] mx-auto px-[24px] py-[32px]">
           <div className="flex items-center gap-[16px] mb-[16px]">
             <div
@@ -85,10 +85,10 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
               />
             </div>
             <div>
-              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232]">
+              <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 {category.title}
               </h1>
-              <p className="text-[var(--text-base)] text-[#656a6c] mt-[4px]">
+              <p className="text-[var(--text-base)] text-sd-gray-60 mt-[4px]">
                 {category.subcategories.length} Subkategori • {category.subcategories.reduce((total, sub) => total + sub.articles.length, 0)} Artikel
               </p>
             </div>
@@ -103,10 +103,10 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
             <section key={subcategory.id}>
               {/* Subcategory Header */}
               <div className="mb-[24px]">
-                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+                <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
                   {subcategory.name}
                 </h2>
-                <p className="text-[var(--text-sm)] text-[#656a6c]">
+                <p className="text-[var(--text-sm)] text-sd-gray-60">
                   {subcategory.description}
                 </p>
               </div>
@@ -116,34 +116,34 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
                 {subcategory.articles.map((article) => (
                   <button
                     key={article.id}
-                    className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px] text-left hover:shadow-md hover:border-primary transition-all group"
+                    className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px] text-left hover:shadow-md hover:border-primary transition-all group"
                     onClick={() => onNavigateToArtikel && onNavigateToArtikel(article.id)}
                   >
                     <div className="flex flex-col gap-[12px]">
                       {/* Article Title */}
-                      <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] line-clamp-2 group-hover:text-primary transition-colors">
+                      <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 line-clamp-2 group-hover:text-primary transition-colors">
                         {article.title}
                       </h3>
 
                       {/* Article Excerpt */}
-                      <p className="text-[var(--text-sm)] text-[#656a6c] line-clamp-3 leading-[1.6]">
+                      <p className="text-[var(--text-sm)] text-sd-gray-60 line-clamp-3 leading-[1.6]">
                         {article.excerpt}
                       </p>
 
                       {/* Article Meta */}
-                      <div className="flex items-center gap-[16px] mt-[4px] pt-[12px] border-t border-[#EFEFEF]">
-                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#727272]">
+                      <div className="flex items-center gap-[16px] mt-[4px] pt-[12px] border-t border-sd-badge-neutral">
+                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-sd-gray-60">
                           <Clock className="w-[14px] h-[14px]" />
                           <span>{article.readTime}</span>
                         </div>
-                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-[#727272]">
+                        <div className="flex items-center gap-[6px] text-[var(--text-xs)] text-sd-gray-60">
                           <TrendingUp className="w-[14px] h-[14px]" />
                           <span>{article.views} views</span>
                         </div>
                       </div>
 
                       {/* Article Date */}
-                      <div className="text-[var(--text-xs)] text-[#727272]">
+                      <div className="text-[var(--text-xs)] text-sd-gray-60">
                         {article.date}
                       </div>
                     </div>
@@ -165,12 +165,12 @@ export function KategoriDetail({ category, onBack, onBackToPusatInformasi, onNav
 
         {/* Empty State */}
         {category.subcategories.length === 0 && (
-          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[48px] text-center">
-            <AlertCircle className="w-[48px] h-[48px] text-[#727272] mx-auto mb-[16px]" />
-            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+          <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[48px] text-center">
+            <AlertCircle className="w-[48px] h-[48px] text-sd-gray-60 mx-auto mb-[16px]" />
+            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
               Belum Ada Konten
             </h3>
-            <p className="text-[var(--text-sm)] text-[#656a6c]">
+            <p className="text-[var(--text-sm)] text-sd-gray-60">
               Konten untuk kategori ini sedang dalam persiapan. Silakan kembali lagi nanti.
             </p>
           </div>

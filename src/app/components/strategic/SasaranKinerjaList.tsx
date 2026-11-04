@@ -37,36 +37,36 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
   return (
     <div className="space-y-[24px]">
       {/* Controls */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px]">
         <div className="flex flex-col gap-[16px]">
           <div className="relative">
-            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
+            <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-sd-gray-60" />
             <input
               type="text"
               placeholder="Cari sasaran kinerja..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#828282] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+              className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
             />
           </div>
           <div className="grid grid-cols-2 gap-[12px]">
             <div className="flex flex-col gap-[8px]">
-              <label className="text-[var(--text-sm)] text-[#656a6c]">Unit Kerja:</label>
+              <label className="text-[var(--text-sm)] text-sd-gray-60">Unit Kerja:</label>
               <select
                 value="biro-osdm"
                 onChange={() => {}}
                 disabled
-                className="w-full px-[12px] py-[8px] border border-[#ADADAD] rounded-[4px] text-[var(--text-sm)] text-[#727272] bg-[#f9f9f9] cursor-not-allowed opacity-70"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-30 rounded-[4px] text-[var(--text-sm)] text-sd-gray-60 bg-sd-gray-0 cursor-not-allowed opacity-70"
               >
                 <option value="biro-osdm">Biro OSDM</option>
               </select>
             </div>
             <div className="flex flex-col gap-[8px]">
-              <label className="text-[var(--text-sm)] text-[#656a6c]">Sasaran Program:</label>
+              <label className="text-[var(--text-sm)] text-sd-gray-60">Sasaran Program:</label>
               <select
                 value={filterSasaranProgram}
                 onChange={(e) => setFilterSasaranProgram(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="all">Semua Sasaran Program</option>
                 {sasaranPrograms.map(sp => (
@@ -93,9 +93,9 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
         ))}
 
         {filteredKinerjas.length === 0 && (
-          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[40px] text-center">
-            <TrendingUp className="w-[48px] h-[48px] mx-auto mb-[16px] text-[#727272]" />
-            <p className="text-[var(--text-base)] text-[#727272]">Tidak ada sasaran kinerja ditemukan</p>
+          <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[40px] text-center">
+            <TrendingUp className="w-[48px] h-[48px] mx-auto mb-[16px] text-sd-gray-60" />
+            <p className="text-[var(--text-base)] text-sd-gray-60">Tidak ada sasaran kinerja ditemukan</p>
           </div>
         )}
       </div>
@@ -104,15 +104,15 @@ export function SasaranKinerjaList({ organization, periodFilter, level = 'unit-u
 }
 
 function getProgressColor(percentage: number): string {
-  if (percentage >= 100) return '#4CA375';
-  if (percentage <= 0) return '#EDA62B';
-  return '#0954D9';
+  if (percentage >= 100) return 'var(--sd-success-border)';
+  if (percentage <= 0) return 'var(--sd-warning-border)';
+  return 'var(--sd-blue-70)';
 }
 
 function getEpicColor(status: string): string {
-  if (status === 'selesai') return '#4CA375';
-  if (status === 'belum_dimulai' || status === 'belum_dikerjakan') return '#EDA62B';
-  return '#0954D9';
+  if (status === 'selesai') return 'var(--sd-success-border)';
+  if (status === 'belum_dimulai' || status === 'belum_dikerjakan') return 'var(--sd-warning-border)';
+  return 'var(--sd-blue-70)';
 }
 
 function CircularProgress({ percentage, color }: { percentage: number; color?: string }) {
@@ -127,7 +127,7 @@ function CircularProgress({ percentage, color }: { percentage: number; color?: s
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <circle cx={center} cy={center} r={radius} fill="none" stroke="#EFEFEF" strokeWidth={strokeWidth} />
+      <circle cx={center} cy={center} r={radius} fill="none" stroke="var(--sd-badge-neutral)" strokeWidth={strokeWidth} />
       <circle
         cx={center} cy={center} r={radius} fill="none"
         stroke={c} strokeWidth={strokeWidth}
@@ -155,30 +155,30 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
   };
 
   return (
-    <div className="bg-white border border-[#ADADAD] border-solid flex flex-col gap-[24px] items-start p-[20px] rounded-[8px]">
+    <div className="bg-white border border-sd-gray-30 border-solid flex flex-col gap-[24px] items-start p-[20px] rounded-[8px]">
       {/* SK Header */}
       <div className="flex flex-col gap-[12px] w-full">
         <div className="flex flex-col gap-[6px]">
-          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] self-start">
+          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 self-start">
             {kinerja.code}
           </span>
-          <h3 className="text-[19px] leading-[26.6px] text-[#323232]" style={{ fontWeight: 600 }}>
+          <h3 className="text-[19px] leading-[26.6px] text-sd-gray-90" style={{ fontWeight: 600 }}>
             {kinerja.name}
           </h3>
         </div>
         {/* Legend */}
         <div className="flex gap-[16px] items-center">
           <div className="flex gap-[4px] items-center">
-            <div className="w-[8px] h-[8px] rounded-full bg-[#4CA375] shrink-0" />
-            <span className="text-[16px] text-[#656a6c]">Selesai</span>
+            <div className="w-[8px] h-[8px] rounded-full bg-sd-success-border shrink-0" />
+            <span className="text-[16px] text-sd-gray-60">Selesai</span>
           </div>
           <div className="flex gap-[4px] items-center">
-            <div className="w-[8px] h-[8px] rounded-full bg-[#0954D9] shrink-0" />
-            <span className="text-[16px] text-[#656a6c]">Sedang dikerjakan</span>
+            <div className="w-[8px] h-[8px] rounded-full bg-sd-blue-70 shrink-0" />
+            <span className="text-[16px] text-sd-gray-60">Sedang dikerjakan</span>
           </div>
           <div className="flex gap-[4px] items-center">
-            <div className="w-[8px] h-[8px] rounded-full bg-[#EDA62B] shrink-0" />
-            <span className="text-[16px] text-[#656a6c]">Belum Dikerjakan</span>
+            <div className="w-[8px] h-[8px] rounded-full bg-sd-warning-border shrink-0" />
+            <span className="text-[16px] text-sd-gray-60">Belum Dikerjakan</span>
           </div>
         </div>
       </div>
@@ -192,25 +192,25 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
           .filter((e): e is Epic => !!e);
 
         return (
-          <div key={ikp.id} className="border border-[#efefef] border-solid flex flex-col items-start rounded-[6px] w-full">
+          <div key={ikp.id} className="border border-sd-badge-neutral border-solid flex flex-col items-start rounded-[6px] w-full">
             {/* IKK Header Row */}
-            <div className="bg-[#f9f9f9] flex gap-[12px] items-center px-[12px] py-[16px] w-full">
+            <div className="bg-sd-gray-0 flex gap-[12px] items-center px-[12px] py-[16px] w-full">
               {/* Circular progress + target */}
               <div className="flex flex-col gap-[8px] items-center shrink-0 w-[80px]">
                 <CircularProgress
                   percentage={relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0}
                   color={getProgressColor(relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0)}
                 />
-                <span className="text-[13px] text-[#323232] text-center">
+                <span className="text-[13px] text-sd-gray-90 text-center">
                   Target: {ikp.target}{ikp.unit}
                 </span>
               </div>
               {/* IKK badge + title */}
               <div className="flex flex-col items-start flex-1 min-w-0">
-                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] mb-[2px]">
+                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 mb-[2px]">
                   {ikkCode}
                 </span>
-                <p className="text-[16px] text-[#323232] leading-[24px]" style={{ fontWeight: 700 }}>
+                <p className="text-[16px] text-sd-gray-90 leading-[24px]" style={{ fontWeight: 700 }}>
                   {ikp.description}
                 </p>
               </div>
@@ -218,26 +218,26 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
 
             {/* SKP Rows */}
             {relatedEpics.map((epic, epicIndex) => (
-              <div key={epic.id} className="border-t border-[#efefef] border-solid flex gap-[12px] items-start px-[12px] py-[16px] w-full">
+              <div key={epic.id} className="border-t border-sd-badge-neutral border-solid flex gap-[12px] items-start px-[12px] py-[16px] w-full">
                 {/* Circular progress (no target label) */}
                 <div className="flex flex-col items-center shrink-0 w-[80px]">
                   <CircularProgress percentage={epic.progress} color={getProgressColor(epic.progress)} />
                 </div>
                 {/* SKP badge + description */}
                 <div className="flex flex-col items-start flex-1 min-w-0 pt-[2px]">
-                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-[#323232] mb-[6px]">
+                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 mb-[6px]">
                     SKP {kinerja.code.replace('SK', '')}.{ikpIndex + 1}.{epicIndex + 1}
                   </span>
                   {epic.description && (
-                    <p className="text-[14px] text-[#656a6c] leading-[22px] mt-[4px]">{epic.description}</p>
+                    <p className="text-[14px] text-sd-gray-60 leading-[22px] mt-[4px]">{epic.description}</p>
                   )}
                 </div>
               </div>
             ))}
 
             {relatedEpics.length === 0 && (
-              <div className="border-t border-[#efefef] px-[12px] py-[12px] w-full">
-                <p className="text-[14px] text-[#727272]">Belum ada SKP terkait</p>
+              <div className="border-t border-sd-badge-neutral px-[12px] py-[12px] w-full">
+                <p className="text-[14px] text-sd-gray-60">Belum ada SKP terkait</p>
               </div>
             )}
           </div>

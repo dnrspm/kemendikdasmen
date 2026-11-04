@@ -40,18 +40,18 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
 
   // Generate color based on name
   const getColorFromName = (name: string) => {
-    const colors = ['#0954D9', '#4CA375', '#906CEF', '#EDA62B', '#E02D38'];
+    const colors = ['var(--sd-blue-70)', 'var(--sd-success-border)', '#906CEF', 'var(--sd-warning-border)', 'var(--sd-red-60)'];
     const index = name.length % colors.length;
     return colors[index];
   };
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen w-full">
+    <div className="bg-sd-gray-0 min-h-screen w-full">
       {/* Header */}
       <Header onLogoClick={onBack} />
 
       {/* Breadcrumbs */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1440px] mx-auto px-[24px] py-[16px]">
           <nav className="flex items-center gap-[8px]" aria-label="Breadcrumb">
             <button
@@ -68,7 +68,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
       </div>
 
       {/* Page Header */}
-      <div className="bg-white border-b border-[#EFEFEF]">
+      <div className="bg-white border-b border-sd-badge-neutral">
         <div className="max-w-[1280px] mx-auto px-[24px] py-[32px]">
           <div className="flex items-start justify-between gap-[16px] mb-[24px]">
             <div className="flex items-start gap-[16px] flex-1">
@@ -76,8 +76,8 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                 <Building2 className="w-[32px] h-[32px] text-primary" />
               </div>
               <div className="flex-1">
-                <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">Organisasi & Unit Utama</h1>
-                <p className="text-[var(--text-base)] text-[#656a6c]">Temukan informasi lengkap tentang seluruh unit utama di Kementerian Pendidikan Dasar dan Menengah</p>
+                <h1 className="text-[var(--text-2xl)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">Organisasi & Unit Utama</h1>
+                <p className="text-[var(--text-base)] text-sd-gray-60">Temukan informasi lengkap tentang seluruh unit utama di Kementerian Pendidikan Dasar dan Menengah</p>
               </div>
             </div>
             {/* Analytics Button */}
@@ -96,18 +96,18 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
           <div className="flex flex-col md:flex-row gap-[16px]">
             {/* Search Bar */}
             <div className="relative flex-1">
-              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
+              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-sd-gray-60" />
               <input
                 type="text"
                 placeholder="Cari nama unit kerja..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[48px] pl-[48px] pr-[48px] border border-[#828282] rounded-[4px] text-[16px] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[48px] pl-[48px] pr-[48px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-[16px] top-1/2 -translate-y-1/2 text-[#727272] hover:text-foreground transition-colors"
+                  className="absolute right-[16px] top-1/2 -translate-y-1/2 text-sd-gray-60 hover:text-foreground transition-colors"
                 >
                   <X className="w-[20px] h-[20px]" />
                 </button>
@@ -115,13 +115,13 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center gap-[8px] bg-white border border-[#828282] rounded-[4px] p-[4px]">
+            <div className="flex items-center gap-[8px] bg-white border border-sd-gray-50 rounded-[4px] p-[4px]">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-[8px] rounded-[4px] transition-colors ${
                   viewMode === 'grid'
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-[#656a6c] hover:bg-muted'
+                    : 'text-sd-gray-60 hover:bg-muted'
                 }`}
                 aria-label="Grid view"
               >
@@ -132,7 +132,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                 className={`p-[8px] rounded-[4px] transition-colors ${
                   viewMode === 'list'
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-[#656a6c] hover:bg-muted'
+                    : 'text-sd-gray-60 hover:bg-muted'
                 }`}
                 aria-label="List view"
               >
@@ -147,7 +147,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
       <div className="max-w-[1280px] mx-auto px-[24px] py-[40px]">
         {/* Results Count */}
         <div className="mb-[24px]">
-          <p className="text-[var(--text-sm)] text-[#656a6c]">
+          <p className="text-[var(--text-sm)] text-sd-gray-60">
             Menampilkan {filteredOrganizations.length} unit kerja
             {searchQuery && ` untuk "${searchQuery}"`}
           </p>
@@ -168,7 +168,7 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
               return (
                 <div
                   key={org.id}
-                  className={`bg-white rounded-[8px] border border-[#ADADAD] p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group ${
+                  className={`bg-white rounded-[8px] border border-sd-gray-30 p-[20px] hover:shadow-md hover:border-primary transition-all cursor-pointer group ${
                     viewMode === 'list' ? 'flex items-start gap-[20px]' : 'flex flex-col'
                   }`}
                   onClick={() => onNavigateToDetail(org.id)}
@@ -224,27 +224,27 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
                     )}
 
                     {/* Name */}
-                    <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px] group-hover:text-primary transition-colors">
+                    <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px] group-hover:text-primary transition-colors">
                       {org.name}
                     </h3>
 
                     {/* Short Description */}
-                    <p className="text-[var(--text-sm)] text-[#656a6c] mb-[16px] line-clamp-2">
+                    <p className="text-[var(--text-sm)] text-sd-gray-60 mb-[16px] line-clamp-2">
                       {org.short_description}
                     </p>
 
                     {/* Footer Info */}
-                    <div className="flex items-center justify-between pt-[12px] border-t border-[#EFEFEF] mt-auto">
+                    <div className="flex items-center justify-between pt-[12px] border-t border-sd-badge-neutral mt-auto">
                       <div className="flex items-center gap-[8px]">
-                        <div className="text-[var(--text-xs)] text-[#727272]">
+                        <div className="text-[var(--text-xs)] text-sd-gray-60">
                           {org.members.length} anggota
                         </div>
-                        <div className="w-[4px] h-[4px] rounded-full bg-[#c7c7c7]" />
-                        <div className="text-[var(--text-xs)] text-[#727272]">
+                        <div className="w-[4px] h-[4px] rounded-full bg-sd-gray-20" />
+                        <div className="text-[var(--text-xs)] text-sd-gray-60">
                           {org.services.length} tugas
                         </div>
                       </div>
-                      <ChevronRight className="w-[20px] h-[20px] text-[#727272] group-hover:text-primary transition-colors" />
+                      <ChevronRight className="w-[20px] h-[20px] text-sd-gray-60 group-hover:text-primary transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -253,12 +253,12 @@ export function OrganizationDirectory({ onBack, onNavigateToDetail, onNavigateTo
           </div>
         ) : (
           // Empty State
-          <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[64px] text-center">
-            <Building2 className="w-[64px] h-[64px] text-[#727272] mx-auto mb-[16px]" />
-            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-[#323232] mb-[8px]">
+          <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[64px] text-center">
+            <Building2 className="w-[64px] h-[64px] text-sd-gray-60 mx-auto mb-[16px]" />
+            <h3 className="text-[var(--text-lg)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[8px]">
               Tidak Ada Unit Kerja Ditemukan
             </h3>
-            <p className="text-[var(--text-sm)] text-[#656a6c] mb-[24px]">
+            <p className="text-[var(--text-sm)] text-sd-gray-60 mb-[24px]">
               Coba gunakan kata kunci yang berbeda atau hapus filter
             </p>
             <button

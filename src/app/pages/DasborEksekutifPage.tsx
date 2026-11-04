@@ -7,7 +7,7 @@ import imgAnalytic from '@/assets/staging/img-analytic.png';
 type Tone = 'red' | 'amber' | 'green';
 const tone: Record<Tone, { bg: string; bd: string; fg: string }> = {
   red: { bg: '#fdeeee', bd: '#f3b4b4', fg: '#d8445a' },
-  amber: { bg: '#fff8ec', bd: '#f1c27a', fg: '#d99a1f' },
+  amber: { bg: 'var(--sd-warning-surface)', bd: '#f1c27a', fg: '#d99a1f' },
   green: { bg: '#e8faee', bd: '#9fdcb4', fg: '#2f9e5b' },
 };
 
@@ -29,8 +29,8 @@ function Panel({ title, subtitle, right, children }: { title: string; subtitle?:
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
       <header className="flex items-center justify-between px-[16px] py-[14px] border-b border-[#eee]">
         <div>
-          <h3 className="text-[#727272]" style={{ fontSize: 'var(--text-base)', fontWeight: 600 }}>{title}</h3>
-          {subtitle && <p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>{subtitle}</p>}
+          <h3 className="text-sd-gray-60" style={{ fontSize: 'var(--text-base)', fontWeight: 600 }}>{title}</h3>
+          {subtitle && <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>{subtitle}</p>}
         </div>
         {right}
       </header>
@@ -40,7 +40,7 @@ function Panel({ title, subtitle, right, children }: { title: string; subtitle?:
 }
 
 const NoData = () => (
-  <div className="py-[40px] flex flex-col items-center gap-[6px] text-[#727272]">
+  <div className="py-[40px] flex flex-col items-center gap-[6px] text-sd-gray-60">
     <SearchX className="size-[22px]" />
     <span style={{ fontSize: 'var(--text-sm)' }}>Data belum tersedia untuk kombinasi filter ini.</span>
   </div>
@@ -64,7 +64,7 @@ function TrendChart({ labels, series, yMax, colors }: { labels: string[]; series
 }
 
 const Hint = () => (
-  <p className="flex items-center gap-[6px] text-[#727272] mt-[4px]" style={{ fontSize: 'var(--text-xs)' }}>
+  <p className="flex items-center gap-[6px] text-sd-gray-60 mt-[4px]" style={{ fontSize: 'var(--text-xs)' }}>
     <Info className="size-[13px]" /> Klik keterangan label untuk menyembunyikan atau menampilkan data
   </p>
 );
@@ -72,37 +72,37 @@ const Hint = () => (
 export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="flex flex-col h-screen bg-[#F1F1F1]">
+    <div className="flex flex-col h-screen bg-sd-gray-5">
       <Header fullWidth />
       <div className="flex flex-1 min-h-0">
         {!collapsed && (
           <aside className="w-[260px] shrink-0 bg-white border-r border-[#e4e4e4] flex flex-col">
-            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-[#eaf3fe]">
+            <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-sd-blue-5">
               <img alt="" src={imgAnalytic} className="size-[20px] object-contain" />
-              <span className="font-semibold text-[#323232] uppercase" style={{ fontSize: 'var(--text-xs)' }}>Dasbor Eksekutif</span>
+              <span className="font-semibold text-sd-gray-90 uppercase" style={{ fontSize: 'var(--text-xs)' }}>Dasbor Eksekutif</span>
             </div>
-            <button onClick={onBack} className="flex items-center gap-[10px] px-[16px] py-[8px] bg-[#f3f8ff] text-[#45474a] text-left hover:bg-[#eaf3fe]" style={{ fontSize: '12px' }}>
+            <button onClick={onBack} className="flex items-center gap-[10px] px-[16px] py-[8px] bg-sd-blue-5 text-sd-gray-80 text-left hover:bg-sd-blue-5" style={{ fontSize: '12px' }}>
               <Home className="size-[16px]" /> Kembali ke Beranda Portal
             </button>
             <nav className="flex-1 p-[8px]">
-              <div className="flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] bg-[#f0f0f0] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
+              <div className="flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] bg-sd-gray-5 font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
                 <TrendingUp className="size-[20px]" /> Kinerja & Talenta ASN
               </div>
             </nav>
-            <button onClick={() => setCollapsed(true)} className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-[#45474a] hover:bg-[#F9F9F9]" style={{ fontSize: '12px' }}>
+            <button onClick={() => setCollapsed(true)} className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-80 hover:bg-sd-gray-0" style={{ fontSize: '12px' }}>
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu
             </button>
           </aside>
         )}
 
         <main className="flex-1 min-w-0 overflow-y-auto p-[20px]">
-          {collapsed && <button onClick={() => setCollapsed(false)} className="mb-[8px] text-[#0954D9]" style={{ fontSize: 'var(--text-sm)' }}>Tampilkan menu</button>}
+          {collapsed && <button onClick={() => setCollapsed(false)} className="mb-[8px] text-sd-blue-70" style={{ fontSize: 'var(--text-sm)' }}>Tampilkan menu</button>}
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="font-semibold text-[#323232]" style={{ fontSize: '24px' }}>Kinerja & Talenta ASN</h1>
-              <p className="text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>Lihat sebaran kelompok talenta dan hasil kinerja ASN Kemendikdasmen secara agregat</p>
+              <h1 className="font-semibold text-sd-gray-90" style={{ fontSize: '24px' }}>Kinerja & Talenta ASN</h1>
+              <p className="text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Lihat sebaran kelompok talenta dan hasil kinerja ASN Kemendikdasmen secara agregat</p>
             </div>
-            <span className="flex items-center gap-[6px] text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>
+            <span className="flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>
               <span className="size-[8px] rounded-full bg-[#1fa57a]" /> Update terakhir: 8 Oktober 2026
             </span>
           </div>
@@ -110,15 +110,15 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
           <div className="mt-[16px] bg-white border border-[#e4e4e4] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[10px] flex-wrap" style={{ fontSize: 'var(--text-sm)' }}>
             <Filter className="size-[16px]" /> <span className="font-semibold">Filter</span>
             {[['Unit Kerja', 'Seluruh'], ['Jabatan', 'Seluruh'], ['Tahun', '2026']].map(([k, v]) => (
-              <span key={k} className="rounded-full border border-[#323232] px-[10px] py-[1px]"><b>{k}:</b> {v}</span>
+              <span key={k} className="rounded-full border border-sd-gray-90 px-[10px] py-[1px]"><b>{k}:</b> {v}</span>
             ))}
-            <button className="ml-auto border border-[#0954D9] text-[#0954D9] rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
+            <button className="ml-auto border border-sd-blue-70 text-sd-blue-70 rounded-[4px] px-[12px] py-[4px] font-semibold flex items-center gap-[6px]">
               Ubah filter <ChevronDown className="size-[14px]" />
             </button>
           </div>
 
-          <h2 className="mt-[24px] font-semibold text-[#323232]" style={{ fontSize: '20px' }}>Manajemen Talenta</h2>
-          <p className="text-[#727272] mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>Sebaran kelompok talenta ASN berdasarkan kombinasi aspek kinerja dan potensial</p>
+          <h2 className="mt-[24px] font-semibold text-sd-gray-90" style={{ fontSize: '20px' }}>Manajemen Talenta</h2>
+          <p className="text-sd-gray-60 mb-[12px]" style={{ fontSize: 'var(--text-sm)' }}>Sebaran kelompok talenta ASN berdasarkan kombinasi aspek kinerja dan potensial</p>
 
           <div className="grid grid-cols-1 xl:grid-cols-[1.9fr_1fr] gap-[16px]">
             <Panel title="Distribusi Kelompok Talenta (Nine-Box)" right={<span className="bg-[#eee] rounded-full px-[12px] py-[4px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Periode: September 2026</span>}>
@@ -132,15 +132,15 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
               </div>
               <div className="grid grid-cols-[72px_1fr_1fr_1fr] gap-[8px] items-center">
                 <span />
-                {['Kurang', 'Kinerja', 'Baik'].map((c) => <span key={c} className="text-center text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>{c}</span>)}
+                {['Kurang', 'Kinerja', 'Baik'].map((c) => <span key={c} className="text-center text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>{c}</span>)}
                 {['Tinggi', 'Potensial', 'Rendah'].map((rowLabel, r) => (
                   <>
-                    <span key={rowLabel} className="text-right pr-[8px] text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>{rowLabel}</span>
+                    <span key={rowLabel} className="text-right pr-[8px] text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>{rowLabel}</span>
                     {nineBox[r].map((b) => (
                       <div key={b.roman} className="rounded-[6px] border text-center py-[14px]" style={{ background: tone[b.tone].bg, borderColor: tone[b.tone].bd }}>
                         <div style={{ color: tone[b.tone].fg, fontSize: 'var(--text-sm)' }}>{b.roman}</div>
                         <div className="font-semibold" style={{ color: tone[b.tone].fg, fontSize: '18px' }}>{b.pct}</div>
-                        <div className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>{b.n} pegawai</div>
+                        <div className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>{b.n} pegawai</div>
                       </div>
                     ))}
                   </>
@@ -166,7 +166,7 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
             </Panel>
           </div>
 
-          <h2 className="mt-[28px] mb-[12px] font-semibold text-[#323232]" style={{ fontSize: '20px' }}>Kinerja ASN</h2>
+          <h2 className="mt-[28px] mb-[12px] font-semibold text-sd-gray-90" style={{ fontSize: '20px' }}>Kinerja ASN</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
             <Panel title="Distribusi Hasil Kinerja"><NoData /></Panel>
             <Panel title="Tren Triwulanan Hasil Kinerja" subtitle="% Kinerja Positif vs Perlu Perhatian">
@@ -177,19 +177,19 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
             <Panel title="Distribusi Hasil Kerja per Jenis Jabatan" subtitle="Persentase kategori kinerja berdasarkan jenis jabatan"><NoData /></Panel>
             <Panel title='Top Jabatan "Perlu Perhatian"' subtitle="Komposisi jumlah pegawai per indikator">
               <table className="w-full text-left" style={{ fontSize: 'var(--text-xs)' }}>
-                <thead><tr className="border-b border-[#eee] uppercase text-[#727272]"><th className="py-[8px]">Predikat Kinerja</th><th>Jabatan</th><th>Jumlah Pegawai</th><th>Jumlah Unit</th></tr></thead>
+                <thead><tr className="border-b border-[#eee] uppercase text-sd-gray-60"><th className="py-[8px]">Predikat Kinerja</th><th>Jabatan</th><th>Jumlah Pegawai</th><th>Jumlah Unit</th></tr></thead>
               </table>
-              <div className="py-[24px] text-center text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>Data tidak ditemukan</div>
+              <div className="py-[24px] text-center text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Data tidak ditemukan</div>
             </Panel>
             <Panel title="Top 5 Unit Kinerja Positif Tertinggi" subtitle="Proporsi kinerja positif (Baik + Sangat Baik)"><NoData /></Panel>
             <Panel title="Bottom 5 Unit Pegawai Perlu Perhatian Tertinggi" subtitle="Unit dengan proporsi kinerja perlu perhatian terbanyak"><NoData /></Panel>
             <Panel title="Distribusi Hasil Kerja per Unit" subtitle="Persentase per indikator kinerja di tiap unit utama"><NoData /></Panel>
           </div>
 
-          <h2 className="mt-[28px] mb-[12px] font-semibold text-[#323232]" style={{ fontSize: '20px' }}>Pemetaan Talenta ASN</h2>
+          <h2 className="mt-[28px] mb-[12px] font-semibold text-sd-gray-90" style={{ fontSize: '20px' }}>Pemetaan Talenta ASN</h2>
           <div className="grid grid-cols-1 gap-[16px]">
             <Panel title="Tren Rata-rata Aspek Penilaian" subtitle="Perkembangan Aspek Kinerja & Aspek Potensial ASN">
-              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Aspek Kinerja', 'Aspek Potensial']} yMax={100} colors={['#3578c0', '#e9a93a']} />
+              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Aspek Kinerja', 'Aspek Potensial']} yMax={100} colors={['var(--sd-blue-70)', 'var(--sd-warning-border)']} />
               <Hint />
             </Panel>
             <Panel title="Aspek Penilaian Ninebox" subtitle="Evaluasi dua sumbu utama: Aspek Kinerja dan Aspek Potensial ASN">
@@ -199,10 +199,10 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
                   { t: 'ASPEK POTENSIAL', avg: '74,17', med: '75,33', note: 'Rata-rata < Median: distribusi potensi cenderung ke atas — mayoritas talenta di atas rata-rata, kesiapan potensial satuan kerja baik.' },
                 ].map((a) => (
                   <div key={a.t} className="border border-[#e4e4e4] rounded-[8px] p-[16px]">
-                    <p className="font-semibold text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>{a.t}</p>
+                    <p className="font-semibold text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>{a.t}</p>
                     <div className="grid grid-cols-2 gap-[12px] my-[10px]">
-                      <div><p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>Rata-rata</p><p className="font-semibold" style={{ fontSize: '22px' }}>{a.avg}</p></div>
-                      <div><p className="text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>Median</p><p className="font-semibold" style={{ fontSize: '22px' }}>{a.med}</p></div>
+                      <div><p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Rata-rata</p><p className="font-semibold" style={{ fontSize: '22px' }}>{a.avg}</p></div>
+                      <div><p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Median</p><p className="font-semibold" style={{ fontSize: '22px' }}>{a.med}</p></div>
                     </div>
                     <p className="text-[#555]" style={{ fontSize: 'var(--text-xs)' }}>{a.note}</p>
                   </div>
@@ -210,11 +210,11 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
               </div>
             </Panel>
             <Panel title="Penjabaran Aspek Kinerja" subtitle="Tren jumlah pegawai per komponen Kinerja Jabatan, Penghargaan, dan KPLB">
-              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Kinerja Jabatan', 'Penghargaan', 'KPLB']} yMax={2500} colors={['#3578c0', '#e9a93a', '#8678d9']} />
+              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Kinerja Jabatan', 'Penghargaan', 'KPLB']} yMax={2500} colors={['var(--sd-blue-70)', 'var(--sd-warning-border)', '#8678d9']} />
               <Hint />
             </Panel>
             <Panel title="Penjabaran Aspek Potensial" subtitle="Tren jumlah pegawai berdasarkan komponen penilaian">
-              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Kompetensi', 'Potensi', 'Pendidikan', 'Pengembangan Kompetensi', 'Sertifikasi', 'Hukuman Disiplin']} yMax={2100} colors={['#3578c0', '#e9a93a', '#1fa57a', '#8678d9', '#d8445a', '#888']} />
+              <TrendChart labels={['Jan 2026', 'Mar 2026', 'Mei 2026', 'Jul 2026', 'Sep 2026']} series={['Kompetensi', 'Potensi', 'Pendidikan', 'Pengembangan Kompetensi', 'Sertifikasi', 'Hukuman Disiplin']} yMax={2100} colors={['var(--sd-blue-70)', 'var(--sd-warning-border)', '#1fa57a', '#8678d9', '#d8445a', '#888']} />
               <Hint />
             </Panel>
           </div>

@@ -31,15 +31,15 @@ export function SystemBanner({
     switch (type) {
       case 'maintenance':
         return {
-          bg: 'bg-[#DBEAFE]',
+          bg: 'bg-sd-blue-5',
           border: 'border-primary',
-          text: 'text-[#1E3A8A]',
+          text: 'text-sd-blue-90',
           icon: AlertTriangle,
           iconColor: 'text-primary'
         };
       case 'warning':
         return {
-          bg: 'bg-[#FEE2E2]',
+          bg: 'bg-sd-red-5',
           border: 'border-destructive',
           text: 'text-[#7F1D1D]',
           icon: AlertCircle,
@@ -48,9 +48,9 @@ export function SystemBanner({
       case 'info':
       default:
         return {
-          bg: 'bg-[#DBEAFE]',
+          bg: 'bg-sd-blue-5',
           border: 'border-primary',
-          text: 'text-[#1E3A8A]',
+          text: 'text-sd-blue-90',
           icon: Info,
           iconColor: 'text-primary'
         };

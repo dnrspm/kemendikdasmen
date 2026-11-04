@@ -10,20 +10,20 @@ export interface PriorityConfig {
 export const priorityConfig: Record<ProgramPriority, PriorityConfig> = {
   prioritas_presiden: {
     label: 'Prioritas Presiden',
-    color: '#E02D38',
-    bgColor: '#FEE2E2',
+    color: '#DF2121',
+    bgColor: '#FEEDF2',
     sortOrder: 1
   },
   prioritas_nasional: {
     label: 'Prioritas Nasional',
     color: '#EDA62B',
-    bgColor: '#FEF3C7',
+    bgColor: '#FFEFD6',
     sortOrder: 2
   },
   prioritas_kementerian: {
     label: 'Prioritas Kementerian',
     color: '#0B5FEF',
-    bgColor: '#DBEAFE',
+    bgColor: '#E6F1FF',
     sortOrder: 3
   },
   non_prioritas: {
@@ -74,10 +74,10 @@ export const statusColors = {
   belum_dikerjakan: '#808489',
   belum_dimulai: '#808489',
   sedang_dikerjakan: '#0B5FEF',
-  perlu_reviu: '#F59E0B',
+  perlu_reviu: '#FD9400',
   selesai: '#4CA375',
-  diblokir: '#E02D38',
-  dibatalkan: '#656a6c'
+  diblokir: '#DF2121',
+  dibatalkan: '#727272'
 };
 
 export function getStatusColor(status: string): string {

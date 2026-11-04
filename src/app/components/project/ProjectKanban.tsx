@@ -96,39 +96,39 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
 
   const columns: { id: TaskStatus; label: string; color: string; bgColor: string }[] = [
     { id: 'pengusulan', label: 'Pengusulan Tugas', color: 'border-[#906CEF]', bgColor: 'bg-[#E9D5FF]' },
-    { id: 'belum_dikerjakan', label: 'Belum Dikerjakan', color: 'border-[#828282]', bgColor: 'bg-[#E5E7EB]' },
-    { id: 'sedang_dikerjakan', label: 'Sedang Dikerjakan', color: 'border-[#0954D9]', bgColor: 'bg-[#DBEAFE]' },
-    { id: 'perlu_reviu', label: 'Perlu Tinjauan Atasan', color: 'border-[#F59E0B]', bgColor: 'bg-[#FED7AA]' },
-    { id: 'selesai', label: 'Selesai', color: 'border-[#4CA375]', bgColor: 'bg-[#D1FAE5]' }
+    { id: 'belum_dikerjakan', label: 'Belum Dikerjakan', color: 'border-sd-gray-50', bgColor: 'bg-[#E5E7EB]' },
+    { id: 'sedang_dikerjakan', label: 'Sedang Dikerjakan', color: 'border-sd-blue-70', bgColor: 'bg-sd-blue-5' },
+    { id: 'perlu_reviu', label: 'Perlu Tinjauan Atasan', color: 'border-sd-yellow-30', bgColor: 'bg-[#FED7AA]' },
+    { id: 'selesai', label: 'Selesai', color: 'border-sd-success-border', bgColor: 'bg-[#D1FAE5]' }
   ];
 
   return (
     <div className="space-y-[24px]">
       {/* Kanban Controls */}
-      <div className="bg-white rounded-[8px] border border-[#ADADAD] p-[20px]">
+      <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px]">
         <div className="flex flex-col gap-[16px]">
           {/* Top Row: Search, View Toggle, and Create Button */}
           <div className="flex gap-[16px]">
             {/* Search */}
             <div className="relative flex-1">
-              <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-[#727272]" />
+              <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-sd-gray-60" />
               <input
                 type="text"
                 placeholder="Cari tugas..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-[40px] pl-[44px] pr-[16px] border border-[#828282] rounded-[4px] text-[var(--text-base)] text-[#323232] placeholder:text-[#727272] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
+                className="w-full h-[40px] pl-[44px] pr-[16px] border border-sd-gray-50 rounded-[4px] text-[var(--text-base)] text-sd-gray-90 placeholder:text-sd-gray-60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] bg-white"
               />
             </div>
 
             {/* View Mode Toggle */}
-            <div className="flex items-center gap-[4px] border border-[#828282] rounded-[4px] p-[4px]">
+            <div className="flex items-center gap-[4px] border border-sd-gray-50 rounded-[4px] p-[4px]">
               <button
                 onClick={() => setViewMode('kanban')}
                 className={`flex items-center gap-[6px] px-[12px] py-[6px] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] transition-colors ${
                   viewMode === 'kanban'
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-[#656a6c] hover:bg-[#f9f9f9]'
+                    : 'text-sd-gray-60 hover:bg-sd-gray-0'
                 }`}
               >
                 <LayoutGrid className="w-[16px] h-[16px]" />
@@ -139,7 +139,7 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
                 className={`flex items-center gap-[6px] px-[12px] py-[6px] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] transition-colors ${
                   viewMode === 'table'
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-[#656a6c] hover:bg-[#f9f9f9]'
+                    : 'text-sd-gray-60 hover:bg-sd-gray-0'
                 }`}
               >
                 <Table className="w-[16px] h-[16px]" />
@@ -163,14 +163,14 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
             <div className="grid grid-cols-3 gap-[12px]">
               {/* Filter Unit Kerja */}
               <div className="flex flex-col gap-[8px]">
-                <label className="text-[var(--text-sm)] text-[#656a6c]">Unit Kerja:</label>
+                <label className="text-[var(--text-sm)] text-sd-gray-60">Unit Kerja:</label>
                 <select
                   value={localFilterBiro}
                   onChange={(e) => {
                     setLocalFilterBiro(e.target.value);
                     setLocalFilterTimKerja('all'); // Reset Tim Kerja when Biro changes
                   }}
-                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Unit Kerja</option>
                   {biros.map(biro => (
@@ -183,11 +183,11 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
 
               {/* Filter Tim Kerja */}
               <div className="flex flex-col gap-[8px]">
-                <label className="text-[var(--text-sm)] text-[#656a6c]">Tim Kerja:</label>
+                <label className="text-[var(--text-sm)] text-sd-gray-60">Tim Kerja:</label>
                 <select
                   value={localFilterTimKerja}
                   onChange={(e) => setLocalFilterTimKerja(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Tim Kerja</option>
                   {timKerjas
@@ -202,11 +202,11 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
 
               {/* Filter Pelaku */}
               <div className="flex flex-col gap-[8px]">
-                <label className="text-[var(--text-sm)] text-[#656a6c]">Pelaku:</label>
+                <label className="text-[var(--text-sm)] text-sd-gray-60">Pelaku:</label>
                 <select
                   value={filterAssignee}
                   onChange={(e) => setFilterAssignee(e.target.value)}
-                  className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                  className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
                 >
                   <option value="all">Semua Pelaku</option>
                   {uniqueAssignees.map(assignee => (
@@ -220,11 +220,11 @@ export function ProjectKanban({ organization }: ProjectKanbanProps) {
 
             {/* Filter SKP - Full Width */}
             <div className="flex flex-col gap-[8px]">
-              <label className="text-[var(--text-sm)] text-[#656a6c]">SKP:</label>
+              <label className="text-[var(--text-sm)] text-sd-gray-60">SKP:</label>
               <select
                 value={filterEpic}
                 onChange={(e) => setFilterEpic(e.target.value)}
-                className="w-full px-[12px] py-[8px] border border-[#828282] rounded-[4px] text-[var(--text-sm)] text-[#323232] bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
+                className="w-full px-[12px] py-[8px] border border-sd-gray-50 rounded-[4px] text-[var(--text-sm)] text-sd-gray-90 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               >
                 <option value="all">Semua SKP</option>
                 {epics.map(epic => (
@@ -295,35 +295,35 @@ function KanbanColumn({
   return (
     <div className="w-[340px] shrink-0">
       {/* Column Header */}
-      <div className={`${column.bgColor} rounded-t-[8px] border-t-4 ${column.color} border-x border-[#ADADAD] p-[16px] sticky top-0 z-10`}>
+      <div className={`${column.bgColor} rounded-t-[8px] border-t-4 ${column.color} border-x border-sd-gray-30 p-[16px] sticky top-0 z-10`}>
         <div className="flex items-center justify-between mb-[12px]">
           <div className="flex items-center gap-[8px]">
-            <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232]">
+            <h3 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90">
               {column.label}
             </h3>
-            <span className="px-[8px] py-[2px] bg-[#EFEFEF] text-[var(--text-xs)] text-[#656a6c] font-[var(--font-weight-medium)] rounded-full">
+            <span className="px-[8px] py-[2px] bg-sd-badge-neutral text-[var(--text-xs)] text-sd-gray-60 font-[var(--font-weight-medium)] rounded-full">
               {tasks.length}
             </span>
           </div>
           <button 
             onClick={onCreateTask}
-            className="p-[4px] hover:bg-[#f9f9f9] rounded-[4px] transition-colors"
+            className="p-[4px] hover:bg-sd-gray-0 rounded-[4px] transition-colors"
             title="Buat tugas baru"
           >
-            <Plus className="w-[16px] h-[16px] text-[#656a6c]" />
+            <Plus className="w-[16px] h-[16px] text-sd-gray-60" />
           </button>
         </div>
       </div>
 
       {/* Column Body */}
-      <div className="bg-[#f9f9f9] border-x border-b border-[#ADADAD] rounded-b-[8px] p-[12px] min-h-[400px] max-h-[calc(100vh-400px)] overflow-y-auto space-y-[12px]">
+      <div className="bg-sd-gray-0 border-x border-b border-sd-gray-30 rounded-b-[8px] p-[12px] min-h-[400px] max-h-[calc(100vh-400px)] overflow-y-auto space-y-[12px]">
         {tasks.map(task => (
           <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task)} />
         ))}
 
         {tasks.length === 0 && (
           <div className="py-[32px] text-center">
-            <p className="text-[var(--text-sm)] text-[#727272]">
+            <p className="text-[var(--text-sm)] text-sd-gray-60">
               Tidak ada tugas
             </p>
           </div>
@@ -343,24 +343,24 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
 
   return (
     <div
-      className="bg-white rounded-[8px] border border-[#ADADAD] p-[16px] cursor-pointer hover:shadow-md transition-shadow"
+      className="bg-white rounded-[8px] border border-sd-gray-30 p-[16px] cursor-pointer hover:shadow-md transition-shadow"
       onClick={onClick}
     >
       {/* Task Title */}
-      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-[#323232] mb-[12px] line-clamp-2">
+      <h4 className="text-[var(--text-base)] font-[var(--font-weight-medium)] text-sd-gray-90 mb-[12px] line-clamp-2">
         {task.title}
       </h4>
 
       {/* SKP Tag */}
       <div className="flex items-center gap-[6px] mb-[12px]">
         <FolderKanban className="w-[14px] h-[14px] text-[#906CEF]" />
-        <span className="text-[var(--text-xs)] text-[#656a6c] line-clamp-1">
+        <span className="text-[var(--text-xs)] text-sd-gray-60 line-clamp-1">
           {epicName}
         </span>
       </div>
 
       {/* Task Footer */}
-      <div className="flex items-center justify-between pt-[12px] border-t border-[#EFEFEF]">
+      <div className="flex items-center justify-between pt-[12px] border-t border-sd-badge-neutral">
         {/* Assignee(s) */}
         <div className="flex items-center gap-[8px]">
           <div className="w-[24px] h-[24px] rounded-full bg-primary/10 flex items-center justify-center">
@@ -368,7 +368,7 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
           </div>
           {task.assignees && task.assignees.length > 0 ? (
             <div className="flex items-center gap-[4px]">
-              <span className="text-[var(--text-xs)] text-[#656a6c]">
+              <span className="text-[var(--text-xs)] text-sd-gray-60">
                 {task.assignees[0].name.split(' ').slice(0, 2).join(' ')}
               </span>
               {task.assignees.length > 1 && (
@@ -378,14 +378,14 @@ function TaskCard({ task, onClick }: { task: Task; onClick: () => void }) {
               )}
             </div>
           ) : (
-            <span className="text-[var(--text-xs)] text-[#656a6c]">
+            <span className="text-[var(--text-xs)] text-sd-gray-60">
               {task.assignee_name.split(' ').slice(0, 2).join(' ')}
             </span>
           )}
         </div>
 
         {/* Deadline */}
-        <div className={`flex items-center gap-[4px] ${isOverdue ? 'text-[#E02D38]' : 'text-[#656a6c]'}`}>
+        <div className={`flex items-center gap-[4px] ${isOverdue ? 'text-sd-red-60' : 'text-sd-gray-60'}`}>
           {isOverdue && <AlertCircle className="w-[14px] h-[14px]" />}
           <Calendar className="w-[14px] h-[14px]" />
           <span className="text-[var(--text-xs)]">
@@ -414,37 +414,37 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
   const getStatusColor = (status: TaskStatus) => {
     const colors: Record<TaskStatus, string> = {
       pengusulan: 'text-[#906CEF] bg-[#906CEF]/10',
-      belum_dikerjakan: 'text-[#727272] bg-[#727272]/10',
-      sedang_dikerjakan: 'text-[#0954D9] bg-[#0954D9]/10',
-      perlu_reviu: 'text-[#F59E0B] bg-[#F59E0B]/10',
-      selesai: 'text-[#4CA375] bg-[#4CA375]/10',
-      diblokir: 'text-[#E02D38] bg-[#E02D38]/10'
+      belum_dikerjakan: 'text-sd-gray-60 bg-sd-gray-60/10',
+      sedang_dikerjakan: 'text-sd-blue-70 bg-sd-blue-70/10',
+      perlu_reviu: 'text-sd-yellow-30 bg-sd-yellow-30/10',
+      selesai: 'text-sd-success-border bg-sd-success-border/10',
+      diblokir: 'text-sd-red-60 bg-sd-red-60/10'
     };
     return colors[status];
   };
 
   return (
-    <div className="bg-white rounded-[8px] border border-[#ADADAD] overflow-hidden">
+    <div className="bg-white rounded-[8px] border border-sd-gray-30 overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-[#f9f9f9] border-b border-[#ADADAD]">
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+            <tr className="bg-sd-gray-0 border-b border-sd-gray-30">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 ID Tugas
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 Judul
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 SKP
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 Status
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 Pelaku
               </th>
-              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-[#323232]">
+              <th className="px-[16px] py-[12px] text-left text-[var(--text-sm)] font-[var(--font-weight-medium)] text-sd-gray-90">
                 Tenggat
               </th>
             </tr>
@@ -452,7 +452,7 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
           <tbody>
             {tasks.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-[16px] py-[48px] text-center text-[var(--text-sm)] text-[#727272]">
+                <td colSpan={6} className="px-[16px] py-[48px] text-center text-[var(--text-sm)] text-sd-gray-60">
                   Tidak ada tugas ditemukan
                 </td>
               </tr>
@@ -466,20 +466,20 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
                   <tr
                     key={task.id}
                     onClick={() => onTaskClick(task)}
-                    className="border-b border-[#EFEFEF] hover:bg-[#f9f9f9] cursor-pointer transition-colors"
+                    className="border-b border-sd-badge-neutral hover:bg-sd-gray-0 cursor-pointer transition-colors"
                   >
                     <td className="px-[16px] py-[12px]">
-                      <span className="text-[var(--text-sm)] text-[#656a6c]">{task.id}</span>
+                      <span className="text-[var(--text-sm)] text-sd-gray-60">{task.id}</span>
                     </td>
                     <td className="px-[16px] py-[12px]">
-                      <span className="text-[var(--text-sm)] text-[#323232] font-[var(--font-weight-medium)]">
+                      <span className="text-[var(--text-sm)] text-sd-gray-90 font-[var(--font-weight-medium)]">
                         {task.title}
                       </span>
                     </td>
                     <td className="px-[16px] py-[12px]">
                       <div className="flex items-center gap-[6px]">
                         <FolderKanban className="w-[14px] h-[14px] text-[#906CEF]" />
-                        <span className="text-[var(--text-sm)] text-[#656a6c] line-clamp-1 max-w-[200px]">
+                        <span className="text-[var(--text-sm)] text-sd-gray-60 line-clamp-1 max-w-[200px]">
                           {epicName}
                         </span>
                       </div>
@@ -499,21 +499,21 @@ function TaskTable({ tasks, onTaskClick }: { tasks: Task[]; onTaskClick: (task: 
                         {task.assignees && task.assignees.length > 0 ? (
                           <div className="flex flex-wrap items-center gap-[4px]">
                             {task.assignees.map((assignee, idx) => (
-                              <span key={assignee.id} className="text-[var(--text-sm)] text-[#656a6c]">
+                              <span key={assignee.id} className="text-[var(--text-sm)] text-sd-gray-60">
                                 {assignee.name.split(' ').slice(0, 2).join(' ')}
                                 {idx < task.assignees!.length - 1 && ','}
                               </span>
                             ))}
                           </div>
                         ) : (
-                          <span className="text-[var(--text-sm)] text-[#656a6c]">
+                          <span className="text-[var(--text-sm)] text-sd-gray-60">
                             {task.assignee_name.split(' ').slice(0, 2).join(' ')}
                           </span>
                         )}
                       </div>
                     </td>
                     <td className="px-[16px] py-[12px]">
-                      <div className={`flex items-center gap-[4px] ${isOverdue ? 'text-[#E02D38]' : 'text-[#656a6c]'}`}>
+                      <div className={`flex items-center gap-[4px] ${isOverdue ? 'text-sd-red-60' : 'text-sd-gray-60'}`}>
                         {isOverdue && <AlertCircle className="w-[14px] h-[14px]" />}
                         <Calendar className="w-[14px] h-[14px]" />
                         <span className="text-[var(--text-sm)]">

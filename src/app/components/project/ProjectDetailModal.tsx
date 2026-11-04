@@ -64,11 +64,11 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   const getStatusColor = (status: Epic['status']) => {
     const colors = {
-      belum_dimulai: 'text-[#727272] bg-[#f9f9f9]',
-      sedang_dikerjakan: 'text-[#0954D9] bg-[#0954D9]/10',
-      selesai: 'text-[#4CA375] bg-[#4CA375]/10',
-      diblokir: 'text-[#E02D38] bg-[#E02D38]/10',
-      dibatalkan: 'text-[#656a6c] bg-[#EFEFEF]'
+      belum_dimulai: 'text-sd-gray-60 bg-sd-gray-0',
+      sedang_dikerjakan: 'text-sd-blue-70 bg-sd-blue-70/10',
+      selesai: 'text-sd-success-border bg-sd-success-border/10',
+      diblokir: 'text-sd-red-60 bg-sd-red-60/10',
+      dibatalkan: 'text-sd-gray-60 bg-sd-badge-neutral'
     };
     return colors[status];
   };
@@ -80,11 +80,11 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
 
   const getTaskStatusColor = (status: string) => {
     const colors = {
-      belum_dikerjakan: 'text-[#727272] bg-[#f9f9f9]',
-      sedang_dikerjakan: 'text-[#0954D9] bg-[#0954D9]/10',
-      selesai: 'text-[#4CA375] bg-[#4CA375]/10'
+      belum_dikerjakan: 'text-sd-gray-60 bg-sd-gray-0',
+      sedang_dikerjakan: 'text-sd-blue-70 bg-sd-blue-70/10',
+      selesai: 'text-sd-success-border bg-sd-success-border/10'
     };
-    return colors[status as keyof typeof colors] || 'text-[#727272] bg-[#f9f9f9]';
+    return colors[status as keyof typeof colors] || 'text-sd-gray-60 bg-sd-gray-0';
   };
 
   const getTaskStatusLabel = (status: string) => {
@@ -100,15 +100,15 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-[16px]">
       <div className="bg-white rounded-[8px] shadow-xl w-full max-w-[700px] max-h-[90vh] overflow-hidden flex flex-col">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-[24px] py-[20px] border-b border-[#EFEFEF]">
-          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-[#323232]">
+        <div className="flex items-center justify-between px-[24px] py-[20px] border-b border-sd-badge-neutral">
+          <h2 className="text-[var(--text-xl)] font-[var(--font-weight-medium)] text-sd-gray-90">
             Detail SKP
           </h2>
           <button
             onClick={onClose}
-            className="p-[4px] hover:bg-[#f9f9f9] rounded-[4px] transition-colors"
+            className="p-[4px] hover:bg-sd-gray-0 rounded-[4px] transition-colors"
           >
-            <X className="w-[20px] h-[20px] text-[#656a6c]" />
+            <X className="w-[20px] h-[20px] text-sd-gray-60" />
           </button>
         </div>
 
@@ -116,58 +116,58 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
         <div className="flex-1 overflow-y-auto px-[24px] py-[20px]">
           <div className="space-y-[20px]">
             {/* Title */}
-            <h3 className="text-[var(--text-2xl)] font-[var(--font-weight-semibold)] text-[#323232]">
+            <h3 className="text-[var(--text-2xl)] font-[var(--font-weight-semibold)] text-sd-gray-90">
               {project.name}
             </h3>
 
             {/* Status + Periode */}
             <div className="grid grid-cols-2 gap-[16px]">
               <div>
-                <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[8px]">Status</p>
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[8px]">Status</p>
                 <span className={`inline-block px-[12px] py-[6px] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] ${getStatusColor(project.status)}`}>
                   {getStatusLabel(project.status)}
                 </span>
               </div>
               <div>
-                <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[8px]">Periode</p>
-                <p className="text-[var(--text-base)] text-[#656a6c]">{getTriwulan(project.start_date)}</p>
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[8px]">Periode</p>
+                <p className="text-[var(--text-base)] text-sd-gray-60">{getTriwulan(project.start_date)}</p>
               </div>
             </div>
 
             {/* Tim Kerja + PIC */}
             <div className="grid grid-cols-2 gap-[16px]">
               <div>
-                <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[6px]">Tim Kerja</p>
-                <p className="text-[var(--text-base)] text-[#656a6c]">{getTimKerja(project)}</p>
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[6px]">Tim Kerja</p>
+                <p className="text-[var(--text-base)] text-sd-gray-60">{getTimKerja(project)}</p>
               </div>
               <div>
-                <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[6px]">PIC</p>
-                <p className="text-[var(--text-base)] text-[#656a6c]">{project.pic_name || PIC_NAMES[project.created_by] || '—'}</p>
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[6px]">PIC</p>
+                <p className="text-[var(--text-base)] text-sd-gray-60">{project.pic_name || PIC_NAMES[project.created_by] || '—'}</p>
               </div>
             </div>
 
             {/* Deskripsi SKP */}
             <div>
-              <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[6px]">Deskripsi SKP</p>
-              <p className="text-[var(--text-base)] text-[#656a6c] leading-relaxed whitespace-pre-wrap">{project.description}</p>
+              <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[6px]">Deskripsi SKP</p>
+              <p className="text-[var(--text-base)] text-sd-gray-60 leading-relaxed whitespace-pre-wrap">{project.description}</p>
             </div>
 
             {/* Terkait Sasaran Kinerja */}
             {project.sasaran_kinerja_name && (
               <div>
-                <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[6px]">Terkait Sasaran Kinerja</p>
-                <p className="text-[var(--text-base)] text-[#656a6c]">{project.sasaran_kinerja_name}</p>
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[6px]">Terkait Sasaran Kinerja</p>
+                <p className="text-[var(--text-base)] text-sd-gray-60">{project.sasaran_kinerja_name}</p>
               </div>
             )}
 
             {/* Progress */}
             <div>
-              <p className="text-[var(--text-sm)] font-bold text-[#323232] mb-[8px]">Progress</p>
+              <p className="text-[var(--text-sm)] font-bold text-sd-gray-90 mb-[8px]">Progress</p>
               <div className="flex items-center gap-[8px] mb-[8px]">
                 <TrendingUp className="w-[16px] h-[16px] text-primary" />
-                <span className="text-[var(--text-base)] text-[#323232]">{project.progress}% selesai</span>
+                <span className="text-[var(--text-base)] text-sd-gray-90">{project.progress}% selesai</span>
               </div>
-              <div className="w-full h-[8px] bg-[#EFEFEF] rounded-full overflow-hidden">
+              <div className="w-full h-[8px] bg-sd-badge-neutral rounded-full overflow-hidden">
                 <div className="h-full bg-primary rounded-full" style={{ width: `${project.progress}%` }} />
               </div>
             </div>
@@ -175,8 +175,8 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
             {/* Tugas Terkait */}
             <div>
               <div className="flex items-center justify-between mb-[12px]">
-                <p className="text-[var(--text-sm)] font-bold text-[#323232]">Tugas Terkait</p>
-                <span className="px-[8px] py-[2px] bg-[#EFEFEF] text-[var(--text-xs)] text-[#656a6c] font-[var(--font-weight-medium)] rounded-full">
+                <p className="text-[var(--text-sm)] font-bold text-sd-gray-90">Tugas Terkait</p>
+                <span className="px-[8px] py-[2px] bg-sd-badge-neutral text-[var(--text-xs)] text-sd-gray-60 font-[var(--font-weight-medium)] rounded-full">
                   {relatedTasks.length}
                 </span>
               </div>
@@ -184,25 +184,25 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
               {relatedTasks.length > 0 ? (
                 <div className="space-y-[12px]">
                   {relatedTasks.map(task => (
-                    <div key={task.id} className="p-[16px] bg-[#f9f9f9] border border-[#EFEFEF] rounded-[8px]">
+                    <div key={task.id} className="p-[16px] bg-sd-gray-0 border border-sd-badge-neutral rounded-[8px]">
                       <div className="flex items-start justify-between gap-[12px]">
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-[#323232] mb-[4px]">
+                          <h4 className="text-[var(--text-base)] font-[var(--font-weight-semibold)] text-sd-gray-90 mb-[4px]">
                             {task.title}
                           </h4>
-                          <p className="text-[var(--text-sm)] text-[#727272]">#{formatTaskId(task.id)}</p>
+                          <p className="text-[var(--text-sm)] text-sd-gray-60">#{formatTaskId(task.id)}</p>
                         </div>
                         <span className={`inline-block px-[10px] py-[4px] rounded-[4px] text-[var(--text-sm)] font-[var(--font-weight-medium)] whitespace-nowrap shrink-0 ${getTaskStatusColor(task.status)}`}>
                           {getTaskStatusLabel(task.status)}
                         </span>
                       </div>
 
-                      <div className="flex items-center justify-between mt-[12px] pt-[12px] border-t border-[#EFEFEF]">
-                        <div className="flex items-center gap-[6px] text-[var(--text-sm)] text-[#656a6c]">
+                      <div className="flex items-center justify-between mt-[12px] pt-[12px] border-t border-sd-badge-neutral">
+                        <div className="flex items-center gap-[6px] text-[var(--text-sm)] text-sd-gray-60">
                           <User className="w-[14px] h-[14px] shrink-0" />
                           <span>{task.assignee_name}</span>
                         </div>
-                        <span className="text-[var(--text-sm)] text-[#656a6c]">{getTriwulan(task.due_date)}</span>
+                        <span className="text-[var(--text-sm)] text-sd-gray-60">{getTriwulan(task.due_date)}</span>
                         <a
                           href={task.bukti_dukung_url || '#'}
                           target="_blank"
@@ -218,8 +218,8 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   ))}
                 </div>
               ) : (
-                <div className="p-[24px] bg-[#f9f9f9] border border-[#EFEFEF] rounded-[8px] text-center">
-                  <p className="text-[var(--text-sm)] text-[#727272]">Tidak ada tugas terkait dengan SKP ini</p>
+                <div className="p-[24px] bg-sd-gray-0 border border-sd-badge-neutral rounded-[8px] text-center">
+                  <p className="text-[var(--text-sm)] text-sd-gray-60">Tidak ada tugas terkait dengan SKP ini</p>
                 </div>
               )}
             </div>
