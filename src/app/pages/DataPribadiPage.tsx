@@ -1,4 +1,5 @@
 import { Tabs } from '@/app/components/seragam/Tabs';
+import { ChipGroup } from '@/app/components/seragam/Chip';
 import { Banner } from '@/app/components/seragam/Banner';
 import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
@@ -70,15 +71,7 @@ function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.
 /* ───── Tab lain (data contoh fiktif) ───── */
 
 function SubTabs({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
-  return (
-    <div className="flex gap-[8px] flex-wrap px-[16px] pt-[16px] pb-[28px]">
-      {items.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`border px-[12px] py-[4px] ${i === active ? 'border-[#0954D9] bg-[#ecf5fe] text-[#0954D9]' : 'border-[#323232] bg-white text-[#323232]'}`} style={{ borderRadius: '24px', fontSize: '16px', lineHeight: '20px', fontWeight: 600 }}>
-          {t}
-        </button>
-      ))}
-    </div>
-  );
+  return <ChipGroup items={items} active={active} onChange={onChange} className="px-[16px] pt-[16px] pb-[28px]" />;
 }
 
 const col = (key: string, label: string, width?: string): Column => ({ key, label, width });

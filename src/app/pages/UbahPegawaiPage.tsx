@@ -6,6 +6,7 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
 import { Tabs } from '@/app/components/seragam/Tabs';
+import { ChipGroup } from '@/app/components/seragam/Chip';
 import { Badge } from '@/app/components/seragam/Badge';
 import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { AksiCell } from '@/app/components/AksiCell';
@@ -263,15 +264,7 @@ const Diperbarui = () => (
   <p className="text-[#727272]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
 );
 
-function SubPills({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
-  return (
-    <div className="flex gap-[8px] flex-wrap">
-      {items.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`border px-[12px] py-[4px] ${i === active ? 'border-[#0954D9] bg-[#ecf5fe] text-[#0954D9]' : 'border-[#323232] bg-white text-[#323232]'}`} style={{ borderRadius: '24px', fontSize: '16px', lineHeight: '20px', fontWeight: 600 }}>{t}</button>
-      ))}
-    </div>
-  );
-}
+const SubPills = ChipGroup;
 
 const Tag = ({ bg, children }: { bg: string; children: ReactNode }) => (
   <Badge tone={bg === '#fae1ae' ? 'amber' : bg === '#fce9e9' ? 'red' : bg === '#a6d8f8' ? 'blue' : 'gray'}>{children}</Badge>
