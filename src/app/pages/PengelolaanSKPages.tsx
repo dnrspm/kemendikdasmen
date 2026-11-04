@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 
@@ -20,15 +21,7 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
 }
 
 function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onChange: (i: number) => void }) {
-  return (
-    <div className="grid border-b border-[#e4e4e4]" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
-      {tabs.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-sd-blue-70' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
-          {t}
-        </button>
-      ))}
-    </div>
-  );
+  return <SdTabs fill items={tabs} active={active} onChange={onChange} />;
 }
 
 const nomorTanggal = (no: string, tgl: string) => (

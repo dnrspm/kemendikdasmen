@@ -1,3 +1,4 @@
+import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
 import { useState, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Home, Settings, Bell, Info, Image as ImageIcon, ChevronUp, ChevronDown, ArrowLeftCircle, Plus, Trash2 } from 'lucide-react';
@@ -141,11 +142,7 @@ export function BannerUtamaPage() {
           <li>Setiap banner memerlukan 2 file: Desktop (rasio 2.618:1, contoh: 2618x1000) dan Mobile (rasio 3:2, contoh: 1200x800).</li>
         </ul>
       </div>
-      <div className="flex gap-[24px] border-b border-[#e4e4e4]">
-        {['Aktif', 'Tidak Aktif', 'Dijadwalkan'].map((t, i) => (
-          <button key={t} onClick={() => setTab(i)} className={`py-[10px] border-b-[3px] ${i === tab ? 'border-sd-blue-70' : 'border-transparent'}`} style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{t}</button>
-        ))}
-      </div>
+      <SdTabs items={['Aktif', 'Tidak Aktif', 'Dijadwalkan']} active={tab} onChange={setTab} />
       <div className="py-[40px] text-center text-sd-gray-60" style={{ fontSize: 'var(--text-sm)' }}>
         <p className="font-semibold">Data Tidak Ditemukan</p>
         <p>{['Belum ada banner aktif.', 'Belum ada banner tidak aktif.', 'Belum ada banner dijadwalkan.'][tab]}</p>

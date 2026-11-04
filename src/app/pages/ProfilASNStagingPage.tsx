@@ -1,3 +1,4 @@
+import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
 import { useState, type ReactNode } from 'react';
 import { ArrowLeft, Download, Filter, ChevronDown } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, LabelList, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
@@ -218,13 +219,7 @@ export function ProfilASNStagingPage({ onBack }: { onBack: () => void }) {
           <h1 className="font-semibold text-sd-gray-90 mt-[12px]" style={{ fontSize: '24px' }}>Profil ASN Kemendikdasmen</h1>
           <p className="text-sd-gray-90" style={{ fontSize: 'var(--text-sm)' }}>Lihat statistik dan profil ASN Kemendikdasmen secara agregat</p>
           <div className="flex items-end justify-between mt-[16px]">
-            <div className="flex gap-[24px] overflow-x-auto">
-              {tabs.map((t, i) => (
-                <button key={t} onClick={() => setTab(i)} className={`py-[14px] whitespace-nowrap border-b-[3px] ${i === tab ? 'border-sd-blue-70' : 'border-transparent'}`} style={{ fontSize: 'var(--text-base)', fontWeight: i === tab ? 600 : 500 }}>
-                  {t}
-                </button>
-              ))}
-            </div>
+            <SdTabs items={tabs} active={tab} onChange={setTab} className="border-b-0" />
             <button className="mb-[8px] bg-sd-gray-90 text-white rounded-[4px] px-[16px] py-[10px] flex items-center gap-[8px] font-semibold">
               <Download className="size-[16px]" /> Export
             </button>
