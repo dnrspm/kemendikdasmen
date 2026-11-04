@@ -52,7 +52,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           <thead>
             <tr className="border-t border-[#e4e4e4] shadow-[0_2px_1px_0_rgba(0,0,0,0.05)]">
               {columns.map((c) => (
-                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#323232] align-top`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
+                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#323232] align-top ${c.key === 'aksi' ? 'sticky right-0 bg-white shadow-[-6px_0_6px_-6px_rgba(0,0,0,0.12)]' : ''}`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
                   {c.label}
                 </th>
               ))}
@@ -72,7 +72,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
               rows.map((r, i) => (
                 <tr key={i} className={`align-top ${i % 2 === 0 ? 'bg-[#fafafa]' : ''}`}>
                   {columns.map((c) => (
-                    <td key={c.key} className={dense ? 'p-[12px_8px]' : 'p-[16px]'}>{r[c.key]}</td>
+                    <td key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} ${c.key === 'aksi' ? 'sticky right-0 shadow-[-6px_0_6px_-6px_rgba(0,0,0,0.12)]' : ''}`} style={c.key === 'aksi' ? { background: i % 2 === 0 ? '#fafafa' : '#fff' } : undefined}>{r[c.key]}</td>
                   ))}
                 </tr>
               ))
