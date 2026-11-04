@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { ArrowLeft, ArrowRight, Construction, Eye, Pencil, Plus, Trash2, UserPlus, X, FileText } from 'lucide-react';
 import { toast } from 'sonner';
@@ -366,7 +366,14 @@ export function UbahPegawaiPage() {
   const [params] = useSearchParams();
   const [tab, setTab] = useState(params.get('tab') === 'keluarga' ? 1 : 0);
   const [aksi, setAksiState] = useState<Aksi | null>(null);
-  const [pribadi, setPribadi] = useState<Rec>(PRIBADI_AWAL);
+  // Nilai Data Pribadi di Portal = data awal + usulan Ubah yang sudah berstatus "Berhasil Memperbarui Data" (yang terbaru menang).
+  const semuaUsulan = useUsulan();
+  const pribadi = useMemo<Rec>(() => {
+    const berhasil = semuaUsulan
+      .filter((u) => u.nip === (nip ?? AHMAD_PROFIL.nip) && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.status === 'berhasil-diperbarui')
+      .sort((a, b) => a.id - b.id);
+    return berhasil.reduce<Rec>((acc, u) => ({ ...acc, [u.detail[0][0]]: u.detail[0][1] }), { ...PRIBADI_AWAL });
+  }, [semuaUsulan, nip]);
 
   const setAksi = (a: Aksi | null) => {
     if (a?.tipe === 'detail') {
@@ -377,11 +384,8 @@ export function UbahPegawaiPage() {
     setAksiState(a);
   };
 
-  // Data pokok yang tidak perlu Komite langsung tampil ter-update; sisanya menunggu status di bawah field.
-  const selesai = (r: { field: string; nilai: string; komite: boolean }) => {
-    if (aksi?.tipe === 'ubah-pribadi' && !r.komite) setPribadi((p) => ({ ...p, [r.field]: r.nilai }));
-    setAksiState(null);
-  };
+  // Data pokok langsung tampil ter-update (lewat store); jabatan menunggu Komite dan statusnya tampil di bawah field.
+  const selesai = () => setAksiState(null);
 
   return (
     <KepegawaianLayout>

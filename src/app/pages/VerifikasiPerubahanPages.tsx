@@ -120,16 +120,23 @@ const applyFilters = (rows: Usulan[], f: Filters) =>
 /* ---------- Stepper alur status ---------- */
 type Step = { label: string; info?: string; state: 'done' | 'current' | 'todo' | 'failed' | 'skipped' };
 
+const BULAN_SINGKAT: Record<string, string> = {
+  Januari: 'Jan', Februari: 'Feb', Maret: 'Mar', April: 'Apr', Mei: 'Mei', Juni: 'Jun',
+  Juli: 'Jul', Agustus: 'Agu', September: 'Sep', Oktober: 'Okt', November: 'Nov', Desember: 'Des',
+};
+/** Nama bulan disingkat untuk keterangan di Alur Pengusulan, mis. "21 Oktober 2026" menjadi "21 Okt 2026". */
+const singkatBulan = (t?: string) => t?.replace(/\b(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\b/g, (m) => BULAN_SINGKAT[m]);
+
 function buildSteps(u: Usulan, showSiasn: boolean): Step[] {
   const s = u.status;
   const pegawai = u.asal === 'Pegawai';
   const info = (k: keyof Usulan['log']) => {
     const l = u.log[k];
-    return l ? `${l.oleh} · ${l.waktu}${l.catatan ? ` · Catatan: ${l.catatan}` : ''}` : undefined;
+    return l ? `${singkatBulan(l.waktu)}${l.catatan ? ` · Catatan: ${l.catatan}` : ''}` : undefined;
   };
   const steps: Step[] = [];
   // Pengaju sudah tampil di kolom samping, jadi langkah ini hanya menampilkan waktunya.
-  steps.push({ label: 'Usulan Diajukan', info: u.log.ajukan?.waktu, state: 'done' });
+  steps.push({ label: 'Usulan Diajukan', info: singkatBulan(u.log.ajukan?.waktu), state: 'done' });
   if (pegawai) {
     steps.push({
       label: s === 'ditolak-admin' ? 'Pengusulan Ditolak Admin Satker' : 'Verifikasi Admin Satker',
