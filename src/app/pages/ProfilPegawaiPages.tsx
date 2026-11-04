@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+import { Badge } from 'seragam-design-system';
 import { useNavigate } from 'react-router';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
@@ -71,7 +72,7 @@ export function DataNonAktifPage() {
         rows={[{
           no: 1, nama: <PersonCell name="Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD" nip="GEN000000000000001" />,
           gol: <span className="text-sd-red-60">Data tidak lengkap</span>, jabatan: '-', unit: UNIT,
-          status: <span className="inline-block rounded-[8px] bg-sd-badge-neutral px-[8px] py-[2px] text-sd-gray-90" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>PNS</span>,
+          status: <Badge>PNS</Badge>,
           aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate('/kepegawaian/ubah-pegawai/GEN000000000000001?tipe=nonaktif') }]} />,
         }]}
       />

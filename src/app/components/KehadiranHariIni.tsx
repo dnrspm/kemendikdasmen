@@ -1,3 +1,4 @@
+import { Badge } from 'seragam-design-system';
 import { Info } from 'lucide-react';
 
 type StatusKehadiran = 'belum-presensi' | 'hadir' | 'terlambat' | 'selesai';
@@ -9,11 +10,11 @@ interface KehadiranHariIniProps {
   absenKeluar?: string;
 }
 
-const statusConfig: Record<StatusKehadiran, { label: string; bg: string; color: string }> = {
-  'belum-presensi': { label: 'Belum Presensi', bg: '#ffe2a8', color: '#b57f21' },
-  'hadir': { label: 'Hadir', bg: '#eef6ee', color: 'var(--chart-2)' },
-  'terlambat': { label: 'Terlambat', bg: 'var(--sd-warning-surface)', color: 'var(--chart-4)' },
-  'selesai': { label: 'Selesai Bekerja', bg: 'var(--sd-warning-surface)', color: 'var(--chart-4)' },
+const statusConfig: Record<StatusKehadiran, { label: string; tone: 'green' | 'amber' | 'red' | 'blue' | 'gray' }> = {
+  'belum-presensi': { label: 'Belum Presensi', tone: 'amber' },
+  'hadir': { label: 'Hadir', tone: 'green' },
+  'terlambat': { label: 'Terlambat', tone: 'amber' },
+  'selesai': { label: 'Selesai Bekerja', tone: 'amber' },
 };
 
 export function KehadiranHariIni({
@@ -47,12 +48,7 @@ export function KehadiranHariIni({
         </p>
 
         <div>
-          <span
-            className="inline-block rounded-full px-[10px] py-[2px] font-['Inter',sans-serif]"
-            style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px', backgroundColor: badge.bg, color: badge.color }}
-          >
-            {badge.label}
-          </span>
+          <Badge tone={badge.tone}>{badge.label}</Badge>
         </div>
 
         <div className="flex items-stretch">

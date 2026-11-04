@@ -1,11 +1,12 @@
+import { Badge } from 'seragam-design-system';
 import imgTutWuri from '@/assets/staging/tut-wuri-handayani.png';
 
 /* Data contoh fiktif. */
 const rows: [string, React.ReactNode][] = [
   ['NIP', '100000001'],
   ['NIP Baru', '198704182018031001'],
-  ['Pangkat', <span className="inline-block rounded-full bg-[#9ad7f5] px-[10px] py-[1px] font-semibold">Penata Tingkat I</span>],
-  ['Golongan', <span className="inline-block rounded-full bg-[#a8e6c4] px-[10px] py-[1px] font-semibold">III/d</span>],
+  ['Pangkat', <Badge tone="blue">Penata Tingkat I</Badge>],
+  ['Golongan', <Badge tone="green">III/d</Badge>],
   ['Jabatan', 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten'],
   ['Unit Kerja', 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah - KEMENTERIAN PENDIDIKAN DASAR DAN MENENGAH'],
 ];
