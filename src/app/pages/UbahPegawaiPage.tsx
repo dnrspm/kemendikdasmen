@@ -111,7 +111,7 @@ type Aksi =
   | { tipe: 'ubah-kolom'; tabel: Tabel; field: string; lama: string }
   | { tipe: 'detail'; tabel: Tabel; baris: Rec };
 
-const inputCls = 'w-full border border-[#c7c7c7] rounded-[4px] px-[12px] py-[8px] bg-white text-[#2f3031]';
+const inputCls = 'w-full border border-[#ADADAD] rounded-[4px] px-[12px] py-[8px] bg-white text-[#323232]';
 const st = { fontSize: 'var(--text-sm)' } as const;
 const LABEL = { fontSize: '14px', lineHeight: '20px' } as const;           // label/keterangan
 const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const; // nilai
@@ -124,10 +124,10 @@ function Modal({ title, wide, onClose, children, footer }: { title: string; wide
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
-          <h2 className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
-          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
+          <h2 className="text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#ADADAD] p-[4px] hover:bg-[#F1F1F1]"><X className="size-[18px] text-[#323232]" /></button>
         </div>
-        <div className="overflow-y-auto bg-[#f7f7f7] px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
+        <div className="overflow-y-auto bg-[#F9F9F9] px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
         <div className="flex justify-end gap-[8px] px-[20px] py-[16px] border-t border-[#D9DBDD] bg-white">{footer}</div>
       </div>
     </div>
@@ -143,8 +143,8 @@ function Panel({ title, right, children }: { title: string; right?: ReactNode; c
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-[#efefef]">
-        <h4 className="text-[#2f3031]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h4>
-        {right && <span className="text-[#65696c]" style={LABEL}>{right}</span>}
+        <h4 className="text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h4>
+        {right && <span className="text-[#727272]" style={LABEL}>{right}</span>}
       </div>
       <div className="p-[16px]">{children}</div>
     </section>
@@ -190,16 +190,16 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
       </>}
     >
       <div className="flex items-center gap-[12px]">
-        <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#2f3031]" style={{ background: tone }}>
+        <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#323232]" style={{ background: tone }}>
           {jenis === 'Tambah' ? <Plus className="size-[20px]" /> : jenis === 'Ubah' ? <Pencil className="size-[19px]" /> : <Trash2 className="size-[19px]" />}
         </div>
-        <h3 className="text-[#2f3031]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
+        <h3 className="text-[#323232]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
       </div>
 
       {aksi.tipe === 'ubah-baris' && (
         <Panel title="Field yang Diubah" right="Satu field per pengajuan">
           <Select value={field} onValueChange={(v) => { setField(v); setNilai(''); }}>
-            <SelectTrigger className="w-full bg-white border-[#c7c7c7]" style={TD}><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-full bg-white border-[#ADADAD]" style={TD}><SelectValue /></SelectTrigger>
             <SelectContent>{fields.map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}</SelectContent>
           </Select>
         </Panel>
@@ -209,12 +209,12 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
         <Panel title={field}>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-x-[16px] gap-y-[12px] items-start">
             <div>
-              <p className="text-[#65696c]" style={LABEL}>Data Saat Ini</p>
-              <p className="text-[#6b6f73] break-words" style={TD}>{lama || '-'}</p>
+              <p className="text-[#727272]" style={LABEL}>Data Saat Ini</p>
+              <p className="text-[#727272] break-words" style={TD}>{lama || '-'}</p>
             </div>
-            <div className="hidden md:grid place-items-center self-center text-[#6b6f73]"><ArrowRight className="size-[20px]" /></div>
+            <div className="hidden md:grid place-items-center self-center text-[#727272]"><ArrowRight className="size-[20px]" /></div>
             <label className="block">
-              <span className="block text-[#65696c]" style={LABEL}>Data Baru</span>
+              <span className="block text-[#727272]" style={LABEL}>Data Baru</span>
               <input autoFocus value={nilai} onChange={(e) => setNilai(e.target.value)} className={inputCls} style={TD} />
             </label>
           </div>
@@ -226,7 +226,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px]">
             {aksi.tabel.kolom.map((k, i) => (
               <label key={k} className="block">
-                <span className="block text-[#65696c]" style={LABEL}>{k}{i === 0 && ' *'}</span>
+                <span className="block text-[#727272]" style={LABEL}>{k}{i === 0 && ' *'}</span>
                 <input value={tambah[k] ?? ''} onChange={(e) => setTambah({ ...tambah, [k]: e.target.value })} className={inputCls} style={TD} />
               </label>
             ))}
@@ -239,15 +239,15 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px]">
             {fieldsOf(aksi.baris).map(([k, v]) => (
               <div key={k} className="min-w-0">
-                <p className="text-[#65696c]" style={LABEL}>{k}</p>
-                <p className="text-[#2f3031] break-words" style={TD}>{v}</p>
+                <p className="text-[#727272]" style={LABEL}>{k}</p>
+                <p className="text-[#323232] break-words" style={TD}>{v}</p>
               </div>
             ))}
           </div>
         </Panel>
       )}
 
-      <p className="text-[#65696c]" style={LABEL}>
+      <p className="text-[#727272]" style={LABEL}>
         Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Komite Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
       </p>
     </Modal>
@@ -260,14 +260,14 @@ const outlineBtn = buttonClass('outline', 'md');
 const outlineTxt = buttonStyle;
 
 const Diperbarui = () => (
-  <p className="text-[#6b6f73]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
+  <p className="text-[#727272]" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
 );
 
 function SubPills({ items, active, onChange }: { items: string[]; active: number; onChange: (i: number) => void }) {
   return (
     <div className="flex gap-[8px] flex-wrap">
       {items.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`border px-[12px] py-[4px] ${i === active ? 'border-[#0b5fef] bg-[#ecf5fe] text-[#0b5fef]' : 'border-[#2f3031] bg-white text-[#2f3031]'}`} style={{ borderRadius: '24px', fontSize: '16px', lineHeight: '20px', fontWeight: 600 }}>{t}</button>
+        <button key={t} onClick={() => onChange(i)} className={`border px-[12px] py-[4px] ${i === active ? 'border-[#0954D9] bg-[#ecf5fe] text-[#0954D9]' : 'border-[#323232] bg-white text-[#323232]'}`} style={{ borderRadius: '24px', fontSize: '16px', lineHeight: '20px', fontWeight: 600 }}>{t}</button>
       ))}
     </div>
   );
@@ -281,7 +281,7 @@ export function cell(t: Tabel, k: string, b: Rec): ReactNode {
   const v = b[k];
   if (k === 'Nama' && b._asn) return <span className="inline-flex items-center gap-[6px] flex-wrap">{v}<Tag bg="#fae1ae">ASN</Tag></span>;
   if (k === 'Jenis Kelamin') return <Tag bg={v === 'Perempuan' ? '#fce9e9' : '#a6d8f8'}>{v}</Tag>;
-  if (v === 'Data tidak lengkap') return <span className="text-[#c62828]">{v}</span>;
+  if (v === 'Data tidak lengkap') return <span className="text-[#DF2121]">{v}</span>;
   return v;
 }
 
@@ -312,7 +312,7 @@ function KartuKeluarga({ t, onAksi }: { t: Tabel; onAksi: (a: Aksi) => void }) {
   return (
     <section className="border border-[#efefef] rounded-[6px] overflow-hidden">
       <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-[#efefef]">
-        <h3 className="text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{t.judul}</h3>
+        <h3 className="text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{t.judul}</h3>
         <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn} style={outlineTxt}><UserPlus className="size-[18px]" /> Tambah</button>
       </div>
       <TabelEdit t={t} onAksi={onAksi} pagination={false} menu />
@@ -349,25 +349,25 @@ function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => 
     <div className="flex flex-col gap-[20px]">
       {Object.entries(FIELD_DATA_PRIBADI).map(([bagian, fields]) => (
         <section key={bagian} className="border border-[#efefef] rounded-[6px] overflow-hidden">
-          <div className="bg-[#f4f4f4] px-[14px] py-[8px] text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{bagian}</div>
+          <div className="bg-[#F1F1F1] px-[14px] py-[8px] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{bagian}</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[24px] gap-y-[4px] p-[14px]">
             {fields.map((f) => {
               const p = pending(f);
               return (
                 <div key={f} className="flex items-start justify-between gap-[8px] py-[6px] border-b border-[#f0f0f0]">
                   <div className="min-w-0">
-                    <p className="text-[#65696c]" style={LABEL}>{f}</p>
-                    <p className="text-[#2f3031] break-words" style={VALUE}>{values[f] || '-'}</p>
+                    <p className="text-[#727272]" style={LABEL}>{f}</p>
+                    <p className="text-[#323232] break-words" style={VALUE}>{values[f] || '-'}</p>
                     {p && <p className="text-[#7a5a00]" style={LABEL}>{STATUS_LABEL[p.status]}</p>}
                   </div>
-                  <button onClick={() => onAksi({ tipe: 'ubah-pribadi', field: f })} aria-label={`Ubah ${f}`} className="shrink-0 border border-[#a8a8a8] rounded-[4px] p-[6px] hover:bg-[#f4f4f4]"><Pencil className="size-[14px]" /></button>
+                  <button onClick={() => onAksi({ tipe: 'ubah-pribadi', field: f })} aria-label={`Ubah ${f}`} className="shrink-0 border border-[#828282] rounded-[4px] p-[6px] hover:bg-[#F1F1F1]"><Pencil className="size-[14px]" /></button>
                 </div>
               );
             })}
           </div>
         </section>
       ))}
-      <p className="text-[#6b6f73]" style={LABEL}>NIP tidak dapat diubah dari halaman ini.</p>
+      <p className="text-[#727272]" style={LABEL}>NIP tidak dapat diubah dari halaman ini.</p>
     </div>
   );
 }
@@ -404,25 +404,25 @@ export function UbahPegawaiPage() {
   return (
     <KepegawaianLayout>
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
-        <button onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-[#2f3031] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
+        <button onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-[#323232] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
         <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
-          <p className="text-[#2f3031]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
+          <p className="text-[#323232]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
         <div className="flex items-center gap-[20px] bg-white border border-[#efefef] rounded-[6px] p-[20px]">
           <img alt="" src={imgTut} className="size-[72px] shrink-0 rounded-full object-cover" />
           <div className="min-w-0 flex flex-col gap-[6px]">
-            <p className="text-[#2f3031]" style={VALUE}>{profil.nama}</p>
-            <p className="text-[#6b6f73]" style={TD}>{nip ?? profil.nip}</p>
+            <p className="text-[#323232]" style={VALUE}>{profil.nama}</p>
+            <p className="text-[#727272]" style={TD}>{nip ?? profil.nip}</p>
             <div className="flex items-center gap-[8px] flex-wrap mt-[4px]">
               {tipe === 'nonaktif' ? (
-                <span className="rounded-[4px] bg-[#efefef] px-[6px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
+                <span className="rounded-[4px] bg-[#efefef] px-[6px] text-[#323232]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
               ) : (
                 <>
-              <span className="rounded-[4px] border border-[#a8a8a8] px-[6px] text-[#2f3031]" style={{ fontFamily: 'ui-monospace, monospace', fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>III/d</span>
-              <span className="rounded-[4px] bg-[#9ae5b9] px-[6px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
-              <span className="rounded-[4px] bg-[#efefef] px-[8px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '18px' }}>Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten</span>
+              <span className="rounded-[4px] border border-[#828282] px-[6px] text-[#323232]" style={{ fontFamily: 'ui-monospace, monospace', fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>III/d</span>
+              <span className="rounded-[4px] bg-[#9ae5b9] px-[6px] text-[#323232]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
+              <span className="rounded-[4px] bg-[#efefef] px-[8px] text-[#323232]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '18px' }}>Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten</span>
                 </>
               )}
             </div>
@@ -438,10 +438,10 @@ export function UbahPegawaiPage() {
             {tab === 3 && <TabSub tabel={NILAI} onAksi={setAksi} siasn={false} editable={false} />}
             {tab === 4 && <TabSub tabel={RIWAYAT} onAksi={setAksi} />}
             {tab === 5 && (
-              <div className="rounded-[6px] bg-[#f4f4f4] py-[56px] flex flex-col items-center gap-[8px] text-center">
+              <div className="rounded-[6px] bg-[#F1F1F1] py-[56px] flex flex-col items-center gap-[8px] text-center">
                 <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-[#b98900]" /></div>
-                <p className="text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
-                <p className="text-[#6b6f73]" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
+                <p className="text-[#323232]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
+                <p className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
               </div>
             )}
           </div>
@@ -489,20 +489,20 @@ export function DetailKeluargaPage() {
 
   const render = (k: Kartu) => (
     <section key={k.judul} className="border border-[#efefef] rounded-[6px] overflow-hidden self-start">
-      <div className="px-[16px] py-[12px] border-b border-[#efefef] text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{k.judul}</div>
+      <div className="px-[16px] py-[12px] border-b border-[#efefef] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{k.judul}</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
         {k.fields.map(([f, v]) => {
           const nilai = baru[f] ?? v;
           return (
             <div key={f} className={`flex items-start justify-between gap-[8px] ${f === 'Nama' || f === 'Alamat' || f === 'NIP' || k.dokumen ? 'sm:col-span-2' : ''}`}>
               <div className="min-w-0">
-                <p className="text-[#65696c]" style={LABEL}>{f}</p>
+                <p className="text-[#727272]" style={LABEL}>{f}</p>
                 {v === 'file'
-                  ? <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="flex items-center gap-[6px] text-[#2f3031]" style={VALUE}><FileText className="size-[18px]" /> Lihat File</button>
-                  : <p className="text-[#2f3031] break-words" style={VALUE}>{nilai}</p>}
+                  ? <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="flex items-center gap-[6px] text-[#323232]" style={VALUE}><FileText className="size-[18px]" /> Lihat File</button>
+                  : <p className="text-[#323232] break-words" style={VALUE}>{nilai}</p>}
               </div>
               {!k.dokumen && t && (
-                <button onClick={() => setAksi({ tipe: 'ubah-kolom', tabel: t, field: f, lama: nilai })} aria-label={`Ubah ${f}`} className="shrink-0 border border-[#a8a8a8] rounded-[4px] p-[6px] hover:bg-[#f4f4f4]"><Pencil className="size-[14px]" /></button>
+                <button onClick={() => setAksi({ tipe: 'ubah-kolom', tabel: t, field: f, lama: nilai })} aria-label={`Ubah ${f}`} className="shrink-0 border border-[#828282] rounded-[4px] p-[6px] hover:bg-[#F1F1F1]"><Pencil className="size-[14px]" /></button>
               )}
             </div>
           );
@@ -520,17 +520,17 @@ export function DetailKeluargaPage() {
   return (
     <KepegawaianLayout>
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
-        <button onClick={kembali} className="flex items-center gap-[6px] text-[#2f3031] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
+        <button onClick={kembali} className="flex items-center gap-[6px] text-[#323232] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
         <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data {nama}</h1>
-          <p className="text-[#2f3031]" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data {nama}</h1>
+          <p className="text-[#323232]" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
         </div>
         {r ? (
           <div className="bg-white border border-[#efefef] rounded-[6px] p-[16px] grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
             {kartu.map(render)}
           </div>
         ) : (
-          <p className="rounded-[4px] bg-[#f4f4f4] py-[24px] text-center text-[#65696c]" style={LABEL}>Data tidak ditemukan.</p>
+          <p className="rounded-[4px] bg-[#F1F1F1] py-[24px] text-center text-[#727272]" style={LABEL}>Data tidak ditemukan.</p>
         )}
       </div>
       {aksi && aksi.tipe !== 'detail' && <AjukanModal aksi={aksi} pribadi={{}} onClose={() => setAksi(null)} onDone={selesai} />}

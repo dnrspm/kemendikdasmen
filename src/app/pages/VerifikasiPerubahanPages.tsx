@@ -26,8 +26,8 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
     <KepegawaianLayout>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         <Banner tone="info">
           Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
@@ -56,7 +56,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
     <div className="flex flex-col gap-[4px]">
       <span className="font-semibold" style={st}>{label}</span>
       <Select value={f[key] || ALL} onValueChange={(v) => setF({ ...f, [key]: v === ALL ? '' : v })}>
-        <SelectTrigger className="w-full bg-white border-[#c7c7c7]" style={st}><SelectValue /></SelectTrigger>
+        <SelectTrigger className="w-full bg-white border-[#ADADAD]" style={st}><SelectValue /></SelectTrigger>
         <SelectContent>
           <SelectItem value={ALL}>{all}</SelectItem>
           {options.map((o) => <SelectItem key={o} value={o}>{labels?.[o] ?? o}</SelectItem>)}
@@ -69,14 +69,14 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
     <div className="border-b border-[#eee]">
       <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-[#6b6f73]" />
-          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="w-full border border-[#c7c7c7] rounded-[4px] pl-[32px] pr-[10px] py-[8px] bg-white" style={st} />
+          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-[#727272]" />
+          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="w-full border border-[#ADADAD] rounded-[4px] pl-[32px] pr-[10px] py-[8px] bg-white" style={st} />
         </div>
-        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-[#a8a8a8] rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
+        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-[#828282] rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
           <SlidersHorizontal className="size-[16px]" /> Filter
-          {active > 0 && <span className="rounded-full bg-[#1a5fe0] text-white px-[6px]" style={{ fontSize: '11px' }}>{active}</span>}
+          {active > 0 && <span className="rounded-full bg-[#0954D9] text-white px-[6px]" style={{ fontSize: '11px' }}>{active}</span>}
         </button>
-        {(active > 0 || f.q) && <button onClick={() => setF(emptyFilters)} className="text-[#0b5fef] font-semibold" style={st}>Reset</button>}
+        {(active > 0 || f.q) && <button onClick={() => setF(emptyFilters)} className="text-[#0954D9] font-semibold" style={st}>Reset</button>}
       </div>
       {open && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
@@ -156,9 +156,9 @@ function Stepper({ steps }: { steps: Step[] }) {
         const muted = st.state === 'todo' || st.state === 'skipped';
         const marker =
           st.state === 'done' ? <span className="size-[20px] rounded-full bg-[#2d8a4e] grid place-items-center text-white"><Check className="size-[12px]" /></span>
-          : st.state === 'failed' ? <span className="size-[20px] rounded-full bg-[#e0243a] grid place-items-center text-white"><X className="size-[12px]" /></span>
-          : st.state === 'current' ? <span className="size-[20px] rounded-full border-2 border-[#1a5fe0] bg-white grid place-items-center"><span className="size-[8px] rounded-full bg-[#1a5fe0]" /></span>
-          : <span className="size-[20px] rounded-full border-2 border-[#c7c7c7] bg-white" />;
+          : st.state === 'failed' ? <span className="size-[20px] rounded-full bg-[#DF2121] grid place-items-center text-white"><X className="size-[12px]" /></span>
+          : st.state === 'current' ? <span className="size-[20px] rounded-full border-2 border-[#0954D9] bg-white grid place-items-center"><span className="size-[8px] rounded-full bg-[#0954D9]" /></span>
+          : <span className="size-[20px] rounded-full border-2 border-[#ADADAD] bg-white" />;
         return (
           <li key={i} className="flex gap-[12px]">
             <div className="flex flex-col items-center">
@@ -166,8 +166,8 @@ function Stepper({ steps }: { steps: Step[] }) {
               {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? '#2d8a4e' : '#e4e4e4' }} />}
             </div>
             <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[16px]'}`}>
-              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? '#6b6f73' : '#2f3031', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
-              {st.info && <span className="text-[#6b6f73]" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
+              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? '#727272' : '#323232', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
+              {st.info && <span className="text-[#727272]" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
             </div>
           </li>
         );
@@ -194,8 +194,8 @@ const HEADING = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as con
 function Field({ label, children, muted }: { label: string; children: ReactNode; muted?: boolean }) {
   return (
     <div className="min-w-0">
-      <p className="text-[#65696c]" style={SMALL}>{label}</p>
-      <div className={`break-words ${muted ? 'text-[#6b6f73]' : 'text-[#2f3031]'}`} style={BODY}>{children}</div>
+      <p className="text-[#727272]" style={SMALL}>{label}</p>
+      <div className={`break-words ${muted ? 'text-[#727272]' : 'text-[#323232]'}`} style={BODY}>{children}</div>
     </div>
   );
 }
@@ -207,12 +207,12 @@ function PerubahanPanel({ u }: { u: Usulan }) {
     const [k, v] = u.detail[0];
     return (
       <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-        <h4 className="px-[16px] py-[12px] border-b border-[#efefef] text-[#2f3031]" style={HEADING}>{k}</h4>
+        <h4 className="px-[16px] py-[12px] border-b border-[#efefef] text-[#323232]" style={HEADING}>{k}</h4>
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]">
           <div className="p-[16px]">
-            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-[#6b6f73]">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
+            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-[#727272]">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
           </div>
-          <div className="hidden md:grid place-items-center px-[8px] text-[#6b6f73]"><ArrowRight className="size-[20px]" /></div>
+          <div className="hidden md:grid place-items-center px-[8px] text-[#727272]"><ArrowRight className="size-[20px]" /></div>
           <div className="p-[16px]">
             <Field label="Data Baru (Usulan)">{v}</Field>
           </div>
@@ -223,8 +223,8 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-[#efefef]">
-        <h4 className="text-[#2f3031]" style={HEADING}>{u.jenis === 'Tambah' ? 'Data yang Ditambahkan' : 'Data yang Dihapus'}</h4>
-        {!dariAdmin && <span className="text-[#65696c]" style={SMALL}>{u.jenis === 'Tambah' ? 'Belum ada di SIASN' : 'Ditemukan di SIASN'}</span>}
+        <h4 className="text-[#323232]" style={HEADING}>{u.jenis === 'Tambah' ? 'Data yang Ditambahkan' : 'Data yang Dihapus'}</h4>
+        {!dariAdmin && <span className="text-[#727272]" style={SMALL}>{u.jenis === 'Tambah' ? 'Belum ada di SIASN' : 'Ditemukan di SIASN'}</span>}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
         {u.detail.map(([k, v]) => <Field key={k} label={k}>{v}</Field>)}
@@ -255,36 +255,36 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
-          <h2 className="text-[#2f3031]" style={HEADING}>Detail Usulan Perubahan</h2>
-          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#c7c7c7] p-[4px] hover:bg-[#f4f4f4]"><X className="size-[18px] text-[#2f3031]" /></button>
+          <h2 className="text-[#323232]" style={HEADING}>Detail Usulan Perubahan</h2>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#ADADAD] p-[4px] hover:bg-[#F1F1F1]"><X className="size-[18px] text-[#323232]" /></button>
         </div>
 
         <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
           {/* Kolom utama (kanan di layar lebar): apa yang berubah, bukti, dan keputusan */}
-          <div className="order-1 lg:order-2 bg-[#f7f7f7] p-[24px] flex flex-col gap-[24px]">
+          <div className="order-1 lg:order-2 bg-[#F9F9F9] p-[24px] flex flex-col gap-[24px]">
             <div className="flex items-center gap-[12px]">
-              <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#2f3031]" style={{ background: tone }}>
+              <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-[#323232]" style={{ background: tone }}>
                 {u.jenis === 'Tambah' ? <Plus className="size-[20px]" /> : u.jenis === 'Ubah' ? <Pencil className="size-[19px]" /> : <Trash2 className="size-[19px]" />}
               </div>
-              <h3 className="flex-1 min-w-0 text-[#2f3031]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
+              <h3 className="flex-1 min-w-0 text-[#323232]" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
               <StatusBadge status={u.status} short />
             </div>
 
             <PerubahanPanel u={u} />
 
             {u.asal === 'Admin Satker' && (
-              <p className="text-[#65696c] -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan dengan data SIASN menunggu konfirmasi mapping.</p>
+              <p className="text-[#727272] -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan dengan data SIASN menunggu konfirmasi mapping.</p>
             )}
 
             {u.dokumen.length > 0 && (
               <section className="flex flex-col gap-[8px]">
-                <h4 className="text-[#2f3031]" style={HEADING}>Dokumen Pendukung</h4>
+                <h4 className="text-[#323232]" style={HEADING}>Dokumen Pendukung</h4>
                 <ul className="bg-white border border-[#e4e4e4] rounded-[8px] divide-y divide-[#efefef]">
                   {u.dokumen.map((d) => (
                     <li key={d} className="flex items-center justify-between gap-[12px] px-[16px] py-[12px]">
-                      <span className="flex items-center gap-[8px] text-[#2f3031]" style={BODY}><FileText className="size-[18px] text-[#65696c]" /> {d}</span>
-                      <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="text-[#0b5fef] hover:underline" style={{ ...SMALL, fontWeight: 600 }}>Lihat File</button>
+                      <span className="flex items-center gap-[8px] text-[#323232]" style={BODY}><FileText className="size-[18px] text-[#727272]" /> {d}</span>
+                      <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="text-[#0954D9] hover:underline" style={{ ...SMALL, fontWeight: 600 }}>Lihat File</button>
                     </li>
                   ))}
                 </ul>
@@ -294,10 +294,10 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode !== 'lihat' && (
               <section className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px] flex flex-col gap-[8px]">
                 <div className="flex items-baseline justify-between gap-[12px]">
-                  <h4 className="text-[#2f3031]" style={HEADING}>Catatan</h4>
-                  <span className="text-[#65696c]" style={SMALL}>Wajib diisi jika menolak</span>
+                  <h4 className="text-[#323232]" style={HEADING}>Catatan</h4>
+                  <span className="text-[#727272]" style={SMALL}>Wajib diisi jika menolak</span>
                 </div>
-                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className="w-full border border-[#c7c7c7] rounded-[4px] px-[12px] py-[8px] text-[#2f3031]" style={BODY} />
+                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className="w-full border border-[#ADADAD] rounded-[4px] px-[12px] py-[8px] text-[#323232]" style={BODY} />
               </section>
             )}
           </div>
@@ -308,15 +308,15 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
             <div className="flex flex-col gap-[4px]">
               <p className="text-[#45474a] mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
-              <p className="text-[#2f3031]" style={VALUE}>{u.nama}</p>
-              <p className="text-[#65696c]" style={SMALL}>NIP {u.nip}</p>
-              <p className="text-[#65696c]" style={SMALL}>{shortUnit(u.unit)}</p>
+              <p className="text-[#323232]" style={VALUE}>{u.nama}</p>
+              <p className="text-[#727272]" style={SMALL}>NIP {u.nip}</p>
+              <p className="text-[#727272]" style={SMALL}>{shortUnit(u.unit)}</p>
             </div>
-            <div className="flex flex-col gap-[16px] border-t border-[#c7c7c7] pt-[20px] mt-[4px]">
+            <div className="flex flex-col gap-[16px] border-t border-[#ADADAD] pt-[20px] mt-[4px]">
               <h4 className="text-[#45474a]" style={TH_STYLE}>Alur Pengusulan</h4>
               <Stepper steps={steps} />
-              {u.status === 'gagal-siasn' && <p className="rounded-[6px] bg-[#fce9e9] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
-              {u.status === 'berhasil-siasn' && <p className="rounded-[6px] bg-[#fef6e0] px-[12px] py-[8px] text-[#2f3031]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
+              {u.status === 'gagal-siasn' && <p className="rounded-[6px] bg-[#fce9e9] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
+              {u.status === 'berhasil-siasn' && <p className="rounded-[6px] bg-[#fef6e0] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
             </div>
             </div>
           </aside>
@@ -370,7 +370,7 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
     no: i + 1,
     nama: <PersonCell name={u.nama} nip={u.nip} />,
     unit: <span className="block w-[150px] line-clamp-3" title={u.unit}>{shortUnit(u.unit)}</span>,
-    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
+    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
     jenis: u.jenis,
     asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
@@ -419,7 +419,7 @@ function VerifikasiPage({ role }: { role: Role }) {
       <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
       <StagingDataTable hideFilter dense columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
-        <p className="px-[16px] pb-[16px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
+        <p className="px-[16px] pb-[16px] text-[#727272]" style={{ fontSize: 'var(--text-xs)' }}>
           Penyajian riwayat Komite Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
         </p>
       )}

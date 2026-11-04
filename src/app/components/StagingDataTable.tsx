@@ -23,15 +23,15 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
     <div className="flex flex-col gap-[16px] p-[16px]">
       {title && (
         <div>
-          <h3 className="text-[#2f3031]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{title}</h3>
-          {subtitle && <p className="text-[#808489]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>}
+          <h3 className="text-[#323232]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{title}</h3>
+          {subtitle && <p className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>}
         </div>
       )}
 
       {!hideFilter && <div className="flex justify-end">
         <button
           onClick={() => setFilterOpen(!filterOpen)}
-          className="flex items-center gap-[6px] text-[#0b5fef]"
+          className="flex items-center gap-[6px] text-[#0954D9]"
           style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}
         >
           <Search className="size-[16px]" /> {filterOpen ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
@@ -41,9 +41,9 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
       {filterOpen && !hideFilter && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] p-[12px] bg-[#fafafa] border border-[#eee] rounded-[8px]">
-          <input className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Cari nama atau NIP" style={{ fontSize: 'var(--text-sm)' }} />
-          <input className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Unit kerja" style={{ fontSize: 'var(--text-sm)' }} />
-          <input className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Status" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-[#ADADAD] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Cari nama atau NIP" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-[#ADADAD] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Unit kerja" style={{ fontSize: 'var(--text-sm)' }} />
+          <input className="border border-[#ADADAD] rounded-[4px] px-[10px] py-[8px] bg-white" placeholder="Status" style={{ fontSize: 'var(--text-sm)' }} />
         </div>
       )}
 
@@ -52,7 +52,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           <thead>
             <tr className="border-t border-[#e4e4e4] shadow-[0_2px_1px_0_rgba(0,0,0,0.05)]">
               {columns.map((c) => (
-                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#2F3031] align-top`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
+                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#323232] align-top`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
                   {c.label}
                 </th>
               ))}
@@ -62,7 +62,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
             {rows.length === 0 ? (
               <tr>
                 <td colSpan={columns.length} className="py-[24px]">
-                  <div className="bg-[#f4f4f4] rounded-[4px] py-[20px] flex flex-col items-center gap-[4px] text-[#65696c]">
+                  <div className="bg-[#F1F1F1] rounded-[4px] py-[20px] flex flex-col items-center gap-[4px] text-[#727272]">
                     <SearchX className="size-[18px]" />
                     <span style={{ fontSize: 'var(--text-xs)' }}>Data tidak ditemukan</span>
                   </div>
@@ -82,11 +82,11 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       </div>
 
       {showPagination && rows.length > 0 && (
-        <div className="flex items-center justify-between text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+        <div className="flex items-center justify-between text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>
           <span className="flex items-center gap-[6px]">
             Menampilkan 1 - {rows.length} dari {rows.length} data <span aria-hidden>·</span>
             <span className="relative inline-flex items-center">
-              <select aria-label="Jumlah per halaman" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="appearance-none bg-transparent pr-[16px] text-[#2f3031] cursor-pointer">
+              <select aria-label="Jumlah per halaman" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="appearance-none bg-transparent pr-[16px] text-[#323232] cursor-pointer">
                 {[5, 10, 20, 50].map((n) => <option key={n} value={n}>{n}</option>)}
               </select>
               <ChevronDown className="size-[14px] absolute right-0 pointer-events-none" />
@@ -95,7 +95,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           </span>
           <div className="flex items-center gap-[12px]">
             <ChevronLeft className="size-[16px] text-[#c7c7c7]" aria-hidden />
-            <span className="size-[28px] grid place-items-center rounded-[4px] bg-[#e4e4e4] text-[#2f3031]" style={{ fontWeight: 600 }}>1</span>
+            <span className="size-[28px] grid place-items-center rounded-[4px] bg-[#e4e4e4] text-[#323232]" style={{ fontWeight: 600 }}>1</span>
             <ChevronRight className="size-[16px] text-[#c7c7c7]" aria-hidden />
           </div>
         </div>
@@ -106,13 +106,13 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
 export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
   <div className="flex flex-col">
-    <span className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{name}</span>
-    <span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>NIP: {nip}</span>
+    <span className="text-[#323232]" style={{ fontSize: '16px', lineHeight: '24px' }}>{name}</span>
+    <span className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>NIP: {nip}</span>
   </div>
 );
 
 export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => {
-  const t = { green: ['#9ae5b9', '#2f3031'], red: ['#fbd5d5', '#a11d1d'], blue: ['#9ae5b9', '#2f3031'] }[tone];
+  const t = { green: ['#9ae5b9', '#323232'], red: ['#fbd5d5', '#a11d1d'], blue: ['#9ae5b9', '#323232'] }[tone];
   return <span className="inline-block rounded-[6px] px-[8px] py-[2px]" style={{ background: t[0], color: t[1], fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>{children}</span>;
 };
 

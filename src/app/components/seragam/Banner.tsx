@@ -9,7 +9,7 @@ const TONE: Record<BannerTone, { bg: string; border: string; icon: ReactNode; ic
   success: { bg: '#E2F5E0', border: '#4CA375', iconColor: '#2D8A4E', icon: <CircleCheck className="size-[20px] shrink-0" /> },
   warning: { bg: '#FFEFD6', border: '#EDA62B', iconColor: '#B57F21', icon: <TriangleAlert className="size-[20px] shrink-0" /> },
   critical: { bg: '#FEEDF2', border: '#DF2121', iconColor: '#DF2121', icon: <CircleAlert className="size-[20px] shrink-0" /> },
-  info: { bg: '#E3F4FC', border: '#AFDEF9', iconColor: '#0B5FEF', icon: <Info className="size-[20px] shrink-0" /> },
+  info: { bg: '#E3F4FC', border: '#AFDEF9', iconColor: '#0954D9', icon: <Info className="size-[20px] shrink-0" /> },
   neutral: { bg: '#F1F1F1', border: '#828282', iconColor: '#45474A', icon: <Info className="size-[20px] shrink-0" /> },
 };
 

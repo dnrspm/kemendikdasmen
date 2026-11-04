@@ -7,10 +7,10 @@ type Size = 'lg' | 'md' | 'sm';
 const SIZE: Record<Size, string> = { lg: 'h-[46px] px-[16px]', md: 'h-[40px] px-[16px]', sm: 'h-[32px] px-[12px]' };
 // Kelas ditulis literal agar terdeteksi Tailwind (nilai warna mengikuti tokens.ts).
 const VARIANT: Record<Variant, string> = {
-  primary: 'bg-[#0B5FEF] text-white hover:brightness-90',
-  outline: 'bg-white border border-[#A8A8A8] text-[#2F3031] hover:bg-[#f4f4f4]',
-  danger: 'bg-[#C62828] text-white hover:brightness-90',
-  'danger-outline': 'bg-white border border-[#C62828] text-[#C62828] hover:bg-[#fdeaea]',
+  primary: 'bg-[#0954D9] text-white hover:brightness-90',
+  outline: 'bg-white border border-[#828282] text-[#323232] hover:bg-[#F1F1F1]',
+  danger: 'bg-[#DF2121] text-white hover:brightness-90',
+  'danger-outline': 'bg-white border border-[#DF2121] text-[#DF2121] hover:bg-[#fdeaea]',
 };
 
 /** Kelas tombol Seragam (radius 4px, teks Mobile/Action 15/22 semibold). Untuk elemen non-button gunakan langsung. */
