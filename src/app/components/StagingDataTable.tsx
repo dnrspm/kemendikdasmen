@@ -108,4 +108,4 @@ export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?:
 };
 
 export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-[#45474a]" /></button>;
-export const MoreAction = () => <button aria-label="Aksi"><MoreVertical className="size-[18px] text-[#45474a]" /></button>;
+export const MoreAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Aksi" onClick={onClick}><MoreVertical className="size-[18px] text-[#45474a]" /></button>;

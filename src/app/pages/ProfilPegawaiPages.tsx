@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 
@@ -44,6 +45,7 @@ const pegawaiCols: Column[] = [
 
 export function DataPegawaiAktifPage() {
   const [tab, setTab] = useState(0);
+  const navigate = useNavigate();
   return (
     <PageShell title="Data Pegawai Aktif" subtitle="Kelola data pegawai aktif (PNS, CPNS, MPP) - tidak termasuk yang sudah pensiun, berhenti, atau meninggal">
       <Tabs tabs={['Semua Pegawai', 'PNS MPP']} active={tab} onChange={setTab} />
@@ -54,7 +56,7 @@ export function DataPegawaiAktifPage() {
         rows={tab === 0 ? [{
           no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
           jabatan: 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten',
-          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <MoreAction />,
+          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <MoreAction onClick={() => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`)} />,
         }] : []}
       />
     </PageShell>

@@ -1,35 +1,33 @@
 import { useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, SlidersHorizontal } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { StagingDataTable, PersonCell, Chip, EyeAction, type Column } from '@/app/components/StagingDataTable';
+import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
-  useUsulan, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, butuhKomite,
-  STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
+  useUsulan, KATEGORI_DATA, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
+  UNIT_SHORT, STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
 } from '@/app/data/usulanPerubahan';
 
 type Role = 'admin' | 'komite';
 
+// Palet badge dari Figma (Seragam Mobile): latar pastel, teks gelap seragam.
+const BADGE_FG = '#2f3031';
 const TONE_STYLE = {
-  green: ['#d6f5e3', '#17653a'], red: ['#fbd5d5', '#a11d1d'], amber: ['#fdf0c8', '#7a5a00'], blue: ['#d6e6fd', '#0b3f9e'],
+  green: '#a9e5c1', amber: '#fae1ae', red: '#fce9e9', blue: '#a6d8f8',
 } as const;
 
 function StatusBadge({ status, short }: { status: StatusUsulan; short?: boolean }) {
-  const [bg, fg] = TONE_STYLE[STATUS_TONE[status]];
+  const bg = TONE_STYLE[STATUS_TONE[status]];
   return (
-    <span className="inline-block rounded-[6px] px-[8px] py-[2px]" style={{ background: bg, color: fg, fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>
+    <span className="inline-block rounded-full px-[10px] py-[2px] whitespace-nowrap" style={{ background: bg, color: BADGE_FG, fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>
       {short ? STATUS_SHORT[status] : STATUS_LABEL[status]}
     </span>
   );
 }
 
-function AsalBadge({ asal }: { asal: Asal }) {
-  const admin = asal === 'Admin Satker';
-  return (
-    <span className="inline-block rounded-full border px-[8px] py-[1px]" style={{ fontSize: '12px', lineHeight: '16px', fontWeight: 600, borderColor: admin ? '#8a6bd6' : '#a8a8a8', color: admin ? '#5b3fa8' : '#45474a' }}>
-      {asal}
-    </span>
-  );
+function AsalText({ asal }: { asal: Asal }) {
+  return <span className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>Diajukan oleh {asal}</span>;
 }
 
 function PageShell({ title, subtitle, role, children }: { title: string; subtitle: string; role: Role; children: ReactNode }) {
@@ -63,33 +61,63 @@ function Tabs({ tabs, active, onChange }: { tabs: { label: string; count: number
 }
 
 /* ---------- Filter ---------- */
-type Filters = { q: string; data: string; jenis: string; asal: string; status: string };
-const emptyFilters: Filters = { q: '', data: '', jenis: '', asal: '', status: '' };
+type Filters = { q: string; unit: string; data: string; jenis: string; asal: string; status: string };
+const emptyFilters: Filters = { q: '', unit: '', data: '', jenis: '', asal: '', status: '' };
+const shortUnit = (u: string) => u.split(' - ')[0];
+const UNIT_OPTIONS = [UNIT_SHORT];
+const ALL = '__all';
+const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
 
+/** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[] }) {
-  const sel = (key: keyof Filters, placeholder: string, options: string[], labels?: Record<string, string>) => (
-    <select value={f[key]} onChange={(e) => setF({ ...f, [key]: e.target.value })} className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }}>
-      <option value="">{placeholder}</option>
-      {options.map((o) => <option key={o} value={o}>{labels?.[o] ?? o}</option>)}
-    </select>
+  const [open, setOpen] = useState(false);
+  const active = SELECT_KEYS.filter((k) => f[k]).length;
+  const st = { fontSize: 'var(--text-sm)' } as const;
+
+  const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
+    <div className="flex flex-col gap-[4px]">
+      <span className="font-semibold" style={st}>{label}</span>
+      <Select value={f[key] || ALL} onValueChange={(v) => setF({ ...f, [key]: v === ALL ? '' : v })}>
+        <SelectTrigger className="w-full bg-white border-[#c7c7c7]" style={st}><SelectValue /></SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>{all}</SelectItem>
+          {options.map((o) => <SelectItem key={o} value={o}>{labels?.[o] ?? o}</SelectItem>)}
+        </SelectContent>
+      </Select>
+    </div>
   );
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] p-[16px] bg-[#fafafa] border-b border-[#eee]">
-      <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="border border-[#c7c7c7] rounded-[4px] px-[10px] py-[8px] bg-white" style={{ fontSize: 'var(--text-sm)' }} />
-      {sel('data', 'Semua Perubahan Data', ['Pasangan', 'Orang Tua', 'Jabatan', 'Sertifikat'])}
-      {sel('jenis', 'Semua Jenis Perubahan', ['Tambah', 'Ubah', 'Hapus'])}
-      {sel('asal', 'Semua Asal Pengajuan', ['Pegawai', 'Admin Satker'])}
-      {statuses && sel('status', 'Semua Status', statuses, STATUS_LABEL)}
-      <div className="flex justify-end md:col-start-3">
-        <button onClick={() => setF(emptyFilters)} className="border border-[#a8a8a8] rounded-[4px] px-[16px] py-[8px] font-semibold bg-white" style={{ fontSize: 'var(--text-sm)' }}>Reset</button>
+    <div className="border-b border-[#eee]">
+      <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
+        <div className="relative flex-1 min-w-[240px]">
+          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-[#808489]" />
+          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="w-full border border-[#c7c7c7] rounded-[4px] pl-[32px] pr-[10px] py-[8px] bg-white" style={st} />
+        </div>
+        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-[#a8a8a8] rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
+          <SlidersHorizontal className="size-[16px]" /> Filter
+          {active > 0 && <span className="rounded-full bg-[#1a5fe0] text-white px-[6px]" style={{ fontSize: '11px' }}>{active}</span>}
+        </button>
+        {(active > 0 || f.q) && <button onClick={() => setF(emptyFilters)} className="text-[#0b5fef] font-semibold" style={st}>Reset</button>}
       </div>
+      {open && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
+          {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
+          {dropdown('data', 'Data yang Diubah', 'Semua Data', KATEGORI_DATA)}
+          {dropdown('jenis', 'Jenis Perubahan', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
+          {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
+          {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
+        </div>
+      )}
     </div>
   );
 }
 
+const has = (v: string, q: string) => !q || v.toLowerCase().includes(q.toLowerCase());
 const applyFilters = (rows: Usulan[], f: Filters) =>
   rows.filter((u) =>
-    (!f.q || (u.nama + u.nip).toLowerCase().includes(f.q.toLowerCase())) &&
+    (has(u.nama, f.q) || has(u.nip, f.q)) &&
+    (!f.unit || shortUnit(u.unit) === f.unit) &&
     (!f.data || u.data === f.data) && (!f.jenis || u.jenis === f.jenis) &&
     (!f.asal || u.asal === f.asal) && (!f.status || u.status === f.status));
 
@@ -110,7 +138,7 @@ function buildSteps(u: Usulan, showSiasn: boolean): Step[] {
     steps.push({ label: 'Verifikasi Admin Satker (otomatis)', state: 'done' });
   }
   if (s === 'ditolak-admin') return steps;
-  const needKomite = butuhKomite(u.data) || !['menunggu-diverifikasi'].includes(s);
+  const needKomite = perluKomite(u) || !['menunggu-diverifikasi'].includes(s);
   if (needKomite) {
     const pendingKomite = s === 'menunggu-komite';
     const before = s === 'menunggu-diverifikasi';
@@ -147,6 +175,64 @@ function Stepper({ steps }: { steps: Step[] }) {
   );
 }
 
+/* ---------- Perbandingan data usulan vs SIASN (data contoh; isi final menunggu mapping) ---------- */
+const SIASN_LAMA: Record<string, string> = {
+  'Jabatan': 'Analis Kebijakan Ahli Muda', 'Nomor SK': 'SK/2025/0042', 'TMT Jabatan': '1 Oktober 2025', 'Berlaku Sampai': '12 September 2028',
+  'Alamat': 'Jl. Lama No. 5, Jakarta Pusat', 'Nomor HP': '-', 'Email Lain': '-', 'Nomor KK': '3171000000000000',
+};
+const siasnValue = (u: Usulan, k: string, v: string) => (u.jenis === 'Tambah' ? '-' : u.jenis === 'Ubah' ? u.lama ?? SIASN_LAMA[k] ?? '-' : v);
+
+function ComparePanel({ u }: { u: Usulan }) {
+  if (u.asal === 'Admin Satker') {
+    return (
+      <div className="border border-dashed border-[#c7c7c7] rounded-[6px] p-[14px] bg-[#fafafa]">
+        <p className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</p>
+        <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan data SIASN untuk usulan ini menunggu konfirmasi mapping.</p>
+      </div>
+    );
+  }
+  // Tambah/Hapus memuat satu data utuh yang sudah tampil di kartu Detail; tabel compare hanya bermakna untuk Ubah.
+  if (u.jenis !== 'Ubah') {
+    return (
+      <div className="flex items-center justify-between gap-[12px] border border-[#efefef] rounded-[6px] bg-[#f4f4f4] px-[14px] py-[10px]">
+        <span className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</span>
+        <span className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>
+          {u.jenis === 'Tambah' ? 'Data belum ada di SIASN (data baru)' : 'Data ditemukan di SIASN'}
+        </span>
+      </div>
+    );
+  }
+  const rows = u.detail.map(([k, v]) => ({ k, v, s: siasnValue(u, k, v) }));
+  return (
+    <div className="border border-[#efefef] rounded-[6px] overflow-hidden">
+      <div className="flex items-center justify-between bg-[#f4f4f4] px-[14px] py-[8px]">
+        <span className="font-semibold" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</span>
+        <span className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>1 field diubah</span>
+      </div>
+      <div>
+        <table className="w-full text-left" style={{ fontSize: 'var(--text-sm)' }}>
+          <thead className="sticky top-0 bg-white">
+            <tr className="border-b border-[#e4e4e4] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
+              <th className="px-[14px] py-[6px] font-semibold w-[28%]">Field</th>
+              <th className="px-[14px] py-[6px] font-semibold">Data Baru (Usulan)</th>
+              <th className="px-[14px] py-[6px] font-semibold">Data Lama (SIASN)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.k} className={'bg-[#fef6e0]'}>
+                <td className="px-[14px] py-[6px] text-[#65696c]">{r.k}</td>
+                <td className="px-[14px] py-[6px] font-semibold">{r.v}</td>
+                <td className="px-[14px] py-[6px]">{r.s}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
 
@@ -173,9 +259,13 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             <div className="flex-1">
               <p className="font-semibold">{u.nama}</p>
               <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>{u.nip}</p>
+              <p className="flex gap-[6px] flex-wrap mt-[2px] items-center"><Chip tone="blue">{u.golongan}</Chip><span style={{ fontSize: '11px' }}>{u.jabatan}</span></p>
+              <p className="text-[#65696c] mt-[2px]" style={{ fontSize: '11px' }}>{u.unit}</p>
             </div>
-            <div className="flex flex-col items-end gap-[4px]"><AsalBadge asal={u.asal} /><StatusBadge status={u.status} short /></div>
+            <div className="flex flex-col items-end gap-[4px]"><AsalText asal={u.asal} /><StatusBadge status={u.status} short /></div>
           </div>
+
+          {role === 'admin' && mode === 'verifikasi' && <ComparePanel u={u} />}
 
           <div className="border border-[#efefef] rounded-[6px] p-[14px]">
             <p className="font-semibold mb-[10px]" style={{ fontSize: 'var(--text-sm)' }}>Alur Pengusulan</p>
@@ -200,15 +290,6 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             </div>
           </div>
 
-          {u.asal === 'Pegawai' && role === 'admin' && mode === 'verifikasi' && (
-            <div className="border border-[#efefef] rounded-[6px] p-[14px]">
-              <p className="font-semibold mb-[4px]" style={{ fontSize: 'var(--text-sm)' }}>Perbandingan Data dengan SIASN</p>
-              <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Data usulan dibandingkan dengan data SIASN sesuai proses existing. Tidak ditemukan perbedaan yang memerlukan perhatian khusus.</p>
-            </div>
-          )}
-          {u.asal === 'Admin Satker' && mode !== 'lihat' && (
-            <p className="text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>Usulan ini diajukan Admin Satker sehingga dianggap sudah diverifikasi. Perbandingan data SIASN untuk usulan Admin Satker menunggu konfirmasi mapping.</p>
-          )}
 
           {mode !== 'lihat' && (
             <div>
@@ -232,7 +313,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode === 'verifikasi' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className="bg-[#e0243a] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✕ Tolak</button>
-                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(butuhKomite(u.data) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✓ Setujui</button>
+                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className="bg-[#1a5fe0] text-white rounded-[4px] px-[16px] py-[8px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>✓ Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
@@ -254,21 +335,21 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
     { key: 'no', label: 'No', width: '48px' },
     { key: 'nama', label: 'Nama Pegawai' },
     { key: 'unit', label: 'Unit Kerja' },
-    { key: 'data', label: 'Perubahan Data', width: '130px' },
+    { key: 'data', label: 'Data yang Diubah', width: '130px' },
     { key: 'jenis', label: 'Jenis Perubahan', width: '120px' },
     { key: 'asal', label: 'Asal Pengajuan', width: '130px' },
-    { key: 'status', label: 'Status Pengusulan', width: '190px' },
-    { key: 'aksi', label: 'Aksi', width: '60px' },
+    { key: 'status', label: 'Status Pengajuan', width: '300px' },
+    { key: 'aksi', label: 'Aksi', width: '130px' },
   ];
   const toRow = (u: Usulan, i: number) => ({
     no: i + 1,
     nama: <PersonCell name={u.nama} nip={u.nip} />,
-    unit: u.unit,
-    data: u.data,
-    jenis: <Chip tone={u.jenis === 'Hapus' ? 'red' : 'green'}>{u.jenis}</Chip>,
-    asal: <AsalBadge asal={u.asal} />,
+    unit: shortUnit(u.unit),
+    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
+    jenis: u.jenis,
+    asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
-    aksi: <EyeAction onClick={() => onOpen(u)} />,
+    aksi: <button onClick={() => onOpen(u)} className="border border-[#a8a8a8] rounded-[4px] px-[12px] py-[6px] font-semibold bg-white whitespace-nowrap hover:bg-[#f4f4f4]" style={{ fontSize: 'var(--text-sm)' }}>Cek Detail</button>,
   });
   return { cols, toRow };
 }
@@ -278,14 +359,13 @@ function VerifikasiPage({ role }: { role: Role }) {
   const [tab, setTab] = useState(0);
   const [f, setF] = useState<Filters>(emptyFilters);
   const [sel, setSel] = useState<Usulan | null>(null);
-  const [showFilter, setShowFilter] = useState(true);
 
   const pendingStatus: StatusUsulan = role === 'admin' ? 'menunggu-diverifikasi' : 'menunggu-komite';
   const pending = useMemo(() => all.filter((u) => u.status === pendingStatus), [all, pendingStatus]);
   // Komite hanya melihat usulan yang butuh validasi Komite; Admin melihat semua status pada riwayat.
   const reviewed = useMemo(() => {
     const base = all.filter((u) => u.status !== pendingStatus);
-    return role === 'admin' ? base : base.filter((u) => butuhKomite(u.data) && !['menunggu-diverifikasi', 'ditolak-admin'].includes(u.status));
+    return role === 'admin' ? base : base.filter((u) => perluKomite(u) && !['menunggu-diverifikasi', 'ditolak-admin'].includes(u.status));
   }, [all, pendingStatus, role]);
 
   const list = applyFilters(tab === 0 ? pending : reviewed, f);
@@ -310,10 +390,7 @@ function VerifikasiPage({ role }: { role: Role }) {
         active={tab}
         onChange={(i) => { setTab(i); setF(emptyFilters); }}
       />
-      <div className="flex justify-end px-[16px] pt-[12px]">
-        <button onClick={() => setShowFilter(!showFilter)} className="text-[#0b5fef]" style={{ fontSize: '14px', fontWeight: 600 }}>{showFilter ? 'Sembunyikan Filter' : 'Tampilkan Filter'}</button>
-      </div>
-      {showFilter && <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />}
+      <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
       <StagingDataTable hideFilter columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
         <p className="px-[16px] pb-[16px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>

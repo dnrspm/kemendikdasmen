@@ -19,6 +19,7 @@ import { DataPribadiPage } from '@/app/pages/DataPribadiPage';
 import { KepegawaianSubPage } from '@/app/pages/KepegawaianSubPage';
 import { DataPegawaiAktifPage, DataPPPKPage, DataNonAktifPage } from '@/app/pages/ProfilPegawaiPages';
 import { DaftarSemuaSKPage, KoreksiSKPage, TandaTanganSKPage, RiwayatSKIndividuPage, LogTandaTanganSKPage } from '@/app/pages/PengelolaanSKPages';
+import { UbahPegawaiPage } from '@/app/pages/UbahPegawaiPage';
 import { VerifikasiPerubahanPage, VerifikasiDataKomitePage } from '@/app/pages/VerifikasiPerubahanPages';
 import { PemetaanKonfigurasiPage, PergeseranJabatanPage, VerifikasiUsulanPergeseranPage, InventarisKepmenPage } from '@/app/pages/PemetaanJabatanPages';
 import { MasterDataPage, UnitKerjaPage, masterDataSlugs } from '@/app/pages/MasterDataPages';
@@ -460,6 +461,7 @@ export const router = createBrowserRouter([
       { path: 'kepegawaian/keluarga/pasangan/tambah', Component: TambahPasanganPage },
       { path: 'kepegawaian/keluarga/orang-tua/tambah', Component: TambahOrangTuaPage },
       { path: 'kepegawaian/data-pegawai-aktif', Component: DataPegawaiAktifPage },
+      { path: 'kepegawaian/ubah-pegawai/:nip', Component: UbahPegawaiPage },
       { path: 'kepegawaian/data-pppk', Component: DataPPPKPage },
       { path: 'kepegawaian/data-nonaktif', Component: DataNonAktifPage },
       { path: 'kepegawaian/verifikasi-perubahan', Component: VerifikasiPerubahanPage },
