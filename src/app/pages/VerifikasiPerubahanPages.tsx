@@ -32,7 +32,7 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
         <Banner tone="info">
           Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
         </Banner>
-        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">{children}</div>
+        <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
   );

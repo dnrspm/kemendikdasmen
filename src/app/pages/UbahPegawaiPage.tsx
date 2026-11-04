@@ -410,7 +410,7 @@ export function UbahPegawaiPage() {
           <p className="text-[#323232]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
-        <div className="flex items-center gap-[20px] bg-white border border-[#efefef] rounded-[8px] p-[20px]">
+        <div className="flex items-center gap-[20px] bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[20px]">
           <img alt="" src={imgTut} className="size-[72px] shrink-0 rounded-full object-cover" />
           <div className="min-w-0 flex flex-col gap-[6px]">
             <p className="text-[#323232]" style={VALUE}>{profil.nama}</p>
@@ -429,7 +429,7 @@ export function UbahPegawaiPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">
+        <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
           <Tabs items={TABS} active={tab} onChange={setTab} />
           <div className="p-[16px] flex flex-col gap-[16px]">
             {tab === 0 && <DataPribadiTab values={pribadi} onAksi={setAksi} />}
@@ -526,7 +526,7 @@ export function DetailKeluargaPage() {
           <p className="text-[#323232]" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
         </div>
         {r ? (
-          <div className="bg-white border border-[#efefef] rounded-[8px] p-[16px] grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
+          <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[16px] grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
             {kartu.map(render)}
           </div>
         ) : (

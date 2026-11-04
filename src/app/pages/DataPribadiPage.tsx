@@ -47,7 +47,7 @@ type Row = (string | boolean | undefined)[];
 
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
-    <section className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">
+    <section className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
       <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
         {icon} {title}
       </header>
@@ -96,7 +96,7 @@ const MASK = '••••••••••••••';
 function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: boolean }) {
   const navigate = useNavigate();
   return (
-    <div className="rounded-[8px] border border-[#efefef] bg-white p-[16px] mb-[16px]">
+    <div className="rounded-[8px] bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] p-[16px] mb-[16px]">
       <div className="flex items-center justify-between pb-[12px]">
         <span className="text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
         <button
@@ -837,7 +837,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
 
         <div className="grid grid-cols-1 xl:grid-cols-[275px_1fr] gap-[16px] items-start">
           <div className="flex flex-col gap-[16px]">
-            <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">
+            <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
               <img alt="" src={imgPhoto} className="w-full object-cover bg-[#d9d9d9]" style={{ height: 279 }} />
               <div className="p-[16px] text-center flex flex-col gap-[6px]">
                 <h2 className="uppercase text-[#323232]" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
@@ -848,7 +848,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
               </div>
             </div>
 
-            <div className="bg-white border border-[#efefef] rounded-[8px] p-[12px] flex flex-col gap-[12px]">
+            <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[12px] flex flex-col gap-[12px]">
               <div className="flex gap-[10px]">
                 <div className="size-[64px] shrink-0 bg-[#F1F1F1] grid place-items-center text-[10px] text-[#727272]">QR</div>
                 <div>
@@ -861,7 +861,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
               </button>
             </div>
 
-            <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">
+            <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
               <header className="px-[16px] py-[12px] bg-[#fafafa] border-b border-[#eee] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Unit Organisasi</header>
               <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '16px', lineHeight: '24px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
@@ -869,7 +869,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             </div>
           </div>
 
-          <div className="bg-white border border-[#efefef] rounded-[8px] min-w-0">
+          <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] min-w-0">
             <Tabs items={tabs} active={tab} onChange={setTab} />
 
             {tab === 0 ? (

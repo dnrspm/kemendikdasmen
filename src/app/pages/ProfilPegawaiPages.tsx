@@ -17,7 +17,7 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
           <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
           <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">{children}</div>
+        <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
   );
