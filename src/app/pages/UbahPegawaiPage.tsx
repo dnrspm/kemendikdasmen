@@ -406,7 +406,7 @@ export function UbahPegawaiPage() {
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
         <button onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-[#323232] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
         <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
           <p className="text-[#323232]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
@@ -522,7 +522,7 @@ export function DetailKeluargaPage() {
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
         <button onClick={kembali} className="flex items-center gap-[6px] text-[#323232] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
         <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data {nama}</h1>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>Edit Data {nama}</h1>
           <p className="text-[#323232]" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
         </div>
         {r ? (

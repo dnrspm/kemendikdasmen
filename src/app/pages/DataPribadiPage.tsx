@@ -824,7 +824,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
               Profil Pegawai <ChevronRight className="size-[14px]" /> <span className="text-[#323232]" style={{ fontWeight: 500 }}>Data Pribadi Pegawai</span>
             </div>
           )}
-          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{admin ? 'Data Pribadi Pegawai' : 'Data Pribadi'}</h1>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{admin ? 'Data Pribadi Pegawai' : 'Data Pribadi'}</h1>
           <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{admin ? 'Melihat data pribadi pegawai yang dipilih' : 'Kelola data pribadi Anda di Portal Kemendikdasmen'}</p>
         </div>
 

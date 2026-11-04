@@ -6,8 +6,8 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
     <KepegawaianLayout>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         {children}
       </div>
@@ -18,10 +18,10 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
 function SelectField({ label, placeholder, disabled }: { label: string; placeholder: string; disabled?: boolean }) {
   return (
     <label className="flex flex-col gap-[4px]">
-      <span className="text-[#2f3031]" style={{ fontSize: 'var(--text-xs)' }}>{label}</span>
+      <span className="text-[#323232]" style={{ fontSize: 'var(--text-xs)' }}>{label}</span>
       <select
         disabled={disabled}
-        className={`border border-[#c7c7c7] rounded-[4px] px-[10px] py-[9px] ${disabled ? 'bg-[#ececec] text-[#8a8d90]' : 'bg-white'}`}
+        className={`border border-[#ADADAD] rounded-[4px] px-[10px] py-[9px] ${disabled ? 'bg-[#ececec] text-[#8a8d90]' : 'bg-white'}`}
         style={{ fontSize: 'var(--text-sm)' }}
       >
         <option>{placeholder}</option>
@@ -43,8 +43,8 @@ function EmptyState({ title, text }: { title: string; text: string }) {
   return (
     <div className="bg-white border border-[#efefef] rounded-[6px] py-[48px] flex flex-col items-center gap-[6px] text-center">
       <FileText className="size-[32px] text-[#8a8d90]" />
-      <p className="font-semibold text-[#2f3031]" style={{ fontSize: 'var(--text-sm)' }}>{title}</p>
-      <p className="text-[#65696c]" style={{ fontSize: 'var(--text-sm)' }}>{text}</p>
+      <p className="font-semibold text-[#323232]" style={{ fontSize: 'var(--text-sm)' }}>{title}</p>
+      <p className="text-[#727272]" style={{ fontSize: 'var(--text-sm)' }}>{text}</p>
     </div>
   );
 }

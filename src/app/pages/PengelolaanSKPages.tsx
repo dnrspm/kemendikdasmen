@@ -10,8 +10,8 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
     <KepegawaianLayout>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
+          <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">{children}</div>
       </div>
@@ -23,7 +23,7 @@ function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onCh
   return (
     <div className="grid border-b border-[#e4e4e4]" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
       {tabs.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#1a5fe0]' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#0954D9]' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
           {t}
         </button>
       ))}
@@ -32,7 +32,7 @@ function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onCh
 }
 
 const nomorTanggal = (no: string, tgl: string) => (
-  <div className="flex flex-col"><span>{no}</span><span style={{ fontSize: '14px', lineHeight: '20px', color: '#65696c' }}>{tgl}</span></div>
+  <div className="flex flex-col"><span>{no}</span><span style={{ fontSize: '14px', lineHeight: '20px', color: '#727272' }}>{tgl}</span></div>
 );
 
 const skCols: Column[] = [
