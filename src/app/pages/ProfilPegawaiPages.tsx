@@ -47,7 +47,7 @@ export function DataPegawaiAktifPage() {
         rows={tab === 0 ? [{
           no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
           jabatan: 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten',
-          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`) }]} />,
+          unit: UNIT, status: <Chip tone="green">PNS</Chip>, aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`) }]} />,
         }] : []}
       />
     </PageShell>

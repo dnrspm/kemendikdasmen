@@ -759,7 +759,7 @@ function SubTabContent({ tab }: { tab: string }) {
   const mainCols: Column[] = [col('no', 'No', '48px'), ...d.cols.map((c) => col(c, c)), col('aksi', 'Aksi', '60px')];
 
   const usulanRows = (d.usulanCols ? Array.from({ length: d.usulan ?? 0 }) : []).map((_, i) => {
-    const r: Record<string, React.ReactNode> = { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu Verifikasi Data</Chip>, jenis: ['Tambah', 'Ubah', 'Hapus'][i % 3] };
+    const r: Record<string, React.ReactNode> = { aksi: <MoreAction />, status: <Chip tone="amber">Menunggu Verifikasi Data</Chip>, jenis: ['Tambah', 'Ubah', 'Hapus'][i % 3] };
     d.usulanCols!.forEach((c) => { r[c] = c === 'Berkas' ? <span className="inline-flex items-center gap-[4px] text-sd-blue-70">File</span> : sample(c, i); });
     return r;
   });

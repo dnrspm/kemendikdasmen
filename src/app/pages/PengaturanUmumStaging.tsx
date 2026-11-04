@@ -113,7 +113,7 @@ export function PemberitahuanUmumPage() {
         rows={[{
           no: 1,
           judul: <div><div className="font-medium">Contoh Judul Pemberitahuan</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>Dipublikasikan pada : 29 Oktober 2026 - 31 Oktober 2026</div><div className="text-sd-gray-50" style={{ fontSize: 'var(--text-xs)' }}>Terakhir diperbarui : 29 Oktober 2026 09:07</div></div>,
-          status: <Chip tone="blue">Berakhir</Chip>, aksi: <MoreAction />,
+          status: <Chip tone="gray">Berakhir</Chip>, aksi: <MoreAction />,
         }]} />
     </Page>
   );

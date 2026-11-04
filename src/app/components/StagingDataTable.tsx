@@ -113,8 +113,8 @@ export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
 );
 
 /** Badge status di tabel: memakai komponen Badge Seragam (pill 2x8, 13/20 semibold). */
-export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => (
-  <Badge tone={tone === 'red' ? 'red' : 'green'}>{children}</Badge>
+export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'amber' | 'red' | 'blue' | 'gray' }) => (
+  <Badge tone={tone}>{children}</Badge>
 );
 
 export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-sd-gray-80" /></button>;
