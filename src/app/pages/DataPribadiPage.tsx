@@ -138,7 +138,7 @@ function Keluarga() {
         <div className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>
           <p style={{ fontWeight: 600 }} className="mb-[8px]">Usulan Perubahan Data</p>
           <p>
-            Anda memiliki 4 usulan perubahan data. Data yang <b style={{ fontWeight: 600 }}>Diusulkan</b> sedang dalam proses verifikasi oleh Biro SDM. Usulan yang telah <b style={{ fontWeight: 600 }}>Disetujui</b> sudah melewati proses verifikasi dan data Anda telah diperbarui.
+            Anda memiliki 4 usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Menunggu Verifikasi Data</b> sedang diverifikasi oleh Admin Satker. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
           </p>
           <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
           <button className="mt-[8px] underline" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Selengkapnya</button>
@@ -214,7 +214,7 @@ function UsulanBanner({ count, onToggle, open }: { count: number; onToggle: () =
       <div className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>
         <p style={{ fontWeight: 600 }} className="mb-[8px]">Usulan Perubahan Data</p>
         <p>
-          Anda memiliki {count} usulan perubahan data. Usulan yang telah <b style={{ fontWeight: 600 }}>Disetujui</b> sudah melewati proses verifikasi dan data Anda telah diperbarui.
+          Anda memiliki {count} usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
         </p>
         <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
         <button onClick={onToggle} className="mt-[8px] underline flex items-center gap-[4px]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>
@@ -776,7 +776,7 @@ function SubTabContent({ tab }: { tab: string }) {
   const mainCols: Column[] = [col('no', 'No', '48px'), ...d.cols.map((c) => col(c, c)), col('aksi', 'Aksi', '60px')];
 
   const usulanRows = (d.usulanCols ? Array.from({ length: d.usulan ?? 0 }) : []).map((_, i) => {
-    const r: Record<string, React.ReactNode> = { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu diverifikasi</Chip>, jenis: ['Tambah', 'Ubah', 'Hapus'][i % 3] };
+    const r: Record<string, React.ReactNode> = { aksi: <MoreAction />, status: <Chip tone="blue">Menunggu Verifikasi Data</Chip>, jenis: ['Tambah', 'Ubah', 'Hapus'][i % 3] };
     d.usulanCols!.forEach((c) => { r[c] = c === 'Berkas' ? <span className="inline-flex items-center gap-[4px] text-[#0b5fef]">File</span> : sample(c, i); });
     return r;
   });
@@ -839,7 +839,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             <div className="flex-1" style={{ fontSize: '16px', lineHeight: '24px' }}>
               <p className="mb-[6px]" style={{ fontWeight: 600 }}>Perhatian</p>
               <p>Silakan ajukan perubahan data jika ada kesalahan atau ada perubahan data diri Anda.</p>
-              <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh kepegawaian Satker/UPT Anda, setelah itu data akan diverifikasi ulang oleh Biro SDM.</p>
+              <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh Admin Satker/UPT Anda. Untuk data tertentu, usulan akan ditinjau lebih lanjut oleh Komite Talenta.</p>
             </div>
             <button onClick={() => setShowNotice(false)} aria-label="Tutup"><X className="size-[18px]" /></button>
           </div>

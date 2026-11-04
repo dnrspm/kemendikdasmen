@@ -17,6 +17,7 @@ export const kepegawaianGroups: MenuGroup[] = [
       { label: 'Data PPPK', path: '/kepegawaian/data-pppk' },
       { label: 'Data Pegawai Non Aktif', path: '/kepegawaian/data-nonaktif' },
       { label: 'Verifikasi Perubahan Data', path: '/kepegawaian/verifikasi-perubahan' },
+      { label: 'Verifikasi Data Komite', path: '/kepegawaian/verifikasi-komite' },
     ],
   },
   {
