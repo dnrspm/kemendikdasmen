@@ -5,6 +5,8 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
+import { Tabs } from '@/app/components/seragam/Tabs';
+import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import {
@@ -30,8 +32,16 @@ const PRIBADI_AWAL: Record<string, string> = {
 };
 
 type Rec = Record<string, string>;
+
+/** Pegawai non aktif (contoh dari staging): NIP berawalan GEN. */
+const PROFIL_NONAKTIF = { nama: 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', nip: 'GEN000000000000001' };
+const profilByNip = (nip?: string) => (nip?.startsWith('GEN') ? PROFIL_NONAKTIF : AHMAD_PROFIL);
+const PRIBADI_NONAKTIF: Rec = {
+  ...PRIBADI_AWAL, 'Nama Lengkap': 'Dummy Pegawai 1', 'Gelar Belakang': 'S.Kom, MM, PhD', Jabatan: '-',
+  'Golongan Ruang Awal': '-', 'Golongan Ruang Terakhir': '-', 'TMT Golongan': '-', NIK: '-', 'Nomor KK': '-', 'Tempat Lahir': '-', 'Tanggal Lahir': '-',
+};
 /** Kunci berawalan "_" adalah penanda tampilan (mis. _asn) dan bukan field data. */
-type Tabel = { kunci: string; judul: string; data: string; kolom: string[]; baris: Rec[]; tambah?: boolean };
+export type Tabel = { kunci: string; judul: string; data: string; kolom: string[]; baris: Rec[]; tambah?: boolean };
 const fieldsOf = (r: Rec) => Object.entries(r).filter(([k]) => !k.startsWith('_'));
 
 export const KELUARGA: Tabel[] = [
@@ -123,11 +133,10 @@ function Modal({ title, wide, onClose, children, footer }: { title: string; wide
   );
 }
 
-const btnBase = 'rounded-[4px] px-[16px] py-[8px]';
-const btnText = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
-const btnGhost = `${btnBase} border border-[#a8a8a8] text-[#2f3031] hover:bg-[#f4f4f4]`;
-const btnPrimary = `${btnBase} bg-[#1a5fe0] text-white disabled:opacity-50`;
-const btnDanger = `${btnBase} bg-[#e0243a] text-white`;
+const btnText = buttonStyle;
+const btnGhost = buttonClass('outline', 'lg');
+const btnPrimary = buttonClass('primary', 'lg');
+const btnDanger = buttonClass('danger', 'lg');
 
 function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
   return (
@@ -142,6 +151,7 @@ function Panel({ title, right, children }: { title: string; right?: ReactNode; c
 }
 
 function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, { tipe: 'detail' }>; pribadi: Rec; onClose: () => void; onDone: (r: { field: string; nilai: string; komite: boolean }) => void }) {
+  const { nip: nipParam } = useParams();
   const fields = aksi.tipe === 'ubah-baris' ? fieldsOf(aksi.baris).map(([k]) => k) : [];
   const [field, setField] = useState(aksi.tipe === 'ubah-pribadi' || aksi.tipe === 'ubah-kolom' ? aksi.field : fields[0] ?? '');
   const [nilai, setNilai] = useState('');
@@ -161,7 +171,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
   const komite = perluKomite({ data: kategori, jenis, detail });
 
   const kirim = () => {
-    ajukanUsulan({ ...AHMAD_PROFIL, data: kategori, jenis, detail, lama: jenis === 'Ubah' ? lama : undefined });
+    ajukanUsulan({ ...profilByNip(nipParam), data: kategori, jenis, detail, lama: jenis === 'Ubah' ? lama : undefined });
     toast.success(komite ? 'Pengajuan dikirim dan menunggu peninjauan Komite Talenta.' : 'Pengajuan dikirim. Data pokok tidak memerlukan validasi Komite.');
     onDone({ field, nilai, komite });
   };
@@ -266,7 +276,7 @@ const Tag = ({ bg, children }: { bg: string; children: ReactNode }) => (
   <span className="inline-block rounded-full px-[10px] py-[2px] text-[#2f3031] whitespace-nowrap" style={{ background: bg, fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>{children}</span>
 );
 
-function cell(t: Tabel, k: string, b: Rec): ReactNode {
+export function cell(t: Tabel, k: string, b: Rec): ReactNode {
   const v = b[k];
   if (k === 'Nama' && b._asn) return <span className="inline-flex items-center gap-[6px] flex-wrap">{v}<Tag bg="#fae1ae">ASN</Tag></span>;
   if (k === 'Jenis Kelamin') return <Tag bg={v === 'Perempuan' ? '#fce9e9' : '#a6d8f8'}>{v}</Tag>;
@@ -332,7 +342,8 @@ function TabSub({ tabel, onAksi, siasn = true, editable = true }: { tabel: Tabel
 
 function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => void }) {
   const usulan = useUsulan();
-  const pending = (f: string) => usulan.find((u) => u.nip === AHMAD_PROFIL.nip && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.detail[0][0] === f && u.status === 'menunggu-komite');
+  const { nip: nipParam } = useParams();
+  const pending = (f: string) => usulan.find((u) => u.nip === profilByNip(nipParam).nip && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.detail[0][0] === f && u.status === 'menunggu-komite');
   return (
     <div className="flex flex-col gap-[20px]">
       {Object.entries(FIELD_DATA_PRIBADI).map(([bagian, fields]) => (
@@ -364,21 +375,23 @@ export function UbahPegawaiPage() {
   const navigate = useNavigate();
   const { nip } = useParams();
   const [params] = useSearchParams();
+  const tipe = params.get('tipe') === 'nonaktif' ? 'nonaktif' : 'aktif';
+  const profil = profilByNip(nip);
   const [tab, setTab] = useState(params.get('tab') === 'keluarga' ? 1 : 0);
   const [aksi, setAksiState] = useState<Aksi | null>(null);
   // Nilai Data Pribadi di Portal = data awal + usulan Ubah yang sudah berstatus "Berhasil Memperbarui Data" (yang terbaru menang).
   const semuaUsulan = useUsulan();
   const pribadi = useMemo<Rec>(() => {
     const berhasil = semuaUsulan
-      .filter((u) => u.nip === (nip ?? AHMAD_PROFIL.nip) && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.status === 'berhasil-diperbarui')
+      .filter((u) => u.nip === (nip ?? profil.nip) && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.status === 'berhasil-diperbarui')
       .sort((a, b) => a.id - b.id);
-    return berhasil.reduce<Rec>((acc, u) => ({ ...acc, [u.detail[0][0]]: u.detail[0][1] }), { ...PRIBADI_AWAL });
-  }, [semuaUsulan, nip]);
+    return berhasil.reduce<Rec>((acc, u) => ({ ...acc, [u.detail[0][0]]: u.detail[0][1] }), { ...(tipe === 'nonaktif' ? PRIBADI_NONAKTIF : PRIBADI_AWAL) });
+  }, [semuaUsulan, nip, tipe, profil.nip]);
 
   const setAksi = (a: Aksi | null) => {
     if (a?.tipe === 'detail') {
       const slug = a.tabel.kunci === 'ortu' ? 'orang-tua' : a.tabel.kunci;
-      navigate(`/kepegawaian/ubah-pegawai/${nip ?? AHMAD_PROFIL.nip}/${slug}/${a.tabel.baris.indexOf(a.baris)}`);
+      navigate(`/kepegawaian/ubah-pegawai/${nip ?? profil.nip}/${slug}/${a.tabel.baris.indexOf(a.baris)}?tipe=${tipe}`);
       return;
     }
     setAksiState(a);
@@ -390,34 +403,33 @@ export function UbahPegawaiPage() {
   return (
     <KepegawaianLayout>
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
-        <button onClick={() => navigate('/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-[#2f3031] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
+        <button onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-[#2f3031] w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
         <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data Pegawai Aktif</h1>
+          <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
           <p className="text-[#2f3031]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
         <div className="flex items-center gap-[20px] bg-white border border-[#efefef] rounded-[6px] p-[20px]">
           <img alt="" src={imgTut} className="size-[72px] shrink-0 rounded-full object-cover" />
           <div className="min-w-0 flex flex-col gap-[6px]">
-            <p className="text-[#2f3031]" style={VALUE}>{AHMAD_PROFIL.nama}</p>
-            <p className="text-[#6b6f73]" style={TD}>{nip ?? AHMAD_PROFIL.nip}</p>
+            <p className="text-[#2f3031]" style={VALUE}>{profil.nama}</p>
+            <p className="text-[#6b6f73]" style={TD}>{nip ?? profil.nip}</p>
             <div className="flex items-center gap-[8px] flex-wrap mt-[4px]">
+              {tipe === 'nonaktif' ? (
+                <span className="rounded-[4px] bg-[#efefef] px-[6px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
+              ) : (
+                <>
               <span className="rounded-[4px] border border-[#a8a8a8] px-[6px] text-[#2f3031]" style={{ fontFamily: 'ui-monospace, monospace', fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>III/d</span>
               <span className="rounded-[4px] bg-[#9ae5b9] px-[6px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 700, lineHeight: '18px' }}>PNS</span>
               <span className="rounded-[4px] bg-[#efefef] px-[8px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '18px' }}>Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten</span>
+                </>
+              )}
             </div>
           </div>
         </div>
 
         <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">
-          <div className="flex gap-[13px] px-[16px] border-b border-[#e4e4e4] overflow-x-auto">
-            {TABS.map((t, i) => (
-              <button key={t} onClick={() => setTab(i)} className="relative whitespace-nowrap text-[#2f3031]" style={{ height: '56px', padding: '12px 7.5px', fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
-                {t}
-                {i === tab && <span className="absolute left-0 right-0 bottom-0 bg-[#0b5fef]" style={{ height: '4px', borderRadius: '24px 24px 0 0' }} />}
-              </button>
-            ))}
-          </div>
+          <Tabs items={TABS} active={tab} onChange={setTab} />
           <div className="p-[16px] flex flex-col gap-[16px]">
             {tab === 0 && <DataPribadiTab values={pribadi} onAksi={setAksi} />}
             {tab === 1 && <><Diperbarui />{KELUARGA.map((t) => <KartuKeluarga key={t.kunci} t={t} onAksi={setAksi} />)}</>}
@@ -464,11 +476,13 @@ function kartuKeluarga(jenis: string, r: Rec): Kartu[] {
 export function DetailKeluargaPage() {
   const navigate = useNavigate();
   const { nip, jenis = '', idx = '0' } = useParams();
+  const [qs] = useSearchParams();
+  const tipeDetail = qs.get('tipe') === 'nonaktif' ? 'nonaktif' : 'aktif';
   const t = KELUARGA.find((x) => (x.kunci === 'ortu' ? 'orang-tua' : x.kunci) === jenis);
   const r = t?.baris[Number(idx)];
   const [aksi, setAksi] = useState<Aksi | null>(null);
   const [baru, setBaru] = useState<Rec>({});
-  const kembali = () => navigate(`/kepegawaian/ubah-pegawai/${nip ?? AHMAD_PROFIL.nip}?tipe=aktif&tab=keluarga`);
+  const kembali = () => navigate(`/kepegawaian/ubah-pegawai/${nip ?? profilByNip(nip).nip}?tipe=${tipeDetail}&tab=keluarga`);
   const nama = jenis === 'orang-tua' ? r?.Hubungan ?? 'Orang Tua' : jenis === 'pasangan' ? 'Istri' : 'Anak';
   const kartu = r ? kartuKeluarga(jenis, r) : [];
 

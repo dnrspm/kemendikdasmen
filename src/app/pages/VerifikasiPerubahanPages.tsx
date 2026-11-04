@@ -3,6 +3,9 @@ import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, P
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
+import { Tabs } from '@/app/components/seragam/Tabs';
+import { Banner } from '@/app/components/seragam/Banner';
+import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
@@ -34,25 +37,12 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
           <h1 className="text-[#2f3031]" style={{ fontSize: '24px', fontWeight: 700, lineHeight: '28px' }}>{title}</h1>
           <p className="text-[#2f3031]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="flex items-start gap-[8px] rounded-[6px] bg-[#eaf3fe] border border-[#c9defa] px-[14px] py-[10px] text-[#0b3f9e]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-          <Info className="size-[16px] mt-[2px] shrink-0" />
-          <span>Anda bertindak sebagai <b>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}</span>
-        </div>
+        <Banner tone="info">
+          Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
+        </Banner>
         <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
-  );
-}
-
-function Tabs({ tabs, active, onChange }: { tabs: { label: string; count: number }[]; active: number; onChange: (i: number) => void }) {
-  return (
-    <div className="grid border-b border-[#e4e4e4]" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
-      {tabs.map((t, i) => (
-        <button key={t.label} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#1a5fe0] text-[#1a5fe0]' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
-          {t.label} <span className="ml-[4px] rounded-full bg-[#f0f0f0] text-[#45474a] px-[8px]" style={{ fontSize: '12px' }}>{t.count}</span>
-        </button>
-      ))}
-    </div>
   );
 }
 
@@ -254,8 +244,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
 
-const btnBase = 'rounded-[4px] px-[16px] py-[8px]';
-const btnText = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+const btnText = buttonStyle;
 
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
@@ -343,27 +332,27 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
         </div>
 
         <div className="flex items-center justify-between gap-[12px] px-[24px] py-[12px] border-t border-[#e4e4e4] bg-white">
-          <button onClick={onClose} className={`${btnBase} border border-[#a8a8a8] text-[#2f3031] hover:bg-[#f4f4f4]`} style={btnText}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
+          <button onClick={onClose} className={buttonClass('outline', 'lg')} style={btnText}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
           <div className="flex gap-[8px]">
             {canRetry && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={`flex items-center gap-[6px] bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={buttonClass('primary', 'lg')} style={btnText}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
             )}
             {u.status === 'disetujui-komite' && role === 'admin' && (
-              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Jalankan Sinkronisasi SIASN</button>
+              <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Jalankan Sinkronisasi SIASN</button>
             )}
             {u.status === 'berhasil-siasn' && role === 'admin' && (
-              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Simpan ke Portal</button>
+              <button onClick={() => { simpanPortal(u.id); close('Data pada Portal berhasil diperbarui.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Simpan ke Portal</button>
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={`border border-[#c62828] text-[#c62828] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
-                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('danger-outline', 'lg')} style={btnText}>Tolak</button>
+                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={`border border-[#c62828] text-[#c62828] bg-white hover:bg-[#fdeaea] ${btnBase}`} style={btnText}>Tolak</button>
-                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={`bg-[#1a5fe0] text-white ${btnBase}`} style={btnText}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('danger-outline', 'lg')} style={btnText}>Tolak</button>
+                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={buttonClass('primary', 'lg')} style={btnText}>Setujui</button>
               </>
             )}
           </div>
@@ -376,24 +365,24 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
 /* ---------- Halaman bersama ---------- */
 function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
   const cols: Column[] = [
-    { key: 'no', label: 'No', width: '48px' },
+    { key: 'no', label: 'No', width: '40px' },
     { key: 'nama', label: 'Nama Pegawai' },
     { key: 'unit', label: 'Unit Kerja' },
-    { key: 'data', label: 'Data yang Diubah', width: '130px' },
-    { key: 'jenis', label: 'Jenis Perubahan', width: '120px' },
-    { key: 'asal', label: 'Asal Pengajuan', width: '130px' },
-    { key: 'status', label: 'Status Pengajuan', width: '300px' },
-    { key: 'aksi', label: 'Aksi', width: '130px' },
+    { key: 'data', label: 'Data yang Diubah' },
+    { key: 'jenis', label: 'Jenis Perubahan' },
+    { key: 'asal', label: 'Asal Pengajuan' },
+    { key: 'status', label: 'Status Pengajuan' },
+    { key: 'aksi', label: 'Aksi', width: '110px' },
   ];
   const toRow = (u: Usulan, i: number) => ({
     no: i + 1,
     nama: <PersonCell name={u.nama} nip={u.nip} />,
-    unit: shortUnit(u.unit),
+    unit: <span className="block w-[150px] line-clamp-3" title={u.unit}>{shortUnit(u.unit)}</span>,
     data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
     jenis: u.jenis,
     asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
-    aksi: <button onClick={() => onOpen(u)} className="border border-[#a8a8a8] rounded-[4px] px-[12px] py-[6px] font-semibold bg-white whitespace-nowrap hover:bg-[#f4f4f4]" style={{ fontSize: 'var(--text-sm)' }}>Cek Detail</button>,
+    aksi: <button onClick={() => onOpen(u)} className={buttonClass('outline', 'sm')} style={buttonStyle}>Cek Detail</button>,
   });
   return { cols, toRow };
 }
@@ -427,7 +416,8 @@ function VerifikasiPage({ role }: { role: Role }) {
       subtitle={role === 'admin' ? 'Kelola dan verifikasi perubahan data yang diajukan oleh pegawai' : 'Verifikasi dan validasi pengajuan data pegawai yang telah disetujui oleh Admin Satker.'}
     >
       <Tabs
-        tabs={[
+        fill
+        items={[
           { label: role === 'admin' ? 'Daftar Usulan Perubahan Data' : 'Daftar Pengajuan Menunggu Validasi', count: pending.length },
           { label: role === 'admin' ? 'Daftar Usulan yang Telah Ditinjau' : 'Daftar Pengajuan yang Telah Ditinjau', count: reviewed.length },
         ]}
@@ -435,7 +425,7 @@ function VerifikasiPage({ role }: { role: Role }) {
         onChange={(i) => { setTab(i); setF(emptyFilters); }}
       />
       <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
-      <StagingDataTable hideFilter columns={cols} rows={list.map(toRow)} />
+      <StagingDataTable hideFilter dense columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
         <p className="px-[16px] pb-[16px] text-[#65696c]" style={{ fontSize: 'var(--text-xs)' }}>
           Penyajian riwayat Komite Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.

@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Search, ChevronDown, SearchX, Eye, MoreVertical } from 'lucide-react';
+import { Search, ChevronDown, ChevronLeft, ChevronRight, SearchX, Eye, MoreVertical } from 'lucide-react';
 
 export type Column = { key: string; label: string; width?: string };
 export type TableRow = Record<string, ReactNode>;
@@ -11,9 +11,11 @@ interface Props {
   rows: TableRow[];
   showPagination?: boolean;
   hideFilter?: boolean;
+  /** Padding sel lebih rapat untuk tabel dengan banyak kolom. */
+  dense?: boolean;
 }
 
-export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false }: Props) {
+export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false, dense = false }: Props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [perPage, setPerPage] = useState(10);
 
@@ -50,7 +52,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           <thead>
             <tr className="border-y border-[#e4e4e4]">
               {columns.map((c) => (
-                <th key={c.key} className="p-[16px] uppercase text-[#65696c] align-top" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: c.width }}>
+                <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-[#65696c] align-top`} style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: c.width }}>
                   {c.label}
                 </th>
               ))}
@@ -70,7 +72,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
               rows.map((r, i) => (
                 <tr key={i} className={`align-top ${i % 2 === 0 ? 'bg-[#fafafa]' : ''}`}>
                   {columns.map((c) => (
-                    <td key={c.key} className="p-[16px]">{r[c.key]}</td>
+                    <td key={c.key} className={dense ? 'p-[12px_8px]' : 'p-[16px]'}>{r[c.key]}</td>
                   ))}
                 </tr>
               ))
@@ -81,13 +83,20 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
       {showPagination && rows.length > 0 && (
         <div className="flex items-center justify-between text-[#65696c]" style={{ fontSize: '14px', lineHeight: '20px' }}>
-          <span style={{ fontSize: '14px', lineHeight: '20px' }}>Menampilkan 1 - {rows.length} dari {rows.length} data</span>
-          <div className="flex items-center gap-[8px]">
-            <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-[#c7c7c7] rounded-[4px] px-[6px] py-[2px] bg-white">
-              {[5, 10, 20, 50].map((n) => <option key={n} value={n}>{n}</option>)}
-            </select>
-            <span style={{ fontSize: '14px', lineHeight: '20px' }}>per halaman</span>
-            <span className="ml-[12px] size-[28px] grid place-items-center rounded-[4px] bg-[#1a5fe0] text-white font-semibold">1</span>
+          <span className="flex items-center gap-[6px]">
+            Menampilkan 1 - {rows.length} dari {rows.length} data <span aria-hidden>·</span>
+            <span className="relative inline-flex items-center">
+              <select aria-label="Jumlah per halaman" value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="appearance-none bg-transparent pr-[16px] text-[#2f3031] cursor-pointer">
+                {[5, 10, 20, 50].map((n) => <option key={n} value={n}>{n}</option>)}
+              </select>
+              <ChevronDown className="size-[14px] absolute right-0 pointer-events-none" />
+            </span>
+            per halaman
+          </span>
+          <div className="flex items-center gap-[12px]">
+            <ChevronLeft className="size-[16px] text-[#c7c7c7]" aria-hidden />
+            <span className="size-[28px] grid place-items-center rounded-[4px] bg-[#e4e4e4] text-[#2f3031]" style={{ fontWeight: 600 }}>1</span>
+            <ChevronRight className="size-[16px] text-[#c7c7c7]" aria-hidden />
           </div>
         </div>
       )}

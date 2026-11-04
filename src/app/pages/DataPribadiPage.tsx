@@ -1,3 +1,6 @@
+import { Tabs } from '@/app/components/seragam/Tabs';
+import { Banner } from '@/app/components/seragam/Banner';
+import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, Tooltip as ChartTooltip, ResponsiveContainer } from 'recharts';
@@ -89,12 +92,12 @@ function Updated() {
 
 const MASK = '••••••••••••••';
 
-function FamilyCard({ title, to, cols, rows }: { title: string; to: string; cols: { label: string; width?: string }[]; rows: number }) {
+function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: boolean }) {
   const navigate = useNavigate();
   return (
     <div className="rounded-[8px] border border-[#efefef] bg-white p-[16px] mb-[16px]">
       <div className="flex items-center justify-between pb-[12px]">
-        <span className="text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</span>
+        <span className="text-[#65696c]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
         <button
           onClick={() => to && navigate(to)}
           className="flex items-center gap-[6px] rounded-[6px] border border-[#808489] bg-white px-[16px] py-[8px] text-[#2f3031]"
@@ -107,18 +110,18 @@ function FamilyCard({ title, to, cols, rows }: { title: string; to: string; cols
         <thead>
           <tr className="border-y border-[#efefef]">
             <th className="p-[8px] text-left text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '48px' }}>NO</th>
-            {cols.map((c) => (
-              <th key={c.label} className="p-[8px] text-left text-[#2f3031] uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px' }}>{c.label}</th>
+            {tabel.kolom.map((c) => (
+              <th key={c} className="p-[8px] text-left text-[#2f3031] uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px' }}>{c}</th>
             ))}
             <th className="p-[8px] text-center text-[#2f3031]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '16px', width: '60px' }}>AKSI</th>
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: rows }).map((_, i) => (
+          {tabel.baris.map((b, i) => (
             <tr key={i} className={i % 2 === 0 ? 'bg-[#fafafa]' : ''}>
               <td className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{i + 1}</td>
-              {cols.map((c) => (
-                <td key={c.label} className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{MASK}</td>
+              {tabel.kolom.map((c) => (
+                <td key={c} className="p-[12px_8px] text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>{hidden ? MASK : selKeluarga(tabel, c, b)}</td>
               ))}
               <td className="p-[12px_8px] text-center"><MoreAction /></td>
             </tr>
@@ -129,25 +132,26 @@ function FamilyCard({ title, to, cols, rows }: { title: string; to: string; cols
   );
 }
 
-function Keluarga() {
+function Keluarga({ hidden, onToggle }: { hidden: boolean; onToggle: () => void }) {
   return (
     <div>
-      <Updated />
-      <div className="m-[16px] rounded-[8px] border border-[#f3e3b0] bg-[#fff6dc] p-[16px] flex gap-[12px]">
-        <TriangleAlert className="size-[20px] text-[#b57f21] shrink-0 mt-[2px]" />
-        <div className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>
-          <p style={{ fontWeight: 600 }} className="mb-[8px]">Usulan Perubahan Data</p>
-          <p>
-            Anda memiliki 4 usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Menunggu Verifikasi Data</b> sedang diverifikasi oleh Admin Satker. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
-          </p>
-          <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
-          <button className="mt-[8px] underline" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Selengkapnya</button>
-        </div>
+      <div className="flex items-center justify-between px-[16px] pt-[12px] pb-[16px]">
+        <span className="text-[#6b6f73]" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></span>
+        <button onClick={onToggle} aria-label="Tampilkan atau sembunyikan data" aria-pressed={!hidden} className="rounded-[4px] p-[4px] hover:bg-[#f4f4f4]">
+          {hidden ? <EyeOff className="size-[20px] text-[#45474a]" /> : <Eye className="size-[20px] text-[#45474a]" />}
+        </button>
       </div>
+      <Banner tone="warning" title="Usulan Perubahan Data" className="m-[16px]">
+        <p>
+            Anda memiliki 4 usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Menunggu Verifikasi Data</b> sedang diverifikasi oleh Admin Satker. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
+        </p>
+        <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
+        <button className="mt-[8px] underline" style={{ fontWeight: 600 }}>Selengkapnya</button>
+      </Banner>
       <div className="px-[16px]">
-        <FamilyCard title="Orang Tua" to="/kepegawaian/keluarga/orang-tua/tambah" cols={[{ label: 'Nama' }, { label: 'Hubungan' }, { label: 'Nomor Identitas' }, { label: 'Status Hidup' }]} rows={3} />
-        <FamilyCard title="Istri" to="/kepegawaian/keluarga/pasangan/tambah" cols={[{ label: 'Nama' }, { label: 'Nomor Identitas' }, { label: 'Status Pernikahan' }]} rows={2} />
-        <FamilyCard title="Anak" to="" cols={[{ label: 'Nama' }, { label: 'Jenis Kelamin' }, { label: 'Status Sekolah/Kerja' }, { label: 'Status Pernikahan Anak' }]} rows={1} />
+        {KELUARGA.map((t) => (
+          <FamilyCard key={t.kunci} tabel={t} hidden={hidden} to={t.kunci === 'ortu' ? '/kepegawaian/keluarga/orang-tua/tambah' : t.kunci === 'pasangan' ? '/kepegawaian/keluarga/pasangan/tambah' : ''} />
+        ))}
       </div>
     </div>
   );
@@ -209,19 +213,15 @@ const subDefs: Record<string, SubDef[]> = {
 
 function UsulanBanner({ count, onToggle, open }: { count: number; onToggle: () => void; open: boolean }) {
   return (
-    <div className="mx-[16px] mb-[16px] rounded-[8px] border border-[#f3e3b0] bg-[#fff6dc] p-[16px] flex gap-[12px]">
-      <TriangleAlert className="size-[20px] text-[#b57f21] shrink-0 mt-[2px]" />
-      <div className="text-[#2f3031]" style={{ fontSize: '16px', lineHeight: '24px' }}>
-        <p style={{ fontWeight: 600 }} className="mb-[8px]">Usulan Perubahan Data</p>
-        <p>
-          Anda memiliki {count} usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
-        </p>
-        <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
-        <button onClick={onToggle} className="mt-[8px] underline flex items-center gap-[4px]" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>
-          {open ? 'Sembunyikan' : 'Selengkapnya'}
-        </button>
-      </div>
-    </div>
+    <Banner tone="warning" title="Usulan Perubahan Data" className="mx-[16px] mb-[16px]">
+      <p>
+        Anda memiliki {count} usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
+      </p>
+      <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
+      <button onClick={onToggle} className="mt-[8px] underline" style={{ fontWeight: 600 }}>
+        {open ? 'Sembunyikan' : 'Selengkapnya'}
+      </button>
+    </Banner>
   );
 }
 
@@ -802,8 +802,8 @@ function SubTabContent({ tab }: { tab: string }) {
   );
 }
 
-function OtherTab({ name }: { name: string }) {
-  if (name === 'Keluarga') return <Keluarga />;
+function OtherTab({ name, hidden, onToggle }: { name: string; hidden: boolean; onToggle: () => void }) {
+  if (name === 'Keluarga') return <Keluarga hidden={hidden} onToggle={onToggle} />;
   return <SubTabContent key={name} tab={name} />;
 }
 
@@ -834,15 +834,10 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         </div>
 
         {showNotice && (
-          <div className="bg-[#e3f1fd] border border-[#a9d2f7] rounded-[6px] p-[16px] flex gap-[10px]">
-            <Info className="size-[18px] mt-[2px] text-[#1a5fe0] shrink-0" />
-            <div className="flex-1" style={{ fontSize: '16px', lineHeight: '24px' }}>
-              <p className="mb-[6px]" style={{ fontWeight: 600 }}>Perhatian</p>
-              <p>Silakan ajukan perubahan data jika ada kesalahan atau ada perubahan data diri Anda.</p>
-              <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh Admin Satker/UPT Anda. Untuk data tertentu, usulan akan ditinjau lebih lanjut oleh Komite Talenta.</p>
-            </div>
-            <button onClick={() => setShowNotice(false)} aria-label="Tutup"><X className="size-[18px]" /></button>
-          </div>
+          <Banner tone="info" title="Perhatian" onClose={() => setShowNotice(false)}>
+            <p>Silakan ajukan perubahan data jika ada kesalahan atau ada perubahan data diri Anda.</p>
+            <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh Admin Satker/UPT Anda. Untuk data tertentu, usulan akan ditinjau lebih lanjut oleh Komite Talenta.</p>
+          </Banner>
         )}
 
         <div className="grid grid-cols-1 xl:grid-cols-[275px_1fr] gap-[16px] items-start">
@@ -880,21 +875,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
           </div>
 
           <div className="bg-white border border-[#efefef] rounded-[6px] min-w-0">
-            <div className="flex gap-[13px] px-[16px] border-b border-[#e4e4e4] overflow-x-auto">
-              {tabs.map((t, i) => (
-                <button
-                  key={t}
-                  onClick={() => setTab(i)}
-                  className="relative whitespace-nowrap text-[#2f3031]"
-                  style={{ height: '56px', padding: '12px 7.5px', fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
-                >
-                  {t}
-                  {i === tab && (
-                    <span className="absolute left-0 right-0 bottom-0 bg-[#0b5fef]" style={{ height: '4px', borderRadius: '24px 24px 0 0' }} />
-                  )}
-                </button>
-              ))}
-            </div>
+            <Tabs items={tabs} active={tab} onChange={setTab} />
 
             {tab === 0 ? (
               <div className="p-[14px] flex flex-col gap-[14px]">
@@ -922,7 +903,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                 </div>
               </div>
             ) : (
-              <OtherTab name={tabs[tab]} />
+              <OtherTab name={tabs[tab]} hidden={hidden} onToggle={() => setHidden(!hidden)} />
             )}
           </div>
         </div>

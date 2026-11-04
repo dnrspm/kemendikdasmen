@@ -1,7 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { StagingDataTable, PersonCell, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
+import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
+import { Tabs } from '@/app/components/seragam/Tabs';
+import { AksiCell } from '@/app/components/AksiCell';
 
 const UNIT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah - KEMENTERIAN PENDIDIKAN DASAR DAN MENENGAH';
 const AHMAD = 'Prof. Dr. AHMAD WIJAYA M.M.';
@@ -21,18 +23,6 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
   );
 }
 
-function Tabs({ tabs, active, onChange }: { tabs: string[]; active: number; onChange: (i: number) => void }) {
-  return (
-    <div className="grid border-b border-[#e4e4e4]" style={{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
-      {tabs.map((t, i) => (
-        <button key={t} onClick={() => onChange(i)} className={`py-[16px] border-b-[3px] ${i === active ? 'border-[#1a5fe0]' : 'border-transparent'}`} style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
-          {t}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 const pegawaiCols: Column[] = [
   { key: 'no', label: 'No', width: '48px' },
   { key: 'nama', label: 'Nama Pegawai' },
@@ -40,7 +30,7 @@ const pegawaiCols: Column[] = [
   { key: 'jabatan', label: 'Jabatan' },
   { key: 'unit', label: 'Unit Kerja' },
   { key: 'status', label: 'Status Pegawai', width: '110px' },
-  { key: 'aksi', label: 'Aksi', width: '100px' },
+  { key: 'aksi', label: 'Aksi', width: '170px' },
 ];
 
 export function DataPegawaiAktifPage() {
@@ -48,15 +38,15 @@ export function DataPegawaiAktifPage() {
   const navigate = useNavigate();
   return (
     <PageShell title="Data Pegawai Aktif" subtitle="Kelola data pegawai aktif (PNS, CPNS, MPP) - tidak termasuk yang sudah pensiun, berhenti, atau meninggal">
-      <Tabs tabs={['Semua Pegawai', 'PNS MPP']} active={tab} onChange={setTab} />
+      <Tabs fill items={['Semua Pegawai', 'PNS MPP']} active={tab} onChange={setTab} />
       <StagingDataTable
         title={`Daftar Pegawai Aktif (${tab === 0 ? 1 : 0})`}
         subtitle="Klik pada status pegawai untuk mengubah statusnya"
         columns={pegawaiCols}
         rows={tab === 0 ? [{
-          no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
+          no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
           jabatan: 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten',
-          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <button onClick={() => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`)} className="border border-[#a8a8a8] rounded-[4px] px-[12px] py-[6px] font-semibold bg-white whitespace-nowrap hover:bg-[#f4f4f4]" style={{ fontSize: 'var(--text-sm)' }}>Edit</button>,
+          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`) }]} />,
         }] : []}
       />
     </PageShell>
@@ -72,14 +62,17 @@ export function DataPPPKPage() {
 }
 
 export function DataNonAktifPage() {
+  const navigate = useNavigate();
   return (
     <PageShell title="Data Pegawai Non Aktif" subtitle="Kelola data pegawai yang sudah tidak aktif karena pensiun, berhenti, atau meninggal">
       <StagingDataTable
         title="Daftar Pegawai Non Aktif (1)"
         columns={pegawaiCols}
         rows={[{
-          no: 1, nama: <PersonCell name="Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD" nip="GEN000000000000001" />, gol: '-',
-          jabatan: 'Data tidak lengkap', unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <MoreAction />,
+          no: 1, nama: <PersonCell name="Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD" nip="GEN000000000000001" />,
+          gol: <span className="text-[#c62828]">Data tidak lengkap</span>, jabatan: '-', unit: UNIT,
+          status: <span className="inline-block rounded-[6px] bg-[#efefef] px-[8px] py-[2px] text-[#2f3031]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>PNS</span>,
+          aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate('/kepegawaian/ubah-pegawai/GEN000000000000001?tipe=nonaktif') }]} />,
         }]}
       />
     </PageShell>
