@@ -1,3 +1,4 @@
+import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
 import { useState } from 'react';
 import { Header } from '@/app/components/Header';
 import {
@@ -1410,50 +1411,19 @@ function BannerUtamaContent() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-[8px] mb-[20px] border-b border-[color:var(--border)]/20">
-        <button
-          onClick={() => {
-            setActiveTab('Aktif');
-            if (isReordering) cancelReorder();
-          }}
-          className={`px-[16px] py-[10px] -mb-[1px] transition-colors ${
-            activeTab === 'Aktif'
-              ? 'text-primary border-b-2 border-primary'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-          style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-weight-medium)' }}
-        >
-          Aktif ({aktifBanners.length})
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab('Tidak Aktif');
-            if (isReordering) cancelReorder();
-          }}
-          className={`px-[16px] py-[10px] -mb-[1px] transition-colors ${
-            activeTab === 'Tidak Aktif'
-              ? 'text-primary border-b-2 border-primary'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-          style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-weight-medium)' }}
-        >
-          Tidak Aktif ({tidakAktifBanners.length})
-        </button>
-        <button
-          onClick={() => {
-            setActiveTab('Dijadwalkan');
-            if (isReordering) cancelReorder();
-          }}
-          className={`px-[16px] py-[10px] -mb-[1px] transition-colors ${
-            activeTab === 'Dijadwalkan'
-              ? 'text-primary border-b-2 border-primary'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-          style={{ fontSize: 'var(--text-sm)', fontWeight: 'var(--font-weight-medium)' }}
-        >
-          Dijadwalkan ({dijadwalkanBanners.length})
-        </button>
-      </div>
+      <SdTabs
+        className="mb-[20px]"
+        items={[
+          { label: 'Aktif', count: aktifBanners.length },
+          { label: 'Tidak Aktif', count: tidakAktifBanners.length },
+          { label: 'Dijadwalkan', count: dijadwalkanBanners.length },
+        ]}
+        active={['Aktif', 'Tidak Aktif', 'Dijadwalkan'].indexOf(activeTab)}
+        onChange={(i) => {
+          setActiveTab((['Aktif', 'Tidak Aktif', 'Dijadwalkan'] as const)[i]);
+          if (isReordering) cancelReorder();
+        }}
+      />
 
       {/* Table */}
       <div className="bg-card rounded-[var(--radius-card)] border border-[color:var(--border)]/20 overflow-hidden">

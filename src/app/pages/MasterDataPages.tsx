@@ -1,3 +1,5 @@
+import { StagingDataTable, MoreAction } from '@/app/components/StagingDataTable';
+import { Button } from '@/app/components/seragam/Button';
 import { useState, type ReactNode } from 'react';
 import { Plus, MoreVertical, ChevronLeft, ChevronRight, ChevronDown, ChevronRight as Caret } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -86,54 +88,30 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
 
 const AddButton = () => (
   <div className="flex justify-end mb-[12px]">
-    <button className="bg-sd-gray-90 text-white rounded-[4px] px-[14px] py-[8px] flex items-center gap-[6px] font-semibold" style={{ fontSize: 'var(--text-sm)' }}>
-      <Plus className="size-[16px]" /> Tambah
-    </button>
+    <Button variant="primary" size="md"><Plus className="size-[18px]" /> Tambah</Button>
   </div>
 );
 
 export function MasterDataPage({ slug }: { slug: string }) {
   const cfg = configs[slug];
-  const [perPage, setPerPage] = useState(10);
   if (!cfg) return null;
   return (
     <Shell title={cfg.title} subtitle={cfg.subtitle}>
       <AddButton />
-      <div className="overflow-x-auto">
-        <table className="w-full text-left" style={{ fontSize: 'var(--text-sm)' }}>
-          <thead>
-            <tr className="border-y border-[#e4e4e4]">
-              <th className="px-[12px] py-[12px] uppercase text-sd-gray-60 w-[56px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>No</th>
-              {cfg.columns.map((c) => (
-                <th key={c} className="px-[12px] py-[12px] uppercase text-sd-gray-60" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>{c}</th>
-              ))}
-              <th className="px-[12px] py-[12px] uppercase text-sd-gray-60 text-center w-[80px]" style={{ fontSize: 'var(--text-xs)', fontWeight: 600 }}>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cfg.rows.map((r, i) => (
-              <tr key={i} className={i % 2 === 0 ? 'bg-sd-gray-0' : ''}>
-                <td className="px-[12px] py-[16px]">{i + 1}</td>
-                {r.map((v, j) => <td key={j} className="px-[12px] py-[16px]">{v}</td>)}
-                <td className="px-[12px] py-[16px] text-center"><button aria-label="Aksi"><MoreVertical className="size-[18px] inline text-sd-gray-80" /></button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="flex items-center justify-between mt-[12px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
-        <span className="flex items-center gap-[8px]">
-          Menampilkan 1 - {Math.min(cfg.rows.length, perPage)} dari {cfg.total} data ·
-          <select value={perPage} onChange={(e) => setPerPage(Number(e.target.value))} className="border border-sd-gray-30 rounded-[4px] px-[4px] py-[1px] bg-white">
-            {[5, 10, 20, 50].map((n) => <option key={n}>{n}</option>)}
-          </select>
-          per halaman
-        </span>
-        <span className="flex items-center gap-[6px]">
-          <ChevronLeft className="size-[16px] text-[#bbb]" />
-          <span className="size-[28px] grid place-items-center rounded-[4px] bg-sd-blue-70 text-white font-semibold">1</span>
-          <ChevronRight className="size-[16px]" />
-        </span>
+      <div className="-mx-[16px] -mb-[16px]">
+        <StagingDataTable
+          hideFilter
+          columns={[
+            { key: 'no', label: 'No', width: '56px' },
+            ...cfg.columns.map((c, j) => ({ key: `c${j}`, label: c })),
+            { key: 'aksi', label: 'Aksi', width: '80px' },
+          ]}
+          rows={cfg.rows.map((r, i) => {
+            const row: Record<string, ReactNode> = { no: i + 1, aksi: <MoreAction /> };
+            r.forEach((v, j) => { row[`c${j}`] = v; });
+            return row;
+          })}
+        />
       </div>
     </Shell>
   );
