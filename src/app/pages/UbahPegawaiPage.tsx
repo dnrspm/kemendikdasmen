@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
+import { fieldClass } from '@/app/components/seragam/TextField';
 import { Tabs } from '@/app/components/seragam/Tabs';
 import { ChipGroup } from '@/app/components/seragam/Chip';
 import { Badge } from '@/app/components/seragam/Badge';
@@ -112,7 +113,7 @@ type Aksi =
   | { tipe: 'ubah-kolom'; tabel: Tabel; field: string; lama: string }
   | { tipe: 'detail'; tabel: Tabel; baris: Rec };
 
-const inputCls = 'w-full border border-sd-gray-30 rounded-[4px] px-[12px] py-[8px] bg-white text-sd-gray-90';
+const inputCls = `${fieldClass} px-[12px] py-[8px]`;
 const st = { fontSize: 'var(--text-sm)' } as const;
 const LABEL = { fontSize: '14px', lineHeight: '20px' } as const;           // label/keterangan
 const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const; // nilai

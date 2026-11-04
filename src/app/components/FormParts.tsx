@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { Radio } from './seragam/Radio';
 import { ArrowLeft, Calendar, Paperclip, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
@@ -32,7 +33,7 @@ export function Field({ label, required, full, children, hint }: { label: string
   );
 }
 
-const base = 'w-full rounded-[4px] border px-[16px] h-[48px]';
+const base = 'w-full rounded-[4px] border px-[16px] h-[46px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]';
 export const TextInput = ({ readOnly, defaultValue, placeholder, onChange }: { readOnly?: boolean; defaultValue?: string; placeholder?: string; onChange?: () => void }) => (
   <input
     readOnly={readOnly}
@@ -68,8 +69,8 @@ export const SelectInput = ({ options, placeholder, defaultValue, onChange }: { 
 export const Radios = ({ name, options, disabledAll, defaultValue }: { name: string; options: string[]; disabledAll?: boolean; defaultValue?: string }) => (
   <div className="flex items-center gap-[20px] py-[8px]" style={{ fontSize: '16px', lineHeight: '24px' }}>
     {options.map((o) => (
-      <span key={o} className={`flex items-center gap-[6px] ${disabledAll ? 'text-sd-gray-50' : ''}`}>
-        <input type="radio" name={name} defaultChecked={o === defaultValue} disabled={disabledAll} /> {o}
+      <span key={o} className={`flex items-center`}>
+        <Radio name={name} defaultChecked={o === defaultValue} disabled={disabledAll} label={o} />
       </span>
     ))}
   </div>

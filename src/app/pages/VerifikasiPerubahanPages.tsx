@@ -3,6 +3,7 @@ import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, P
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
+import { fieldClass } from '@/app/components/seragam/TextField';
 import { Tabs } from '@/app/components/seragam/Tabs';
 import { Badge } from '@/app/components/seragam/Badge';
 import { Banner } from '@/app/components/seragam/Banner';
@@ -70,7 +71,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
       <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className="w-full border border-sd-gray-30 rounded-[4px] pl-[32px] pr-[10px] py-[8px] bg-white" style={st} />
+          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
         </div>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-sd-gray-50 rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
           <SlidersHorizontal className="size-[16px]" /> Filter
@@ -297,7 +298,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
                   <h4 className="text-sd-gray-90" style={HEADING}>Catatan</h4>
                   <span className="text-sd-gray-60" style={SMALL}>Wajib diisi jika menolak</span>
                 </div>
-                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className="w-full border border-sd-gray-30 rounded-[4px] px-[12px] py-[8px] text-sd-gray-90" style={BODY} />
+                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className={`${fieldClass} px-[12px] py-[8px]`} style={BODY} />
               </section>
             )}
           </div>
