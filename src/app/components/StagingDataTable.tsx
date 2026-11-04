@@ -113,7 +113,7 @@ export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
 
 export const Chip = ({ children, tone = 'green' }: { children: ReactNode; tone?: 'green' | 'red' | 'blue' }) => {
   const t = { green: ['#9ae5b9', '#323232'], red: ['#fbd5d5', '#a11d1d'], blue: ['#9ae5b9', '#323232'] }[tone];
-  return <span className="inline-block rounded-[6px] px-[8px] py-[2px]" style={{ background: t[0], color: t[1], fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>{children}</span>;
+  return <span className="inline-block rounded-[8px] px-[8px] py-[2px]" style={{ background: t[0], color: t[1], fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>{children}</span>;
 };
 
 export const EyeAction = ({ onClick }: { onClick?: () => void }) => <button aria-label="Lihat" onClick={onClick}><Eye className="size-[18px] text-[#45474a]" /></button>;

@@ -17,7 +17,7 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
           <h1 className="text-[#323232]" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
           <p className="text-[#323232]" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
-        <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">{children}</div>
+        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
   );
@@ -71,7 +71,7 @@ export function DataNonAktifPage() {
         rows={[{
           no: 1, nama: <PersonCell name="Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD" nip="GEN000000000000001" />,
           gol: <span className="text-[#DF2121]">Data tidak lengkap</span>, jabatan: '-', unit: UNIT,
-          status: <span className="inline-block rounded-[6px] bg-[#efefef] px-[8px] py-[2px] text-[#323232]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>PNS</span>,
+          status: <span className="inline-block rounded-[8px] bg-[#efefef] px-[8px] py-[2px] text-[#323232]" style={{ fontSize: '12px', fontWeight: 600, lineHeight: '16px' }}>PNS</span>,
           aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate('/kepegawaian/ubah-pegawai/GEN000000000000001?tipe=nonaktif') }]} />,
         }]}
       />

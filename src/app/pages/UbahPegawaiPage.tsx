@@ -122,7 +122,7 @@ const TH = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
 function Modal({ title, wide, onClose, children, footer }: { title: string; wide?: boolean; onClose: () => void; children: ReactNode; footer: ReactNode }) {
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
+      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
           <h2 className="text-[#323232]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#ADADAD] p-[4px] hover:bg-[#F1F1F1]"><X className="size-[18px] text-[#323232]" /></button>
@@ -310,7 +310,7 @@ function TabelEdit({ t, onAksi, editable = true, pagination = true, menu = false
 /** Kartu per kelompok keluarga: judul + tombol Tambah, lalu tabel (seperti staging). */
 function KartuKeluarga({ t, onAksi }: { t: Tabel; onAksi: (a: Aksi) => void }) {
   return (
-    <section className="border border-[#efefef] rounded-[6px] overflow-hidden">
+    <section className="border border-[#efefef] rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-[#efefef]">
         <h3 className="text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{t.judul}</h3>
         <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn} style={outlineTxt}><UserPlus className="size-[18px]" /> Tambah</button>
@@ -334,7 +334,7 @@ function TabSub({ tabel, onAksi, siasn = true, editable = true }: { tabel: Tabel
           {editable && t.tambah && <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn} style={outlineTxt}><Plus className="size-[18px]" /> Tambah</button>}
         </div>
       </div>
-      <div className="border border-[#efefef] rounded-[6px] overflow-hidden">
+      <div className="border border-[#efefef] rounded-[8px] overflow-hidden">
         <TabelEdit t={t} onAksi={onAksi} editable={editable && t.baris.length > 0} />
       </div>
     </div>
@@ -348,7 +348,7 @@ function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => 
   return (
     <div className="flex flex-col gap-[20px]">
       {Object.entries(FIELD_DATA_PRIBADI).map(([bagian, fields]) => (
-        <section key={bagian} className="border border-[#efefef] rounded-[6px] overflow-hidden">
+        <section key={bagian} className="border border-[#efefef] rounded-[8px] overflow-hidden">
           <div className="bg-[#F1F1F1] px-[14px] py-[8px] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{bagian}</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[24px] gap-y-[4px] p-[14px]">
             {fields.map((f) => {
@@ -410,7 +410,7 @@ export function UbahPegawaiPage() {
           <p className="text-[#323232]" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
-        <div className="flex items-center gap-[20px] bg-white border border-[#efefef] rounded-[6px] p-[20px]">
+        <div className="flex items-center gap-[20px] bg-white border border-[#efefef] rounded-[8px] p-[20px]">
           <img alt="" src={imgTut} className="size-[72px] shrink-0 rounded-full object-cover" />
           <div className="min-w-0 flex flex-col gap-[6px]">
             <p className="text-[#323232]" style={VALUE}>{profil.nama}</p>
@@ -429,7 +429,7 @@ export function UbahPegawaiPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">
+        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">
           <Tabs items={TABS} active={tab} onChange={setTab} />
           <div className="p-[16px] flex flex-col gap-[16px]">
             {tab === 0 && <DataPribadiTab values={pribadi} onAksi={setAksi} />}
@@ -438,7 +438,7 @@ export function UbahPegawaiPage() {
             {tab === 3 && <TabSub tabel={NILAI} onAksi={setAksi} siasn={false} editable={false} />}
             {tab === 4 && <TabSub tabel={RIWAYAT} onAksi={setAksi} />}
             {tab === 5 && (
-              <div className="rounded-[6px] bg-[#F1F1F1] py-[56px] flex flex-col items-center gap-[8px] text-center">
+              <div className="rounded-[8px] bg-[#F1F1F1] py-[56px] flex flex-col items-center gap-[8px] text-center">
                 <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-[#b98900]" /></div>
                 <p className="text-[#323232]" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
                 <p className="text-[#727272]" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
@@ -488,7 +488,7 @@ export function DetailKeluargaPage() {
   const kartu = r ? kartuKeluarga(jenis, r) : [];
 
   const render = (k: Kartu) => (
-    <section key={k.judul} className="border border-[#efefef] rounded-[6px] overflow-hidden self-start">
+    <section key={k.judul} className="border border-[#efefef] rounded-[8px] overflow-hidden self-start">
       <div className="px-[16px] py-[12px] border-b border-[#efefef] text-[#727272]" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{k.judul}</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
         {k.fields.map(([f, v]) => {
@@ -526,7 +526,7 @@ export function DetailKeluargaPage() {
           <p className="text-[#323232]" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
         </div>
         {r ? (
-          <div className="bg-white border border-[#efefef] rounded-[6px] p-[16px] grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
+          <div className="bg-white border border-[#efefef] rounded-[8px] p-[16px] grid grid-cols-1 lg:grid-cols-2 gap-[16px]">
             {kartu.map(render)}
           </div>
         ) : (

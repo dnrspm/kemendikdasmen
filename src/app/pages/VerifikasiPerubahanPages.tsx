@@ -32,7 +32,7 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
         <Banner tone="info">
           Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
         </Banner>
-        <div className="bg-white border border-[#efefef] rounded-[6px] overflow-hidden">{children}</div>
+        <div className="bg-white border border-[#efefef] rounded-[8px] overflow-hidden">{children}</div>
       </div>
     </KepegawaianLayout>
   );
@@ -253,7 +253,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-[#C9CBCF] bg-[#F5F5F5]">
           <h2 className="text-[#323232]" style={HEADING}>Detail Usulan Perubahan</h2>
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-[#ADADAD] p-[4px] hover:bg-[#F1F1F1]"><X className="size-[18px] text-[#323232]" /></button>
@@ -315,8 +315,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             <div className="flex flex-col gap-[16px] border-t border-[#ADADAD] pt-[20px] mt-[4px]">
               <h4 className="text-[#45474a]" style={TH_STYLE}>Alur Pengusulan</h4>
               <Stepper steps={steps} />
-              {u.status === 'gagal-siasn' && <p className="rounded-[6px] bg-[#fce9e9] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
-              {u.status === 'berhasil-siasn' && <p className="rounded-[6px] bg-[#fef6e0] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
+              {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-[#fce9e9] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
+              {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-[#fef6e0] px-[12px] py-[8px] text-[#323232]" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
             </div>
             </div>
           </aside>

@@ -54,7 +54,13 @@ export const typeAction = type.action;
 export const typeBody = type.body;
 export const typeLabel = type.bodySmall;
 
-export const radius = { control: '4px', card: '8px' } as const;
+/** Radius (Figma Border): 0, 4, 8, 12, 16, 24, 9999. Kartu = 8, kontrol = 4. */
+export const radius = { none: '0', control: '4px', card: '8px', lg: '12px', xl: '16px', xxl: '24px', pill: '9999px' } as const;
+/** Bayangan (Figma Shadow): Elevation/01 untuk kartu minimal, Elevation/06 untuk modal. */
+export const elevation = {
+  e01: '0 1px 1px 0 rgba(0,0,0,0.08), 0 2px 1px -1px rgba(0,0,0,0.02), 0 1px 3px 0 rgba(0,0,0,0.10)',
+  e06: '0 12px 17px 2px rgba(0,0,0,0.08), 0 5px 22px 4px rgba(0,0,0,0.02), 0 7px 8px -4px rgba(0,0,0,0.10)',
+} as const;
 
 /** Modal: header Surface/Subdued #F5F5F5 + Border/Subdued #C9CBCF, footer Border/Disabled #D9DBDD, padding 16x20. */
 export const modal = { headerBg: '#F5F5F5', headerBorder: '#C9CBCF', footerBorder: '#D9DBDD', paddingY: '16px', paddingX: '20px' } as const;
