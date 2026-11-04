@@ -3,11 +3,7 @@ import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, P
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { fieldClass } from '@/app/components/seragam/TextField';
-import { Tabs } from '@/app/components/seragam/Tabs';
-import { Badge } from '@/app/components/seragam/Badge';
-import { Banner } from '@/app/components/seragam/Banner';
-import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
+import { fieldClass, Tabs, Badge, Banner, buttonClass, buttonStyle } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,

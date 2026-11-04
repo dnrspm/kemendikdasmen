@@ -1,4 +1,4 @@
-import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
+import { Tabs as SdTabs } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { Home, Settings, Bell, Info, Image as ImageIcon, ChevronUp, ChevronDown, ArrowLeftCircle, Plus, Trash2 } from 'lucide-react';

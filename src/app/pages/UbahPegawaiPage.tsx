@@ -5,11 +5,7 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
-import { fieldClass } from '@/app/components/seragam/TextField';
-import { Tabs } from '@/app/components/seragam/Tabs';
-import { ChipGroup } from '@/app/components/seragam/Chip';
-import { Badge } from '@/app/components/seragam/Badge';
-import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
+import { fieldClass, Tabs, ChipGroup, Badge, buttonClass, buttonStyle } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import {

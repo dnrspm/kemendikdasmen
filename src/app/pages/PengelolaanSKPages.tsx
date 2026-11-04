@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
+import { Tabs as SdTabs } from 'seragam-design-system';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, MoreAction, type Column } from '@/app/components/StagingDataTable';
 

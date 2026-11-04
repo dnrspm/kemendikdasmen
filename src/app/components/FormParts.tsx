@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { Radio } from './seragam/Radio';
+import { Radio } from 'seragam-design-system';
 import { ArrowLeft, Calendar, Paperclip, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router';
 

@@ -1,8 +1,4 @@
-import { Tabs } from '@/app/components/seragam/Tabs';
-import { Checkbox } from '@/app/components/seragam/Checkbox';
-import { ChipGroup } from '@/app/components/seragam/Chip';
-import { Banner } from '@/app/components/seragam/Banner';
-import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
+import { Tabs, Checkbox, ChipGroup, Banner, buttonClass, buttonStyle } from 'seragam-design-system';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';

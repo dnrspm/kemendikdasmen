@@ -1,5 +1,5 @@
 import { StagingDataTable, MoreAction } from '@/app/components/StagingDataTable';
-import { Button } from '@/app/components/seragam/Button';
+import { Button } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { Plus, MoreVertical, ChevronLeft, ChevronRight, ChevronDown, ChevronRight as Caret } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';

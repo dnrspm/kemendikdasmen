@@ -1,4 +1,4 @@
-import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
+import { Tabs as SdTabs } from 'seragam-design-system';
 import { useState, type ReactNode } from 'react';
 import { ArrowLeft, Download, Filter, ChevronDown } from 'lucide-react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, LabelList, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';

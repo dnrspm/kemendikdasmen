@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
-import { Tabs } from '@/app/components/seragam/Tabs';
+import { Tabs } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
 
 const UNIT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah - KEMENTERIAN PENDIDIKAN DASAR DAN MENENGAH';

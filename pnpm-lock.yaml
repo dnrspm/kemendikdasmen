@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  vite: 6.3.5
-
 importers:
 
   .:
@@ -173,6 +170,9 @@ importers:
       recharts:
         specifier: 2.15.2
         version: 2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      seragam-design-system:
+        specifier: github:titohnf/seragamds
+        version: https://codeload.github.com/titohnf/seragamds/tar.gz/bd8287e2f48931218e72fc0aa50b763ecf71ea9c(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12)
       sonner:
         specifier: 2.0.3
         version: 2.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1524,7 +1524,7 @@ packages:
   '@tailwindcss/vite@4.1.12':
     resolution: {integrity: sha512-4pt0AMFDx7gzIrAOIYgYP0KCBuKWqyW8ayrdiLEjoJTT4pKTjrzG/e4uzWtTLDziC+66R9wbUqZBccJalSE5vQ==}
     peerDependencies:
-      vite: 6.3.5
+      vite: ^5.2.0 || ^6 || ^7
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1586,7 +1586,7 @@ packages:
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: 6.3.5
+      vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
   aria-hidden@1.2.6:
     resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
@@ -2244,6 +2244,14 @@ packages:
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
+
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/bd8287e2f48931218e72fc0aa50b763ecf71ea9c:
+    resolution: {gitHosted: true, integrity: sha512-iX4IPITyMD/mRhz4rp6C1wavZIGYDvvkQcMb04d8ZAKq8yPdBuQ1W4gV117SMOHEJpKv1kFSiNxix4vV1M9Ptw==, tarball: https://codeload.github.com/titohnf/seragamds/tar.gz/bd8287e2f48931218e72fc0aa50b763ecf71ea9c}
+    version: 0.2.0
+    peerDependencies:
+      lucide-react: '>=0.400'
+      react: '>=18'
+      tailwindcss: '>=4'
 
   set-cookie-parser@2.7.3:
     resolution: {integrity: sha512-irZHtTqurLna57KQG/s+fzOwv/J6XSH4cs8M/vsrY3uCaQ3S6+QJguAH0WdN47SXlk82voMZ4naWMQf8fdEoIg==}
@@ -4273,6 +4281,12 @@ snapshots:
       loose-envify: 1.4.0
 
   semver@6.3.1: {}
+
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/bd8287e2f48931218e72fc0aa50b763ecf71ea9c(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12):
+    dependencies:
+      lucide-react: 0.487.0(react@18.3.1)
+      react: 18.3.1
+      tailwindcss: 4.1.12
 
   set-cookie-parser@2.7.3: {}
 

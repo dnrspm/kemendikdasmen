@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MoreVertical } from 'lucide-react';
-import { buttonClass, buttonStyle } from '@/app/components/seragam/Button';
+import { buttonClass, buttonStyle } from 'seragam-design-system';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu';
 
 export type AksiItem = { label: string; onClick: () => void; icon?: ReactNode; danger?: boolean };

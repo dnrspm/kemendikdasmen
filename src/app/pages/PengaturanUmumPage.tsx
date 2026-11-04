@@ -1,5 +1,4 @@
-import { Tabs as SdTabs } from '@/app/components/seragam/Tabs';
-import { Checkbox } from '@/app/components/seragam/Checkbox';
+import { Tabs as SdTabs, Checkbox } from 'seragam-design-system';
 import { useState } from 'react';
 import { Header } from '@/app/components/Header';
 import {
