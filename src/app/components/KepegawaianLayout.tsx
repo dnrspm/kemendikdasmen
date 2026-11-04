@@ -51,7 +51,9 @@ export const kepegawaianGroups: MenuGroup[] = [
 export function KepegawaianLayout({ children, topBar }: { children: ReactNode; topBar?: ReactNode }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const clean = pathname.replace(/\/$/, '') || '/';
+  const raw = pathname.replace(/\/$/, '') || '/';
+  // Halaman edit pegawai aktif menyorot menu Data Pegawai Aktif (seperti di staging).
+  const clean = raw.startsWith('/kepegawaian/ubah-pegawai/') ? '/kepegawaian/data-pegawai-aktif' : raw;
   const activeGroup = kepegawaianGroups.find((g) => g.children.some((c) => c.path === clean))?.id ?? null;
   const [open, setOpen] = useState<string | null>(activeGroup);
   const [collapsed, setCollapsed] = useState(false);

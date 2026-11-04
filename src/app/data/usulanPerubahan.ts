@@ -59,7 +59,7 @@ export const STATUS_TONE: Record<StatusUsulan, 'green' | 'red' | 'amber' | 'blue
  * Data Pribadi (tab Data Pribadi), Orang Tua/Pasangan/Anak (tab Keluarga),
  * Pendidikan (tab Pendidikan dan Pelatihan), Jabatan/Sertifikasi (tab Riwayat).
  */
-export const KATEGORI_DATA = ['Data Pribadi', 'Orang Tua', 'Pasangan', 'Anak', 'Pendidikan', 'Jabatan', 'Sertifikasi'];
+export const KATEGORI_DATA = ['Data Pribadi', 'Orang Tua', 'Pasangan', 'Anak', 'Pendidikan', 'Kepangkatan', 'Jabatan', 'Sertifikasi'];
 
 /** Field Data Pribadi yang dapat diubah (satu field per pengajuan), dikelompokkan seperti di halaman edit. */
 export const FIELD_DATA_PRIBADI: Record<string, string[]> = {

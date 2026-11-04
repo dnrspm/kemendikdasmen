@@ -40,7 +40,7 @@ const pegawaiCols: Column[] = [
   { key: 'jabatan', label: 'Jabatan' },
   { key: 'unit', label: 'Unit Kerja' },
   { key: 'status', label: 'Status Pegawai', width: '110px' },
-  { key: 'aksi', label: 'Aksi', width: '60px' },
+  { key: 'aksi', label: 'Aksi', width: '100px' },
 ];
 
 export function DataPegawaiAktifPage() {
@@ -56,7 +56,7 @@ export function DataPegawaiAktifPage() {
         rows={tab === 0 ? [{
           no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
           jabatan: 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten',
-          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <MoreAction onClick={() => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`)} />,
+          unit: UNIT, status: <Chip tone="blue">PNS</Chip>, aksi: <button onClick={() => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`)} className="border border-[#a8a8a8] rounded-[4px] px-[12px] py-[6px] font-semibold bg-white whitespace-nowrap hover:bg-[#f4f4f4]" style={{ fontSize: 'var(--text-sm)' }}>Edit</button>,
         }] : []}
       />
     </PageShell>
