@@ -253,35 +253,55 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const dariAdmin = u.asal === 'Admin Satker';
   const ui = JENIS_UI[u.jenis];
   const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
+  const Sel = ({ r }: { r: Baris }) => (
+    <div key={r.label} className="min-w-0">
+      <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+      <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[8px] -mx-[8px]` : ''}`}>
+        <p className="text-sd-gray-90" style={r.berubah ? VALUE : BODY}>{r.baru}</p>
+      </div>
+    </div>
+  );
+  const grid = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px]';
+  const berubah = baris.filter((r) => r.lama !== undefined);
+  const lain = baris.filter((r) => r.lama === undefined);
   return (
     <div className="flex flex-col gap-[12px]">
       <Banner tone={ui.tone}><span style={BODY}>{ui.info}</span></Banner>
-      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
-          {baris.map((r) => (
-            <div key={r.label} className={`min-w-0 ${r.lama !== undefined ? 'col-span-full' : ''}`}>
-              <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
-              {r.lama !== undefined ? (
-                /* Data yang diubah: sebelum dan sesudah berdampingan dengan panah. */
-                <div className={`grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-[16px] gap-y-[8px] rounded-[4px] px-[8px] py-[6px] -mx-[8px] ${ui.fill}`}>
-                  <div className="min-w-0">
-                    <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
-                    <p className="text-sd-gray-60 break-words" style={BODY}>{r.lama}</p>
+      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden p-[16px] flex flex-col gap-[20px]">
+        {u.jenis === 'Ubah' ? (
+          <>
+            {/* Data yang diubah dikelompokkan: sebelum dan sesudah berdampingan dengan panah. */}
+            <div className="flex flex-col gap-[8px]">
+              <h4 className="text-sd-gray-90" style={HEADING}>Data yang berubah</h4>
+              <div className={`rounded-[4px] ${ui.fill} divide-y divide-white/70`}>
+                {berubah.map((r) => (
+                  <div key={r.label} className="p-[12px]">
+                    <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-[16px] gap-y-[8px]">
+                      <div className="min-w-0">
+                        <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
+                        <p className="text-sd-gray-60 break-words" style={BODY}>{r.lama}</p>
+                      </div>
+                      <ArrowRight className="hidden md:block size-[20px] mt-[16px] text-sd-gray-60" aria-hidden />
+                      <div className="min-w-0">
+                        <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
+                        <p className="text-sd-gray-90 break-words" style={VALUE}>{r.baru}</p>
+                      </div>
+                    </div>
                   </div>
-                  <ArrowRight className="hidden md:block size-[20px] mt-[16px] text-sd-gray-60" aria-hidden />
-                  <div className="min-w-0">
-                    <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
-                    <p className="text-sd-gray-90 break-words" style={VALUE}>{r.baru}</p>
-                  </div>
-                </div>
-              ) : (
-                <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[8px] -mx-[8px]` : ''}`}>
-                  <p className="text-sd-gray-90" style={r.berubah ? VALUE : BODY}>{r.baru}</p>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
+            {lain.length > 0 && (
+              <div className="flex flex-col gap-[8px]">
+                <h4 className="text-sd-gray-90" style={HEADING}>Data lainnya</h4>
+                <div className={grid}>{lain.map((r) => <Sel key={r.label} r={r} />)}</div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className={grid}>{baris.map((r) => <Sel key={r.label} r={r} />)}</div>
+        )}
       </section>
     </div>
   );
