@@ -36,13 +36,13 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
 }
 
 /* ---------- Filter ---------- */
-type Filters = { nama: string; nip: string; unit: string; data: string; jenis: string; asal: string; status: string };
-const emptyFilters: Filters = { nama: '', nip: '', unit: '', data: '', jenis: '', asal: '', status: '' };
+type Filters = { q: string; unit: string; data: string; jenis: string; asal: string; status: string };
+const emptyFilters: Filters = { q: '', unit: '', data: '', jenis: '', asal: '', status: '' };
 const shortUnit = (u: string) => u.split(' - ')[0];
 const UNIT_OPTIONS = [UNIT_SHORT];
 const ALL = '__all';
 const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
-const TEXT_KEYS = ['nama', 'nip'] as const;
+const TEXT_KEYS = ['q'] as const;
 const ALL_KEYS = [...TEXT_KEYS, ...SELECT_KEYS] as const;
 
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
@@ -51,10 +51,10 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   // Semua isian disimpan sementara; tombol Terapkan Filter (atau Enter) menerapkannya sekaligus.
   const [pilih, setPilih] = useState(f);
   useEffect(() => setPilih(f), [f]);
-  const terapkan = () => setF({ ...pilih, nama: pilih.nama.trim(), nip: pilih.nip.trim() });
+  const terapkan = () => setF({ ...pilih, q: pilih.q.trim() });
   const active = ALL_KEYS.filter((k) => f[k]).length;
   const SMALL_TXT = { fontSize: '13px', lineHeight: '20px' } as const;
-  const NAMA: Record<(typeof ALL_KEYS)[number], string> = { nama: 'Nama', nip: 'NIP', unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
+  const NAMA: Record<(typeof ALL_KEYS)[number], string> = { q: 'Pencarian', unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
   const reset = () => { setPilih(emptyFilters); setF(emptyFilters); };
   const tags = ALL_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : k === 'unit' ? shortUnit(f[k]) : f[k], clear: () => setF({ ...f, [k]: '' }) }));
   const st = { fontSize: 'var(--text-sm)' } as const;
@@ -91,16 +91,12 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
       </div>
       {open && (
         <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-[#eee] flex flex-col gap-[12px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-            {([['nama', 'Nama', 'Cari nama'], ['nip', 'NIP', 'Cari NIP']] as const).map(([k, label, ph]) => (
-              <div key={k} className="flex flex-col gap-[4px]">
-                <label htmlFor={`cari-${k}`} className="font-semibold" style={st}>{label}</label>
-                <div className="relative">
-                  <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-                  <input id={`cari-${k}`} value={pilih[k]} onChange={(e) => setPilih({ ...pilih, [k]: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && terapkan()} placeholder={ph} className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
-                </div>
-              </div>
-            ))}
+          <div className="flex flex-col gap-[4px]">
+            <label htmlFor="cari-nama-nip" className="font-semibold" style={st}>Nama atau NIP</label>
+            <div className="relative">
+              <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
+              <input id="cari-nama-nip" value={pilih.q} onChange={(e) => setPilih({ ...pilih, q: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && terapkan()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px]">
             {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
@@ -123,7 +119,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
 const has = (v: string, q: string) => !q || v.toLowerCase().includes(q.toLowerCase());
 const applyFilters = (rows: Usulan[], f: Filters) =>
   rows.filter((u) =>
-    has(u.nama, f.nama) && has(u.nip, f.nip) &&
+    (has(u.nama, f.q) || has(u.nip, f.q)) &&
     (!f.unit || shortUnit(u.unit) === f.unit) &&
     (!f.data || u.data === f.data) && (!f.jenis || u.jenis === f.jenis) &&
     (!f.asal || u.asal === f.asal) && (!f.status || u.status === f.status));
