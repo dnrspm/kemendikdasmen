@@ -49,11 +49,10 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
   // Teks pencarian baru diterapkan saat tombol Cari ditekan (atau Enter), bukan setiap ketikan.
   const [draft, setDraft] = useState(f.q);
   useEffect(() => setDraft(f.q), [f.q]);
-  const cari = () => setF({ ...f, q: draft.trim() });
-  // Pilihan dropdown juga baru diterapkan lewat tombol Terapkan Filter.
+  // Pilihan dropdown disimpan sementara; tombol Cari menerapkan pencarian dan filter sekaligus.
   const [pilih, setPilih] = useState(f);
   useEffect(() => setPilih(f), [f]);
-  const terapkan = () => setF({ ...f, ...Object.fromEntries(SELECT_KEYS.map((k) => [k, pilih[k]])) });
+  const cari = () => setF({ ...f, q: draft.trim(), ...Object.fromEntries(SELECT_KEYS.map((k) => [k, pilih[k]])) });
   const active = SELECT_KEYS.filter((k) => f[k]).length;
   const SMALL_TXT = { fontSize: '13px', lineHeight: '20px' } as const;
   const NAMA: Record<(typeof SELECT_KEYS)[number], string> = { unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
@@ -62,7 +61,6 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
     ...(f.q ? [{ key: 'q', label: 'Pencarian', value: f.q, clear: () => { setDraft(''); setF({ ...f, q: '' }); } }] : []),
     ...SELECT_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : shortUnit(f[k]), clear: () => setF({ ...f, [k]: '' }) })),
   ];
-  const belumDiterapkan = draft.trim() !== f.q || SELECT_KEYS.some((k) => pilih[k] !== f[k]);
   const st = { fontSize: 'var(--text-sm)' } as const;
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
@@ -99,9 +97,6 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
           {dropdown('jenis', 'Jenis Perubahan', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
           {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
           {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
-          <div className="md:col-span-3 flex justify-end">
-            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Terapkan Filter</button>
-          </div>
         </div>
       )}
       <div className="flex flex-wrap items-center gap-[8px] px-[16px] pb-[12px]" style={SMALL_TXT} aria-live="polite">
@@ -112,8 +107,6 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
             <button onClick={t.clear} aria-label={`Hapus ${t.label}`} className="rounded-full p-[2px] hover:bg-sd-gray-10"><X className="size-[12px]" /></button>
           </span>
         ))}
-        {tags.length > 1 && <button onClick={reset} className="text-sd-blue-70 font-semibold">Hapus semua</button>}
-        {belumDiterapkan && <span className="text-sd-yellow-60">Ada isian yang belum diterapkan. Tekan {draft.trim() !== f.q ? 'Cari' : 'Terapkan Filter'}.</span>}
       </div>
     </div>
   );
