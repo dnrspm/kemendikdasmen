@@ -77,7 +77,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
           <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
         </div>
-        <button onClick={cari} className={buttonClass('ultimate', 'md')}>Cari</button>
+        <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-sd-gray-50 rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
           <SlidersHorizontal className="size-[16px]" /> Filter
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
@@ -92,7 +92,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
           {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
           <div className="md:col-span-3 flex justify-end">
-            <button onClick={terapkan} className={buttonClass('ultimate', 'md')}>Terapkan Filter</button>
+            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Terapkan Filter</button>
           </div>
         </div>
       )}
