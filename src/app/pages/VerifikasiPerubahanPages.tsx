@@ -276,15 +276,14 @@ function PerubahanPanel({ u }: { u: Usulan }) {
               <div className="flex flex-col gap-[12px]">
                 {berubah.map((r) => (
                   <div key={r.label} className="border-l-[4px] pl-[12px]" style={{ borderLeftColor: ui.bar }}>
-                    <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-[16px] gap-y-[8px]">
                       <div className="min-w-0">
-                        <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
+                        <p className="text-sd-gray-60" style={SMALL}>{r.label} (Data Lama)</p>
                         <p className="text-sd-gray-60 break-words" style={BODY}>{r.lama}</p>
                       </div>
-                      <ArrowRight className="hidden md:block size-[20px] mt-[16px] text-sd-gray-60" aria-hidden />
+                      <ArrowRight className="hidden md:block size-[20px] mt-[22px] text-sd-gray-60" aria-hidden />
                       <div className="min-w-0">
-                        <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
+                        <p className="text-sd-gray-60" style={SMALL}>{r.label} (Data Baru)</p>
                         <p className="text-sd-gray-90 break-words" style={VALUE}>{r.baru}</p>
                       </div>
                     </div>
