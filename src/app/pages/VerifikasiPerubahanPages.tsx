@@ -243,9 +243,9 @@ function segmen(u: Usulan, lamaTeks: (k: string, v: string) => string): Baris[] 
 }
 
 const JENIS_UI = {
-  Tambah: { fill: 'bg-sd-green-5', info: 'Data yang ditambahkan ditandai warna hijau.' },
-  Ubah: { fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
-  Hapus: { fill: 'bg-sd-red-5', info: 'Data yang dihapus ditandai warna merah.' },
+  Tambah: { tone: 'success', fill: 'bg-sd-green-5', info: 'Data yang ditambahkan ditandai warna hijau.' },
+  Ubah: { tone: 'warning', fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
+  Hapus: { tone: 'critical', fill: 'bg-sd-red-5', info: 'Data yang dihapus ditandai warna merah.' },
 } as const;
 
 /** Inti modal: semua data segmen, dengan penanda data yang berubah (hijau tambah, kuning ubah, merah hapus). */
@@ -254,20 +254,35 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const ui = JENIS_UI[u.jenis];
   const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
   return (
-    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <p className="px-[16px] pt-[12px] text-sd-gray-60" style={SMALL}>{ui.info}</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
-        {baris.map((r) => (
-          <div key={r.label} className="min-w-0">
-            <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
-            <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[6px] -mx-[6px]` : ''}`} style={BODY}>
-              {r.lama !== undefined && <p className="text-sd-gray-60" style={BODY}>{r.lama}</p>}
-              <p className="text-sd-gray-90" style={VALUE}>{r.baru}</p>
+    <div className="flex flex-col gap-[12px]">
+      <Banner tone={ui.tone}><span style={BODY}>{ui.info}</span></Banner>
+      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
+          {baris.map((r) => (
+            <div key={r.label} className="min-w-0">
+              <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+              {r.lama !== undefined ? (
+                /* Data yang diubah: nilai lama dan baru diberi label agar jelas mana yang sebelum dan sesudah. */
+                <div className={`flex flex-col gap-[6px] rounded-[4px] px-[8px] py-[6px] -mx-[8px] ${ui.fill}`}>
+                  <div>
+                    <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
+                    <p className="text-sd-gray-60 break-words line-through" style={BODY}>{r.lama}</p>
+                  </div>
+                  <div>
+                    <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
+                    <p className="text-sd-gray-90 break-words" style={VALUE}>{r.baru}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[8px] -mx-[8px]` : ''}`}>
+                  <p className="text-sd-gray-90" style={VALUE}>{r.baru}</p>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
 
