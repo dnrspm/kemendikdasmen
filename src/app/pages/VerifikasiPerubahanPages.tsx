@@ -275,7 +275,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
                 </div>
               ) : (
                 <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[8px] -mx-[8px]` : ''}`}>
-                  <p className="text-sd-gray-90" style={VALUE}>{r.baru}</p>
+                  <p className="text-sd-gray-90" style={r.berubah ? VALUE : BODY}>{r.baru}</p>
                 </div>
               )}
             </div>
