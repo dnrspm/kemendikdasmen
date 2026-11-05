@@ -1,4 +1,4 @@
-import { Tabs, Checkbox, ChipGroup, Banner, Button, Expander, Modal as SdModal, buttonClass } from 'seragam-design-system';
+import { Tabs, Checkbox, ChipGroup, Banner, Button, Expander, Modal as SdModal, Table as SdTable, TableHead, TableBody, TableRow, TableCell, TableHeaderCell, buttonClass } from 'seragam-design-system';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -567,11 +567,11 @@ function KinerjaTabel() {
   };
   const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersFull(y)));
 
-  const th = 'px-[16px] py-[16px] text-left uppercase text-sd-gray-60 bg-white border-y border-sd-badge-neutral';
-  const thStyle = { fontSize: '13px', fontWeight: 700, lineHeight: '16px' } as const;
-  const td = 'px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-90 bg-white';
-  const tdOpen = td.replace('bg-white', 'bg-sd-gray-0');
-  const tdStyle = { fontSize: '15px', lineHeight: '22px' } as const;
+  const th = 'border-y border-sd-badge-neutral';
+  const thStyle = undefined;
+  const td = 'border-b border-sd-badge-neutral';
+  const tdOpen = `${td} bg-sd-gray-0`;
+  const tdStyle = undefined;
   const sub = { fontSize: '13px', lineHeight: '20px', fontWeight: 400 } as const;
   // Garis biru di tepi kiri baris rincian triwulan (tanpa menggeser isi).
   const bar = { boxShadow: 'inset 3px 0 0 var(--sd-blue-70)' } as const;
@@ -579,42 +579,42 @@ function KinerjaTabel() {
     const rowsFor = quartersFull(y);
     if (y === 2026 && KMESSAGES[scenario]) {
       return (
-        <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
+        <TableRow><TableCell colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
           {scenario === 'error' && (
             <Button variant="secondary" size="sm" onClick={() => setScenario('sebagian')}>Coba lagi</Button>
           )}
-        </td></tr>
+        </TableCell></TableRow>
       );
     }
     return (
       <>
         {y === 2026 && scenario === 'stale' && (
-          <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0" style={bar}>
+          <TableRow><TableCell colSpan={4} className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0" style={bar}>
             <div role="status" className="rounded-[4px] border border-sd-warning-border bg-sd-warning-surface px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
-          </td></tr>
+          </TableCell></TableRow>
         )}
         {rowsFor.every((r) => !isFilled(r)) && (
-          <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
+          <TableRow><TableCell colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
             Belum ada data triwulan untuk tahun {y}.
-          </td></tr>
+          </TableCell></TableRow>
         )}
         {rowsFor.some(isFilled) && rowsFor.map((r) => (
-          <tr key={r.tw}>
-            <td className={tdOpen} style={{ ...tdStyle, ...bar }}>
+          <TableRow key={r.tw}>
+            <TableCell className={tdOpen} style={{ ...tdStyle, ...bar }}>
               Triwulan {r.tw}
               <span className="block text-sd-gray-60" style={sub}>{BULAN_TW[r.tw]}</span>
-            </td>
+            </TableCell>
             {/* Hasil Kerja, Perilaku Kerja, dan Predikat adalah indikator mandiri: tiap sel kosong menampilkan badge sendiri. */}
-            <td className={tdOpen} style={tdStyle}>{!r.belum && r.hk ? <PredBadge v={r.hk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
-            <td className={tdOpen} style={tdStyle}>{!r.belum && r.pk ? <PredBadge v={r.pk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</td>
-            <td className={tdOpen} style={tdStyle}>
+            <TableCell className={tdOpen} style={tdStyle}>{!r.belum && r.hk ? <PredBadge v={r.hk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</TableCell>
+            <TableCell className={tdOpen} style={tdStyle}>{!r.belum && r.pk ? <PredBadge v={r.pk} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}</TableCell>
+            <TableCell className={tdOpen} style={tdStyle}>
               {!r.belum && r.pred ? <PredBadge v={r.pred} /> : <PredBadge v={r.belum ?? 'Belum tersedia'} />}
               {r.prov && <span className="ml-[6px] whitespace-nowrap text-sd-gray-60" style={sub}>Belum final</span>}
-            </td>
-          </tr>
+            </TableCell>
+          </TableRow>
         ))}
       </>
     );
@@ -654,21 +654,21 @@ function KinerjaTabel() {
       </div>
       {showChart && <KinerjaChartModal annual={annual} quarterly={allQuarters} onClose={() => setShowChart(false)} />}
       <div className="overflow-auto">
-        <table className="w-full border-collapse" style={{ minWidth: '640px' }} aria-label="Penilaian tahunan dan triwulan">
-          <thead>
-            <tr>{['Tahun / Periode', 'Hasil Kerja', 'Perilaku Kerja', 'Predikat Kinerja'].map((h) => <th key={h} className={th} style={thStyle}>{h}</th>)}</tr>
-          </thead>
-          <tbody>
+        <SdTable size="md" bordered={false} caption="Penilaian tahunan dan triwulan" className="min-w-[640px]">
+          <TableHead>
+            <TableRow>{['Tahun / Periode', 'Hasil Kerja', 'Perilaku Kerja', 'Predikat Kinerja'].map((h) => <TableHeaderCell key={h} className={th} style={thStyle}>{h}</TableHeaderCell>)}</TableRow>
+          </TableHead>
+          <TableBody>
             {years.map((y) => {
               const a = annual.find((r) => r.tahun === y);
               const isOpen = open === y;
               return (
                 <Fragment key={y}>
-                  <tr onClick={() => toggle(y)} className={`cursor-pointer ${isOpen ? '' : 'hover:bg-sd-gray-0'}`}>
-                    <td className={td} style={{ ...tdStyle, fontWeight: isOpen ? 600 : 400 }}>{y}</td>
-                    <td className={td} style={tdStyle}>{a?.hk ? <PredBadge v={a.hk} /> : <PredBadge v="Belum tersedia" />}</td>
-                    <td className={td} style={tdStyle}>{a?.pk ? <PredBadge v={a.pk} /> : <PredBadge v="Belum tersedia" />}</td>
-                    <td className={td} style={tdStyle}>
+                  <TableRow onClick={() => toggle(y)} className={`cursor-pointer ${isOpen ? '' : 'hover:bg-sd-gray-0'}`}>
+                    <TableCell className={td} style={{ ...tdStyle, fontWeight: isOpen ? 600 : 400 }}>{y}</TableCell>
+                    <TableCell className={td} style={tdStyle}>{a?.hk ? <PredBadge v={a.hk} /> : <PredBadge v="Belum tersedia" />}</TableCell>
+                    <TableCell className={td} style={tdStyle}>{a?.pk ? <PredBadge v={a.pk} /> : <PredBadge v="Belum tersedia" />}</TableCell>
+                    <TableCell className={td} style={tdStyle}>
                       <div className="flex items-center justify-between gap-[12px]">
                         <PredBadge v={a?.pred ?? 'Belum tersedia'} />
                         <button
@@ -680,14 +680,14 @@ function KinerjaTabel() {
                           {isOpen ? <ChevronUp className="size-[20px]" /> : <ChevronDown className="size-[20px]" />}
                         </button>
                       </div>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                   {isOpen && detail(y)}
                 </Fragment>
               );
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </SdTable>
       </div>
       <p className="border-t border-sd-modal-footer-border p-[16px] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
         Hasil penilaian kinerja tahunan bukan merupakan gabungan dari penilaian kinerja triwulan 1-4.
