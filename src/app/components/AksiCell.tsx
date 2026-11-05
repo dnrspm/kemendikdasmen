@@ -17,7 +17,7 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
           <button
             key={a.label}
             onClick={a.onClick}
-            className={buttonClass(a.danger ? 'danger-outline' : 'secondary', 'sm')}
+            className={buttonClass(a.danger ? 'destructive-secondary' : 'secondary', 'sm')}
           >
             {a.label}
           </button>

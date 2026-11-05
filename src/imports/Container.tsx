@@ -80,7 +80,7 @@ function Line() {
       <div className="absolute inset-[0_-10%_-4px_-10%]">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 171.6 4">
           <g id="Line">
-            <path d="M0 0H171.6V4H0V0Z" fill="var(--fill-0, #0B5FEF)" id="Line_2" />
+            <path d="M0 0H171.6V4H0V0Z" fill="var(--fill-0, #0954D9)" id="Line_2" />
           </g>
         </svg>
       </div>
@@ -91,7 +91,7 @@ function Line() {
 function Content() {
   return (
     <div className="content-stretch flex flex-col h-[30px] items-start justify-between relative shrink-0" data-name="Content">
-      <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[22px] not-italic relative shrink-0 text-[#0b5fef] text-[15px]">Surat Kebutuhan JF</p>
+      <p className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[22px] not-italic relative shrink-0 text-[#0954D9] text-[15px]">Surat Kebutuhan JF</p>
       <Line />
     </div>
   );

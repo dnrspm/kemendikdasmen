@@ -705,8 +705,8 @@ function PemberitahuanUmumContent({
               <div
                 className="rounded-[var(--radius)] p-[16px]"
                 style={{
-                  backgroundColor: 'rgba(11, 95, 239, 0.06)',
-                  border: '1px solid rgba(11, 95, 239, 0.15)',
+                  backgroundColor: 'rgba(9, 84, 217, 0.06)',
+                  border: '1px solid rgba(9, 84, 217, 0.15)',
                 }}
               >
                 <div className="flex items-center gap-[6px] mb-[10px]">
@@ -1351,8 +1351,8 @@ function BannerUtamaContent() {
         <div
           className="rounded-[var(--radius)] p-[16px] mb-[24px]"
           style={{
-            backgroundColor: 'rgba(11, 95, 239, 0.06)',
-            border: '1px solid rgba(11, 95, 239, 0.15)',
+            backgroundColor: 'rgba(9, 84, 217, 0.06)',
+            border: '1px solid rgba(9, 84, 217, 0.15)',
           }}
         >
           <div className="flex items-center gap-[6px] mb-[6px]">

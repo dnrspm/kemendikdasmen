@@ -22,7 +22,7 @@ export const priorityConfig: Record<ProgramPriority, PriorityConfig> = {
   },
   prioritas_kementerian: {
     label: 'Prioritas Kementerian',
-    color: '#0B5FEF',
+    color: '#0954D9',
     bgColor: '#E6F1FF',
     sortOrder: 3
   },
@@ -73,7 +73,7 @@ export const statusColors = {
   pengusulan: '#906CEF',
   belum_dikerjakan: '#808489',
   belum_dimulai: '#808489',
-  sedang_dikerjakan: '#0B5FEF',
+  sedang_dikerjakan: '#0954D9',
   perlu_reviu: '#FD9400',
   selesai: '#4CA375',
   diblokir: '#DF2121',

@@ -333,13 +333,13 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('danger-outline', 'lg')}>Tolak</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
                 <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('danger-outline', 'lg')}>Tolak</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
                 <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}

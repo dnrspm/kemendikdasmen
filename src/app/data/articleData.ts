@@ -95,7 +95,7 @@ export const getCategoryData = (categoryTitle: string) => {
     'Kepegawaian': {
       title: 'Kepegawaian',
       icon: Users,
-      color: '#0B5FEF',
+      color: '#0954D9',
       subcategories: [
         {
           id: 'cuti',

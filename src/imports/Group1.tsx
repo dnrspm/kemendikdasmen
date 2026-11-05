@@ -32,7 +32,7 @@ export default function Group() {
   return (
     <div className="relative size-full">
       <div className="absolute h-[28px] left-0 top-0 w-[50px]" data-name="Switch">
-        <div className="absolute bg-[#0b5fef] h-[28px] left-0 rounded-[100px] top-0 w-[50px]" data-name="Base" />
+        <div className="absolute bg-[#0954D9] h-[28px] left-0 rounded-[100px] top-0 w-[50px]" data-name="Base" />
         <div className="absolute inset-[7.14%_4%_7.14%_48%]" data-name="Handle">
           <div className="absolute inset-[-16.67%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">

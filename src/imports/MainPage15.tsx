@@ -110,7 +110,7 @@ function AssetsButton() {
     <div className="relative shrink-0 w-full" data-name="Assets / Button">
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex gap-[4px] items-center justify-center px-[16px] py-[8px] relative w-full">
-          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0b5fef] text-[16px]">
+          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0954D9] text-[16px]">
             <p className="css-ew64yg leading-[24px]">Lihat Semua</p>
           </div>
         </div>
@@ -216,9 +216,9 @@ function Kinerja() {
           <path d={svgPaths.p2658cd00} fill="var(--fill-0, #3C79B0)" id="Vector_19" />
           <path d={svgPaths.p28a10480} fill="var(--fill-0, #D87E00)" id="Vector_20" />
           <path d={svgPaths.p2283f980} fill="var(--fill-0, #70B6DB)" id="Vector_21" />
-          <path d={svgPaths.p1766f500} fill="var(--fill-0, #0B5FEF)" id="Vector_22" />
-          <path d={svgPaths.p38427a00} fill="var(--fill-0, #0B5FEF)" id="Vector_23" />
-          <path d={svgPaths.p14c0ff00} fill="var(--fill-0, #0B5FEF)" id="Vector_24" />
+          <path d={svgPaths.p1766f500} fill="var(--fill-0, #0954D9)" id="Vector_22" />
+          <path d={svgPaths.p38427a00} fill="var(--fill-0, #0954D9)" id="Vector_23" />
+          <path d={svgPaths.p14c0ff00} fill="var(--fill-0, #0954D9)" id="Vector_24" />
           <path d={svgPaths.p2d9dfa80} fill="var(--fill-0, #D87E00)" id="Vector_25" />
           <path d={svgPaths.p10aeeb00} fill="var(--fill-0, #EFB003)" id="Vector_26" />
           <path d={svgPaths.p3ee33700} fill="var(--fill-0, #3C79B0)" id="Vector_27" />
@@ -775,7 +775,7 @@ function AssetsButton6() {
     <div className="relative shrink-0 w-full" data-name="Assets / Button">
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex gap-[4px] items-center px-[8px] py-[4px] relative w-full">
-          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0b5fef] text-[14px]">
+          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0954D9] text-[14px]">
             <p className="css-ew64yg leading-[20px]">Isi log harian</p>
           </div>
           <RightIcon />
@@ -848,7 +848,7 @@ function AssetsButton7() {
     <div className="relative shrink-0 w-full" data-name="Assets / Button">
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex gap-[4px] items-center px-[8px] py-[4px] relative w-full">
-          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0b5fef] text-[14px]">
+          <div className="css-g0mm18 flex flex-col font-['Inter:Semi_Bold',sans-serif] font-semibold justify-center leading-[0] not-italic relative shrink-0 text-[#0954D9] text-[14px]">
             <p className="css-ew64yg leading-[20px]">Ajukan cuti</p>
           </div>
           <RightIcon1 />
@@ -893,7 +893,7 @@ function AssetsToggle() {
     <div className="relative shrink-0 size-[20px]" data-name="Assets / Toggle">
       <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
         <g id="Assets / Toggle">
-          <circle cx="10" cy="10" fill="var(--fill-0, #0B5FEF)" id="Base" r="6" />
+          <circle cx="10" cy="10" fill="var(--fill-0, #0954D9)" id="Base" r="6" />
         </g>
       </svg>
     </div>

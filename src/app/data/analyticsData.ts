@@ -504,7 +504,7 @@ export function getAnalyticsData(orgId: string): AnalyticsData {
 
 // Helper untuk generate warna chart
 export const CHART_COLORS = {
-  primary: '#0B5FEF',
+  primary: '#0954D9',
   secondary: '#4CA375',
   accent: '#906CEF',
   warning: '#EDA62B',
@@ -513,7 +513,7 @@ export const CHART_COLORS = {
   
   // Array untuk multiple series
   palette: [
-    '#0B5FEF', // primary
+    '#0954D9', // primary
     '#4CA375', // secondary
     '#906CEF', // accent
     '#EDA62B', // warning

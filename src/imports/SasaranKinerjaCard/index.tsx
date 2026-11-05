@@ -63,7 +63,7 @@ function Container4() {
 }
 
 function Container7() {
-  return <div className="bg-[#0b5fef] relative rounded-[16777200px] shrink-0 size-[8px]" data-name="Container" />;
+  return <div className="bg-[#0954D9] relative rounded-[16777200px] shrink-0 size-[8px]" data-name="Container" />;
 }
 
 function Text2() {
@@ -138,13 +138,13 @@ function Icon() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-6.25%]">
               <svg className="block size-full" fill="none" height="54" preserveAspectRatio="none" viewBox="0 0 54 54" width="54">
-                <path d={svgPaths.p33b4d320} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.p33b4d320} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">72%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">72%</p>
     </div>
   );
 }
@@ -215,13 +215,13 @@ function Icon1() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-12.5%_-6.25%]">
               <svg className="block size-full" fill="none" height="30" preserveAspectRatio="none" viewBox="0 0 54 30" width="54">
-                <path d={svgPaths.peb23800} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.peb23800} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_27.68%_41.26%_27.68%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">50%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_27.68%_41.26%_27.68%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">50%</p>
     </div>
   );
 }
@@ -299,13 +299,13 @@ function Icon2() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-6.25%]">
               <svg className="block size-full" fill="none" height="54" preserveAspectRatio="none" viewBox="0 0 54 54" width="54">
-                <path d={svgPaths.p2f367880} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.p2f367880} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">75%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">75%</p>
     </div>
   );
 }
@@ -393,13 +393,13 @@ function Icon3() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-6.25%]">
               <svg className="block size-full" fill="none" height="54" preserveAspectRatio="none" viewBox="0 0 54 54" width="54">
-                <path d={svgPaths.p33b4d320} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.p33b4d320} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">72%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">72%</p>
     </div>
   );
 }
@@ -470,13 +470,13 @@ function Icon4() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-12.5%_-6.25%]">
               <svg className="block size-full" fill="none" height="30" preserveAspectRatio="none" viewBox="0 0 54 30" width="54">
-                <path d={svgPaths.peb23800} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.peb23800} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_27.68%_41.26%_27.68%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">50%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_27.68%_41.26%_27.68%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">50%</p>
     </div>
   );
 }
@@ -554,13 +554,13 @@ function Icon5() {
           <div className="relative size-full" data-name="Vector">
             <div className="absolute inset-[-6.25%]">
               <svg className="block size-full" fill="none" height="54" preserveAspectRatio="none" viewBox="0 0 54 54" width="54">
-                <path d={svgPaths.p2f367880} id="Vector" stroke="#0B5FEF" strokeLinecap="round" strokeWidth="6" />
+                <path d={svgPaths.p2f367880} id="Vector" stroke="#0954D9" strokeLinecap="round" strokeWidth="6" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0b5fef] text-[11px] text-center whitespace-nowrap">75%</p>
+      <p className="[word-break:break-word] absolute font-['Inter:Bold',sans-serif] font-bold inset-[35.52%_29.46%_41.26%_29.46%] leading-[normal] not-italic text-[#0954D9] text-[11px] text-center whitespace-nowrap">75%</p>
     </div>
   );
 }

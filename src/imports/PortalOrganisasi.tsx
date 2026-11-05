@@ -317,8 +317,8 @@ function Text7() {
 
 function Button1() {
   return (
-    <div className="bg-[#0b5fef] flex-[1_0_0] h-full min-h-px min-w-px relative rounded-[4px]" data-name="Button">
-      <div aria-hidden="true" className="absolute border-[#0b5fef] border-l border-r border-solid border-t inset-0 pointer-events-none rounded-[4px]" />
+    <div className="bg-[#0954D9] flex-[1_0_0] h-full min-h-px min-w-px relative rounded-[4px]" data-name="Button">
+      <div aria-hidden="true" className="absolute border-[#0954D9] border-l border-r border-solid border-t inset-0 pointer-events-none rounded-[4px]" />
       <div className="flex flex-col items-center size-full">
         <div className="content-stretch flex flex-col gap-[4px] items-center pb-[12px] pt-[13px] px-px relative size-full">
           <Icon4 />
@@ -579,9 +579,9 @@ function Kinerja() {
           <path d={svgPaths.p2658cd00} fill="var(--fill-0, #3C79B0)" id="Vector_19" />
           <path d={svgPaths.p28a10480} fill="var(--fill-0, #D87E00)" id="Vector_20" />
           <path d={svgPaths.p2283f980} fill="var(--fill-0, #70B6DB)" id="Vector_21" />
-          <path d={svgPaths.p1766f500} fill="var(--fill-0, #0B5FEF)" id="Vector_22" />
-          <path d={svgPaths.p38427a00} fill="var(--fill-0, #0B5FEF)" id="Vector_23" />
-          <path d={svgPaths.p14c0ff00} fill="var(--fill-0, #0B5FEF)" id="Vector_24" />
+          <path d={svgPaths.p1766f500} fill="var(--fill-0, #0954D9)" id="Vector_22" />
+          <path d={svgPaths.p38427a00} fill="var(--fill-0, #0954D9)" id="Vector_23" />
+          <path d={svgPaths.p14c0ff00} fill="var(--fill-0, #0954D9)" id="Vector_24" />
           <path d={svgPaths.p2d9dfa80} fill="var(--fill-0, #D87E00)" id="Vector_25" />
           <path d={svgPaths.p10aeeb00} fill="var(--fill-0, #EFB003)" id="Vector_26" />
           <path d={svgPaths.p3ee33700} fill="var(--fill-0, #3C79B0)" id="Vector_27" />
