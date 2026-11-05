@@ -36,31 +36,27 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
 }
 
 /* ---------- Filter ---------- */
-type Filters = { q: string; unit: string; data: string; jenis: string; asal: string; status: string };
-const emptyFilters: Filters = { q: '', unit: '', data: '', jenis: '', asal: '', status: '' };
+type Filters = { nama: string; nip: string; unit: string; data: string; jenis: string; asal: string; status: string };
+const emptyFilters: Filters = { nama: '', nip: '', unit: '', data: '', jenis: '', asal: '', status: '' };
 const shortUnit = (u: string) => u.split(' - ')[0];
 const UNIT_OPTIONS = [UNIT_SHORT];
 const ALL = '__all';
 const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
+const TEXT_KEYS = ['nama', 'nip'] as const;
+const ALL_KEYS = [...TEXT_KEYS, ...SELECT_KEYS] as const;
 
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[]; shown: number; total: number }) {
   const [open, setOpen] = useState(true);
-  // Teks pencarian baru diterapkan saat tombol Cari ditekan (atau Enter), bukan setiap ketikan.
-  const [draft, setDraft] = useState(f.q);
-  useEffect(() => setDraft(f.q), [f.q]);
-  // Pilihan dropdown disimpan sementara; tombol Cari menerapkan pencarian dan filter sekaligus.
+  // Semua isian disimpan sementara; tombol Terapkan Filter (atau Enter) menerapkannya sekaligus.
   const [pilih, setPilih] = useState(f);
   useEffect(() => setPilih(f), [f]);
-  const cari = () => setF({ ...f, q: draft.trim(), ...Object.fromEntries(SELECT_KEYS.map((k) => [k, pilih[k]])) });
-  const active = SELECT_KEYS.filter((k) => f[k]).length;
+  const terapkan = () => setF({ ...pilih, nama: pilih.nama.trim(), nip: pilih.nip.trim() });
+  const active = ALL_KEYS.filter((k) => f[k]).length;
   const SMALL_TXT = { fontSize: '13px', lineHeight: '20px' } as const;
-  const NAMA: Record<(typeof SELECT_KEYS)[number], string> = { unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
-  const reset = () => { setDraft(''); setPilih(emptyFilters); setF(emptyFilters); };
-  const tags = [
-    ...(f.q ? [{ key: 'q', label: 'Pencarian', value: f.q, clear: () => { setDraft(''); setF({ ...f, q: '' }); } }] : []),
-    ...SELECT_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : shortUnit(f[k]), clear: () => setF({ ...f, [k]: '' }) })),
-  ];
+  const NAMA: Record<(typeof ALL_KEYS)[number], string> = { nama: 'Nama', nip: 'NIP', unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
+  const reset = () => { setPilih(emptyFilters); setF(emptyFilters); };
+  const tags = ALL_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : k === 'unit' ? shortUnit(f[k]) : f[k], clear: () => setF({ ...f, [k]: '' }) }));
   const st = { fontSize: 'var(--text-sm)' } as const;
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
@@ -81,18 +77,22 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
       <div className="flex justify-end px-[16px] pt-[16px]">
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
           <SlidersHorizontal className="size-[16px]" /> {open ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
-          {active + (f.q ? 1 : 0) > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active + (f.q ? 1 : 0)}</span>}
+          {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
           <ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />
         </button>
       </div>
       {open && (
         <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-[#eee] flex flex-col gap-[12px]">
-          <div className="flex flex-col gap-[4px]">
-            <label htmlFor="cari-nama-nip" className="font-semibold" style={st}>Nama atau NIP</label>
-            <div className="relative">
-              <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-              <input id="cari-nama-nip" value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
+            {([['nama', 'Nama', 'Cari nama'], ['nip', 'NIP', 'Cari NIP']] as const).map(([k, label, ph]) => (
+              <div key={k} className="flex flex-col gap-[4px]">
+                <label htmlFor={`cari-${k}`} className="font-semibold" style={st}>{label}</label>
+                <div className="relative">
+                  <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
+                  <input id={`cari-${k}`} value={pilih[k]} onChange={(e) => setPilih({ ...pilih, [k]: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && terapkan()} placeholder={ph} className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
+                </div>
+              </div>
+            ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px]">
             {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
@@ -101,10 +101,10 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
             {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
             {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
           </div>
-          {/* Cari menerapkan pencarian dan filter sekaligus. */}
+          {/* Terapkan Filter menerapkan semua isian sekaligus. */}
           <div className="flex justify-end gap-[8px]">
             <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
-            <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
+            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Terapkan Filter</button>
           </div>
         </div>
       )}
@@ -124,7 +124,7 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
 const has = (v: string, q: string) => !q || v.toLowerCase().includes(q.toLowerCase());
 const applyFilters = (rows: Usulan[], f: Filters) =>
   rows.filter((u) =>
-    (has(u.nama, f.q) || has(u.nip, f.q)) &&
+    has(u.nama, f.nama) && has(u.nip, f.nip) &&
     (!f.unit || shortUnit(u.unit) === f.unit) &&
     (!f.data || u.data === f.data) && (!f.jenis || u.jenis === f.jenis) &&
     (!f.asal || u.asal === f.asal) && (!f.status || u.status === f.status));
