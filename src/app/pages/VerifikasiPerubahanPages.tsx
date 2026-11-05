@@ -241,9 +241,9 @@ function segmen(u: Usulan, lamaTeks: (k: string, v: string) => string): Baris[] 
 }
 
 const JENIS_UI = {
-  Tambah: { tone: 'green', judul: 'Penambahan Data', fill: 'bg-sd-green-5', info: 'Seluruh data berikut ditambahkan.' },
-  Ubah: { tone: 'amber', judul: 'Perubahan Data', fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
-  Hapus: { tone: 'red', judul: 'Penghapusan Data', fill: 'bg-sd-red-5', info: 'Seluruh data berikut dihapus.' },
+  Tambah: { fill: 'bg-sd-green-5', info: 'Seluruh data berikut ditambahkan.' },
+  Ubah: { fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
+  Hapus: { fill: 'bg-sd-red-5', info: 'Seluruh data berikut dihapus.' },
 } as const;
 
 /** Inti modal: semua data segmen, dengan penanda data yang berubah (hijau tambah, kuning ubah, merah hapus). */
@@ -253,12 +253,8 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-[8px] px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
-        <div className="flex items-center gap-[8px]">
-          <h4 className="text-sd-gray-90" style={HEADING}>Detail</h4>
-          <Badge tone={ui.tone}>{ui.judul}</Badge>
-        </div>
-        <span className="text-sd-gray-60" style={SMALL}>Diajukan pada: <b className="text-sd-gray-90" style={{ fontWeight: 600 }}>{u.diajukan}</b></span>
+      <div className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
+        <h4 className="text-sd-gray-90" style={HEADING}>Data {u.data}</h4>
       </div>
       <p className="px-[16px] pt-[12px] text-sd-gray-60" style={SMALL}>{ui.info}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
