@@ -171,8 +171,8 @@ importers:
         specifier: 2.15.2
         version: 2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       seragam-design-system:
-        specifier: github:titohnf/seragamds#v0.6.0
-        version: https://codeload.github.com/titohnf/seragamds/tar.gz/bab1af292b8dafb67e99bcde9067de6af7469fdf(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12)
+        specifier: github:titohnf/seragamds#v0.7.0
+        version: https://codeload.github.com/titohnf/seragamds/tar.gz/26d7f04fa8ab54f6bf77088e55170879d45ba5d2(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12)
       sonner:
         specifier: 2.0.3
         version: 2.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2245,9 +2245,9 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/bab1af292b8dafb67e99bcde9067de6af7469fdf:
-    resolution: {gitHosted: true, integrity: sha512-JcFmPqOD9/hsoyAJoRM50E8YxZt5Q4399Hof7hwYxfAsg5ucnT0TQaJw7gjUGIYaq0xL5gtAeelupiB+Ol+kaw==, tarball: https://codeload.github.com/titohnf/seragamds/tar.gz/bab1af292b8dafb67e99bcde9067de6af7469fdf}
-    version: 0.6.0
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/26d7f04fa8ab54f6bf77088e55170879d45ba5d2:
+    resolution: {gitHosted: true, integrity: sha512-byDY4v1iTDLriuhB98c2fREbJaARrP9bddYsTi/ax5oI2MMbifv1IU85Lrd0AwGuObub2gyMhcLUAv6lrhIMww==, tarball: https://codeload.github.com/titohnf/seragamds/tar.gz/26d7f04fa8ab54f6bf77088e55170879d45ba5d2}
+    version: 0.7.0
     peerDependencies:
       lucide-react: '>=0.400'
       react: '>=18'
@@ -4282,7 +4282,7 @@ snapshots:
 
   semver@6.3.1: {}
 
-  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/bab1af292b8dafb67e99bcde9067de6af7469fdf(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12):
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/26d7f04fa8ab54f6bf77088e55170879d45ba5d2(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12):
     dependencies:
       lucide-react: 0.487.0(react@18.3.1)
       react: 18.3.1
