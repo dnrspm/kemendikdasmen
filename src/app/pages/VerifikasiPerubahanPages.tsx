@@ -50,13 +50,17 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   const [draft, setDraft] = useState(f.q);
   useEffect(() => setDraft(f.q), [f.q]);
   const cari = () => setF({ ...f, q: draft.trim() });
+  // Pilihan dropdown juga baru diterapkan lewat tombol Terapkan Filter.
+  const [pilih, setPilih] = useState(f);
+  useEffect(() => setPilih(f), [f]);
+  const terapkan = () => setF({ ...f, ...Object.fromEntries(SELECT_KEYS.map((k) => [k, pilih[k]])) });
   const active = SELECT_KEYS.filter((k) => f[k]).length;
   const st = { fontSize: 'var(--text-sm)' } as const;
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
     <div className="flex flex-col gap-[4px]">
       <span className="font-semibold" style={st}>{label}</span>
-      <Select value={f[key] || ALL} onValueChange={(v) => setF({ ...f, [key]: v === ALL ? '' : v })}>
+      <Select value={pilih[key] || ALL} onValueChange={(v) => setPilih({ ...pilih, [key]: v === ALL ? '' : v })}>
         <SelectTrigger className="w-full bg-white border-sd-gray-30" style={st}><SelectValue /></SelectTrigger>
         <SelectContent>
           <SelectItem value={ALL}>{all}</SelectItem>
@@ -78,7 +82,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           <SlidersHorizontal className="size-[16px]" /> Filter
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
         </button>
-        {(active > 0 || f.q || draft) && <button onClick={() => { setDraft(''); setF(emptyFilters); }} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
+        {(active > 0 || f.q || draft || SELECT_KEYS.some((k) => pilih[k])) && <button onClick={() => { setDraft(''); setPilih(emptyFilters); setF(emptyFilters); }} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
       </div>
       {open && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
@@ -87,6 +91,9 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           {dropdown('jenis', 'Jenis Perubahan', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
           {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
           {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
+          <div className="md:col-span-3 flex justify-end">
+            <button onClick={terapkan} className={buttonClass('ultimate', 'md')}>Terapkan Filter</button>
+          </div>
         </div>
       )}
     </div>
