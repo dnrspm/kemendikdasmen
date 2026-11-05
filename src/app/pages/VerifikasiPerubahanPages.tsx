@@ -329,7 +329,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
 
             {mode !== 'lihat' && (
-              <section className="bg-white border border-[#e4e4e4] rounded-[8px] p-[16px] flex flex-col gap-[8px]">
+              <section className="flex flex-col gap-[8px]">
                 <div className="flex items-baseline justify-between gap-[12px]">
                   <h4 className="text-sd-gray-90" style={HEADING}>Catatan</h4>
                   <span className="text-sd-gray-60" style={SMALL}>Wajib diisi jika menolak</span>
