@@ -293,7 +293,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
               </div>
             </div>
             {lain.length > 0 && (
-              <div className="flex flex-col gap-[8px]">
+              <div className="flex flex-col gap-[8px] border-t border-sd-badge-neutral pt-[20px]">
                 <h4 className="text-sd-gray-90" style={HEADING}>Data lainnya</h4>
                 <div className={grid}>{lain.map((r) => <Sel key={r.label} r={r} />)}</div>
               </div>
