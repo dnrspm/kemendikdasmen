@@ -349,7 +349,8 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
         </div>
         <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[16px]">
+          <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[24px]">
+            <h3 className="text-sd-gray-90" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>Konfirmasi Sinkronisasi Data {u.data.replace(/^Data /, '')}</h3>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px] items-start">
             <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
               <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data Portal</h3>
