@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Badge, Button, EmptyState, Pagination, TextField,
   Table as SdTable, TableHead, TableBody, TableRow as SdTableRow, TableHeaderCell, TableCell,
@@ -21,13 +21,34 @@ interface Props {
   noTopRule?: boolean;
 }
 
-/** Kolom Aksi menempel di kanan saat tabel digulir; bayangan kiri memisahkannya dari kolom lain. */
+/** Kolom Aksi menempel di kanan saat tabel digulir; bayangan kiri memisahkannya dari isi yang lewat di bawahnya. */
 const STICKY_SHADOW = '-6px 0 6px -6px rgba(0,0,0,0.12)';
+
+/** True hanya bila ada isi tabel yang tersembunyi di sisi kanan (bisa digulir ke kanan), yaitu saat bayangan kolom Aksi berguna. */
+function useScrollableRight(ref: React.RefObject<HTMLElement | null>, deps: unknown[]) {
+  const [more, setMore] = useState(false);
+  useEffect(() => {
+    const sc = ref.current?.querySelector<HTMLElement>('.overflow-x-auto');
+    if (!sc) return;
+    const update = () => setMore(sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 1);
+    update();
+    sc.addEventListener('scroll', update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(sc);
+    const table = sc.querySelector('table');
+    if (table) ro.observe(table);
+    return () => { sc.removeEventListener('scroll', update); ro.disconnect(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+  return more;
+}
 
 export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false, dense = false, noTopRule = false }: Props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const shadow = useScrollableRight(tableRef, [columns.length, rows.length]);
 
   return (
     <div className="flex flex-col gap-[16px] p-[16px]">
@@ -61,6 +82,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
         </div>
       )}
 
+      <div ref={tableRef}>
       <SdTable
         size={dense ? 'md' : 'lg'}
         striped
@@ -74,7 +96,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
               <TableHeaderCell
                 key={c.key}
                 className={`align-top ${c.key === 'aksi' ? 'sticky right-0' : ''}`}
-                style={{ width: c.width, ...(c.key === 'aksi' ? { boxShadow: `${STICKY_SHADOW}, 0 2px 1px rgba(0,0,0,0.05)` } : {}) }}
+                style={{ width: c.width, ...(c.key === 'aksi' ? { boxShadow: `${shadow ? `${STICKY_SHADOW}, ` : ''}0 2px 1px rgba(0,0,0,0.05)` } : {}) }}
               >
                 {c.label}
               </TableHeaderCell>
@@ -95,7 +117,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
                   <TableCell
                     key={c.key}
                     className={c.key === 'aksi' ? 'sticky right-0' : ''}
-                    style={c.key === 'aksi' ? { boxShadow: STICKY_SHADOW, background: i % 2 === 1 ? 'var(--sd-table-stripe)' : 'var(--sd-white)' } : undefined}
+                    style={c.key === 'aksi' ? { boxShadow: shadow ? STICKY_SHADOW : undefined, background: i % 2 === 1 ? 'var(--sd-table-stripe)' : 'var(--sd-white)' } : undefined}
                   >
                     {r[c.key]}
                   </TableCell>
@@ -105,6 +127,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
           )}
         </TableBody>
       </SdTable>
+      </div>
 
       {showPagination && rows.length > 0 && (
         <div className="sd-t-mobile-bodysmall flex flex-wrap items-center justify-between gap-[12px] text-sd-gray-60">
