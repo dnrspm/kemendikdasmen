@@ -83,12 +83,10 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
           <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
           <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
         </div>
-        <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-sd-gray-50 rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
           <SlidersHorizontal className="size-[16px]" /> Filter
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
         </button>
-        {(active > 0 || f.q || draft || SELECT_KEYS.some((k) => pilih[k])) && <button onClick={reset} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
       </div>
       {open && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
@@ -99,6 +97,11 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
           {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
         </div>
       )}
+      {/* Aksi di bawah semua isian: Cari menerapkan pencarian dan filter sekaligus. */}
+      <div className="flex justify-end gap-[8px] px-[16px] pb-[12px]">
+        <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
+        <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
+      </div>
       <div className="flex flex-wrap items-center gap-[8px] px-[16px] pb-[12px]" style={SMALL_TXT} aria-live="polite">
         <span className="text-sd-gray-60">Menampilkan <b className="text-sd-gray-90" style={{ fontWeight: 600 }}>{shown}</b> dari {total} usulan</span>
         {tags.map((t) => (
