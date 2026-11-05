@@ -1,11 +1,11 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
-import { ArrowLeft, ArrowRight, Construction, Eye, Pencil, Plus, Trash2, UserPlus, X, FileText } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Construction, Eye, Pencil, Plus, Trash2, UserPlus, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
-import { fieldClass, Tabs, ChipGroup, Badge, buttonClass } from 'seragam-design-system';
+import { fieldClass, Tabs, ChipGroup, Badge, Button, Modal as SdModal } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import {
@@ -116,25 +116,15 @@ const VALUE = { fontSize: '15px', fontWeight: 600, lineHeight: '22px' } as const
 const TD = { fontSize: '15px', lineHeight: '22px' } as const;
 const TH = { fontSize: '13px', fontWeight: 700, lineHeight: '16px' } as const;
 
-/* Modal pengajuan: struktur dan skala tipografi sama dengan modal Detail Usulan di halaman Verifikasi. */
+/* Modal pengajuan: memakai Modal Seragam (Medium 660px; Large 888px untuk formulir tambah). */
 function Modal({ title, wide, onClose, children, footer }: { title: string; wide?: boolean; onClose: () => void; children: ReactNode; footer: ReactNode }) {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
-        <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
-          <h2 className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</h2>
-          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
-        </div>
-        <div className="overflow-y-auto bg-sd-gray-0 px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
-        <div className="flex justify-end gap-[8px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">{footer}</div>
-      </div>
-    </div>
+    <SdModal open onClose={onClose} title={title} size={wide ? 'lg' : 'md'} footer={footer}>
+      <div className="flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
+    </SdModal>
   );
 }
 
-const btnGhost = buttonClass('secondary', 'lg');
-const btnPrimary = buttonClass('ultimate', 'lg');
-const btnDanger = buttonClass('destructive', 'lg');
 
 function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
   return (
@@ -180,10 +170,10 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
       wide={aksi.tipe === 'tambah'}
       onClose={onClose}
       footer={<>
-        <button onClick={onClose} className={btnGhost}>Batal</button>
-        <button disabled={!valid} onClick={kirim} className={jenis === 'Hapus' ? btnDanger : btnPrimary}>
+        <Button variant="secondary" onClick={onClose}>Batal</Button>
+        <Button variant={jenis === 'Hapus' ? 'destructive' : 'ultimate'} disabled={!valid} onClick={kirim}>
           {jenis === 'Tambah' ? 'Ajukan Penambahan' : jenis === 'Hapus' ? 'Ajukan Penghapusan' : 'Ajukan Perubahan'}
-        </button>
+        </Button>
       </>}
     >
       <div className="flex items-center gap-[12px]">
@@ -253,7 +243,6 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
 /* ---------- Tab ---------- */
 /* Gaya pill/chip dan tombol mengikuti staging dan sistem ini. */
-const outlineBtn = buttonClass('secondary', 'md');
 
 const Diperbarui = () => (
   <p className="text-sd-gray-60" style={LABEL}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></p>
@@ -301,7 +290,7 @@ function KartuKeluarga({ t, onAksi }: { t: Tabel; onAksi: (a: Aksi) => void }) {
     <section className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-sd-badge-neutral">
         <h3 className="text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{t.judul}</h3>
-        <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn}><UserPlus className="size-[18px]" /> Tambah</button>
+        <Button variant="secondary" size="md" leadingIcon={<UserPlus className="size-[18px]" />} onClick={() => onAksi({ tipe: 'tambah', tabel: t })}>Tambah</Button>
       </div>
       <TabelEdit t={t} onAksi={onAksi} pagination={false} menu />
     </section>
@@ -318,8 +307,8 @@ function TabSub({ tabel, onAksi, siasn = true, editable = true }: { tabel: Tabel
       <div className="flex items-center justify-between gap-[8px] flex-wrap">
         <Diperbarui />
         <div className="flex gap-[8px]">
-          {siasn && <button onClick={() => toast.info('Prototipe: data SIASN tidak ditampilkan.')} className={outlineBtn}><Eye className="size-[18px]" /> Lihat Data SIASN</button>}
-          {editable && t.tambah && <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn}><Plus className="size-[18px]" /> Tambah</button>}
+          {siasn && <Button variant="secondary" size="md" leadingIcon={<Eye className="size-[18px]" />} onClick={() => toast.info('Prototipe: data SIASN tidak ditampilkan.')}>Lihat Data SIASN</Button>}
+          {editable && t.tambah && <Button variant="secondary" size="md" leadingIcon={<Plus className="size-[18px]" />} onClick={() => onAksi({ tipe: 'tambah', tabel: t })}>Tambah</Button>}
         </div>
       </div>
       <div className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">
@@ -392,7 +381,7 @@ export function UbahPegawaiPage() {
   return (
     <KepegawaianLayout>
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
-        <button onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')} className="flex items-center gap-[6px] text-sd-gray-90 w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
+        <Button variant="quiet" size="sm" leadingIcon={<ArrowLeft className="size-[16px]" />} onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')}>Kembali</Button>
         <div className="flex flex-col gap-[8px]">
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
           <p className="text-sd-gray-90" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
@@ -486,7 +475,7 @@ export function DetailKeluargaPage() {
               <div className="min-w-0">
                 <p className="text-sd-gray-60" style={LABEL}>{f}</p>
                 {v === 'file'
-                  ? <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="flex items-center gap-[6px] text-sd-gray-90" style={VALUE}><FileText className="size-[18px]" /> Lihat File</button>
+                  ? <Button variant="quiet" size="md" leadingIcon={<FileText className="size-[18px]" />} onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')}>Lihat file</Button>
                   : <p className="text-sd-gray-90 break-words" style={VALUE}>{nilai}</p>}
               </div>
               {!k.dokumen && t && (
@@ -508,7 +497,7 @@ export function DetailKeluargaPage() {
   return (
     <KepegawaianLayout>
       <div className="px-[24px] pt-[16px] pb-[64px] flex flex-col gap-[16px]">
-        <button onClick={kembali} className="flex items-center gap-[6px] text-sd-gray-90 w-fit" style={LABEL}><ArrowLeft className="size-[16px]" /> Kembali</button>
+        <Button variant="quiet" size="sm" leadingIcon={<ArrowLeft className="size-[16px]" />} onClick={kembali}>Kembali</Button>
         <div className="flex flex-col gap-[8px]">
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>Edit Data {nama}</h1>
           <p className="text-sd-gray-90" style={LABEL}>Pilih ikon pensil pada field yang ingin diubah. Setiap pengajuan hanya mengubah satu field.</p>
