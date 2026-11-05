@@ -14,9 +14,11 @@ interface Props {
   hideFilter?: boolean;
   /** Padding sel lebih rapat untuk tabel dengan banyak kolom. */
   dense?: boolean;
+  /** Tanpa garis atas pada header tabel (mis. saat tepat di bawah blok filter). */
+  noTopRule?: boolean;
 }
 
-export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false, dense = false }: Props) {
+export function StagingDataTable({ title, subtitle, columns, rows, showPagination = true, hideFilter = false, dense = false, noTopRule = false }: Props) {
   const [filterOpen, setFilterOpen] = useState(false);
   const [perPage, setPerPage] = useState(10);
 
@@ -51,7 +53,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse" style={{ fontSize: '15px', lineHeight: '22px' }}>
           <thead>
-            <tr className="border-t border-[#e4e4e4] shadow-[0_2px_1px_0_rgba(0,0,0,0.05)]">
+            <tr className={`${noTopRule ? '' : 'border-t border-[#e4e4e4]'} shadow-[0_2px_1px_0_rgba(0,0,0,0.05)]`}>
               {columns.map((c) => (
                 <th key={c.key} className={`${dense ? 'p-[12px_8px]' : 'p-[16px]'} uppercase text-sd-gray-90 align-top ${c.key === 'aksi' ? 'sticky right-0 bg-white shadow-[-6px_0_6px_-6px_rgba(0,0,0,0.12)]' : ''}`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px', width: c.width }}>
                   {c.label}

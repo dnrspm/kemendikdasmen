@@ -73,7 +73,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   );
 
   return (
-    <div className="border-b border-[#eee]">
+    <div>
       <div className="flex justify-end px-[16px] pt-[16px]">
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
           <SlidersHorizontal className="size-[16px]" /> {open ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
@@ -459,7 +459,7 @@ function VerifikasiPage({ role }: { role: Role }) {
         onChange={(i) => { setTab(i); setF(emptyFilters); }}
       />
       <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
-      <StagingDataTable hideFilter dense columns={cols} rows={list.map(toRow)} />
+      <StagingDataTable hideFilter dense noTopRule columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
         <p className="px-[16px] pb-[16px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
           Penyajian riwayat Komite Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
