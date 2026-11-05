@@ -88,7 +88,7 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
 
 const AddButton = () => (
   <div className="flex justify-end mb-[12px]">
-    <Button variant="primary" size="md"><Plus className="size-[18px]" /> Tambah</Button>
+    <Button variant="ultimate" size="md"><Plus className="size-[18px]" /> Tambah</Button>
   </div>
 );
 
@@ -151,7 +151,7 @@ export function UnitKerjaPage() {
     <Shell title="Data Unit Kerja" subtitle="Kelola data unit kerja yang digunakan dalam sistem">
       <div className="flex items-center justify-between mb-[12px]">
         <p className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>Klik kanan pada unit kerja untuk menampilkan menu</p>
-        <button className={buttonClass('primary', 'md')}>
+        <button className={buttonClass('ultimate', 'md')}>
           <Plus className="size-[16px]" /> Tambah
         </button>
       </div>

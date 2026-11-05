@@ -82,7 +82,7 @@ export function FileField({ label, hint, required }: { label: string; hint: stri
 export function FormActions({ primary, onCancel, primaryDisabled, onPrimary }: { primary: string; onCancel: () => void; primaryDisabled?: boolean; onPrimary?: () => void }) {
   return (
     <div className="flex items-center gap-[12px] pb-[24px] pt-[4px]">
-      <Button type="button" variant="primary" size="md" disabled={primaryDisabled} onClick={onPrimary}>{primary}</Button>
+      <Button type="button" variant="ultimate" size="md" disabled={primaryDisabled} onClick={onPrimary}>{primary}</Button>
       <Button type="button" variant="secondary" size="md" onClick={onCancel}>Batal</Button>
     </div>
   );

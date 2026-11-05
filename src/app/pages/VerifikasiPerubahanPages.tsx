@@ -99,7 +99,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           {/* Cari menerapkan semua isian sekaligus. */}
           <div className="flex justify-end gap-[8px]">
             <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
-            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Cari</button>
+            <button onClick={terapkan} className={buttonClass('ultimate', 'md')}>Cari</button>
           </div>
         </div>
       )}

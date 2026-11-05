@@ -756,7 +756,7 @@ function SubTabContent({ tab }: { tab: string }) {
       <div className="flex items-center justify-between pr-[16px]">
         <Updated />
         {d.tambah && (
-          <button className={buttonClass('primary', 'md')}>
+          <button className={buttonClass('ultimate', 'md')}>
             <Plus className="size-[20px]" /> Tambah
           </button>
         )}
