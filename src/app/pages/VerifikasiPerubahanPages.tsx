@@ -44,7 +44,7 @@ const ALL = '__all';
 const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
 
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
-function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[] }) {
+function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[]; shown: number; total: number }) {
   const [open, setOpen] = useState(false);
   // Teks pencarian baru diterapkan saat tombol Cari ditekan (atau Enter), bukan setiap ketikan.
   const [draft, setDraft] = useState(f.q);
@@ -55,6 +55,14 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   useEffect(() => setPilih(f), [f]);
   const terapkan = () => setF({ ...f, ...Object.fromEntries(SELECT_KEYS.map((k) => [k, pilih[k]])) });
   const active = SELECT_KEYS.filter((k) => f[k]).length;
+  const SMALL_TXT = { fontSize: '13px', lineHeight: '20px' } as const;
+  const NAMA: Record<(typeof SELECT_KEYS)[number], string> = { unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
+  const reset = () => { setDraft(''); setPilih(emptyFilters); setF(emptyFilters); };
+  const tags = [
+    ...(f.q ? [{ key: 'q', label: 'Pencarian', value: f.q, clear: () => { setDraft(''); setF({ ...f, q: '' }); } }] : []),
+    ...SELECT_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : shortUnit(f[k]), clear: () => setF({ ...f, [k]: '' }) })),
+  ];
+  const belumDiterapkan = draft.trim() !== f.q || SELECT_KEYS.some((k) => pilih[k] !== f[k]);
   const st = { fontSize: 'var(--text-sm)' } as const;
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
@@ -82,7 +90,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           <SlidersHorizontal className="size-[16px]" /> Filter
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
         </button>
-        {(active > 0 || f.q || draft || SELECT_KEYS.some((k) => pilih[k])) && <button onClick={() => { setDraft(''); setPilih(emptyFilters); setF(emptyFilters); }} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
+        {(active > 0 || f.q || draft || SELECT_KEYS.some((k) => pilih[k])) && <button onClick={reset} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
       </div>
       {open && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
@@ -96,6 +104,17 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           </div>
         </div>
       )}
+      <div className="flex flex-wrap items-center gap-[8px] px-[16px] pb-[12px]" style={SMALL_TXT} aria-live="polite">
+        <span className="text-sd-gray-60">Menampilkan <b className="text-sd-gray-90" style={{ fontWeight: 600 }}>{shown}</b> dari {total} usulan</span>
+        {tags.map((t) => (
+          <span key={t.key} className="inline-flex items-center gap-[4px] rounded-full bg-sd-gray-5 pl-[10px] pr-[4px] py-[2px] text-sd-gray-90">
+            <span className="text-sd-gray-60">{t.label}:</span> {t.value}
+            <button onClick={t.clear} aria-label={`Hapus ${t.label}`} className="rounded-full p-[2px] hover:bg-sd-gray-10"><X className="size-[12px]" /></button>
+          </span>
+        ))}
+        {tags.length > 1 && <button onClick={reset} className="text-sd-blue-70 font-semibold">Hapus semua</button>}
+        {belumDiterapkan && <span className="text-sd-yellow-60">Ada isian yang belum diterapkan. Tekan {draft.trim() !== f.q ? 'Cari' : 'Terapkan Filter'}.</span>}
+      </div>
     </div>
   );
 }
@@ -440,7 +459,7 @@ function VerifikasiPage({ role }: { role: Role }) {
         active={tab}
         onChange={(i) => { setTab(i); setF(emptyFilters); }}
       />
-      <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
+      <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} shown={list.length} total={(tab === 0 ? pending : reviewed).length} />
       <StagingDataTable hideFilter dense columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
         <p className="px-[16px] pb-[16px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
