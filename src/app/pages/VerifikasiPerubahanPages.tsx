@@ -266,7 +266,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
                 <div className={`flex flex-col gap-[6px] rounded-[4px] px-[8px] py-[6px] -mx-[8px] ${ui.fill}`}>
                   <div>
                     <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
-                    <p className="text-sd-gray-60 break-words line-through" style={BODY}>{r.lama}</p>
+                    <p className="text-sd-gray-60 break-words" style={BODY}>{r.lama}</p>
                   </div>
                   <div>
                     <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
