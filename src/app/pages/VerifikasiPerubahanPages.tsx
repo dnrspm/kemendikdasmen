@@ -1,12 +1,12 @@
-import { useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, Pencil, Trash2, ArrowRight } from 'lucide-react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, Pencil, Trash2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { fieldClass, Tabs, Badge, Banner, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
-  useUsulan, KATEGORI_DATA, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
+  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
   UNIT_SHORT, STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
 } from '@/app/data/usulanPerubahan';
 
@@ -46,6 +46,10 @@ const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[] }) {
   const [open, setOpen] = useState(false);
+  // Teks pencarian baru diterapkan saat tombol Cari ditekan (atau Enter), bukan setiap ketikan.
+  const [draft, setDraft] = useState(f.q);
+  useEffect(() => setDraft(f.q), [f.q]);
+  const cari = () => setF({ ...f, q: draft.trim() });
   const active = SELECT_KEYS.filter((k) => f[k]).length;
   const st = { fontSize: 'var(--text-sm)' } as const;
 
@@ -67,13 +71,14 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
       <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-          <input value={f.q} onChange={(e) => setF({ ...f, q: e.target.value })} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
+          <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
         </div>
+        <button onClick={cari} className={buttonClass('ultimate', 'md')}>Cari</button>
         <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-sd-gray-50 rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
           <SlidersHorizontal className="size-[16px]" /> Filter
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
         </button>
-        {(active > 0 || f.q) && <button onClick={() => setF(emptyFilters)} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
+        {(active > 0 || f.q || draft) && <button onClick={() => { setDraft(''); setF(emptyFilters); }} className="text-sd-blue-70 font-semibold" style={st}>Reset</button>}
       </div>
       {open && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
@@ -173,7 +178,7 @@ function Stepper({ steps }: { steps: Step[] }) {
   );
 }
 
-/* ---------- Perubahan: data lama (SIASN) dan data baru (usulan); data SIASN contoh, isi final menunggu mapping ---------- */
+/* ---------- Perubahan: data lama dan data baru (usulan); nilai lama contoh, isi final menunggu mapping ---------- */
 const SIASN_LAMA: Record<string, string> = {
   'Jabatan': 'Analis Kebijakan Ahli Muda', 'Nomor SK': 'SK/2025/0042', 'TMT Jabatan': '1 Oktober 2025', 'Berlaku Sampai': '12 September 2028',
   'Alamat': 'Jl. Lama No. 5, Jakarta Pusat', 'Nomor HP': '-', 'Email Lain': '-', 'Nomor KK': '3171000000000000',
@@ -197,34 +202,50 @@ function Field({ label, children, muted }: { label: string; children: ReactNode;
   );
 }
 
-/** Inti modal: apa yang berubah. Ubah = lama menjadi baru; Tambah/Hapus = data utuh. */
+type Baris = { label: string; baru: string; lama?: string; berubah: boolean };
+
+/** Seluruh data segmen: Tambah/Hapus = semua baris; Ubah = semua baris segmen dengan satu field yang berubah. */
+function segmen(u: Usulan, lamaTeks: (k: string, v: string) => string): Baris[] {
+  if (u.jenis !== 'Ubah') return u.detail.map(([label, baru]) => ({ label, baru, berubah: true }));
+  const [k, v] = u.detail[0];
+  const dasar: [string, string][] = u.data === 'Data Pribadi'
+    ? (Object.values(FIELD_DATA_PRIBADI).find((g) => g.includes(k)) ?? [k]).map((f) => [f, SIASN_LAMA[f] ?? '-'] as [string, string])
+    : detailFor(u.data);
+  return dasar.map(([label, nilai]) =>
+    label === k ? { label, baru: v, lama: lamaTeks(k, v), berubah: true } : { label, baru: nilai, berubah: false });
+}
+
+const JENIS_UI = {
+  Tambah: { tone: 'green', judul: 'Penambahan Data', fill: 'bg-sd-green-5', info: 'Seluruh data berikut ditambahkan.' },
+  Ubah: { tone: 'amber', judul: 'Perubahan Data', fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
+  Hapus: { tone: 'red', judul: 'Penghapusan Data', fill: 'bg-sd-red-5', info: 'Seluruh data berikut dihapus.' },
+} as const;
+
+/** Inti modal: semua data segmen, dengan penanda data yang berubah (hijau tambah, kuning ubah, merah hapus). */
 function PerubahanPanel({ u }: { u: Usulan }) {
   const dariAdmin = u.asal === 'Admin Satker';
-  if (u.jenis === 'Ubah') {
-    const [k, v] = u.detail[0];
-    return (
-      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-        <h4 className="px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-90" style={HEADING}>{k}</h4>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr]">
-          <div className="p-[16px]">
-            <Field label="Data Lama (SIASN)" muted>{dariAdmin ? <span className="text-sd-gray-60">Menunggu konfirmasi mapping</span> : siasnValue(u, k, v)}</Field>
-          </div>
-          <div className="hidden md:grid place-items-center px-[8px] text-sd-gray-60"><ArrowRight className="size-[20px]" /></div>
-          <div className="p-[16px]">
-            <Field label="Data Baru (Usulan)">{v}</Field>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const ui = JENIS_UI[u.jenis];
+  const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-sd-badge-neutral">
-        <h4 className="text-sd-gray-90" style={HEADING}>{u.jenis === 'Tambah' ? 'Data yang Ditambahkan' : 'Data yang Dihapus'}</h4>
-        {!dariAdmin && <span className="text-sd-gray-60" style={SMALL}>{u.jenis === 'Tambah' ? 'Belum ada di SIASN' : 'Ditemukan di SIASN'}</span>}
+      <div className="flex flex-wrap items-center justify-between gap-[8px] px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
+        <div className="flex items-center gap-[8px]">
+          <h4 className="text-sd-gray-90" style={HEADING}>Detail</h4>
+          <Badge tone={ui.tone}>{ui.judul}</Badge>
+        </div>
+        <span className="text-sd-gray-60" style={SMALL}>Diajukan pada: <b className="text-sd-gray-90" style={{ fontWeight: 600 }}>{u.diajukan}</b></span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
-        {u.detail.map(([k, v]) => <Field key={k} label={k}>{v}</Field>)}
+      <p className="px-[16px] pt-[12px] text-sd-gray-60" style={SMALL}>{ui.info}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
+        {baris.map((r) => (
+          <div key={r.label} className="min-w-0">
+            <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+            <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[6px] -mx-[6px]` : ''}`} style={BODY}>
+              {r.lama !== undefined && <p className="text-sd-gray-60" style={BODY}>{r.lama}</p>}
+              <p className="text-sd-gray-90" style={VALUE}>{r.baru}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -270,7 +291,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             <PerubahanPanel u={u} />
 
             {u.asal === 'Admin Satker' && (
-              <p className="text-sd-gray-60 -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi. Perbandingan dengan data SIASN menunggu konfirmasi mapping.</p>
+              <p className="text-sd-gray-60 -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi.</p>
             )}
 
             {u.dokumen.length > 0 && (
