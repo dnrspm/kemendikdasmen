@@ -1,75 +1,62 @@
 import { type ReactNode } from 'react';
-import { Radio, buttonClass } from 'seragam-design-system';
-import { ArrowLeft, Calendar, Paperclip, ChevronDown } from 'lucide-react';
+import { Button, Card, Radio, Select, TextArea as SdTextArea, TextField } from 'seragam-design-system';
+import { ArrowLeft, Calendar, Paperclip } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
 export function BackLink({ to }: { to?: string }) {
   const navigate = useNavigate();
   return (
-    <button onClick={() => (to ? navigate(to) : navigate(-1))} className="flex items-center gap-[6px] text-sd-gray-90 mb-[8px]" style={{ fontSize: '13px', fontWeight: 400, lineHeight: '20px' }}>
-      <ArrowLeft className="size-[14px]" /> Kembali
-    </button>
+    <div className="mb-[8px]">
+      <Button variant="quiet" size="sm" leadingIcon={<ArrowLeft className="size-[14px]" />} onClick={() => (to ? navigate(to) : navigate(-1))}>
+        Kembali
+      </Button>
+    </div>
   );
 }
 
 export function FormCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <header className="px-[24px] pt-[20px] pb-[8px] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</header>
-      <div className="px-[24px] pt-[8px] pb-[24px] grid grid-cols-1 md:grid-cols-2 gap-x-[16px] gap-y-[16px]">{children}</div>
-    </section>
+    <Card title={title}>
+      <div className="grid grid-cols-1 gap-x-[16px] gap-y-[16px] md:grid-cols-2">{children}</div>
+    </Card>
   );
 }
 
+/** Pembungkus label + isian + petunjuk. Label 15/22 regular, petunjuk 12/16 gray-60 (spesifikasi Text Field with label). */
 export function Field({ label, required, full, children, hint }: { label: string; required?: boolean; full?: boolean; children: ReactNode; hint?: string }) {
   return (
-    <label className={`flex flex-col gap-[6px] ${full ? 'md:col-span-2' : ''}`}>
-      <span className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 500, lineHeight: '22px' }}>
-        {label} {required && <span className="text-[#d8142c]">*</span>}
+    <label className={`flex flex-col gap-[4px] ${full ? 'md:col-span-2' : ''}`}>
+      <span className="sd-t-mobile-body text-sd-gray-90">
+        {label} {required && <span className="text-sd-red-60" aria-hidden>*</span>}
       </span>
       {children}
-      {hint && <span className="text-sd-gray-60" style={{ fontSize: '12px' }}>{hint}</span>}
+      {hint && <span className="sd-t-mobile-helper text-sd-gray-60">{hint}</span>}
     </label>
   );
 }
 
-const base = 'w-full rounded-[4px] border px-[16px] h-[46px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]';
-export const TextInput = ({ readOnly, defaultValue, placeholder, onChange }: { readOnly?: boolean; defaultValue?: string; placeholder?: string; onChange?: () => void }) => (
-  <input
-    readOnly={readOnly}
-    defaultValue={defaultValue}
-    placeholder={placeholder}
-    onChange={onChange}
-    className={`${base} ${readOnly ? 'bg-sd-badge-neutral text-sd-gray-60 border-sd-modal-footer-border' : 'bg-white border-sd-gray-50'}`}
-    style={{ fontSize: '15px', lineHeight: '22px' }}
-  />
-);
+type InputProps = { readOnly?: boolean; defaultValue?: string; placeholder?: string; onChange?: () => void };
+
+export const TextInput = (p: InputProps) => <TextField {...p} />;
 
 export const TextArea = ({ defaultValue, onChange }: { defaultValue?: string; onChange?: () => void }) => (
-  <textarea defaultValue={defaultValue} onChange={onChange} rows={4} className={`${base} h-auto py-[12px] bg-white border-sd-gray-50`} style={{ fontSize: '15px', lineHeight: '22px' }} />
+  <SdTextArea defaultValue={defaultValue} onChange={onChange} rows={4} />
 );
 
-export const DateInput = ({ readOnly, defaultValue, placeholder = 'Pilih tanggal', onChange }: { readOnly?: boolean; defaultValue?: string; placeholder?: string; onChange?: () => void }) => (
-  <div className="relative">
-    <input type="text" readOnly={readOnly} defaultValue={defaultValue} placeholder={placeholder} onChange={onChange} className={`${base} pr-[36px] ${readOnly ? 'bg-sd-badge-neutral text-sd-gray-60 border-sd-modal-footer-border' : 'bg-white border-sd-gray-50'}`} style={{ fontSize: '15px', lineHeight: '22px' }} />
-    <Calendar className="absolute right-[10px] top-1/2 -translate-y-1/2 size-[18px] text-sd-gray-80" />
-  </div>
+export const DateInput = ({ placeholder = 'Pilih tanggal', ...p }: InputProps) => (
+  <TextField {...p} placeholder={placeholder} rightIcon={<Calendar className="size-[18px]" />} />
 );
 
 export const SelectInput = ({ options, placeholder, defaultValue, onChange }: { options: string[]; placeholder?: string; defaultValue?: string; onChange?: () => void }) => (
-  <div className="relative">
-    <select defaultValue={defaultValue ?? ''} onChange={onChange} className={`${base} bg-white border-sd-gray-50 appearance-none pr-[32px]`} style={{ fontSize: '15px', lineHeight: '22px' }}>
-      <option value="" disabled>{placeholder ?? 'Pilih'}</option>
-      {options.map((o) => <option key={o}>{o}</option>)}
-    </select>
-    <ChevronDown className="absolute right-[10px] top-1/2 -translate-y-1/2 size-[16px] pointer-events-none" />
-  </div>
+  <Select defaultValue={defaultValue ?? ''} onChange={onChange} placeholder={placeholder ?? 'Pilih'}>
+    {options.map((o) => <option key={o}>{o}</option>)}
+  </Select>
 );
 
 export const Radios = ({ name, options, disabledAll, defaultValue }: { name: string; options: string[]; disabledAll?: boolean; defaultValue?: string }) => (
-  <div className="flex items-center gap-[20px] py-[8px]" style={{ fontSize: '15px', lineHeight: '22px' }}>
+  <div className="sd-t-mobile-body flex items-center gap-[20px] py-[8px]">
     {options.map((o) => (
-      <span key={o} className={`flex items-center`}>
+      <span key={o} className="flex items-center">
         <Radio name={name} defaultChecked={o === defaultValue} disabled={disabledAll} label={o} />
       </span>
     ))}
@@ -78,15 +65,15 @@ export const Radios = ({ name, options, disabledAll, defaultValue }: { name: str
 
 export function FileField({ label, hint, required }: { label: string; hint: string; required?: boolean }) {
   return (
-    <div className="flex flex-col gap-[6px] md:col-span-2">
-      <span style={{ fontSize: '15px', fontWeight: 500, lineHeight: '22px' }}>{label} {required && <span className="text-[#d8142c]">*</span>}</span>
-      <span className="text-sd-gray-60" style={{ fontSize: '12px' }}>{hint}</span>
+    <div className="flex flex-col gap-[4px] md:col-span-2">
+      <span className="sd-t-mobile-body text-sd-gray-90">{label} {required && <span className="text-sd-red-60" aria-hidden>*</span>}</span>
+      <span className="sd-t-mobile-helper text-sd-gray-60">{hint}</span>
       <div className="flex items-center gap-[8px]">
-        <label className="flex-1 border border-sd-gray-50 rounded-[4px] px-[12px] py-[10px] flex items-center gap-[8px] text-sd-gray-50 cursor-pointer" style={{ fontSize: '15px', lineHeight: '22px' }}>
-          <Paperclip className="size-[16px]" /> Pilih File
-          <input type="file" className="hidden" />
+        <label className="sd-t-mobile-body flex flex-1 cursor-pointer items-center gap-[8px] rounded-[4px] border border-sd-gray-50 px-[12px] py-[10px] text-sd-gray-50 focus-within:border-sd-blue-50 focus-within:shadow-[0_0_0_2px_var(--sd-interactive-focused)]">
+          <Paperclip className="size-[16px]" /> Pilih file
+          <input type="file" className="sr-only" />
         </label>
-        <button type="button" className={buttonClass('secondary', 'md')}>Unggah</button>
+        <Button type="button" variant="secondary" size="md">Unggah</Button>
       </div>
     </div>
   );
@@ -94,11 +81,9 @@ export function FileField({ label, hint, required }: { label: string; hint: stri
 
 export function FormActions({ primary, onCancel, primaryDisabled, onPrimary }: { primary: string; onCancel: () => void; primaryDisabled?: boolean; onPrimary?: () => void }) {
   return (
-    <div className="flex items-center gap-[10px] pt-[4px] pb-[24px]">
-      <button type="button" disabled={primaryDisabled} onClick={onPrimary} className={buttonClass('primary', 'md')}>
-        {primary}
-      </button>
-      <button type="button" onClick={onCancel} className={buttonClass('secondary', 'md')}>Batal</button>
+    <div className="flex items-center gap-[12px] pb-[24px] pt-[4px]">
+      <Button type="button" variant="primary" size="md" disabled={primaryDisabled} onClick={onPrimary}>{primary}</Button>
+      <Button type="button" variant="secondary" size="md" onClick={onCancel}>Batal</Button>
     </div>
   );
 }
