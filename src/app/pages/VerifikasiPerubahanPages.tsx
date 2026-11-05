@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, Plus, Pencil, Trash2 } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -301,7 +301,6 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const canRetry = role === 'admin' && u.status === 'gagal-siasn';
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
-  const tone = u.jenis === 'Tambah' ? '#a9e5c1' : u.jenis === 'Ubah' ? 'var(--sd-badge-info)' : 'var(--sd-red-5)';
 
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
@@ -316,9 +315,6 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
           {/* Kolom utama (kanan di layar lebar): apa yang berubah, bukti, dan keputusan */}
           <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[24px]">
             <div className="flex items-center gap-[12px]">
-              <div className="size-[40px] shrink-0 rounded-full grid place-items-center text-sd-gray-90" style={{ background: tone }}>
-                {u.jenis === 'Tambah' ? <Plus className="size-[20px]" /> : u.jenis === 'Ubah' ? <Pencil className="size-[19px]" /> : <Trash2 className="size-[19px]" />}
-              </div>
               <h3 className="flex-1 min-w-0 text-sd-gray-90" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
               <StatusBadge status={u.status} short />
             </div>
