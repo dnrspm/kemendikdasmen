@@ -327,7 +327,7 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
           <button onClick={onBack} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
         </div>
         <div className="flex-1 min-h-0 overflow-y-auto p-[20px] flex flex-col gap-[16px] bg-sd-gray-0">
-          <div className="flex items-center gap-[16px] rounded-[8px] bg-sd-gray-5 border border-[#e4e4e4] p-[16px]">
+          <div className="flex items-center gap-[16px]">
             <span className="size-[48px] shrink-0 rounded-full bg-sd-blue-70 text-white grid place-items-center" style={VALUE} aria-hidden>{inisial}</span>
             <div className="min-w-0">
               <p className="text-sd-gray-90" style={VALUE}>{u.nama}</p>
