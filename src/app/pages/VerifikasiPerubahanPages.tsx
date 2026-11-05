@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -259,16 +259,17 @@ function PerubahanPanel({ u }: { u: Usulan }) {
       <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
           {baris.map((r) => (
-            <div key={r.label} className="min-w-0">
+            <div key={r.label} className={`min-w-0 ${r.lama !== undefined ? 'col-span-full' : ''}`}>
               <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
               {r.lama !== undefined ? (
-                /* Data yang diubah: nilai lama dan baru diberi label agar jelas mana yang sebelum dan sesudah. */
-                <div className={`flex flex-col gap-[6px] rounded-[4px] px-[8px] py-[6px] -mx-[8px] ${ui.fill}`}>
-                  <div>
+                /* Data yang diubah: sebelum dan sesudah berdampingan dengan panah. */
+                <div className={`grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-[16px] gap-y-[8px] rounded-[4px] px-[8px] py-[6px] -mx-[8px] ${ui.fill}`}>
+                  <div className="min-w-0">
                     <p className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>Data lama</p>
                     <p className="text-sd-gray-60 break-words" style={BODY}>{r.lama}</p>
                   </div>
-                  <div>
+                  <ArrowRight className="hidden md:block size-[20px] mt-[16px] text-sd-gray-60" aria-hidden />
+                  <div className="min-w-0">
                     <p className="text-sd-gray-70" style={{ fontSize: '12px', lineHeight: '16px' }}>Data baru</p>
                     <p className="text-sd-gray-90 break-words" style={VALUE}>{r.baru}</p>
                   </div>
