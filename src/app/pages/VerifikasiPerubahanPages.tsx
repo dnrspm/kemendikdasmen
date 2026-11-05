@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight, CirclePlus, Trash2, Pencil, FilePlus, List, Inbox } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -317,7 +317,9 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
   const inisial = u.nama.replace(/^((Prof|Dr|Ir|H)\.?\s+)+/i, '').trim().slice(0, 1);
   const judul = u.data.toUpperCase();
   const aksen = u.jenis === 'Hapus' ? 'var(--sd-red-60)' : 'var(--sd-warning-border)';
-  const ringkasan = u.jenis === 'Hapus' ? 'Data berikut akan dihapus dari SIASN.' : 'Data berikut akan diperbarui di SIASN.';
+  const segJudul = u.jenis === 'Tambah' ? { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus }
+    : u.jenis === 'Hapus' ? { teks: 'Data yang akan dihapus', warna: 'var(--sd-red-70)', Icon: Trash2 }
+    : { teks: 'Data yang akan diperbarui', warna: 'var(--sd-yellow-60)', Icon: Pencil };
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
       <div role="dialog" aria-label="Konfirmasi Sinkronisasi Data SIASN" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
@@ -351,28 +353,37 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
                 <span className="text-sd-gray-60" style={SMALL}>{ada ? 1 : 0} data</span>
               </div>
               <div className="p-[16px] flex flex-col gap-[16px]">
-                {ada ? (
-                  <div className="flex flex-col gap-[12px]">
-                    <p className="text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>{ringkasan}</p>
-                    {siasn.map((r) => (
-                      <div key={r.label} className={r.beda ? 'border-l-[4px] pl-[10px]' : ''} style={r.beda ? { borderLeftColor: aksen } : undefined}>
-                        <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
-                        <p className="text-sd-gray-90 break-words" style={r.beda ? VALUE : BODY}>{r.nilai}</p>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <>
-                    <p className="text-sd-gray-90 flex items-center gap-[8px]" style={{ ...BODY, fontWeight: 600, color: 'var(--sd-success-border)' }}>Data baru akan ditambahkan</p>
-                    <div className="rounded-[8px] border border-dashed border-sd-green-30 bg-sd-green-5 p-[24px] text-center text-sd-gray-70" style={BODY}>
+                {/* Segmen 1: data pada SIASN yang terdampak usulan ini */}
+                <div className="flex flex-col gap-[8px]">
+                  <h4 className="flex items-center gap-[8px]" style={{ ...BODY, fontWeight: 600, color: segJudul.warna }}>
+                    <segJudul.Icon className="size-[18px]" aria-hidden /> {segJudul.teks}
+                  </h4>
+                  {ada ? (
+                    <div className="flex flex-col gap-[12px]">
+                      {siasn.map((r) => (
+                        <div key={r.label} className={r.beda ? 'border-l-[4px] pl-[10px]' : ''} style={r.beda ? { borderLeftColor: aksen } : undefined}>
+                          <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+                          <p className="text-sd-gray-90 break-words" style={r.beda ? VALUE : BODY}>{r.nilai}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="rounded-[8px] border border-dashed border-sd-green-30 bg-sd-green-5 p-[24px] flex flex-col items-center gap-[8px] text-center text-sd-gray-70" style={BODY}>
+                      <FilePlus className="size-[24px] text-sd-gray-90" aria-hidden />
                       Data baru akan ditambahkan. Tidak ada data yang cocok di SIASN.
                     </div>
-                    <div className="border-t border-sd-badge-neutral pt-[16px] flex flex-col gap-[8px]">
-                      <p className="text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>Data lainnya di SIASN (0)</p>
-                      <div className="rounded-[8px] border border-[#e4e4e4] p-[24px] text-center text-sd-gray-60" style={BODY}>Tidak ada data lain di SIASN</div>
-                    </div>
-                  </>
-                )}
+                  )}
+                </div>
+                {/* Segmen 2: data lain milik pegawai di SIASN */}
+                <div className="border-t border-sd-badge-neutral pt-[16px] flex flex-col gap-[8px]">
+                  <h4 className="flex items-center gap-[8px] text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>
+                    <List className="size-[18px]" aria-hidden /> Data lainnya di SIASN (0)
+                  </h4>
+                  <div className="rounded-[8px] border border-[#e4e4e4] p-[24px] flex flex-col items-center gap-[8px] text-center text-sd-gray-60" style={BODY}>
+                    <Inbox className="size-[24px] text-sd-gray-90" aria-hidden />
+                    Tidak ada data lain di SIASN
+                  </div>
+                </div>
               </div>
             </section>
           </div>
