@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, SlidersHorizontal, FileText, Plus, Pencil, Trash2 } from 'lucide-react';
+import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, Plus, Pencil, Trash2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
@@ -45,7 +45,7 @@ const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
 
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[]; shown: number; total: number }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   // Teks pencarian baru diterapkan saat tombol Cari ditekan (atau Enter), bukan setiap ketikan.
   const [draft, setDraft] = useState(f.q);
   useEffect(() => setDraft(f.q), [f.q]);
@@ -78,30 +78,36 @@ function FilterBar({ f, setF, statuses, shown, total }: { f: Filters; setF: (f: 
 
   return (
     <div className="border-b border-[#eee]">
-      <div className="flex flex-wrap items-center gap-[12px] p-[16px]">
-        <div className="relative flex-1 min-w-[240px]">
-          <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-          <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
-        </div>
-        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] border border-sd-gray-50 rounded-[4px] px-[14px] py-[8px] font-semibold bg-white" style={st}>
-          <SlidersHorizontal className="size-[16px]" /> Filter
-          {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
+      <div className="flex justify-end px-[16px] pt-[16px]">
+        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
+          <SlidersHorizontal className="size-[16px]" /> {open ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
+          {active + (f.q ? 1 : 0) > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active + (f.q ? 1 : 0)}</span>}
+          <ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />
         </button>
       </div>
       {open && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px] px-[16px] pb-[16px]">
-          {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
-          {dropdown('data', 'Data yang Diubah', 'Semua Data', KATEGORI_DATA)}
-          {dropdown('jenis', 'Jenis Perubahan', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
-          {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
-          {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
+        <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-[#eee] flex flex-col gap-[12px]">
+          <div className="flex flex-col gap-[4px]">
+            <label htmlFor="cari-nama-nip" className="font-semibold" style={st}>Nama atau NIP</label>
+            <div className="relative">
+              <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
+              <input id="cari-nama-nip" value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && cari()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px]">
+            {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
+            {dropdown('data', 'Data yang Diubah', 'Semua Data', KATEGORI_DATA)}
+            {dropdown('jenis', 'Jenis Perubahan', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
+            {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
+            {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
+          </div>
+          {/* Cari menerapkan pencarian dan filter sekaligus. */}
+          <div className="flex justify-end gap-[8px]">
+            <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
+            <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
+          </div>
         </div>
       )}
-      {/* Aksi di bawah semua isian: Cari menerapkan pencarian dan filter sekaligus. */}
-      <div className="flex justify-end gap-[8px] px-[16px] pb-[12px]">
-        <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
-        <button onClick={cari} className={buttonClass('primary', 'md')}>Cari</button>
-      </div>
       <div className="flex flex-wrap items-center gap-[8px] px-[16px] pb-[12px]" style={SMALL_TXT} aria-live="polite">
         <span className="text-sd-gray-60">Menampilkan <b className="text-sd-gray-90" style={{ fontWeight: 600 }}>{shown}</b> dari {total} usulan</span>
         {tags.map((t) => (
