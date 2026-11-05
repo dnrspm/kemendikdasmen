@@ -1,4 +1,4 @@
-import { Tabs, Checkbox, ChipGroup, Banner, Button, Expander, Modal as SdModal, Table as SdTable, TableHead, TableBody, TableRow, TableCell, TableHeaderCell, buttonClass } from 'seragam-design-system';
+import { Tabs, Checkbox, ChipGroup, Banner, Button, Expander, DescriptionList, Panel, Modal as SdModal, Table as SdTable, TableHead, TableBody, TableRow, TableCell, TableHeaderCell, buttonClass } from 'seragam-design-system';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -45,23 +45,17 @@ type Row = (string | boolean | undefined)[];
 
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
-    <section className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-sd-modal-footer-border text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
-        {icon} {title}
-      </header>
-      <div className={`grid gap-x-[16px] gap-y-[14px] p-[16px] ${cols === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-        {rows.map(([label, value, info]) => (
-          <div key={label as string} className={`flex flex-col gap-[2px] ${full.includes(label as string) ? 'col-span-2' : ''}`}>
-            <span className="text-sd-gray-60 flex items-center gap-[4px]" style={{ fontSize: '13px', lineHeight: '20px' }}>
-              {label as string} {info ? <Info className="size-[13px]" /> : null}
-            </span>
-            <span className="text-sd-gray-90 break-words" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
-              {hidden ? '••••••••••••••' : (value as string)}
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
+    <Panel icon={icon} title={title}>
+      <DescriptionList
+        columns={cols === 2 ? 2 : 1}
+        items={rows.map(([label, value, info]) => ({
+          label: label as string,
+          hint: info ? <Info /> : undefined,
+          value: hidden ? '••••••••••••••' : (value as string),
+          full: full.includes(label as string),
+        }))}
+      />
+    </Panel>
   );
 }
 
@@ -831,12 +825,11 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
               <Button variant="secondary" size="md" fullWidth leadingIcon={<Download className="size-[16px]" />}>Unduh QR</Button>
             </div>
 
-            <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-sd-modal-footer-border text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>Unit Organisasi</header>
+            <Panel title="Unit Organisasi" subtleHeader padded={false}>
               <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '15px', lineHeight: '22px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
               </ul>
-            </div>
+            </Panel>
           </div>
 
           <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] min-w-0">

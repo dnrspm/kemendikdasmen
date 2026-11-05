@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
-import { Tabs, ChipGroup, Badge, Button, Modal as SdModal, Select as SdSelect, TextField } from 'seragam-design-system';
+import { Tabs, ChipGroup, Badge, Button, Modal as SdModal, Panel as SdPanel, Select as SdSelect, TextField } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
 import { Field as FormField } from '@/app/components/FormParts';
 import {
@@ -125,15 +125,12 @@ function Modal({ title, wide, onClose, children, footer }: { title: string; wide
 }
 
 
+/** Panel pengajuan: memakai Panel Seragam (outlined) dengan keterangan kecil di kanan header. */
 function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
   return (
-    <section className="bg-white border border-sd-modal-footer-border rounded-[8px] overflow-hidden">
-      <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-sd-badge-neutral">
-        <h4 className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</h4>
-        {right && <span className="text-sd-gray-60" style={LABEL}>{right}</span>}
-      </div>
-      <div className="p-[16px]">{children}</div>
-    </section>
+    <SdPanel variant="outlined" title={title} action={right ? <span className="sd-t-mobile-bodysmall text-sd-gray-60">{right}</span> : undefined}>
+      {children}
+    </SdPanel>
   );
 }
 
