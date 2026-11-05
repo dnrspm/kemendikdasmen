@@ -179,18 +179,27 @@ h4 {
   line-height: 1.5;
 }
 
-p {
-  font-family: 'Inter', sans-serif;
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
-}
+/* Default p dan span ada di layer base agar kelas Tailwind/komponen DS menang; di dalam tabel dan kontrol, teks mewarisi ukuran induknya (mis. sel tabel 15/22). */
+@layer base {
+  p {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
 
-span {
-  font-family: 'Inter', sans-serif;
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
+  span {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+
+  td span, td p, th span, th p, button span {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
 }
 
 label {

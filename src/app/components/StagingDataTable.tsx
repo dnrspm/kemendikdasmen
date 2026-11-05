@@ -107,8 +107,8 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
 
 export const PersonCell = ({ name, nip }: { name: string; nip: string }) => (
   <div className="flex flex-col">
-    <span className="text-sd-gray-90" style={{ fontSize: '16px', lineHeight: '24px' }}>{name}</span>
-    <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>NIP: {nip}</span>
+    <span className="text-sd-gray-90" style={{ fontSize: '15px', lineHeight: '22px' }}>{name}</span>
+    <span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>NIP: {nip}</span>
   </div>
 );
 

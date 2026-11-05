@@ -76,7 +76,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
             <button
               onClick={() => navigate('/')}
               className="flex items-center gap-[10px] px-[16px] py-[8px] bg-sd-blue-5 text-sd-gray-60 text-left hover:bg-sd-blue-5"
-              style={{ fontSize: '12px', fontWeight: 400, lineHeight: '16px' }}
+              style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}
             >
               <Home className="size-[16px]" /> Kembali ke Beranda Portal
             </button>
@@ -125,7 +125,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
             <button
               onClick={() => setCollapsed(true)}
               className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-90 hover:bg-sd-gray-0"
-              style={{ fontSize: '12px', fontWeight: 400, lineHeight: '16px' }}
+              style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}
             >
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu
             </button>
