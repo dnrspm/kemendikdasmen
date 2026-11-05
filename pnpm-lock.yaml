@@ -172,7 +172,7 @@ importers:
         version: 2.15.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       seragam-design-system:
         specifier: github:titohnf/seragamds
-        version: https://codeload.github.com/titohnf/seragamds/tar.gz/c05ac6667167bfe8c1b2d97709bbc02cdcbab578(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12)
+        version: https://codeload.github.com/titohnf/seragamds/tar.gz/1a46708562e36a43629d74b74826996f532b8331(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12)
       sonner:
         specifier: 2.0.3
         version: 2.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2245,9 +2245,9 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/c05ac6667167bfe8c1b2d97709bbc02cdcbab578:
-    resolution: {gitHosted: true, integrity: sha512-kUqLlZ2HsVA4UT9q9xlAsbADNTdSy0sHgd4Sg/MfFSgGYgbUgzvDTS/qngLeWgMsUuRCi0+aFv7cvNIJr33bAQ==, tarball: https://codeload.github.com/titohnf/seragamds/tar.gz/c05ac6667167bfe8c1b2d97709bbc02cdcbab578}
-    version: 0.3.0
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/1a46708562e36a43629d74b74826996f532b8331:
+    resolution: {gitHosted: true, integrity: sha512-JKkXQqevK1TdSMSJejFmPSPr5TfweGVL9eRdn5H+RLM2/N5P09XwhKZLO0JKWCZnvj0IwjZ2+rEKddAzvqvfcQ==, tarball: https://codeload.github.com/titohnf/seragamds/tar.gz/1a46708562e36a43629d74b74826996f532b8331}
+    version: 0.4.0
     peerDependencies:
       lucide-react: '>=0.400'
       react: '>=18'
@@ -4282,7 +4282,7 @@ snapshots:
 
   semver@6.3.1: {}
 
-  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/c05ac6667167bfe8c1b2d97709bbc02cdcbab578(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12):
+  seragam-design-system@https://codeload.github.com/titohnf/seragamds/tar.gz/1a46708562e36a43629d74b74826996f532b8331(lucide-react@0.487.0(react@18.3.1))(react@18.3.1)(tailwindcss@4.1.12):
     dependencies:
       lucide-react: 0.487.0(react@18.3.1)
       react: 18.3.1
