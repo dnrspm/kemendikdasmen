@@ -76,7 +76,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
             <button
               onClick={() => navigate('/')}
               className="flex items-center gap-[10px] px-[16px] py-[8px] bg-sd-blue-5 text-sd-gray-60 text-left hover:bg-sd-blue-5"
-              style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}
+              style={{ fontSize: '15px', fontWeight: 400, lineHeight: '22px' }}
             >
               <Home className="size-[16px]" /> Kembali ke Beranda Portal
             </button>
@@ -85,7 +85,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
               <button
                 onClick={() => navigate('/kepegawaian')}
                 className={`flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left ${isDataPribadi ? 'bg-sd-gray-5' : 'hover:bg-sd-gray-0'}`}
-                style={{ fontSize: '16px', lineHeight: '24px', fontWeight: isDataPribadi ? 600 : 400 }}
+                style={{ fontSize: '15px', lineHeight: '22px', fontWeight: isDataPribadi ? 600 : 400 }}
               >
                 <User className="size-[20px]" /> Data Pribadi
               </button>
@@ -97,7 +97,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
                     <button
                       onClick={() => setOpen(isOpen ? null : g.id)}
                       className="w-full flex items-center gap-[12px] px-[8px] py-[8px] rounded-[4px] text-left hover:bg-sd-gray-0"
-                      style={{ fontSize: '16px', lineHeight: '24px' }}
+                      style={{ fontSize: '15px', lineHeight: '22px' }}
                     >
                       {g.icon}
                       <span className="flex-1">{g.label}</span>
@@ -110,7 +110,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
                             key={c.path}
                             onClick={() => navigate(c.path)}
                             className={`pl-[40px] pr-[8px] py-[9px] text-left rounded-[4px] ${clean === c.path ? 'bg-sd-gray-5' : 'hover:bg-sd-gray-0'}`}
-                            style={{ fontSize: '16px', lineHeight: '24px', fontWeight: clean === c.path ? 600 : 400 }}
+                            style={{ fontSize: '15px', lineHeight: '22px', fontWeight: clean === c.path ? 600 : 400 }}
                           >
                             {c.label}
                           </button>
@@ -125,7 +125,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
             <button
               onClick={() => setCollapsed(true)}
               className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-90 hover:bg-sd-gray-0"
-              style={{ fontSize: '16px', fontWeight: 400, lineHeight: '24px' }}
+              style={{ fontSize: '15px', fontWeight: 400, lineHeight: '22px' }}
             >
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu
             </button>
