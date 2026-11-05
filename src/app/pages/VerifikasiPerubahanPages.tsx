@@ -82,7 +82,7 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
         </button>
       </div>
       {open && (
-        <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-[#eee] flex flex-col gap-[12px]">
+        <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-sd-modal-footer-border flex flex-col gap-[12px]">
           <div className="flex flex-col gap-[4px]">
             <label htmlFor="cari-nama-nip" className="font-semibold" style={st}>Nama atau NIP</label>
             <div className="relative">
@@ -182,7 +182,7 @@ function Stepper({ steps }: { steps: Step[] }) {
         const last = i === steps.length - 1;
         const muted = st.state === 'todo' || st.state === 'skipped';
         const marker =
-          st.state === 'done' ? <span className="size-[20px] rounded-full bg-[#2d8a4e] grid place-items-center text-white"><Check className="size-[12px]" /></span>
+          st.state === 'done' ? <span className="size-[20px] rounded-full bg-sd-green-60 grid place-items-center text-white"><Check className="size-[12px]" /></span>
           : st.state === 'failed' ? <span className="size-[20px] rounded-full bg-sd-red-60 grid place-items-center text-white"><X className="size-[12px]" /></span>
           : st.state === 'current' ? <span className="size-[20px] rounded-full border-2 border-sd-blue-70 bg-white grid place-items-center"><span className="size-[8px] rounded-full bg-sd-blue-70" /></span>
           : <span className="size-[20px] rounded-full border-2 border-sd-gray-30 bg-white" />;
@@ -190,7 +190,7 @@ function Stepper({ steps }: { steps: Step[] }) {
           <li key={i} className="flex gap-[12px]">
             <div className="flex flex-col items-center">
               {marker}
-              {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? '#2d8a4e' : '#e4e4e4' }} />}
+              {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? 'var(--sd-green-60)' : 'var(--sd-modal-footer-border)' }} />}
             </div>
             <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[16px]'}`}>
               <span style={{ fontSize: '13px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? 'var(--sd-gray-60)' : 'var(--sd-gray-90)', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
@@ -267,7 +267,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   return (
     <div className="flex flex-col gap-[12px]">
       <Banner tone={ui.tone}><span style={BODY}>{ui.info}</span></Banner>
-      <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden p-[16px] flex flex-col gap-[20px]">
+      <section className="bg-white border border-sd-modal-footer-border rounded-[8px] overflow-hidden p-[16px] flex flex-col gap-[20px]">
         {u.jenis === 'Ubah' ? (
           <>
             {/* Data yang diubah dikelompokkan: sebelum dan sesudah berdampingan dengan panah. */}
@@ -309,7 +309,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
 /** Kolom samping bersama: pengaju, status, dan Alur Pengusulan (dipakai modal detail dan modal sinkronisasi). */
 function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRetry: boolean }) {
   return (
-  <aside className="order-2 lg:order-1 bg-white border-t lg:border-t-0 lg:border-r border-[#e4e4e4]">
+  <aside className="order-2 lg:order-1 bg-white border-t lg:border-t-0 lg:border-r border-sd-modal-footer-border">
     {/* Isi sidebar menempel di atas saat kolom utama di-scroll; latar putih tetap setinggi modal. */}
     <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
     <div className="flex flex-col gap-[4px]">
@@ -322,7 +322,7 @@ function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRe
       <h4 className="text-sd-gray-80" style={TH_STYLE}>Alur Pengusulan</h4>
       <Stepper steps={steps} />
       {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-sd-red-5 px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
-      {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-[#fef6e0] px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
+      {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-sd-warning-surface px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
     </div>
     </div>
   </aside>
@@ -352,8 +352,8 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
           <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[24px]">
             <h3 className="text-sd-gray-90" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>Konfirmasi Sinkronisasi Data {u.data.replace(/^Data /, '')}</h3>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px] items-start">
-            <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data Portal</h3>
+            <section className="bg-white border border-sd-modal-footer-border rounded-[8px] overflow-hidden">
+              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-sd-modal-footer-border text-sd-gray-90" style={HEADING}>Data Portal</h3>
               <div className="p-[16px] flex flex-col gap-[12px]">
                 {portal.length === 0
                   ? <p className="text-sd-gray-60" style={BODY}>Data ini akan dihapus dari Portal.</p>
@@ -361,8 +361,8 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
               </div>
             </section>
 
-            <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data SIASN</h3>
+            <section className="bg-white border border-sd-modal-footer-border rounded-[8px] overflow-hidden">
+              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-sd-modal-footer-border text-sd-gray-90" style={HEADING}>Data SIASN</h3>
               <div className="p-[16px] flex flex-col gap-[16px]">
                 {/* Segmen 1: data pada SIASN yang terdampak usulan ini */}
                 <div className="flex flex-col gap-[8px]">
@@ -390,7 +390,7 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
                   <h4 className="flex items-center gap-[8px] text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>
                     <List className="size-[18px]" aria-hidden /> Data lainnya di SIASN (0)
                   </h4>
-                  <div className="rounded-[8px] border border-[#e4e4e4] p-[24px] flex flex-col items-center gap-[8px] text-center text-sd-gray-60" style={BODY}>
+                  <div className="rounded-[8px] border border-sd-modal-footer-border p-[24px] flex flex-col items-center gap-[8px] text-center text-sd-gray-60" style={BODY}>
                     <Inbox className="size-[24px] text-sd-gray-90" aria-hidden />
                     Tidak ada data lain di SIASN
                   </div>
@@ -457,7 +457,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {u.dokumen.length > 0 && (
               <section className="flex flex-col gap-[8px]">
                 <h4 className="text-sd-gray-90" style={HEADING}>Dokumen Pendukung</h4>
-                <ul className="bg-white border border-[#e4e4e4] rounded-[8px] divide-y divide-sd-badge-neutral">
+                <ul className="bg-white border border-sd-modal-footer-border rounded-[8px] divide-y divide-sd-badge-neutral">
                   {u.dokumen.map((d) => (
                     <li key={d} className="flex items-center justify-between gap-[12px] px-[16px] py-[12px]">
                       <span className="flex items-center gap-[8px] text-sd-gray-90" style={BODY}><FileText className="size-[18px] text-sd-gray-60" /> {d}</span>

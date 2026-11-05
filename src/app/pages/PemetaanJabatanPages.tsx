@@ -21,7 +21,7 @@ function SelectField({ label, placeholder, disabled }: { label: string; placehol
       <span className="text-sd-gray-90" style={{ fontSize: 'var(--text-xs)' }}>{label}</span>
       <select
         disabled={disabled}
-        className={`border border-sd-gray-30 rounded-[4px] px-[10px] py-[9px] ${disabled ? 'bg-[#ececec] text-sd-gray-50' : 'bg-white'}`}
+        className={`border border-sd-gray-30 rounded-[4px] px-[10px] py-[9px] ${disabled ? 'bg-sd-badge-neutral text-sd-gray-50' : 'bg-white'}`}
         style={{ fontSize: 'var(--text-sm)' }}
       >
         <option>{placeholder}</option>

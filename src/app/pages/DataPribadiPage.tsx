@@ -46,7 +46,7 @@ type Row = (string | boolean | undefined)[];
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
     <section className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
+      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-sd-modal-footer-border text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
         {icon} {title}
       </header>
       <div className={`grid gap-x-[16px] gap-y-[14px] p-[16px] ${cols === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
@@ -289,20 +289,20 @@ const NO_DATA = ['Belum tersedia', 'Tidak dinilai', 'Dalam Penilaian'];
 // Dua rona: biru = sesuai/di atas ekspektasi atau Baik/Sangat Baik; merah = di bawah ekspektasi atau di bawah Baik.
 // Level dibedakan lewat kepekatan warna + ikon (ikon jadi penanda cadangan bagi pengguna buta warna). Kontras teks >= 4.5:1.
 type PillStyle = { bg: string; fg: string; icon: 'up' | 'ok' | 'eq' | 'down' };
-const BIRU_PEKAT: PillStyle = { bg: 'var(--sd-blue-70)', fg: '#ffffff', icon: 'up' };
-const BIRU_MUDA: PillStyle = { bg: '#cde0ff', fg: '#0a3a8c', icon: 'ok' };
+const BIRU_PEKAT: PillStyle = { bg: 'var(--sd-blue-70)', fg: 'var(--sd-white)', icon: 'up' };
+const BIRU_MUDA: PillStyle = { bg: 'var(--sd-blue-10)', fg: 'var(--sd-blue-80)', icon: 'ok' };
 const PRED_STYLE: Record<string, PillStyle> = {
   'Sangat Baik': BIRU_PEKAT, Baik: BIRU_MUDA,
-  'Butuh Perbaikan': { bg: '#ffe1e1', fg: '#8a1c1c', icon: 'down' },
-  Kurang: { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
-  'Sangat Kurang': { bg: 'var(--sd-red-60)', fg: '#ffffff', icon: 'down' },
+  'Butuh Perbaikan': { bg: 'var(--sd-red-5)', fg: 'var(--sd-red-80)', icon: 'down' },
+  Kurang: { bg: 'var(--sd-red-20)', fg: 'var(--sd-red-80)', icon: 'down' },
+  'Sangat Kurang': { bg: 'var(--sd-red-60)', fg: 'var(--sd-white)', icon: 'down' },
   'Di Atas Ekspektasi': BIRU_PEKAT, 'Sesuai Ekspektasi': { ...BIRU_MUDA, icon: 'eq' },
-  'Di Bawah Ekspektasi': { bg: '#ffbdbd', fg: '#7a1212', icon: 'down' },
+  'Di Bawah Ekspektasi': { bg: 'var(--sd-red-20)', fg: 'var(--sd-red-80)', icon: 'down' },
 };
 const FLAT: Record<'biru' | 'merah' | 'hijau', { bg: string; fg: string; dot: string }> = {
-  biru: { bg: '#cde0ff', fg: '#0a3a8c', dot: 'var(--sd-blue-70)' },
-  merah: { bg: '#ffbdbd', fg: '#7a1212', dot: 'var(--sd-red-60)' },
-  hijau: { bg: '#cdf0dc', fg: '#0f5a2e', dot: '#16803c' }, // khusus Opsi 3: Sangat Baik / Di Atas Ekspektasi
+  biru: { bg: 'var(--sd-blue-10)', fg: 'var(--sd-blue-80)', dot: 'var(--sd-blue-70)' },
+  merah: { bg: 'var(--sd-red-20)', fg: 'var(--sd-red-80)', dot: 'var(--sd-red-60)' },
+  hijau: { bg: 'var(--sd-green-10)', fg: 'var(--sd-green-80)', dot: 'var(--sd-green-60)' }, // khusus Opsi 3: Sangat Baik / Di Atas Ekspektasi
 };
 const PILL_ICON = { up: ArrowUp, ok: Check, eq: Equal, down: ArrowDown };
 const BULAN_TUTUP: Record<number, [string, number]> = { 1: ['April', 0], 2: ['Juli', 0], 3: ['Oktober', 0], 4: ['Januari', 1] };
@@ -444,7 +444,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   const plotH = CHART_H - PLOT_TOP - xH;
   const lo = Math.min(...ticks) - 0.5;
   const hi = Math.max(...ticks) + 0.5;
-  const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`;
+  const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-sd-blue-70 bg-sd-blue-5 text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`;
   const pillStyle = { borderRadius: '24px', fontSize: '13px', fontWeight: 600, lineHeight: '20px' } as const;
 
   return (
@@ -587,7 +587,7 @@ function KinerjaTabel() {
   const tdStyle = { fontSize: '15px', lineHeight: '22px' } as const;
   const sub = { fontSize: '13px', lineHeight: '20px', fontWeight: 400 } as const;
   // Garis biru di tepi kiri baris rincian triwulan (tanpa menggeser isi).
-  const bar = { boxShadow: 'inset 3px 0 0 #0954d9' } as const;
+  const bar = { boxShadow: 'inset 3px 0 0 var(--sd-blue-70)' } as const;
   const detail = (y: number) => {
     const rowsFor = quartersFull(y);
     if (y === 2026 && KMESSAGES[scenario]) {
@@ -604,7 +604,7 @@ function KinerjaTabel() {
       <>
         {y === 2026 && scenario === 'stale' && (
           <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0" style={bar}>
-            <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>
+            <div role="status" className="rounded-[4px] border border-sd-warning-border bg-sd-warning-surface px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
           </td></tr>
@@ -634,8 +634,8 @@ function KinerjaTabel() {
   };
 
   return (
-    <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[8px] border border-[#cfd2d4]">
-      <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-[#cfd2d4] p-[16px]">
+    <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[8px] border border-sd-modal-footer-border">
+      <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-sd-modal-footer-border p-[16px]">
         <div>
           <h3 className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
           {showSync && (
@@ -702,7 +702,7 @@ function KinerjaTabel() {
           </tbody>
         </table>
       </div>
-      <p className="border-t border-[#cfd2d4] p-[16px] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
+      <p className="border-t border-sd-modal-footer-border p-[16px] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
         Hasil penilaian kinerja tahunan bukan merupakan gabungan dari penilaian kinerja triwulan 1-4.
       </p>
     </div>
@@ -823,7 +823,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         <div className="grid grid-cols-1 xl:grid-cols-[275px_1fr] gap-[16px] items-start">
           <div className="flex flex-col gap-[16px]">
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-              <img alt="" src={imgPhoto} className="w-full object-cover bg-[#d9d9d9]" style={{ height: 279 }} />
+              <img alt="" src={imgPhoto} className="w-full object-cover bg-sd-gray-10" style={{ height: 279 }} />
               <div className="p-[16px] text-center flex flex-col gap-[6px]">
                 <h2 className="uppercase text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
                 <p className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
@@ -847,7 +847,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             </div>
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>Unit Organisasi</header>
+              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-sd-modal-footer-border text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>Unit Organisasi</header>
               <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '15px', lineHeight: '22px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
               </ul>
@@ -893,7 +893,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
       <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-sd-gray-50 bg-sd-gray-5 px-[10px] py-[6px]" style={{ fontSize: '13px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
         <span style={{ fontWeight: 600 }}>Gaya pill</span>
         {PILL_VARIANTS.map((k) => (
-          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
+          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-sd-blue-70 bg-sd-blue-5 text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
         ))}
       </div>
     )}

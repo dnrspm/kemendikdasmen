@@ -68,7 +68,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
       <Header fullWidth />
       <div className="flex flex-1 min-h-0">
         {!collapsed && (
-          <aside className="w-[288px] shrink-0 bg-white border-r border-[#e4e4e4] flex flex-col">
+          <aside className="w-[288px] shrink-0 bg-white border-r border-sd-modal-footer-border flex flex-col">
             <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-sd-blue-5">
               <img alt="" src={imgStaff} className="size-[20px] object-contain" />
               <span className="text-sd-gray-90 uppercase" style={{ fontSize: '13px', fontWeight: 700, lineHeight: '20px' }}>Kepegawaian</span>
@@ -124,7 +124,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
 
             <button
               onClick={() => setCollapsed(true)}
-              className="flex items-center justify-center gap-[8px] py-[12px] border-t border-[#e4e4e4] text-sd-gray-90 hover:bg-sd-gray-0"
+              className="flex items-center justify-center gap-[8px] py-[12px] border-t border-sd-modal-footer-border text-sd-gray-90 hover:bg-sd-gray-0"
               style={{ fontSize: '15px', fontWeight: 400, lineHeight: '22px' }}
             >
               <ArrowLeftCircle className="size-[18px]" /> Sembunyikan Menu
@@ -136,7 +136,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
           {collapsed && (
             <button
               onClick={() => setCollapsed(false)}
-              className="absolute left-[12px] top-[12px] p-[6px] rounded-[4px] bg-white border border-[#e4e4e4]"
+              className="absolute left-[12px] top-[12px] p-[6px] rounded-[4px] bg-white border border-sd-modal-footer-border"
               aria-label="Tampilkan menu"
             >
               <Menu className="size-[18px]" />

@@ -138,7 +138,7 @@ const btnDanger = buttonClass('destructive', 'lg');
 
 function Panel({ title, right, children }: { title: string; right?: ReactNode; children: ReactNode }) {
   return (
-    <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+    <section className="bg-white border border-sd-modal-footer-border rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-sd-badge-neutral">
         <h4 className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</h4>
         {right && <span className="text-sd-gray-60" style={LABEL}>{right}</span>}
@@ -159,7 +159,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
   const lama = aksi.tipe === 'ubah-pribadi' ? pribadi[aksi.field] : aksi.tipe === 'ubah-kolom' ? aksi.lama : aksi.tipe === 'ubah-baris' ? aksi.baris[field] : '';
   const jenis: Jenis = aksi.tipe === 'tambah' ? 'Tambah' : aksi.tipe === 'hapus' ? 'Hapus' : 'Ubah';
   const headline = `${jenis === 'Tambah' ? 'Penambahan' : jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${jenis === 'Ubah' ? field : kategori}`;
-  const tone = jenis === 'Tambah' ? '#a9e5c1' : jenis === 'Ubah' ? 'var(--sd-badge-info)' : 'var(--sd-red-5)';
+  const tone = jenis === 'Tambah' ? 'var(--sd-badge-success)' : jenis === 'Ubah' ? 'var(--sd-badge-info)' : 'var(--sd-red-5)';
 
   const detail: [string, string][] =
     aksi.tipe === 'ubah-pribadi' || aksi.tipe === 'ubah-baris' || aksi.tipe === 'ubah-kolom' ? [[field, nilai]]
@@ -262,12 +262,12 @@ const Diperbarui = () => (
 const SubPills = ChipGroup;
 
 const Tag = ({ bg, children }: { bg: string; children: ReactNode }) => (
-  <Badge tone={bg === '#fae1ae' ? 'amber' : bg === 'var(--sd-red-5)' ? 'red' : bg === 'var(--sd-badge-info)' ? 'blue' : 'gray'}>{children}</Badge>
+  <Badge tone={bg === 'var(--sd-badge-warning)' ? 'amber' : bg === 'var(--sd-red-5)' ? 'red' : bg === 'var(--sd-badge-info)' ? 'blue' : 'gray'}>{children}</Badge>
 );
 
 export function cell(t: Tabel, k: string, b: Rec): ReactNode {
   const v = b[k];
-  if (k === 'Nama' && b._asn) return <span className="inline-flex items-center gap-[6px] flex-wrap">{v}<Tag bg="#fae1ae">ASN</Tag></span>;
+  if (k === 'Nama' && b._asn) return <span className="inline-flex items-center gap-[6px] flex-wrap">{v}<Tag bg="var(--sd-badge-warning)">ASN</Tag></span>;
   if (k === 'Jenis Kelamin') return <Tag bg={v === 'Perempuan' ? 'var(--sd-red-5)' : 'var(--sd-badge-info)'}>{v}</Tag>;
   if (v === 'Data tidak lengkap') return <span className="text-sd-red-60">{v}</span>;
   return v;
@@ -346,7 +346,7 @@ function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => 
                   <div className="min-w-0">
                     <p className="text-sd-gray-60" style={LABEL}>{f}</p>
                     <p className="text-sd-gray-90 break-words" style={VALUE}>{values[f] || '-'}</p>
-                    {p && <p className="text-[#7a5a00]" style={LABEL}>{STATUS_LABEL[p.status]}</p>}
+                    {p && <p className="text-sd-yellow-70" style={LABEL}>{STATUS_LABEL[p.status]}</p>}
                   </div>
                   <button onClick={() => onAksi({ tipe: 'ubah-pribadi', field: f })} aria-label={`Ubah ${f}`} className="shrink-0 border border-sd-gray-50 rounded-[4px] p-[6px] hover:bg-sd-gray-5"><Pencil className="size-[14px]" /></button>
                 </div>
@@ -427,7 +427,7 @@ export function UbahPegawaiPage() {
             {tab === 4 && <TabSub tabel={RIWAYAT} onAksi={setAksi} />}
             {tab === 5 && (
               <div className="rounded-[8px] bg-sd-gray-5 py-[56px] flex flex-col items-center gap-[8px] text-center">
-                <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-[#b98900]" /></div>
+                <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-sd-yellow-60" /></div>
                 <p className="text-sd-gray-90" style={{ fontSize: '13px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
                 <p className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
               </div>
