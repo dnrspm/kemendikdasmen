@@ -319,7 +319,7 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
   const aksen = u.jenis === 'Hapus' ? 'var(--sd-red-60)' : 'var(--sd-warning-border)';
   const segJudul = u.jenis === 'Tambah' ? { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus }
     : u.jenis === 'Hapus' ? { teks: 'Data yang akan dihapus', warna: 'var(--sd-red-70)', Icon: Trash2 }
-    : { teks: 'Data yang akan diperbarui', warna: 'var(--sd-yellow-60)', Icon: Pencil };
+    : { teks: `Data yang akan diperbarui (${siasn.filter((r) => r.beda).length})`, warna: 'var(--sd-gray-90)', Icon: Pencil };
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
       <div role="dialog" aria-label="Konfirmasi Sinkronisasi Data SIASN" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
@@ -348,10 +348,7 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
             </section>
 
             <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-              <div className="flex items-center justify-between px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4]">
-                <h3 className="text-sd-gray-90" style={HEADING}>Data SIASN</h3>
-                <span className="text-sd-gray-60" style={SMALL}>{ada ? 1 : 0} data</span>
-              </div>
+              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data SIASN</h3>
               <div className="p-[16px] flex flex-col gap-[16px]">
                 {/* Segmen 1: data pada SIASN yang terdampak usulan ini */}
                 <div className="flex flex-col gap-[8px]">
