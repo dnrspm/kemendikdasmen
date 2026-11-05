@@ -306,6 +306,29 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   );
 }
 
+/** Kolom samping bersama: pengaju, status, dan Alur Pengusulan (dipakai modal detail dan modal sinkronisasi). */
+function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRetry: boolean }) {
+  return (
+  <aside className="order-2 lg:order-1 bg-white border-t lg:border-t-0 lg:border-r border-[#e4e4e4]">
+    {/* Isi sidebar menempel di atas saat kolom utama di-scroll; latar putih tetap setinggi modal. */}
+    <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
+    <div className="flex flex-col gap-[4px]">
+      <p className="text-sd-gray-80 mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
+      <p className="text-sd-gray-90" style={VALUE}>{u.nama}</p>
+      <p className="text-sd-gray-60" style={SMALL}>NIP {u.nip}</p>
+      <p className="text-sd-gray-60" style={SMALL}>{shortUnit(u.unit)}</p>
+    </div>
+    <div className="flex flex-col gap-[16px] border-t border-sd-gray-30 pt-[20px] mt-[4px]">
+      <h4 className="text-sd-gray-80" style={TH_STYLE}>Alur Pengusulan</h4>
+      <Stepper steps={steps} />
+      {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-sd-red-5 px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
+      {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-[#fef6e0] px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
+    </div>
+    </div>
+  </aside>
+  );
+}
+
 /* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Komite menyetujui) ---------- */
 /** Pola komparasi dua kolom: Data Portal (usulan) di kiri, Data SIASN di kanan. Data SIASN di sini masih contoh. */
 function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void; onConfirm: () => void }) {
@@ -313,7 +336,6 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
   const portal = u.jenis === 'Hapus' ? [] : baris;
   const ada = u.jenis !== 'Tambah'; // Tambah: tidak ada data yang cocok di SIASN
   const siasn = baris.map((r) => ({ label: r.label, nilai: r.lama ?? r.baru, beda: r.lama !== undefined }));
-  const inisial = u.nama.replace(/^((Prof|Dr|Ir|H)\.?\s+)+/i, '').trim().slice(0, 1);
   const judul = u.data.toUpperCase();
   const aksen = u.jenis === 'Hapus' ? 'var(--sd-red-60)' : 'var(--sd-warning-border)';
   const segJudul = u.jenis === 'Tambah' ? { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus }
@@ -326,16 +348,9 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
           <h2 className="text-sd-gray-90" style={HEADING}>Konfirmasi Sinkronisasi Data SIASN: <b style={{ fontWeight: 700 }}>{judul}</b></h2>
           <button onClick={onBack} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
         </div>
-        <div className="flex-1 min-h-0 overflow-y-auto p-[20px] flex flex-col gap-[16px] bg-sd-gray-0">
-          <div className="flex items-center gap-[16px]">
-            <span className="size-[48px] shrink-0 rounded-full bg-sd-blue-70 text-white grid place-items-center" style={VALUE} aria-hidden>{inisial}</span>
-            <div className="min-w-0">
-              <p className="text-sd-gray-90" style={VALUE}>{u.nama}</p>
-              <p className="text-sd-gray-60" style={SMALL}>{u.nip}</p>
-              <div className="mt-[4px]"><Badge tone="green">PNS</Badge></div>
-            </div>
-          </div>
-
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
+          <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[16px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px] items-start">
             <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
               <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data Portal</h3>
@@ -382,6 +397,9 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
                 </div>
               </div>
             </section>
+          </div>
+          </div>
+          <UsulanSidebar u={u} steps={buildSteps(u, true)} canRetry={false} />
           </div>
         </div>
         <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">
@@ -462,23 +480,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
           </div>
 
           {/* Kolom samping (kiri di layar lebar): konteks pegawai, status, dan alur */}
-          <aside className="order-2 lg:order-1 bg-white border-t lg:border-t-0 lg:border-r border-[#e4e4e4]">
-            {/* Isi sidebar menempel di atas saat kolom utama di-scroll; latar putih tetap setinggi modal. */}
-            <div className="lg:sticky lg:top-0 p-[24px] flex flex-col gap-[20px]">
-            <div className="flex flex-col gap-[4px]">
-              <p className="text-sd-gray-80 mb-[2px]" style={TH_STYLE}>Diajukan oleh ({u.asal})</p>
-              <p className="text-sd-gray-90" style={VALUE}>{u.nama}</p>
-              <p className="text-sd-gray-60" style={SMALL}>NIP {u.nip}</p>
-              <p className="text-sd-gray-60" style={SMALL}>{shortUnit(u.unit)}</p>
-            </div>
-            <div className="flex flex-col gap-[16px] border-t border-sd-gray-30 pt-[20px] mt-[4px]">
-              <h4 className="text-sd-gray-80" style={TH_STYLE}>Alur Pengusulan</h4>
-              <Stepper steps={steps} />
-              {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-sd-red-5 px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
-              {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-[#fef6e0] px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
-            </div>
-            </div>
-          </aside>
+          <UsulanSidebar u={u} steps={steps} canRetry={canRetry} />
           </div>
         </div>
 
