@@ -253,7 +253,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-[8px] px-[16px] py-[12px] border-b border-sd-badge-neutral">
+      <div className="flex flex-wrap items-center justify-between gap-[8px] px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
         <div className="flex items-center gap-[8px]">
           <h4 className="text-sd-gray-90" style={HEADING}>Detail</h4>
           <Badge tone={ui.tone}>{ui.judul}</Badge>
