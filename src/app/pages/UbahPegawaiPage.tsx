@@ -5,9 +5,9 @@ import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { StagingDataTable, type Column } from '@/app/components/StagingDataTable';
 import imgTut from '@/assets/staging/tut-wuri-handayani.png';
-import { fieldClass, Tabs, ChipGroup, Badge, Button, Modal as SdModal } from 'seragam-design-system';
+import { Tabs, ChipGroup, Badge, Button, Modal as SdModal, Select as SdSelect, TextField } from 'seragam-design-system';
 import { AksiCell } from '@/app/components/AksiCell';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
+import { Field as FormField } from '@/app/components/FormParts';
 import {
   AHMAD_PROFIL, FIELD_DATA_PRIBADI, STATUS_LABEL, ajukanUsulan, perluKomite, useUsulan, type Jenis,
 } from '@/app/data/usulanPerubahan';
@@ -109,7 +109,6 @@ type Aksi =
   | { tipe: 'ubah-kolom'; tabel: Tabel; field: string; lama: string }
   | { tipe: 'detail'; tabel: Tabel; baris: Rec };
 
-const inputCls = `${fieldClass} px-[12px] py-[8px]`;
 const st = { fontSize: 'var(--text-sm)' } as const;
 const LABEL = { fontSize: '13px', lineHeight: '20px' } as const;           // label/keterangan
 const VALUE = { fontSize: '15px', fontWeight: 600, lineHeight: '22px' } as const; // nilai
@@ -185,10 +184,9 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
       {aksi.tipe === 'ubah-baris' && (
         <Panel title="Field yang Diubah" right="Satu field per pengajuan">
-          <Select value={field} onValueChange={(v) => { setField(v); setNilai(''); }}>
-            <SelectTrigger className="w-full bg-white border-sd-gray-30" style={TD}><SelectValue /></SelectTrigger>
-            <SelectContent>{fields.map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}</SelectContent>
-          </Select>
+          <SdSelect aria-label="Field yang diubah" value={field} onChange={(e) => { setField(e.target.value); setNilai(''); }}>
+            {fields.map((f) => <option key={f} value={f}>{f}</option>)}
+          </SdSelect>
         </Panel>
       )}
 
@@ -200,10 +198,9 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
               <p className="text-sd-gray-60 break-words" style={TD}>{lama || '-'}</p>
             </div>
             <div className="hidden md:grid place-items-center self-center text-sd-gray-60"><ArrowRight className="size-[20px]" /></div>
-            <label className="block">
-              <span className="block text-sd-gray-60" style={LABEL}>Data Baru</span>
-              <input autoFocus value={nilai} onChange={(e) => setNilai(e.target.value)} className={inputCls} style={TD} />
-            </label>
+            <FormField label="Data Baru">
+              <TextField autoFocus value={nilai} onChange={(e) => setNilai(e.target.value)} />
+            </FormField>
           </div>
         </Panel>
       )}
@@ -212,10 +209,9 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
         <Panel title="Data yang Ditambahkan">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px]">
             {aksi.tabel.kolom.map((k, i) => (
-              <label key={k} className="block">
-                <span className="block text-sd-gray-60" style={LABEL}>{k}{i === 0 && ' *'}</span>
-                <input value={tambah[k] ?? ''} onChange={(e) => setTambah({ ...tambah, [k]: e.target.value })} className={inputCls} style={TD} />
-              </label>
+              <FormField key={k} label={k} required={i === 0}>
+                <TextField value={tambah[k] ?? ''} onChange={(e) => setTambah({ ...tambah, [k]: e.target.value })} />
+              </FormField>
             ))}
           </div>
         </Panel>

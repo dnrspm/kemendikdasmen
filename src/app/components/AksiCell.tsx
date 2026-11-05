@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { MoreVertical } from 'lucide-react';
-import { buttonClass } from 'seragam-design-system';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/app/components/ui/dropdown-menu';
+import { Popover, buttonClass } from 'seragam-design-system';
 
 export type AksiItem = { label: string; onClick: () => void; icon?: ReactNode; danger?: boolean };
 
@@ -26,13 +25,13 @@ export function AksiCell({ items }: { items: AksiItem[] }) {
     );
   }
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild><button aria-label="Aksi"><MoreVertical className="size-[18px] text-sd-gray-80" /></button></DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {items.map((a) => (
-          <DropdownMenuItem key={a.label} onSelect={a.onClick} className={a.danger ? 'text-sd-red-60' : ''}>{a.icon} {a.label}</DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Popover
+      align="right"
+      trigger={({ toggle }) => <button aria-label="Aksi" onClick={toggle}><MoreVertical className="size-[18px] text-sd-gray-80" /></button>}
+      items={items.map((a) => ({
+        label: <span className={`flex items-center gap-[8px] ${a.danger ? 'text-sd-red-60' : ''}`}>{a.icon}{a.label}</span>,
+        onSelect: a.onClick,
+      }))}
+    />
   );
 }

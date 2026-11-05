@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight, CirclePlus, Trash2, Pencil, FilePlus, List, Inbox } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
+import { Field as FormField } from '@/app/components/FormParts';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { fieldClass, Tabs, Badge, Banner, Button, buttonClass } from 'seragam-design-system';
+import { fieldClass, Tabs, Badge, Banner, Button, Select as SdSelect, TextField, TextArea, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
@@ -60,16 +60,12 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   const st = { fontSize: 'var(--text-sm)' } as const;
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
-    <div className="flex flex-col gap-[4px]">
-      <span className="font-semibold" style={st}>{label}</span>
-      <Select value={pilih[key] || ALL} onValueChange={(v) => setPilih({ ...pilih, [key]: v === ALL ? '' : v })}>
-        <SelectTrigger className="w-full bg-white border-sd-gray-30" style={st}><SelectValue /></SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL}>{all}</SelectItem>
-          {options.map((o) => <SelectItem key={o} value={o}>{labels?.[o] ?? o}</SelectItem>)}
-        </SelectContent>
-      </Select>
-    </div>
+    <FormField label={label}>
+      <SdSelect value={pilih[key] || ALL} onChange={(e) => setPilih({ ...pilih, [key]: e.target.value === ALL ? '' : e.target.value })}>
+        <option value={ALL}>{all}</option>
+        {options.map((o) => <option key={o} value={o}>{labels?.[o] ?? o}</option>)}
+      </SdSelect>
+    </FormField>
   );
 
   return (
@@ -84,13 +80,15 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
       </div>
       {open && (
         <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-sd-modal-footer-border flex flex-col gap-[12px]">
-          <div className="flex flex-col gap-[4px]">
-            <label htmlFor="cari-nama-nip" className="font-semibold" style={st}>Nama atau NIP</label>
-            <div className="relative">
-              <Search className="size-[16px] absolute left-[10px] top-1/2 -translate-y-1/2 text-sd-gray-60" />
-              <input id="cari-nama-nip" value={pilih.q} onChange={(e) => setPilih({ ...pilih, q: e.target.value })} onKeyDown={(e) => e.key === 'Enter' && terapkan()} placeholder="Cari nama atau NIP" className={`${fieldClass} h-[40px] pl-[32px] pr-[10px] py-[8px]`} style={st} />
-            </div>
-          </div>
+          <FormField label="Nama atau NIP">
+            <TextField
+              leftIcon={<Search className="size-[16px]" />}
+              value={pilih.q}
+              onChange={(e) => setPilih({ ...pilih, q: e.target.value })}
+              onKeyDown={(e) => e.key === 'Enter' && terapkan()}
+              placeholder="Cari nama atau NIP"
+            />
+          </FormField>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[12px]">
             {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
             {dropdown('data', 'Data yang Diubah', 'Semua Data', KATEGORI_DATA)}
@@ -475,7 +473,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
                   <h4 className="text-sd-gray-90" style={HEADING}>Catatan</h4>
                   <span className="text-sd-gray-60" style={SMALL}>Wajib diisi jika menolak</span>
                 </div>
-                <textarea value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" className={`${fieldClass} px-[12px] py-[8px]`} style={BODY} />
+                <TextArea aria-label="Catatan" value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" />
               </section>
             )}
           </div>

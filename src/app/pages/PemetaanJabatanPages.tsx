@@ -1,5 +1,7 @@
 import { FileText } from 'lucide-react';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
+import { Field as FormField } from '@/app/components/FormParts';
+import { Select as SdSelect } from 'seragam-design-system';
 
 function PageShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
   return (
@@ -17,16 +19,11 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
 
 function SelectField({ label, placeholder, disabled }: { label: string; placeholder: string; disabled?: boolean }) {
   return (
-    <label className="flex flex-col gap-[4px]">
-      <span className="text-sd-gray-90" style={{ fontSize: 'var(--text-xs)' }}>{label}</span>
-      <select
-        disabled={disabled}
-        className={`border border-sd-gray-30 rounded-[4px] px-[10px] py-[9px] ${disabled ? 'bg-sd-badge-neutral text-sd-gray-50' : 'bg-white'}`}
-        style={{ fontSize: 'var(--text-sm)' }}
-      >
+    <FormField label={label}>
+      <SdSelect disabled={disabled}>
         <option>{placeholder}</option>
-      </select>
-    </label>
+      </SdSelect>
+    </FormField>
   );
 }
 
