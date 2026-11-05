@@ -1,4 +1,4 @@
-import { Tabs, Checkbox, ChipGroup, Banner, buttonClass } from 'seragam-design-system';
+import { Tabs, Checkbox, ChipGroup, Banner, Button, Expander, Modal as SdModal, buttonClass } from 'seragam-design-system';
 import { KELUARGA, cell as selKeluarga, type Tabel } from '@/app/pages/UbahPegawaiPage';
 import { Fragment, createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -130,7 +130,7 @@ function Keluarga({ hidden, onToggle }: { hidden: boolean; onToggle: () => void 
             Anda memiliki 4 usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Menunggu Verifikasi Data</b> sedang diverifikasi oleh Admin Satker. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
         </p>
         <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
-        <button className="mt-[8px] underline" style={{ fontWeight: 600 }}>Selengkapnya</button>
+        <div className="mt-[8px]"><Expander expanded={false} onToggle={() => {}} /></div>
       </Banner>
       <div className="px-[16px]">
         {KELUARGA.map((t) => (
@@ -202,9 +202,7 @@ function UsulanBanner({ count, onToggle, open }: { count: number; onToggle: () =
         Anda memiliki {count} usulan perubahan data. Usulan berstatus <b style={{ fontWeight: 600 }}>Berhasil Memperbarui Data</b> sudah melewati seluruh proses verifikasi dan data Anda telah diperbarui.
       </p>
       <p className="mt-[8px]">Anda dapat melihat detail perubahan data yang diajukan di bawah ini:</p>
-      <button onClick={onToggle} className="mt-[8px] underline" style={{ fontWeight: 600 }}>
-        {open ? 'Sembunyikan' : 'Selengkapnya'}
-      </button>
+      <div className="mt-[8px]"><Expander expanded={open} onToggle={onToggle} /></div>
     </Banner>
   );
 }
@@ -510,21 +508,10 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
 }
 
 function KinerjaChartModal({ annual, quarterly, onClose }: { annual: { tahun: number; hk: string; pk: string; pred?: string }[]; quarterly: KRow[]; onClose: () => void }) {
-  useEffect(() => {
-    const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', h);
-    return () => window.removeEventListener('keydown', h);
-  }, [onClose]);
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-[16px]" onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-label="Grafik Riwayat Penilaian Kinerja" className="w-full max-w-[960px] max-h-full overflow-auto rounded-[8px] bg-white p-[24px]" style={{ boxShadow: '0 8px 24px rgba(0,0,0,.2)' }} onClick={(e) => e.stopPropagation()}>
-        <div className="mb-[16px] flex items-center justify-between gap-[12px]">
-          <span className="text-sd-gray-90" style={{ fontSize: '20px', fontWeight: 600, lineHeight: '28px' }}>Grafik Riwayat Penilaian Kinerja</span>
-          <button onClick={onClose} aria-label="Tutup" className="rounded-[4px] p-[4px] text-sd-gray-60 hover:bg-sd-gray-0"><X className="size-[20px]" /></button>
-        </div>
-        <KinerjaChart annual={annual} quarterly={quarterly} />
-      </div>
-    </div>
+    <SdModal open onClose={onClose} title="Grafik Riwayat Penilaian Kinerja" size="lg">
+      <KinerjaChart annual={annual} quarterly={quarterly} />
+    </SdModal>
   );
 }
 
@@ -595,7 +582,7 @@ function KinerjaTabel() {
         <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
           {scenario === 'error' && (
-            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-sd-gray-50 bg-white px-[14px] py-[4px] text-sd-gray-90" style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
+            <Button variant="secondary" size="sm" onClick={() => setScenario('sebagian')}>Coba lagi</Button>
           )}
         </td></tr>
       );
@@ -841,9 +828,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                   <a className="text-sd-blue-70 inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
                 </div>
               </div>
-              <button className="w-full border border-sd-gray-30 rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-sd-gray-0" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
-                <Download className="size-[16px]" /> Unduh QR
-              </button>
+              <Button variant="secondary" size="md" fullWidth leadingIcon={<Download className="size-[16px]" />}>Unduh QR</Button>
             </div>
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">

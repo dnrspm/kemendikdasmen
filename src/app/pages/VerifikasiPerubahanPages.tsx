@@ -3,7 +3,7 @@ import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, File
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select';
 import { toast } from 'sonner';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { fieldClass, Tabs, Badge, Banner, buttonClass } from 'seragam-design-system';
+import { fieldClass, Tabs, Badge, Banner, Button, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
@@ -75,11 +75,12 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
   return (
     <div>
       <div className="flex justify-end px-[16px] pt-[16px]">
-        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
-          <SlidersHorizontal className="size-[16px]" /> {open ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
-          {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
-          <ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />
-        </button>
+        <Button variant="quiet" size="sm" onClick={() => setOpen(!open)} aria-expanded={open}
+          leadingIcon={<SlidersHorizontal className="size-[16px]" />}
+          trailingIcon={<ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />}>
+          {open ? 'Sembunyikan filter' : 'Tampilkan filter'}
+          {active > 0 && <span className="sd-t-mobile-helper ml-[6px] rounded-full bg-sd-blue-70 px-[6px] text-white">{active}</span>}
+        </Button>
       </div>
       {open && (
         <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-sd-modal-footer-border flex flex-col gap-[12px]">
@@ -341,11 +342,11 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
     : u.jenis === 'Hapus' ? { teks: 'Data yang akan dihapus', warna: 'var(--sd-red-70)', Icon: Trash2 }
     : { teks: `Data yang akan diperbarui (${siasn.filter((r) => r.beda).length})`, warna: 'var(--sd-gray-90)', Icon: Pencil };
   return (
-    <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
+    <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[8px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
           <h2 className="text-sd-gray-90" style={HEADING}>Detail Usulan Perubahan</h2>
-          <button onClick={onBack} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
+          <button onClick={onBack} aria-label="Tutup" className="shrink-0 text-sd-gray-60 hover:text-sd-gray-90"><X className="size-[20px]" /></button>
         </div>
         <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
@@ -432,11 +433,11 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Komite Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
   }
   return (
-    <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
+    <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[8px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
           <h2 className="text-sd-gray-90" style={HEADING}>Detail Usulan Perubahan</h2>
-          <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 text-sd-gray-60 hover:text-sd-gray-90"><X className="size-[20px]" /></button>
         </div>
 
         <div className="flex-1 min-h-0 overflow-y-auto">
@@ -461,7 +462,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
                   {u.dokumen.map((d) => (
                     <li key={d} className="flex items-center justify-between gap-[12px] px-[16px] py-[12px]">
                       <span className="flex items-center gap-[8px] text-sd-gray-90" style={BODY}><FileText className="size-[18px] text-sd-gray-60" /> {d}</span>
-                      <button onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')} className="text-sd-blue-70 hover:underline" style={{ ...SMALL, fontWeight: 600 }}>Lihat File</button>
+                      <Button variant="quiet" size="sm" onClick={() => toast.info('Prototipe: berkas tidak ditampilkan.')}>Lihat file</Button>
                     </li>
                   ))}
                 </ul>
