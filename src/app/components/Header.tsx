@@ -73,7 +73,7 @@ export function Header({ onLogoClick, onNotificationViewAll, fullWidth }: Header
           <div className="relative" ref={userRef}>
             <button onClick={() => setUserOpen(!userOpen)} className="flex items-center gap-[12px] cursor-pointer hover:opacity-80 transition-opacity">
               <img alt="" src={imgTutWuri} className="size-[34px] rounded-full object-cover" />
-              <p className="hidden md:block uppercase text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+              <p className="hidden md:block uppercase text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
                 AHMAD WIJAYA
               </p>
               {userOpen ? <ChevronUp className="w-[24px] h-[24px] text-sd-gray-80" /> : <ChevronDown className="w-[24px] h-[24px] text-sd-gray-80" />}

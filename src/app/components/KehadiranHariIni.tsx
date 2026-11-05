@@ -37,13 +37,13 @@ export function KehadiranHariIni({
         <span className="font-['Inter',sans-serif] uppercase text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>
           Halo, {userName}!
         </span>
-        <span className="font-['Inter',sans-serif] text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
+        <span className="font-['Inter',sans-serif] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
           Selamat datang di Portal Sivitas Kemendikdasmen. Kelola Administrasi Pegawai dalam Satu Platform
         </span>
       </div>
 
       <div className="px-[20px] py-[16px] flex flex-col gap-[12px]">
-        <p className="font-['Inter',sans-serif] uppercase text-sd-gray-60" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '16px' }}>
+        <p className="font-['Inter',sans-serif] uppercase text-sd-gray-60" style={{ fontSize: '13px', fontWeight: 600, lineHeight: '16px' }}>
           Kehadiran Hari Ini | {today}
         </p>
 
@@ -53,13 +53,13 @@ export function KehadiranHariIni({
 
         <div className="flex items-stretch">
           <div className="flex flex-col gap-[2px] flex-1">
-            <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Masuk</span>
-            <span className="text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenMasuk}</span>
+            <span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Presensi Masuk</span>
+            <span className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '24px' }}>{absenMasuk}</span>
           </div>
           <div className="w-px mx-[16px]" style={{ backgroundColor: 'var(--border)' }} />
           <div className="flex flex-col gap-[2px] flex-1">
-            <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Presensi Keluar</span>
-            <span className="text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{absenKeluar}</span>
+            <span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Presensi Keluar</span>
+            <span className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '24px' }}>{absenKeluar}</span>
           </div>
         </div>
 

@@ -108,7 +108,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
             <div className="w-[48px] h-[48px] bg-white/20 rounded-full flex items-center justify-center border-2 border-white/30">
               <div className="w-[32px] h-[32px] bg-white/90 rounded-full"></div>
             </div>
-            <div className="text-white/90 font-['Inter',sans-serif] font-medium text-[14px] leading-tight">
+            <div className="text-white/90 font-['Inter',sans-serif] font-medium text-[13px] leading-tight">
               KEMENDIKDASMEN
             </div>
           </div>
@@ -119,7 +119,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
           </h2>
 
           {/* Subtitle */}
-          <p className="font-['Inter',sans-serif] font-medium text-white/95 text-[16px] leading-relaxed max-w-[600px]">
+          <p className="font-['Inter',sans-serif] font-medium text-white/95 text-[15px] leading-relaxed max-w-[600px]">
             {content.subtitle}
           </p>
 
@@ -128,7 +128,7 @@ export function BannerMockup({ type }: BannerMockupProps) {
             {content.points.slice(0, 4).map((point, index) => (
               <div key={index} className="flex items-center gap-[8px]">
                 <div className="w-[6px] h-[6px] bg-white rounded-full flex-shrink-0"></div>
-                <span className="font-['Inter',sans-serif] font-medium text-white/90 text-[14px] leading-tight">
+                <span className="font-['Inter',sans-serif] font-medium text-white/90 text-[13px] leading-tight">
                   {point}
                 </span>
               </div>

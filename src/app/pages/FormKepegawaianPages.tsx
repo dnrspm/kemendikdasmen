@@ -11,7 +11,7 @@ function Shell({ title, subtitle, children }: { title: string; subtitle: string;
         <div>
           <BackLink to="/kepegawaian" />
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-sd-gray-90" style={{ fontSize: '14px', fontWeight: 400, lineHeight: '20px' }}>{subtitle}</p>
+          <p className="text-sd-gray-90" style={{ fontSize: '13px', fontWeight: 400, lineHeight: '20px' }}>{subtitle}</p>
         </div>
         {children}
       </div>

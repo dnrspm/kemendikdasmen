@@ -140,7 +140,7 @@ export function DasborEksekutifPage({ onBack }: { onBack: () => void }) {
                     {nineBox[r].map((b) => (
                       <div key={b.roman} className="rounded-[6px] border text-center py-[14px]" style={{ background: tone[b.tone].bg, borderColor: tone[b.tone].bd }}>
                         <div style={{ color: tone[b.tone].fg, fontSize: 'var(--text-sm)' }}>{b.roman}</div>
-                        <div className="font-semibold" style={{ color: tone[b.tone].fg, fontSize: '19px' }}>{b.pct}</div>
+                        <div className="font-semibold" style={{ color: tone[b.tone].fg, fontSize: '18px' }}>{b.pct}</div>
                         <div className="text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>{b.n} pegawai</div>
                       </div>
                     ))}

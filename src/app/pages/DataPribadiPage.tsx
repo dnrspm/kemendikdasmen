@@ -46,16 +46,16 @@ type Row = (string | boolean | undefined)[];
 function Card({ icon, title, rows, cols = 2, hidden, full = [] }: { icon: React.ReactNode; title: string; rows: Row[]; cols?: number; hidden: boolean; full?: string[] }) {
   return (
     <section className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+      <header className="flex items-center gap-[8px] px-[16px] py-[12px] border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
         {icon} {title}
       </header>
       <div className={`grid gap-x-[16px] gap-y-[14px] p-[16px] ${cols === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {rows.map(([label, value, info]) => (
           <div key={label as string} className={`flex flex-col gap-[2px] ${full.includes(label as string) ? 'col-span-2' : ''}`}>
-            <span className="text-sd-gray-60 flex items-center gap-[4px]" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            <span className="text-sd-gray-60 flex items-center gap-[4px]" style={{ fontSize: '13px', lineHeight: '20px' }}>
               {label as string} {info ? <Info className="size-[13px]" /> : null}
             </span>
-            <span className="text-sd-gray-90 break-words" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+            <span className="text-sd-gray-90 break-words" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
               {hidden ? '••••••••••••••' : (value as string)}
             </span>
           </div>
@@ -75,8 +75,8 @@ const col = (key: string, label: string, width?: string): Column => ({ key, labe
 
 function Updated() {
   return (
-    <p className="px-[16px] pt-[12px] pb-[16px] text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
-      Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span>
+    <p className="px-[16px] pt-[12px] pb-[16px] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
+      Terakhir diperbarui: <span style={{ fontSize: '13px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span>
     </p>
   );
 }
@@ -88,7 +88,7 @@ function FamilyCard({ tabel, to, hidden }: { tabel: Tabel; to: string; hidden: b
   return (
     <div className="rounded-[8px] bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] p-[16px] mb-[16px]">
       <div className="flex items-center justify-between pb-[12px]">
-        <span className="text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{tabel.judul}</span>
+        <span className="text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{tabel.judul}</span>
         <button
           onClick={() => to && navigate(to)}
           className={buttonClass('secondary', 'md')}
@@ -120,7 +120,7 @@ function Keluarga({ hidden, onToggle }: { hidden: boolean; onToggle: () => void 
   return (
     <div>
       <div className="flex items-center justify-between px-[16px] pt-[12px] pb-[16px]">
-        <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></span>
+        <span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontWeight: 500 }}>4 November 2026</span></span>
         <button onClick={onToggle} aria-label="Tampilkan atau sembunyikan data" aria-pressed={!hidden} className="rounded-[4px] p-[4px] hover:bg-sd-gray-5">
           {hidden ? <EyeOff className="size-[20px] text-sd-gray-80" /> : <Eye className="size-[20px] text-sd-gray-80" />}
         </button>
@@ -324,7 +324,7 @@ function tipText(v: string, r: KRow): string {
 function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
   // Data kosong bukan status: tampil sebagai teks abu polos, bukan pill.
-  if (NO_DATA.includes(v)) return <span className="text-sd-gray-60" style={{ fontSize: '16px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
+  if (NO_DATA.includes(v)) return <span className="text-sd-gray-60" style={{ fontSize: '15px', lineHeight: '20px', fontWeight: 400 }}>Data Tidak Tersedia</span>;
   const variant = useContext(PillCtx);
   const base = PRED_STYLE[v] ?? { bg: 'var(--sd-badge-neutral)', fg: 'var(--sd-gray-90)', icon: null };
   const tone = base.icon === 'down' ? 'merah' : 'biru';
@@ -333,11 +333,11 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   const tone3 = base.icon === 'up' ? 'hijau' : tone;
   if (variant === '4' && base.icon) {
     // Hanya teks berwarna (biru/merah), tanpa pill dan tanpa ikon.
-    badge = <span style={{ color: FLAT[tone].dot, fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>{v}</span>;
+    badge = <span style={{ color: FLAT[tone].dot, fontSize: '15px', fontWeight: 400, lineHeight: '20px' }}>{v}</span>;
   } else if (variant === '3' && base.icon && Icon) {
     // Tanpa pill: ikon berwarna + teks standar.
     badge = (
-      <span className="inline-flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
+      <span className="inline-flex items-center gap-[6px] text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 400, lineHeight: '20px' }}>
         <span className="inline-flex size-[22px] shrink-0 items-center justify-center rounded-full" style={{ background: FLAT[tone3].bg, color: FLAT[tone3].dot }}>
           <Icon className="size-[14px]" strokeWidth={2.5} aria-hidden="true" />
         </span>{v}
@@ -346,7 +346,7 @@ function PredBadge({ v, row }: { v: string; row?: KRow }) {
   } else {
     const st = variant === '1' && base.icon ? { ...FLAT[tone], icon: base.icon } : base;
     badge = (
-      <span className="inline-flex items-center gap-[4px] rounded-full px-[10px] py-[2px]" style={{ background: st.bg, color: st.fg, fontSize: '16px', fontWeight: 400, lineHeight: '20px' }}>
+      <span className="inline-flex items-center gap-[4px] rounded-full px-[10px] py-[2px]" style={{ background: st.bg, color: st.fg, fontSize: '15px', fontWeight: 400, lineHeight: '20px' }}>
         {variant === '2' && Icon && <Icon className="size-[14px] shrink-0" strokeWidth={2.5} aria-hidden="true" />}{v}
       </span>
     );
@@ -445,7 +445,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
   const lo = Math.min(...ticks) - 0.5;
   const hi = Math.max(...ticks) + 0.5;
   const pill = (active: boolean) => `border px-[12px] py-[2px] ${active ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`;
-  const pillStyle = { borderRadius: '24px', fontSize: '14px', fontWeight: 600, lineHeight: '20px' } as const;
+  const pillStyle = { borderRadius: '24px', fontSize: '13px', fontWeight: 600, lineHeight: '20px' } as const;
 
   return (
     <div>
@@ -455,7 +455,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
           ['Indikator', 'Indikator', INDIKATOR, ind, (k: string) => setInd(k as Indikator)],
         ] as const).map(([title, aria, opts, cur, set]) => (
           <div key={title} className="flex items-center gap-[16px]">
-            <span className="w-[80px] shrink-0 text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{title}</span>
+            <span className="w-[80px] shrink-0 text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>{title}</span>
             <div className="flex flex-wrap gap-[8px]" role="group" aria-label={aria}>
               {opts.map(([k, l]) => (
                 <button key={k} onClick={() => set(k)} aria-pressed={cur === k} className={pill(cur === k)} style={pillStyle}>{l}</button>
@@ -469,7 +469,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
           {/* Label sumbu Y dibuat terpisah agar tetap terlihat saat grafik digeser. */}
           <div className="relative shrink-0" style={{ width: 180, height: CHART_H }} aria-hidden="true">
             {ticks.map((v) => (
-              <span key={v} className="absolute right-[16px] whitespace-nowrap text-sd-gray-60" style={{ top: PLOT_TOP + ((hi - v) / (hi - lo)) * plotH, transform: 'translateY(-50%)', fontSize: '14px', lineHeight: '20px' }}>{labelOf(v)}</span>
+              <span key={v} className="absolute right-[16px] whitespace-nowrap text-sd-gray-60" style={{ top: PLOT_TOP + ((hi - v) / (hi - lo)) * plotH, transform: 'translateY(-50%)', fontSize: '13px', lineHeight: '20px' }}>{labelOf(v)}</span>
             ))}
           </div>
           <div className="min-w-0 flex-1">
@@ -503,7 +503,7 @@ function KinerjaChart({ annual, quarterly }: { annual: { tahun: number; hk: stri
           </div>
         </div>
       ) : (
-        <p className="py-[32px] text-center text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Belum ada data untuk ditampilkan pada grafik.</p>
+        <p className="py-[32px] text-center text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Belum ada data untuk ditampilkan pada grafik.</p>
       )}
     </div>
   );
@@ -581,11 +581,11 @@ function KinerjaTabel() {
   const allQuarters = years.flatMap((y) => (y === 2026 && ['loading', 'error', 'nip', 'empty'].includes(scenario) ? [] : quartersFull(y)));
 
   const th = 'px-[16px] py-[16px] text-left uppercase text-sd-gray-60 bg-white border-y border-sd-badge-neutral';
-  const thStyle = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
+  const thStyle = { fontSize: '13px', fontWeight: 700, lineHeight: '16px' } as const;
   const td = 'px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-90 bg-white';
   const tdOpen = td.replace('bg-white', 'bg-sd-gray-0');
-  const tdStyle = { fontSize: '16px', lineHeight: '24px' } as const;
-  const sub = { fontSize: '14px', lineHeight: '20px', fontWeight: 400 } as const;
+  const tdStyle = { fontSize: '15px', lineHeight: '22px' } as const;
+  const sub = { fontSize: '13px', lineHeight: '20px', fontWeight: 400 } as const;
   // Garis biru di tepi kiri baris rincian triwulan (tanpa menggeser isi).
   const bar = { boxShadow: 'inset 3px 0 0 #0954d9' } as const;
   const detail = (y: number) => {
@@ -595,7 +595,7 @@ function KinerjaTabel() {
         <tr><td colSpan={4} className={`${tdOpen} text-sd-gray-60`} role="status" style={{ ...tdStyle, ...bar }}>
           {KMESSAGES[scenario]}{' '}
           {scenario === 'error' && (
-            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-sd-gray-50 bg-white px-[14px] py-[4px] text-sd-gray-90" style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
+            <button onClick={() => setScenario('sebagian')} className="ml-[8px] rounded-[4px] border border-sd-gray-50 bg-white px-[14px] py-[4px] text-sd-gray-90" style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}>Coba Lagi</button>
           )}
         </td></tr>
       );
@@ -604,7 +604,7 @@ function KinerjaTabel() {
       <>
         {y === 2026 && scenario === 'stale' && (
           <tr><td colSpan={4} className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0" style={bar}>
-            <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            <div role="status" className="rounded-[4px] border border-[#b98900] bg-[#fff5db] px-[16px] py-[12px] text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>
               <b style={{ fontWeight: 600 }}>Data triwulan terbaru tertunda.</b> Menampilkan data hingga Triwulan 2 2026.
             </div>
           </td></tr>
@@ -637,9 +637,9 @@ function KinerjaTabel() {
     <div className="mx-[16px] mb-[16px] -mt-[12px] rounded-[8px] border border-[#cfd2d4]">
       <div className="flex items-center justify-between gap-[12px] flex-wrap border-b border-[#cfd2d4] p-[16px]">
         <div>
-          <h3 className="text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
+          <h3 className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '28px' }}>Riwayat Penilaian Kinerja</h3>
           {showSync && (
-            <div className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
+            <div className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
               Dicek dari eSKP: {syncAt}
             </div>
           )}
@@ -702,7 +702,7 @@ function KinerjaTabel() {
           </tbody>
         </table>
       </div>
-      <p className="border-t border-[#cfd2d4] p-[16px] text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
+      <p className="border-t border-[#cfd2d4] p-[16px] text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
         Hasil penilaian kinerja tahunan bukan merupakan gabungan dari penilaian kinerja triwulan 1-4.
       </p>
     </div>
@@ -810,7 +810,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             </div>
           )}
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{admin ? 'Data Pribadi Pegawai' : 'Data Pribadi'}</h1>
-          <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>{admin ? 'Melihat data pribadi pegawai yang dipilih' : 'Kelola data pribadi Anda di Portal Kemendikdasmen'}</p>
+          <p className="text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>{admin ? 'Melihat data pribadi pegawai yang dipilih' : 'Kelola data pribadi Anda di Portal Kemendikdasmen'}</p>
         </div>
 
         {showNotice && (
@@ -825,11 +825,11 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
               <img alt="" src={imgPhoto} className="w-full object-cover bg-[#d9d9d9]" style={{ height: 279 }} />
               <div className="p-[16px] text-center flex flex-col gap-[6px]">
-                <h2 className="uppercase text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
-                <p className="text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+                <h2 className="uppercase text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '24px' }}>{admin ? 'Pegawai Contoh Lain' : 'Prof. Dr. Ahmad Wijaya M.M.'}</h2>
+                <p className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
                   {admin ? 'Pranata Komputer Ahli Pertama' : 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten'}
                 </p>
-                <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>(Karir)<br />TMT 1 Oktober 2023</p>
+                <p className="text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>(Karir)<br />TMT 1 Oktober 2023</p>
               </div>
             </div>
 
@@ -841,14 +841,14 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
                   <a className="text-sd-blue-70 inline-flex items-center gap-[4px] mt-[2px]" style={{ fontSize: '12px', lineHeight: '16px' }} href="/profil/contoh" target="_blank" rel="noreferrer"><ExternalLink className="size-[11px]" /> Lihat Profil Publik</a>
                 </div>
               </div>
-              <button className="w-full border border-sd-gray-30 rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-sd-gray-0" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>
+              <button className="w-full border border-sd-gray-30 rounded-[4px] py-[8px] flex items-center justify-center gap-[8px] hover:bg-sd-gray-0" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>
                 <Download className="size-[16px]" /> Unduh QR
               </button>
             </div>
 
             <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">
-              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>Unit Organisasi</header>
-              <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '16px', lineHeight: '24px' }}>
+              <header className="px-[16px] py-[12px] bg-sd-gray-0 border-b border-[#eee] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>Unit Organisasi</header>
+              <ul className="list-disc pl-[32px] pr-[16px] py-[12px] flex flex-col gap-[4px]" style={{ fontSize: '15px', lineHeight: '22px' }}>
                 {units.map((u) => <li key={u}>{u}</li>)}
               </ul>
             </div>
@@ -860,7 +860,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
             {tab === 0 ? (
               <div className="p-[14px] flex flex-col gap-[14px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span></span>
+                  <span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Terakhir diperbarui: <span style={{ fontSize: '13px', lineHeight: '20px', fontWeight: 500 }}>2 November 2026</span></span>
                   <div className="flex items-center gap-[12px]">
                     <button onClick={() => setHidden(!hidden)} aria-label="Tampilkan atau sembunyikan data">
                       {hidden ? <EyeOff className="size-[20px] text-sd-gray-80" /> : <Eye className="size-[20px] text-sd-gray-80" />}
@@ -890,10 +890,10 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
       </div>
     </KepegawaianLayout>
     {onPenilaian && (
-      <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-sd-gray-50 bg-sd-gray-5 px-[10px] py-[6px]" style={{ fontSize: '14px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
+      <div role="group" aria-label="Gaya pill status (prototipe)" className="fixed bottom-[16px] right-[16px] z-[70] flex items-center gap-[8px] rounded-[8px] border border-dashed border-sd-gray-50 bg-sd-gray-5 px-[10px] py-[6px]" style={{ fontSize: '13px', lineHeight: '20px', boxShadow: '0 2px 8px rgba(0,0,0,.15)' }}>
         <span style={{ fontWeight: 600 }}>Gaya pill</span>
         {PILL_VARIANTS.map((k) => (
-          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`} style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
+          <button key={k} onClick={() => setPillVariant(k)} aria-pressed={pillVariant === k} className={`rounded-full border px-[10px] py-[2px] ${pillVariant === k ? 'border-sd-blue-70 bg-[#ecf5fe] text-sd-blue-70' : 'border-sd-gray-90 bg-white text-sd-gray-90'}`} style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}>Opsi {k}</button>
         ))}
       </div>
     )}

@@ -159,10 +159,10 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
       {/* SK Header */}
       <div className="flex flex-col gap-[12px] w-full">
         <div className="flex flex-col gap-[6px]">
-          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 self-start">
+          <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[15px] text-sd-gray-90 self-start">
             {kinerja.code}
           </span>
-          <h3 className="text-[19px] leading-[26.6px] text-sd-gray-90" style={{ fontWeight: 600 }}>
+          <h3 className="text-[18px] leading-[26.6px] text-sd-gray-90" style={{ fontWeight: 600 }}>
             {kinerja.name}
           </h3>
         </div>
@@ -170,15 +170,15 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
         <div className="flex gap-[16px] items-center">
           <div className="flex gap-[4px] items-center">
             <div className="w-[8px] h-[8px] rounded-full bg-sd-success-border shrink-0" />
-            <span className="text-[16px] text-sd-gray-60">Selesai</span>
+            <span className="text-[15px] text-sd-gray-60">Selesai</span>
           </div>
           <div className="flex gap-[4px] items-center">
             <div className="w-[8px] h-[8px] rounded-full bg-sd-blue-70 shrink-0" />
-            <span className="text-[16px] text-sd-gray-60">Sedang dikerjakan</span>
+            <span className="text-[15px] text-sd-gray-60">Sedang dikerjakan</span>
           </div>
           <div className="flex gap-[4px] items-center">
             <div className="w-[8px] h-[8px] rounded-full bg-sd-warning-border shrink-0" />
-            <span className="text-[16px] text-sd-gray-60">Belum Dikerjakan</span>
+            <span className="text-[15px] text-sd-gray-60">Belum Dikerjakan</span>
           </div>
         </div>
       </div>
@@ -201,16 +201,16 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
                   percentage={relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0}
                   color={getProgressColor(relatedEpics.length > 0 ? Math.round(relatedEpics.reduce((sum, e) => sum + e.progress, 0) / relatedEpics.length) : 0)}
                 />
-                <span className="text-[14px] text-sd-gray-90 text-center">
+                <span className="text-[13px] text-sd-gray-90 text-center">
                   Target: {ikp.target}{ikp.unit}
                 </span>
               </div>
               {/* IKK badge + title */}
               <div className="flex flex-col items-start flex-1 min-w-0">
-                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 mb-[2px]">
+                <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[15px] text-sd-gray-90 mb-[2px]">
                   {ikkCode}
                 </span>
-                <p className="text-[16px] text-sd-gray-90 leading-[24px]" style={{ fontWeight: 700 }}>
+                <p className="text-[15px] text-sd-gray-90 leading-[24px]" style={{ fontWeight: 700 }}>
                   {ikp.description}
                 </p>
               </div>
@@ -225,11 +225,11 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
                 </div>
                 {/* SKP badge + description */}
                 <div className="flex flex-col items-start flex-1 min-w-0 pt-[2px]">
-                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[16px] text-sd-gray-90 mb-[6px]">
+                  <span className="inline-flex bg-[rgba(144,108,239,0.1)] px-[8px] py-[2px] rounded-[4px] text-[15px] text-sd-gray-90 mb-[6px]">
                     SKP {kinerja.code.replace('SK', '')}.{ikpIndex + 1}.{epicIndex + 1}
                   </span>
                   {epic.description && (
-                    <p className="text-[14px] text-sd-gray-60 leading-[22px] mt-[4px]">{epic.description}</p>
+                    <p className="text-[13px] text-sd-gray-60 leading-[22px] mt-[4px]">{epic.description}</p>
                   )}
                 </div>
               </div>
@@ -237,7 +237,7 @@ function SasaranKinerjaCard({ kinerja, onNavigateToSKP }: { kinerja: SasaranKine
 
             {relatedEpics.length === 0 && (
               <div className="border-t border-sd-badge-neutral px-[12px] py-[12px] w-full">
-                <p className="text-[14px] text-sd-gray-60">Belum ada SKP terkait</p>
+                <p className="text-[13px] text-sd-gray-60">Belum ada SKP terkait</p>
               </div>
             )}
           </div>

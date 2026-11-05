@@ -24,8 +24,8 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
     <div className="flex flex-col gap-[16px] p-[16px]">
       {title && (
         <div>
-          <h3 className="text-sd-gray-90" style={{ fontSize: '19px', fontWeight: 600, lineHeight: '24px' }}>{title}</h3>
-          {subtitle && <p className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>}
+          <h3 className="text-sd-gray-90" style={{ fontSize: '18px', fontWeight: 600, lineHeight: '24px' }}>{title}</h3>
+          {subtitle && <p className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>{subtitle}</p>}
         </div>
       )}
 
@@ -33,7 +33,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
         <button
           onClick={() => setFilterOpen(!filterOpen)}
           className="flex items-center gap-[6px] text-sd-blue-70"
-          style={{ fontSize: '14px', fontWeight: 600, lineHeight: '20px' }}
+          style={{ fontSize: '13px', fontWeight: 600, lineHeight: '20px' }}
         >
           <Search className="size-[16px]" /> {filterOpen ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
           <ChevronDown className={`size-[16px] transition-transform ${filterOpen ? 'rotate-180' : ''}`} />
@@ -83,7 +83,7 @@ export function StagingDataTable({ title, subtitle, columns, rows, showPaginatio
       </div>
 
       {showPagination && rows.length > 0 && (
-        <div className="flex items-center justify-between text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>
+        <div className="flex items-center justify-between text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>
           <span className="flex items-center gap-[6px]">
             Menampilkan 1 - {rows.length} dari {rows.length} data <span aria-hidden>·</span>
             <span className="relative inline-flex items-center">

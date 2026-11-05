@@ -155,7 +155,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
           {filteredNotifications.length === 0 ? (
             <div className="px-[24px] py-[48px] text-center">
               <p
-                className="text-[16px]"
+                className="text-[15px]"
                 style={{ color: 'var(--muted-foreground)' }}
               >
                 {filter === 'unread' ? 'Tidak ada pemberitahuan yang belum dibaca' : 'Tidak ada pemberitahuan'}
@@ -191,7 +191,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-[16px] mb-[8px]">
                         <h3
-                          className="text-[16px] font-[var(--font-weight-semibold)]"
+                          className="text-[15px] font-[var(--font-weight-semibold)]"
                           style={{
                             color: 'var(--foreground)',
                           }}
@@ -199,7 +199,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
                           {notification.title}
                         </h3>
                         <span
-                          className="text-[14px] whitespace-nowrap flex-shrink-0"
+                          className="text-[13px] whitespace-nowrap flex-shrink-0"
                           style={{
                             color: 'var(--muted-foreground)',
                           }}
@@ -208,7 +208,7 @@ export function PemberitahuanPage({ onBack }: PemberitahuanPageProps) {
                         </span>
                       </div>
                       <p
-                        className="text-[14px] leading-[1.6]"
+                        className="text-[13px] leading-[1.6]"
                         style={{
                           color: 'var(--muted-foreground)',
                         }}

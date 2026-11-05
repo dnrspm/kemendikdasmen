@@ -16,7 +16,7 @@ function PageShell({ title, subtitle, children }: { title: string; subtitle: str
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <p className="text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">{children}</div>
       </div>
@@ -45,7 +45,7 @@ export function DataPegawaiAktifPage() {
         subtitle="Klik pada status pegawai untuk mengubah statusnya"
         columns={pegawaiCols}
         rows={tab === 0 ? [{
-          no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
+          no: 1, nama: <PersonCell name={AHMAD} nip={AHMAD_NIP} />, gol: <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: '13px', fontWeight: 700, lineHeight: '20px' }}>III/d</span>,
           jabatan: 'Kepala Seksi Pemetaan Mutu dan Supervisi Lembaga Penjaminan Mutu Pendidikan Banten',
           unit: UNIT, status: <Chip tone="green">PNS</Chip>, aksi: <AksiCell items={[{ label: 'Lihat & Ubah Data', onClick: () => navigate(`/kepegawaian/ubah-pegawai/${AHMAD_NIP}?tipe=aktif`) }]} />,
         }] : []}

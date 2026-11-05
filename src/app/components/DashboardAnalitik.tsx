@@ -177,7 +177,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div className="bg-sd-blue-90 rounded-[8px] p-[24px] text-white">
         <div className="flex items-center gap-[12px] mb-[16px]">
           <Lightbulb className="w-[24px] h-[24px]" />
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)]">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)]">
             Sintesis Eksekutif
           </h3>
         </div>
@@ -212,7 +212,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Stabilitas Organisasi</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Stabilitas Organisasi</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Apakah struktur organisasi stabil dalam beberapa periode ke depan?</span>
@@ -275,7 +275,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Kinerja dan Talenta</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Sinyal Kinerja dan Talenta</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Apakah people engine organisasi cukup kuat?</span>
@@ -370,7 +370,7 @@ function RingkasanEksekutif({ selectedUnit, unitData }: { selectedUnit: string; 
       {/* Section 3: 3-Column Cards Row — Detail */}
       <div>
         <div className="flex items-center gap-[16px] mb-[20px]">
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">Detail Tiga Sinyal Utama</h3>
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">Detail Tiga Sinyal Utama</h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
         </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[20px]">
@@ -1405,7 +1405,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
               A. Keterisian Jabatan Saat Ini
             </h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -1465,7 +1465,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
         {/* Jabatan Detail Kosong — Filter Tabs */}
         <div className="bg-white rounded-[8px] border border-sd-gray-30 p-[20px] mb-[24px]">
           {/* Header */}
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90 mb-[24px]">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90 mb-[24px]">
             Jabatan Detail Kosong
           </h3>
 
@@ -1486,9 +1486,9 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
                     border: active ? '2px solid #0954d9' : '1px solid #c7c7c7',
                   }}
                 >
-                  <p className="text-[16px] font-normal text-sd-gray-90 mb-[8px]">{label}</p>
+                  <p className="text-[15px] font-normal text-sd-gray-90 mb-[8px]">{label}</p>
                   <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--sd-gray-90)', lineHeight: 1, marginBottom: '8px' }}>{count}</p>
-                  <p className="text-[16px] font-normal text-sd-gray-90">Jabatan kosong</p>
+                  <p className="text-[15px] font-normal text-sd-gray-90">Jabatan kosong</p>
                 </button>
               );
             })}
@@ -1603,7 +1603,7 @@ function KeterisianJabatan({ selectedUnit, unitData }: { selectedUnit: string; u
       <div>
         <div className="mb-[24px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
               B. Risiko Kekosongan karena Pensiun
             </h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2007,7 +2007,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section A: Kinerja ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             A. Kinerja ASN
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2293,7 +2293,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section B: Pemetaan Talenta ASN */}
       <div>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             B. Pemetaan Talenta ASN
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2421,7 +2421,7 @@ function KinerjaTalenta({ selectedUnit, unitData }: { selectedUnit: string; unit
       {/* Section C: Pengembangan Kompetensi: Rencana vs Realisasi */}
       <div style={{ display: 'none' }}>
         <div className="flex items-center gap-[16px] mb-[24px]">
-          <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">
+          <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">
             C. Pengembangan Kompetensi: Rencana vs Realisasi
           </h3>
           <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
@@ -2668,7 +2668,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">A. Penilaian SAKIP</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">A. Penilaian SAKIP</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: akuntabilitas kinerja organisasi secara tahunan</span>
@@ -2764,7 +2764,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">B. Zona Integritas (ZI)</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">B. Zona Integritas (ZI)</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: kematangan integritas unit kerja</span>
@@ -2848,7 +2848,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
       <div>
         <div className="mb-[20px]">
           <div className="flex items-center gap-[16px] mb-[4px]">
-            <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">C. Indeks Kapabilitas Kelembagaan</h3>
+            <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">C. Indeks Kapabilitas Kelembagaan</h3>
             <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
           </div>
           <span className="text-[var(--text-xs)] text-sd-gray-60">Berdasarkan PermenPANRB No. 4 Tahun 2026</span>
@@ -2929,7 +2929,7 @@ function TataKelolaOrganisasi({ selectedUnit, unitData }: { selectedUnit: string
         <div>
           <div className="mb-[20px]">
             <div className="flex items-center gap-[16px] mb-[4px]">
-              <h3 className="text-[19px] font-[var(--font-weight-semibold)] text-sd-gray-90">D. Reformasi Birokrasi</h3>
+              <h3 className="text-[18px] font-[var(--font-weight-semibold)] text-sd-gray-90">D. Reformasi Birokrasi</h3>
               <div className="flex-1 h-[1px] bg-sd-badge-neutral"></div>
             </div>
             <span className="text-[var(--text-xs)] text-sd-gray-60">Fokus: kemajuan transformasi tata kelola — hanya tersedia di level Kementerian</span>

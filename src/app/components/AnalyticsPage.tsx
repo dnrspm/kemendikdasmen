@@ -233,7 +233,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                       backgroundColor: 'white', 
                       border: '1px solid #c7c7c7', 
                       borderRadius: '4px',
-                      fontSize: '14px'
+                      fontSize: '13px'
                     }}
                   />
                   <Bar dataKey="value" fill={CHART_COLORS.primary} radius={[0, 4, 4, 0]} />
@@ -348,7 +348,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                         backgroundColor: 'white', 
                         border: '1px solid #c7c7c7', 
                         borderRadius: '4px',
-                        fontSize: '14px'
+                        fontSize: '13px'
                       }}
                     />
                     <Bar dataKey="value" fill={CHART_COLORS.secondary} radius={[4, 4, 0, 0]} />
@@ -403,7 +403,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                         backgroundColor: 'white', 
                         border: '1px solid #c7c7c7', 
                         borderRadius: '4px',
-                        fontSize: '14px'
+                        fontSize: '13px'
                       }}
                     />
                     <Bar dataKey="value" fill={CHART_COLORS.accent} radius={[4, 4, 0, 0]} />
@@ -458,7 +458,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                         backgroundColor: 'white', 
                         border: '1px solid #c7c7c7', 
                         borderRadius: '4px',
-                        fontSize: '14px'
+                        fontSize: '13px'
                       }}
                     />
                     <Bar dataKey="value" fill={CHART_COLORS.warning} radius={[0, 4, 4, 0]} />
@@ -518,7 +518,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                       backgroundColor: 'white', 
                       border: '1px solid #c7c7c7', 
                       borderRadius: '4px',
-                      fontSize: '14px'
+                      fontSize: '13px'
                     }}
                     formatter={(value: number, name: string, props: any) => [
                       value,
@@ -664,7 +664,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                       <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                       <XAxis type="number" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                       <YAxis dataKey="name" type="category" width={120} stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                       <Bar dataKey="value" fill={CHART_COLORS.primary} radius={[0, 4, 4, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -680,7 +680,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                       <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                       <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                       <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                       <Bar dataKey="value" fill={CHART_COLORS.secondary} radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -722,7 +722,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                       <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                       <XAxis type="number" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                       <YAxis dataKey="name" type="category" width={60} stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                      <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                       <Bar dataKey="value" fill={CHART_COLORS.warning} radius={[0, 4, 4, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -751,7 +751,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis type="number" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis dataKey="name" type="category" width={120} stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.secondary} radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -767,7 +767,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} angle={-20} textAnchor="end" height={80} />
                     <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.accent} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -783,7 +783,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.primary} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -799,7 +799,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.warning} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -815,7 +815,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis type="number" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis dataKey="name" type="category" width={60} stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.secondary} radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -832,7 +832,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                   <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} angle={-20} textAnchor="end" height={100} />
                   <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                  <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                  <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                   <Legend />
                   <Bar dataKey="kebutuhan" fill={CHART_COLORS.danger} name="Kebutuhan" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="persediaan" fill={CHART_COLORS.secondary} name="Persediaan" radius={[4, 4, 0, 0]} />
@@ -901,7 +901,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis type="number" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis dataKey="name" type="category" width={120} stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.accent} radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -949,7 +949,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.primary} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -997,7 +997,7 @@ export function AnalyticsPage({ organization, onBack, onBackToDirectory, onBackT
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--sd-badge-neutral)" />
                     <XAxis dataKey="name" stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
                     <YAxis stroke="var(--sd-gray-60)" style={{ fontSize: '12px' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '14px' }} />
+                    <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #c7c7c7', borderRadius: '4px', fontSize: '13px' }} />
                     <Bar dataKey="value" fill={CHART_COLORS.warning} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>

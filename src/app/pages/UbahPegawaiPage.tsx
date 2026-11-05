@@ -111,10 +111,10 @@ type Aksi =
 
 const inputCls = `${fieldClass} px-[12px] py-[8px]`;
 const st = { fontSize: 'var(--text-sm)' } as const;
-const LABEL = { fontSize: '14px', lineHeight: '20px' } as const;           // label/keterangan
-const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const; // nilai
-const TD = { fontSize: '16px', lineHeight: '24px' } as const;
-const TH = { fontSize: '14px', fontWeight: 700, lineHeight: '16px' } as const;
+const LABEL = { fontSize: '13px', lineHeight: '20px' } as const;           // label/keterangan
+const VALUE = { fontSize: '15px', fontWeight: 600, lineHeight: '22px' } as const; // nilai
+const TD = { fontSize: '15px', lineHeight: '22px' } as const;
+const TH = { fontSize: '13px', fontWeight: 700, lineHeight: '16px' } as const;
 
 /* Modal pengajuan: struktur dan skala tipografi sama dengan modal Detail Usulan di halaman Verifikasi. */
 function Modal({ title, wide, onClose, children, footer }: { title: string; wide?: boolean; onClose: () => void; children: ReactNode; footer: ReactNode }) {
@@ -122,7 +122,7 @@ function Modal({ title, wide, onClose, children, footer }: { title: string; wide
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label={title} onClick={(e) => e.stopPropagation()} className={`bg-white rounded-[4px] shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)] w-full ${wide ? 'max-w-[760px]' : 'max-w-[660px]'} max-h-[92vh] flex flex-col overflow-hidden`}>
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
-          <h2 className="text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h2>
+          <h2 className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</h2>
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
         </div>
         <div className="overflow-y-auto bg-sd-gray-0 px-[24px] py-[20px] flex flex-col gap-[16px] [&>*]:shrink-0">{children}</div>
@@ -140,7 +140,7 @@ function Panel({ title, right, children }: { title: string; right?: ReactNode; c
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between gap-[12px] px-[16px] py-[12px] border-b border-sd-badge-neutral">
-        <h4 className="text-sd-gray-90" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{title}</h4>
+        <h4 className="text-sd-gray-90" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{title}</h4>
         {right && <span className="text-sd-gray-60" style={LABEL}>{right}</span>}
       </div>
       <div className="p-[16px]">{children}</div>
@@ -300,7 +300,7 @@ function KartuKeluarga({ t, onAksi }: { t: Tabel; onAksi: (a: Aksi) => void }) {
   return (
     <section className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">
       <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-sd-badge-neutral">
-        <h3 className="text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{t.judul}</h3>
+        <h3 className="text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{t.judul}</h3>
         <button onClick={() => onAksi({ tipe: 'tambah', tabel: t })} className={outlineBtn}><UserPlus className="size-[18px]" /> Tambah</button>
       </div>
       <TabelEdit t={t} onAksi={onAksi} pagination={false} menu />
@@ -337,7 +337,7 @@ function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => 
     <div className="flex flex-col gap-[20px]">
       {Object.entries(FIELD_DATA_PRIBADI).map(([bagian, fields]) => (
         <section key={bagian} className="border border-sd-badge-neutral rounded-[8px] overflow-hidden">
-          <div className="bg-sd-gray-5 px-[14px] py-[8px] text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{bagian}</div>
+          <div className="bg-sd-gray-5 px-[14px] py-[8px] text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{bagian}</div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-[24px] gap-y-[4px] p-[14px]">
             {fields.map((f) => {
               const p = pending(f);
@@ -428,8 +428,8 @@ export function UbahPegawaiPage() {
             {tab === 5 && (
               <div className="rounded-[8px] bg-sd-gray-5 py-[56px] flex flex-col items-center gap-[8px] text-center">
                 <div className="size-[72px] rounded-full bg-white grid place-items-center"><Construction className="size-[36px] text-[#b98900]" /></div>
-                <p className="text-sd-gray-90" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
-                <p className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
+                <p className="text-sd-gray-90" style={{ fontSize: '13px', fontWeight: 700, lineHeight: '20px' }}>Sedang dalam pengembangan</p>
+                <p className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.<br />Terima kasih atas kesabaran Anda.</p>
               </div>
             )}
           </div>
@@ -477,7 +477,7 @@ export function DetailKeluargaPage() {
 
   const render = (k: Kartu) => (
     <section key={k.judul} className="border border-sd-badge-neutral rounded-[8px] overflow-hidden self-start">
-      <div className="px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-60" style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}>{k.judul}</div>
+      <div className="px-[16px] py-[12px] border-b border-sd-badge-neutral text-sd-gray-60" style={{ fontSize: '15px', fontWeight: 600, lineHeight: '22px' }}>{k.judul}</div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-[24px] gap-y-[16px] p-[16px]">
         {k.fields.map(([f, v]) => {
           const nilai = baru[f] ?? v;

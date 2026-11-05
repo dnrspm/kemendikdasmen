@@ -105,7 +105,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
             }}
           >
             <h3
-              className="text-[16px] font-[var(--font-weight-semibold)]"
+              className="text-[15px] font-[var(--font-weight-semibold)]"
               style={{
                 color: 'var(--foreground)',
               }}
@@ -119,7 +119,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
             {notifications.length === 0 ? (
               <div className="m-[12px] rounded-[6px] bg-sd-gray-5 px-[16px] py-[24px] flex flex-col items-center gap-[6px]">
                 <Info className="size-[18px] text-sd-blue-70" />
-                <p className="text-[14px]" style={{ color: 'var(--muted-foreground)' }}>
+                <p className="text-[13px]" style={{ color: 'var(--muted-foreground)' }}>
                   Tidak ada pemberitahuan baru.
                 </p>
               </div>
@@ -153,7 +153,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
 
                     <div className="flex-1 min-w-0">
                       <h4
-                        className="text-[14px] font-[var(--font-weight-semibold)] mb-[4px]"
+                        className="text-[13px] font-[var(--font-weight-semibold)] mb-[4px]"
                         style={{
                           color: 'var(--foreground)',
                         }}
@@ -161,7 +161,7 @@ export function NotificationDropdown({ onViewAll }: NotificationDropdownProps) {
                         {notification.title}
                       </h4>
                       <p
-                        className="text-[14px] mb-[4px] line-clamp-2"
+                        className="text-[13px] mb-[4px] line-clamp-2"
                         style={{
                           color: 'var(--muted-foreground)',
                         }}

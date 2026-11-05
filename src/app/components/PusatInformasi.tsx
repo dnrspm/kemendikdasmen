@@ -367,7 +367,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               }}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-              className="w-full h-[48px] pl-[48px] pr-[100px] border border-sd-gray-50 rounded-[4px] text-[16px] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
+              className="w-full h-[48px] pl-[48px] pr-[100px] border border-sd-gray-50 rounded-[4px] text-[15px] text-sd-gray-90 placeholder:text-sd-gray-60 bg-white outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]"
             />
             
             {/* Clear button */}
@@ -636,7 +636,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                                   : 'bg-white text-sd-gray-60 border-sd-gray-30 hover:bg-muted'
                               }`}
                             >
-                              <span className="text-[16px]">👍</span>
+                              <span className="text-[15px]">👍</span>
                               <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)]">
                                 {votes.helpful}
                               </span>
@@ -649,7 +649,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
                                   : 'bg-white text-sd-gray-60 border-sd-gray-30 hover:bg-muted'
                               }`}
                             >
-                              <span className="text-[16px]">👎</span>
+                              <span className="text-[15px]">👎</span>
                               <span className="text-[var(--text-sm)] font-[var(--font-weight-medium)]">
                                 {votes.notHelpful}
                               </span>
@@ -684,7 +684,7 @@ export function PusatInformasi({ onBack, onNavigateToPusatBantuan, onNavigateToK
               </div>
               <button
                 onClick={onNavigateToPusatBantuan}
-                className="bg-white text-primary px-[24px] py-[12px] rounded-[4px] font-[var(--font-weight-medium)] text-[16px] hover:bg-muted transition-colors flex items-center gap-[8px] whitespace-nowrap"
+                className="bg-white text-primary px-[24px] py-[12px] rounded-[4px] font-[var(--font-weight-medium)] text-[15px] hover:bg-muted transition-colors flex items-center gap-[8px] whitespace-nowrap"
               >
                 Pusat Bantuan
                 <ExternalLink className="w-[18px] h-[18px]" />

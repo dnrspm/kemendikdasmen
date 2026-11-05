@@ -71,7 +71,7 @@ export function KepegawaianLayout({ children, topBar }: { children: ReactNode; t
           <aside className="w-[288px] shrink-0 bg-white border-r border-[#e4e4e4] flex flex-col">
             <div className="flex items-center gap-[10px] px-[16px] py-[10px] bg-sd-blue-5">
               <img alt="" src={imgStaff} className="size-[20px] object-contain" />
-              <span className="text-sd-gray-90 uppercase" style={{ fontSize: '14px', fontWeight: 700, lineHeight: '20px' }}>Kepegawaian</span>
+              <span className="text-sd-gray-90 uppercase" style={{ fontSize: '13px', fontWeight: 700, lineHeight: '20px' }}>Kepegawaian</span>
             </div>
             <button
               onClick={() => navigate('/')}

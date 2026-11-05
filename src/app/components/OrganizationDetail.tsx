@@ -378,7 +378,7 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                         <div 
                           className="w-[40px] h-[40px] rounded-[8px] bg-primary/10 flex items-center justify-center shrink-0"
                         >
-                          <span className="text-[19px] font-[var(--font-weight-medium)] text-primary">
+                          <span className="text-[18px] font-[var(--font-weight-medium)] text-primary">
                             {index + 1}
                           </span>
                         </div>
@@ -701,11 +701,11 @@ export function OrganizationDetail({ organization, onBack, onBackToDirectory, on
                       <XAxis
                         dataKey="period"
                         stroke="var(--sd-gray-60)"
-                        style={{ fontSize: '14px' }}
+                        style={{ fontSize: '13px' }}
                       />
                       <YAxis
                         stroke="var(--sd-gray-60)"
-                        style={{ fontSize: '14px' }}
+                        style={{ fontSize: '13px' }}
                         domain={[0, 100]}
                       />
                       <Tooltip

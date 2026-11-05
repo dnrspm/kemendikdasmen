@@ -78,10 +78,11 @@
   --sidebar-ring: rgba(76, 141, 246, 1.00);
   
   /* Typography variables */
+  /* Skala teks Seragam Mobile (dipakai di seluruh aplikasi): xs=helper 12/16, sm=body small 13/20, base=body 15/22, lg=heading medium 18/24 */
   --text-xs: 12px;
-  --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 19px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-lg: 18px;
   --text-xl: 24px;
   --text-2xl: 32px;
   --text-3xl: 36px;

@@ -24,7 +24,7 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
-          <p className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>{subtitle}</p>
+          <p className="text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         <Banner tone="info">
           Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
@@ -163,7 +163,7 @@ function Stepper({ steps }: { steps: Step[] }) {
               {!last && <span className="w-[2px] flex-1 min-h-[16px] my-[2px]" style={{ background: st.state === 'done' ? '#2d8a4e' : '#e4e4e4' }} />}
             </div>
             <div className={`flex flex-col gap-[2px] ${last ? '' : 'pb-[16px]'}`}>
-              <span style={{ fontSize: '14px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? 'var(--sd-gray-60)' : 'var(--sd-gray-90)', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
+              <span style={{ fontSize: '13px', lineHeight: '20px', fontWeight: st.state === 'current' ? 600 : 400, color: muted ? 'var(--sd-gray-60)' : 'var(--sd-gray-90)', textDecoration: st.state === 'skipped' ? 'line-through' : undefined }}>{st.label}</span>
               {st.info && <span className="text-sd-gray-60" style={{ fontSize: '12px', lineHeight: '16px' }}>{st.info}</span>}
             </div>
           </li>
@@ -181,12 +181,12 @@ const SIASN_LAMA: Record<string, string> = {
 const siasnValue = (u: Usulan, k: string, v: string) => (u.jenis === 'Tambah' ? '-' : u.jenis === 'Ubah' ? u.lama ?? SIASN_LAMA[k] ?? '-' : v);
 
 /* Skala tipografi modal: judul 19 · judul bagian dan nilai 16 · label dan keterangan 14. */
-const BODY = { fontSize: '16px', lineHeight: '24px' } as const;
-const SMALL = { fontSize: '14px', lineHeight: '20px' } as const;
-const VALUE = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+const BODY = { fontSize: '15px', lineHeight: '22px' } as const;
+const SMALL = { fontSize: '13px', lineHeight: '20px' } as const;
+const VALUE = { fontSize: '15px', fontWeight: 600, lineHeight: '22px' } as const;
 /** Label kecil kolom samping: 14px, huruf biasa, abu. */
-const TH_STYLE = { fontSize: '14px', fontWeight: 500, lineHeight: '20px' } as const;
-const HEADING = { fontSize: '16px', fontWeight: 600, lineHeight: '24px' } as const;
+const TH_STYLE = { fontSize: '13px', fontWeight: 500, lineHeight: '20px' } as const;
+const HEADING = { fontSize: '15px', fontWeight: 600, lineHeight: '22px' } as const;
 
 function Field({ label, children, muted }: { label: string; children: ReactNode; muted?: boolean }) {
   return (
@@ -366,7 +366,7 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
     no: i + 1,
     nama: <PersonCell name={u.nama} nip={u.nip} />,
     unit: <span className="block w-[150px] line-clamp-3" title={u.unit}>{shortUnit(u.unit)}</span>,
-    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
+    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
     jenis: u.jenis,
     asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
