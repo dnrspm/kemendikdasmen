@@ -83,7 +83,8 @@ export const FIELD_DATA_PRIBADI: Record<string, string[]> = {
 export const PERLU_KOMITE = ['Jabatan', 'Sertifikasi'];
 export const butuhKomite = (data: string, field?: string) =>
   PERLU_KOMITE.includes(data) || (data === 'Data Pribadi' && field === 'Jabatan');
-export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) => butuhKomite(u.data, u.jenis === 'Ubah' ? u.detail[0]?.[0] : undefined);
+export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
+  u.jenis === 'Ubah' ? u.detail.some(([f]) => butuhKomite(u.data, f)) || (u.detail.length === 0 && butuhKomite(u.data)) : butuhKomite(u.data);
 
 export const UNIT_SHORT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta';
 export const UNIT_FULL = `${UNIT_SHORT} - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah`;
@@ -120,15 +121,12 @@ export const detailFor = (data: string) =>
   data === 'Pasangan' ? detailPasangan : data === 'Jabatan' ? detailJabatan : data === 'Sertifikasi' ? detailSertifikasi
   : data === 'Anak' ? detailAnak : data === 'Pendidikan' ? detailPendidikan : detailOrtu;
 
-/** Usulan Ubah hanya mengubah satu field per pengajuan; Tambah/Hapus memuat satu data utuh. */
-const fieldUbah = (data: string, field?: string): [string, string][] => {
-  if (data === 'Data Pribadi') {
-    const f = field ?? 'Alamat';
-    return [[f, DATA_BARU[f] ?? '-']];
-  }
+/** Usulan Ubah memuat satu atau lebih field dalam satu segmen; Tambah/Hapus memuat satu data utuh. */
+const fieldUbah = (data: string, field?: string | string[]): [string, string][] => {
   const full = detailFor(data);
-  const f = field ?? full[full.length - 1][0];
-  return [[f, full.find(([k]) => k === f)?.[1] ?? '-']];
+  const daftar = Array.isArray(field) ? field : [field ?? (data === 'Data Pribadi' ? 'Alamat' : full[full.length - 1][0])];
+  return daftar.map((f): [string, string] =>
+    data === 'Data Pribadi' ? [f, DATA_BARU[f] ?? '-'] : [f, full.find(([k]) => k === f)?.[1] ?? '-']);
 };
 const DATA_BARU: Record<string, string> = {
   'Alamat': 'Jl. Contoh No. 1, Jakarta Selatan', 'Nomor HP': '081234567890', 'Email Lain': 'ahmad.contoh@email.com',
@@ -178,7 +176,7 @@ function buatLog(u: Pick<Usulan, 'nama' | 'asal' | 'status' | 'data' | 'jenis' |
 
 const waktuContoh = (id: number) => new Date(2026, 9, 20 + (id % 14), 8 + (id % 9), (id * 7) % 60);
 
-const mk = (id: number, nama: string, nip: string, data: string, jenis: Jenis, asal: Asal, status: StatusUsulan, field?: string): Usulan => {
+const mk = (id: number, nama: string, nip: string, data: string, jenis: Jenis, asal: Asal, status: StatusUsulan, field?: string | string[]): Usulan => {
   const detail = jenis === 'Ubah' ? fieldUbah(data, field) : detailFor(data);
   const t0 = waktuContoh(id);
   return {
@@ -197,7 +195,7 @@ const seed: Usulan[] = [
   mk(2, AHMAD, AHMAD_NIP, 'Orang Tua', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
   mk(3, AHMAD, AHMAD_NIP, 'Orang Tua', 'Hapus', 'Pegawai', 'menunggu-diverifikasi'),
   mk(4, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Anak', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
-  mk(5, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Pegawai', 'menunggu-komite', 'Jabatan'),
+  mk(5, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Pegawai', 'menunggu-komite', ['Jabatan', 'TMT Jabatan']),
   mk(6, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Sertifikasi', 'Tambah', 'Admin Satker', 'menunggu-komite'),
   mk(7, AHMAD, AHMAD_NIP, 'Sertifikasi', 'Tambah', 'Pegawai', 'berhasil-diperbarui'),
   mk(8, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'gagal-siasn'),
@@ -205,7 +203,7 @@ const seed: Usulan[] = [
   mk(10, AHMAD, AHMAD_NIP, 'Pasangan', 'Hapus', 'Pegawai', 'ditolak-admin'),
   mk(11, AHMAD, AHMAD_NIP, 'Sertifikasi', 'Ubah', 'Pegawai', 'berhasil-siasn', 'Berlaku Sampai'),
   mk(12, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Admin Satker', 'disetujui-komite', 'Nomor SK'),
-  mk(13, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', 'Alamat'),
+  mk(13, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', ['Alamat', 'Nomor HP']),
   mk(14, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', 'Nomor HP'),
   mk(15, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'menunggu-komite'),
   mk(16, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'berhasil-diperbarui', 'Email Lain'),

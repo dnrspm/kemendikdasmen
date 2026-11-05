@@ -208,7 +208,7 @@ const SIASN_LAMA: Record<string, string> = {
   'Jabatan': 'Analis Kebijakan Ahli Muda', 'Nomor SK': 'SK/2025/0042', 'TMT Jabatan': '1 Oktober 2025', 'Berlaku Sampai': '12 September 2028',
   'Alamat': 'Jl. Lama No. 5, Jakarta Pusat', 'Nomor HP': '-', 'Email Lain': '-', 'Nomor KK': '3171000000000000',
 };
-const siasnValue = (u: Usulan, k: string, v: string) => (u.jenis === 'Tambah' ? '-' : u.jenis === 'Ubah' ? u.lama ?? SIASN_LAMA[k] ?? '-' : v);
+const siasnValue = (u: Usulan, k: string, v: string) => (u.jenis === 'Tambah' ? '-' : u.jenis === 'Ubah' ? (u.detail.length === 1 ? u.lama : undefined) ?? SIASN_LAMA[k] ?? '-' : v);
 
 /* Skala tipografi modal: judul 19 · judul bagian dan nilai 16 · label dan keterangan 14. */
 const BODY = { fontSize: '15px', lineHeight: '22px' } as const;
@@ -229,21 +229,23 @@ function Field({ label, children, muted }: { label: string; children: ReactNode;
 
 type Baris = { label: string; baru: string; lama?: string; berubah: boolean };
 
-/** Seluruh data segmen: Tambah/Hapus = semua baris; Ubah = semua baris segmen dengan satu field yang berubah. */
+/** Seluruh data segmen. Hanya data yang benar-benar ditambah, diubah, atau dihapus yang ditandai. */
 function segmen(u: Usulan, lamaTeks: (k: string, v: string) => string): Baris[] {
-  if (u.jenis !== 'Ubah') return u.detail.map(([label, baru]) => ({ label, baru, berubah: true }));
-  const [k, v] = u.detail[0];
+  const kosong = (v: string) => !v || v === '-';
+  if (u.jenis !== 'Ubah') return u.detail.map(([label, baru]) => ({ label, baru, berubah: !kosong(baru) }));
+  const ubah = new Map(u.detail);
+  const pertama = u.detail[0]?.[0];
   const dasar: [string, string][] = u.data === 'Data Pribadi'
-    ? (Object.values(FIELD_DATA_PRIBADI).find((g) => g.includes(k)) ?? [k]).map((f) => [f, SIASN_LAMA[f] ?? '-'] as [string, string])
+    ? (Object.values(FIELD_DATA_PRIBADI).find((g) => g.includes(pertama)) ?? [...ubah.keys()]).map((f) => [f, SIASN_LAMA[f] ?? '-'] as [string, string])
     : detailFor(u.data);
   return dasar.map(([label, nilai]) =>
-    label === k ? { label, baru: v, lama: lamaTeks(k, v), berubah: true } : { label, baru: nilai, berubah: false });
+    ubah.has(label) ? { label, baru: ubah.get(label)!, lama: lamaTeks(label, ubah.get(label)!), berubah: true } : { label, baru: nilai, berubah: false });
 }
 
 const JENIS_UI = {
-  Tambah: { fill: 'bg-sd-green-5', info: 'Seluruh data berikut ditambahkan.' },
+  Tambah: { fill: 'bg-sd-green-5', info: 'Data yang ditambahkan ditandai warna hijau.' },
   Ubah: { fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
-  Hapus: { fill: 'bg-sd-red-5', info: 'Seluruh data berikut dihapus.' },
+  Hapus: { fill: 'bg-sd-red-5', info: 'Data yang dihapus ditandai warna merah.' },
 } as const;
 
 /** Inti modal: semua data segmen, dengan penanda data yang berubah (hijau tambah, kuning ubah, merah hapus). */
@@ -254,7 +256,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
       <div className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
-        <h4 className="text-sd-gray-90" style={HEADING}>Data {u.data}</h4>
+        <h4 className="text-sd-gray-90" style={HEADING}>{u.data === 'Data Pribadi' ? u.data : `Data ${u.data}`}</h4>
       </div>
       <p className="px-[16px] pt-[12px] text-sd-gray-60" style={SMALL}>{ui.info}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
@@ -285,8 +287,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   };
   const close = (msg: string) => { toast.success(msg); onClose(); };
   const canRetry = role === 'admin' && u.status === 'gagal-siasn';
-  const field = u.detail[0]?.[0] ?? u.data;
-  const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${u.jenis === 'Ubah' ? field : u.data}`;
+  const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
+  const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
   const tone = u.jenis === 'Tambah' ? '#a9e5c1' : u.jenis === 'Ubah' ? 'var(--sd-badge-info)' : 'var(--sd-red-5)';
 
   return (
@@ -408,7 +410,7 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
     no: i + 1,
     nama: <PersonCell name={u.nama} nip={u.nip} />,
     unit: <span className="block w-[150px] line-clamp-3" title={u.unit}>{shortUnit(u.unit)}</span>,
-    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-sd-gray-60" style={{ fontSize: '13px', lineHeight: '20px' }}>{u.detail[0][0]}</span></div> : u.data,
+    data: u.jenis === 'Ubah' ? <div className="flex flex-col"><span>{u.data}</span><span className="text-sd-gray-60 line-clamp-2" style={{ fontSize: '13px', lineHeight: '20px' }}>{u.detail.map(([k]) => k).join(', ')}</span></div> : u.data,
     jenis: u.jenis,
     asal: u.asal,
     status: <StatusBadge status={u.status} short={!withStatus} />,
