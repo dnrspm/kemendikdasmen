@@ -307,12 +307,92 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   );
 }
 
+/* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Komite menyetujui) ---------- */
+/** Pola komparasi dua kolom: Data Portal (usulan) di kiri, Data SIASN di kanan. Data SIASN di sini masih contoh. */
+function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void; onConfirm: () => void }) {
+  const baris = segmen(u, (k, v) => siasnValue(u, k, v));
+  const portal = u.jenis === 'Hapus' ? [] : baris;
+  const ada = u.jenis !== 'Tambah'; // Tambah: tidak ada data yang cocok di SIASN
+  const siasn = baris.map((r) => ({ label: r.label, nilai: r.lama ?? r.baru, beda: r.lama !== undefined }));
+  const inisial = u.nama.replace(/^((Prof|Dr|Ir|H)\.?\s+)+/i, '').trim().slice(0, 1);
+  const judul = u.data.toUpperCase();
+  const aksen = u.jenis === 'Hapus' ? 'var(--sd-red-60)' : 'var(--sd-warning-border)';
+  const ringkasan = u.jenis === 'Hapus' ? 'Data berikut akan dihapus dari SIASN.' : 'Data berikut akan diperbarui di SIASN.';
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
+      <div role="dialog" aria-label="Konfirmasi Sinkronisasi Data SIASN" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
+        <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
+          <h2 className="text-sd-gray-90" style={HEADING}>Konfirmasi Sinkronisasi Data SIASN: <b style={{ fontWeight: 700 }}>{judul}</b></h2>
+          <button onClick={onBack} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
+        </div>
+        <div className="flex-1 min-h-0 overflow-y-auto p-[20px] flex flex-col gap-[16px] bg-sd-gray-0">
+          <div className="flex items-center gap-[16px] rounded-[8px] bg-sd-gray-5 border border-[#e4e4e4] p-[16px]">
+            <span className="size-[48px] shrink-0 rounded-full bg-sd-blue-70 text-white grid place-items-center" style={VALUE} aria-hidden>{inisial}</span>
+            <div className="min-w-0">
+              <p className="text-sd-gray-90" style={VALUE}>{u.nama}</p>
+              <p className="text-sd-gray-60" style={SMALL}>{u.nip}</p>
+              <div className="mt-[4px]"><Badge tone="green">PNS</Badge></div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px] items-start">
+            <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+              <h3 className="px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4] text-sd-gray-90" style={HEADING}>Data Portal</h3>
+              <div className="p-[16px] flex flex-col gap-[12px]">
+                {portal.length === 0
+                  ? <p className="text-sd-gray-60" style={BODY}>Data ini akan dihapus dari Portal.</p>
+                  : portal.map((r) => <Field key={r.label} label={r.label}><span style={r.berubah ? VALUE : BODY}>{r.baru}</span></Field>)}
+              </div>
+            </section>
+
+            <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
+              <div className="flex items-center justify-between px-[16px] py-[12px] bg-sd-gray-5 border-b border-[#e4e4e4]">
+                <h3 className="text-sd-gray-90" style={HEADING}>Data SIASN</h3>
+                <span className="text-sd-gray-60" style={SMALL}>{ada ? 1 : 0} data</span>
+              </div>
+              <div className="p-[16px] flex flex-col gap-[16px]">
+                {ada ? (
+                  <div className="flex flex-col gap-[12px]">
+                    <p className="text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>{ringkasan}</p>
+                    {siasn.map((r) => (
+                      <div key={r.label} className={r.beda ? 'border-l-[4px] pl-[10px]' : ''} style={r.beda ? { borderLeftColor: aksen } : undefined}>
+                        <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
+                        <p className="text-sd-gray-90 break-words" style={r.beda ? VALUE : BODY}>{r.nilai}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-sd-gray-90 flex items-center gap-[8px]" style={{ ...BODY, fontWeight: 600, color: 'var(--sd-success-border)' }}>Data baru akan ditambahkan</p>
+                    <div className="rounded-[8px] border border-dashed border-sd-green-30 bg-sd-green-5 p-[24px] text-center text-sd-gray-70" style={BODY}>
+                      Data baru akan ditambahkan. Tidak ada data yang cocok di SIASN.
+                    </div>
+                    <div className="border-t border-sd-badge-neutral pt-[16px] flex flex-col gap-[8px]">
+                      <p className="text-sd-gray-90" style={{ ...BODY, fontWeight: 600 }}>Data lainnya di SIASN (0)</p>
+                      <div className="rounded-[8px] border border-[#e4e4e4] p-[24px] text-center text-sd-gray-60" style={BODY}>Tidak ada data lain di SIASN</div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </section>
+          </div>
+        </div>
+        <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">
+          <button onClick={onBack} className={buttonClass('secondary', 'lg')}>Kembali</button>
+          <button onClick={onConfirm} className={buttonClass('ultimate', 'lg')}><Check className="size-[16px]" /> Konfirmasi &amp; Sinkronkan</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
 
 
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
+  const [sinkron, setSinkron] = useState(false); // langkah 2 Komite: konfirmasi sinkronisasi SIASN
   const steps = buildSteps(u, true); // Komite memakai Opsi 2: progres SIASN tampil (READ saja)
   const tolakButuhCatatan = (fn: () => void) => () => {
     if (!catatan.trim()) return toast.error('Isi catatan penolakan terlebih dahulu.');
@@ -323,6 +403,9 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
+  if (sinkron) {
+    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Komite Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
+  }
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
       <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
@@ -413,7 +496,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode === 'putusan' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
-                <button onClick={() => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Sinkronisasi SIASN diproses.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
+                <button onClick={() => setSinkron(true)} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
           </div>
