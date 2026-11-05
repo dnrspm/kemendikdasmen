@@ -48,7 +48,7 @@ const ALL_KEYS = [...TEXT_KEYS, ...SELECT_KEYS] as const;
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[] }) {
   const [open, setOpen] = useState(true);
-  // Semua isian disimpan sementara; tombol Terapkan Filter (atau Enter) menerapkannya sekaligus.
+  // Semua isian disimpan sementara; tombol Cari (atau Enter) menerapkannya sekaligus.
   const [pilih, setPilih] = useState(f);
   useEffect(() => setPilih(f), [f]);
   const terapkan = () => setF({ ...pilih, q: pilih.q.trim() });
@@ -105,10 +105,10 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
             {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
             {statuses && dropdown('status', 'Status Pengajuan', 'Semua Status', statuses, STATUS_LABEL)}
           </div>
-          {/* Terapkan Filter menerapkan semua isian sekaligus. */}
+          {/* Cari menerapkan semua isian sekaligus. */}
           <div className="flex justify-end gap-[8px]">
             <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
-            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Terapkan Filter</button>
+            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Cari</button>
           </div>
         </div>
       )}
