@@ -255,9 +255,6 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
   return (
     <section className="bg-white border border-[#e4e4e4] rounded-[8px] overflow-hidden">
-      <div className="px-[16px] py-[12px] border-b border-sd-badge-neutral bg-sd-gray-0">
-        <h4 className="text-sd-gray-90" style={HEADING}>{u.data === 'Data Pribadi' ? u.data : `Data ${u.data}`}</h4>
-      </div>
       <p className="px-[16px] pt-[12px] text-sd-gray-60" style={SMALL}>{ui.info}</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
         {baris.map((r) => (
