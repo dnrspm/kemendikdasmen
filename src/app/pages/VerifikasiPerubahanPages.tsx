@@ -243,9 +243,9 @@ function segmen(u: Usulan, lamaTeks: (k: string, v: string) => string): Baris[] 
 }
 
 const JENIS_UI = {
-  Tambah: { tone: 'success', fill: 'bg-sd-green-5', info: 'Data yang ditambahkan ditandai warna hijau.' },
-  Ubah: { tone: 'warning', fill: 'bg-sd-yellow-5', info: 'Data yang berubah ditandai warna kuning.' },
-  Hapus: { tone: 'critical', fill: 'bg-sd-red-5', info: 'Data yang dihapus ditandai warna merah.' },
+  Tambah: { tone: 'success', bar: 'var(--sd-success-border)', info: 'Data yang ditambahkan ditandai garis hijau.' },
+  Ubah: { tone: 'warning', bar: 'var(--sd-warning-border)', info: 'Data yang berubah ditandai garis kuning.' },
+  Hapus: { tone: 'critical', bar: 'var(--sd-red-60)', info: 'Data yang dihapus ditandai garis merah.' },
 } as const;
 
 /** Inti modal: semua data segmen, dengan penanda data yang berubah (hijau tambah, kuning ubah, merah hapus). */
@@ -256,7 +256,7 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   const Sel = ({ r }: { r: Baris }) => (
     <div key={r.label} className="min-w-0">
       <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
-      <div className={`break-words rounded-[4px] ${r.berubah ? `${ui.fill} px-[8px] -mx-[8px]` : ''}`}>
+      <div className={`break-words ${r.berubah ? 'border-l-[4px] pl-[10px]' : ''}`} style={r.berubah ? { borderLeftColor: ui.bar } : undefined}>
         <p className="text-sd-gray-90" style={r.berubah ? VALUE : BODY}>{r.baru}</p>
       </div>
     </div>
@@ -273,9 +273,9 @@ function PerubahanPanel({ u }: { u: Usulan }) {
             {/* Data yang diubah dikelompokkan: sebelum dan sesudah berdampingan dengan panah. */}
             <div className="flex flex-col gap-[8px]">
               <h4 className="text-sd-gray-90" style={HEADING}>Data yang berubah</h4>
-              <div className={`rounded-[4px] ${ui.fill} divide-y divide-white/70`}>
+              <div className="flex flex-col gap-[12px]">
                 {berubah.map((r) => (
-                  <div key={r.label} className="p-[12px]">
+                  <div key={r.label} className="border-l-[4px] pl-[12px]" style={{ borderLeftColor: ui.bar }}>
                     <p className="text-sd-gray-60" style={SMALL}>{r.label}</p>
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-[16px] gap-y-[8px]">
                       <div className="min-w-0">
