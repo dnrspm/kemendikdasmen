@@ -306,6 +306,29 @@ function PerubahanPanel({ u }: { u: Usulan }) {
   );
 }
 
+/** Indikator dua langkah di header modal Komite: 1) Tinjau Usulan, 2) Konfirmasi Sinkronisasi SIASN. */
+function ModalSteps({ step }: { step: 1 | 2 }) {
+  const item = (n: 1 | 2, label: string) => {
+    const done = step > n;
+    const cur = step === n;
+    return (
+      <li className="flex items-center gap-[8px]" aria-current={cur ? 'step' : undefined}>
+        {done ? <span className="size-[20px] rounded-full bg-[#2d8a4e] grid place-items-center text-white"><Check className="size-[12px]" /></span>
+          : cur ? <span className="size-[20px] rounded-full border-2 border-sd-blue-70 bg-white grid place-items-center"><span className="size-[8px] rounded-full bg-sd-blue-70" /></span>
+          : <span className="size-[20px] rounded-full border-2 border-sd-gray-30 bg-white" />}
+        <span style={{ fontSize: '13px', lineHeight: '20px', fontWeight: cur ? 600 : 400, color: cur || done ? 'var(--sd-gray-90)' : 'var(--sd-gray-60)' }}>{label}</span>
+      </li>
+    );
+  };
+  return (
+    <ol className="hidden md:flex items-center gap-[12px] ml-auto mr-[12px]" aria-label="Langkah persetujuan">
+      {item(1, 'Tinjau Usulan')}
+      <li aria-hidden className="w-[32px] h-[2px]" style={{ background: step > 1 ? '#2d8a4e' : '#e4e4e4' }} />
+      {item(2, 'Konfirmasi Sinkronisasi SIASN')}
+    </ol>
+  );
+}
+
 /** Kolom samping bersama: pengaju, status, dan Alur Pengusulan (dipakai modal detail dan modal sinkronisasi). */
 function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRetry: boolean }) {
   return (
@@ -336,16 +359,16 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
   const portal = u.jenis === 'Hapus' ? [] : baris;
   const ada = u.jenis !== 'Tambah'; // Tambah: tidak ada data yang cocok di SIASN
   const siasn = baris.map((r) => ({ label: r.label, nilai: r.lama ?? r.baru, beda: r.lama !== undefined }));
-  const judul = u.data.toUpperCase();
   const aksen = u.jenis === 'Hapus' ? 'var(--sd-red-60)' : 'var(--sd-warning-border)';
   const segJudul = u.jenis === 'Tambah' ? { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus }
     : u.jenis === 'Hapus' ? { teks: 'Data yang akan dihapus', warna: 'var(--sd-red-70)', Icon: Trash2 }
     : { teks: `Data yang akan diperbarui (${siasn.filter((r) => r.beda).length})`, warna: 'var(--sd-gray-90)', Icon: Pencil };
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
-      <div role="dialog" aria-label="Konfirmasi Sinkronisasi Data SIASN" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
+      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
-          <h2 className="text-sd-gray-90" style={HEADING}>Konfirmasi Sinkronisasi Data SIASN: <b style={{ fontWeight: 700 }}>{judul}</b></h2>
+          <h2 className="text-sd-gray-90" style={HEADING}>Detail Usulan Perubahan</h2>
+          <ModalSteps step={2} />
           <button onClick={onBack} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
         </div>
         <div className="flex-1 min-h-0 overflow-y-auto">
@@ -436,6 +459,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
       <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[4px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-[0_12px_17px_2px_rgba(0,0,0,0.08),0_5px_22px_4px_rgba(0,0,0,0.02),0_7px_8px_-4px_rgba(0,0,0,0.10)]">
         <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
           <h2 className="text-sd-gray-90" style={HEADING}>Detail Usulan Perubahan</h2>
+          {mode === 'putusan' && <ModalSteps step={1} />}
           <button onClick={onClose} aria-label="Tutup" className="shrink-0 rounded-[4px] border border-sd-gray-30 p-[4px] hover:bg-sd-gray-5"><X className="size-[18px] text-sd-gray-90" /></button>
         </div>
 
