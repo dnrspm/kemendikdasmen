@@ -74,8 +74,16 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
 
   return (
     <div className="border-b border-[#eee]">
-      <div className="flex justify-end px-[16px] pt-[16px]">
-        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
+      <div className="flex flex-wrap items-center justify-between gap-[8px] px-[16px] pt-[16px]">
+        <div className="flex flex-wrap items-center gap-[8px]" style={SMALL_TXT} aria-live="polite">
+          {tags.map((t) => (
+            <span key={t.key} className="inline-flex items-center gap-[4px] rounded-full bg-sd-gray-5 pl-[10px] pr-[4px] py-[2px] text-sd-gray-90">
+              <span className="text-sd-gray-60">{t.label}:</span> {t.value}
+              <button onClick={t.clear} aria-label={`Hapus ${t.label}`} className="rounded-full p-[2px] hover:bg-sd-gray-10"><X className="size-[12px]" /></button>
+            </span>
+          ))}
+        </div>
+        <button onClick={() => setOpen(!open)} aria-expanded={open} className="ml-auto flex items-center gap-[6px] text-sd-blue-70 font-semibold" style={st}>
           <SlidersHorizontal className="size-[16px]" /> {open ? 'Sembunyikan Filter' : 'Tampilkan Filter'}
           {active > 0 && <span className="rounded-full bg-sd-blue-70 text-white px-[6px]" style={{ fontSize: '12px' }}>{active}</span>}
           <ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />
@@ -108,14 +116,6 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
           </div>
         </div>
       )}
-      {tags.length > 0 && <div className="flex flex-wrap items-center gap-[8px] px-[16px] pb-[12px]" style={SMALL_TXT} aria-live="polite">
-        {tags.map((t) => (
-          <span key={t.key} className="inline-flex items-center gap-[4px] rounded-full bg-sd-gray-5 pl-[10px] pr-[4px] py-[2px] text-sd-gray-90">
-            <span className="text-sd-gray-60">{t.label}:</span> {t.value}
-            <button onClick={t.clear} aria-label={`Hapus ${t.label}`} className="rounded-full p-[2px] hover:bg-sd-gray-10"><X className="size-[12px]" /></button>
-          </span>
-        ))}
-      </div>}
     </div>
   );
 }
