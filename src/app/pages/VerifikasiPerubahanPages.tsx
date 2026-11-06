@@ -406,7 +406,7 @@ type Mode = 'verifikasi' | 'putusan' | 'lihat';
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
   const [sinkron, setSinkron] = useState(false); // langkah 2 Komite: konfirmasi sinkronisasi SIASN
-  const steps = buildSteps(u, true); // Komite memakai Opsi 2: progres SIASN tampil (READ saja)
+  const steps = buildSteps(u, perluSyncSiasn(u)); // Komite memakai Opsi 2: progres SIASN tampil (READ saja) hanya untuk data yang perlu sync SIASN
   const tolakButuhCatatan = (fn: () => void) => () => {
     if (!catatan.trim()) return toast.error('Isi catatan penolakan terlebih dahulu.');
     fn();
@@ -416,7 +416,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
-  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); };
+  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Komite maupun sinkronisasi SIASN.'); };
+  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
   if (sinkron && role === 'admin') {
     // Placeholder SIASN untuk Admin Satker: tampil bila jenis data perlu sinkronisasi SIASN
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={setujuiAdmin} labelKonfirmasi="Konfirmasi & Setujui" />;
@@ -498,7 +499,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode === 'putusan' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
-                <button onClick={() => setSinkron(true)} className={buttonClass('ultimate', 'lg')}>Setujui</button>
+                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
           </div>
