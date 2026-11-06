@@ -86,6 +86,13 @@ export const butuhKomite = (data: string, field?: string) =>
 export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
   u.jenis === 'Ubah' ? u.detail.some(([f]) => butuhKomite(u.data, f)) || (u.detail.length === 0 && butuhKomite(u.data)) : butuhKomite(u.data);
 
+/**
+ * Kategori data yang perlu sinkronisasi SIASN (sumber: tabel "Perlu Sync SIASN?").
+ * Ya: keluarga (anak, orang tua, pasangan) dan riwayat (jabatan, kepangkatan, pendidikan, sertifikasi, dst.).
+ * Tidak: seluruh Data Pribadi (data diri, kepegawaian, kontak, data lainnya).
+ */
+export const perluSyncSiasn = (u: Pick<Usulan, 'data'>) => u.data !== 'Data Pribadi';
+
 export const UNIT_SHORT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta';
 export const UNIT_FULL = `${UNIT_SHORT} - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah`;
 const AHMAD = 'Prof. Dr. AHMAD WIJAYA M.M.';

@@ -6,7 +6,7 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { fieldClass, Tabs, Badge, Banner, Button, DescriptionList, Panel, Select as SdSelect, TextField, TextArea, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
-  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite,
+  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite, perluSyncSiasn,
   UNIT_SHORT, STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
 } from '@/app/data/usulanPerubahan';
 
@@ -321,7 +321,7 @@ function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRe
 
 /* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Komite menyetujui) ---------- */
 /** Pola komparasi dua kolom: Data Portal (usulan) di kiri, Data SIASN di kanan. Data SIASN di sini masih contoh. */
-function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void; onConfirm: () => void }) {
+function SinkronModal({ u, onBack, onConfirm, labelKonfirmasi = 'Konfirmasi & Sinkronkan' }: { u: Usulan; onBack: () => void; onConfirm: () => void; labelKonfirmasi?: string }) {
   const baris = segmen(u, (k, v) => siasnValue(u, k, v));
   const portal = u.jenis === 'Hapus' ? [] : baris;
   const ada = u.jenis !== 'Tambah'; // Tambah: tidak ada data yang cocok di SIASN
@@ -392,7 +392,7 @@ function SinkronModal({ u, onBack, onConfirm }: { u: Usulan; onBack: () => void;
         </div>
         <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">
           <button onClick={onBack} className={buttonClass('secondary', 'lg')}>Kembali</button>
-          <button onClick={onConfirm} className={buttonClass('ultimate', 'lg')}><Check className="size-[16px]" /> Konfirmasi &amp; Sinkronkan</button>
+          <button onClick={onConfirm} className={buttonClass('ultimate', 'lg')}><Check className="size-[16px]" /> {labelKonfirmasi}</button>
         </div>
       </div>
     </div>
@@ -416,6 +416,11 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
+  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); };
+  if (sinkron && role === 'admin') {
+    // Placeholder SIASN untuk Admin Satker: tampil bila jenis data perlu sinkronisasi SIASN
+    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={setujuiAdmin} labelKonfirmasi="Konfirmasi & Setujui" />;
+  }
   if (sinkron) {
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Komite Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
   }
@@ -487,7 +492,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode === 'verifikasi' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
-                <button onClick={() => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : 'Usulan disetujui. Data pokok tidak memerlukan validasi Komite.'); }} className={buttonClass('ultimate', 'lg')}>Setujui</button>
+                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiAdmin())} className={buttonClass('ultimate', 'lg')}>Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
