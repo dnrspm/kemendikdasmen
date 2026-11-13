@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight, CirclePlus, Trash2, Pencil, FilePlus, List, Inbox } from 'lucide-react';
+import { ArrowLeft, X, Check, RotateCcw, Info, Search, ChevronDown, SlidersHorizontal, FileText, ArrowRight, CirclePlus, Trash2, Pencil, FilePlus, List, Inbox } from 'lucide-react';
 import { Field as FormField } from '@/app/components/FormParts';
 import { toast } from 'sonner';
+import { setTampilanModal, useTampilanModal, type TampilanModal } from '@/app/data/prototipeTampilan';
+import imgTutWuri from '@/assets/staging/tut-wuri-handayani.png';
 import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
-import { fieldClass, Tabs, Badge, Banner, Button, DescriptionList, Panel, Select as SdSelect, TextField, TextArea, buttonClass } from 'seragam-design-system';
+import { fieldClass, Tabs, Badge, Banner, Button, DescriptionList, Panel, Select as SdSelect, TextField, TextArea, Tooltip, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
   useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite, perluSyncSiasn,
@@ -18,9 +20,26 @@ function StatusBadge({ status, short }: { status: StatusUsulan; short?: boolean 
   return <Badge tone={TONE_MAP[STATUS_TONE[status]]}>{short ? STATUS_SHORT[status] : STATUS_LABEL[status]}</Badge>;
 }
 
+/** Kontrol prototipe: pilih gaya modal Detail Usulan Perubahan. Bukan bagian produk. */
+function ProtoBar() {
+  const tampilan = useTampilanModal();
+  return (
+    <div role="region" aria-label="Kontrol prototipe" className="flex flex-wrap items-center gap-[16px] border-b border-dashed border-sd-gray-50 bg-sd-gray-5 px-[24px] py-[8px]" style={{ fontSize: '12px', lineHeight: '16px' }}>
+      <span className="inline-flex items-center gap-[6px]" style={{ fontWeight: 600 }}><SlidersHorizontal className="size-[12px]" />Kontrol prototipe · Modal detail dan filter usulan</span>
+      <span className="text-sd-gray-60">Bukan bagian produk</span>
+      <label className="inline-flex items-center gap-[8px]">Tampilan
+        <select value={tampilan} onChange={(e) => setTampilanModal(e.target.value as TampilanModal)} aria-label="Tampilan prototipe" className="max-w-full rounded-[4px] border border-sd-gray-50 bg-white px-[8px] py-[4px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" style={{ fontSize: '12px' }}>
+          <option value="staging">Opsi 1: Tampilan staging</option>
+          <option value="iterasi">Opsi 2: Tampilan iterasi berikutnya</option>
+        </select>
+      </label>
+    </div>
+  );
+}
+
 function PageShell({ title, subtitle, role, children }: { title: string; subtitle: string; role: Role; children: ReactNode }) {
   return (
-    <KepegawaianLayout>
+    <KepegawaianLayout topBar={<ProtoBar />}>
       <div className="px-[24px] pt-[24px] pb-[64px] flex flex-col gap-[16px]">
         <div>
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>{title}</h1>
@@ -36,28 +55,42 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
 }
 
 /* ---------- Filter ---------- */
-type Filters = { q: string; unit: string; data: string; jenis: string; asal: string; status: string };
-const emptyFilters: Filters = { q: '', unit: '', data: '', jenis: '', asal: '', status: '' };
+type Filters = { q: string; nama: string; nip: string; jabatan: string; golongan: string; unit: string; data: string; jenis: string; asal: string; status: string };
+const emptyFilters: Filters = { q: '', nama: '', nip: '', jabatan: '', golongan: '', unit: '', data: '', jenis: '', asal: '', status: '' };
+const GOLONGAN_OPTIONS = ['I/a', 'I/b', 'I/c', 'I/d', 'II/a', 'II/b', 'II/c', 'II/d', 'III/a', 'III/b', 'III/c', 'III/d', 'IV/a', 'IV/b', 'IV/c', 'IV/d', 'IV/e'];
 const shortUnit = (u: string) => u.split(' - ')[0];
 const UNIT_OPTIONS = [UNIT_SHORT];
 const ALL = '__all';
-const SELECT_KEYS = ['unit', 'data', 'jenis', 'asal', 'status'] as const;
-const TEXT_KEYS = ['q'] as const;
+const SELECT_KEYS = ['golongan', 'unit', 'data', 'jenis', 'asal', 'status'] as const;
+const TEXT_KEYS = ['q', 'nama', 'nip', 'jabatan'] as const;
 const ALL_KEYS = [...TEXT_KEYS, ...SELECT_KEYS] as const;
 
 /** Pencarian teks (nama, NIP) dipisah dari filter pilihan (dropdown seragam). */
 function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => void; statuses?: StatusUsulan[] }) {
+  const staging = useTampilanModal() === 'staging'; // prototipe: gaya filter ikut pilihan prototipe
   const [open, setOpen] = useState(true);
   // Semua isian disimpan sementara; tombol Cari (atau Enter) menerapkannya sekaligus.
   const [pilih, setPilih] = useState(f);
   useEffect(() => setPilih(f), [f]);
-  const terapkan = () => setF({ ...pilih, q: pilih.q.trim() });
+  const terapkan = () => setF({ ...pilih, q: pilih.q.trim(), nama: pilih.nama.trim(), nip: pilih.nip.trim(), jabatan: pilih.jabatan.trim() });
   const active = ALL_KEYS.filter((k) => f[k]).length;
   const SMALL_TXT = { fontSize: '13px', lineHeight: '20px' } as const;
-  const NAMA: Record<(typeof ALL_KEYS)[number], string> = { q: 'Pencarian', unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
+  const NAMA: Record<(typeof ALL_KEYS)[number], string> = { q: 'Pencarian', nama: 'Nama', nip: 'NIP', jabatan: 'Jabatan', golongan: 'Golongan', unit: 'Unit Kerja', data: 'Data', jenis: 'Jenis', asal: 'Asal', status: 'Status' };
   const reset = () => { setPilih(emptyFilters); setF(emptyFilters); };
   const tags = ALL_KEYS.filter((k) => f[k]).map((k) => ({ key: k, label: NAMA[k], value: k === 'status' ? STATUS_LABEL[f[k] as StatusUsulan] : k === 'unit' ? shortUnit(f[k]) : f[k], clear: () => setF({ ...f, [k]: '' }) }));
   const st = { fontSize: 'var(--text-sm)' } as const;
+
+  const teks = (key: 'nama' | 'nip' | 'jabatan', label: string, placeholder: string, icon?: boolean) => (
+    <FormField label={label}>
+      <TextField
+        leftIcon={icon ? <Search className="size-[16px]" /> : undefined}
+        value={pilih[key]}
+        onChange={(e) => setPilih({ ...pilih, [key]: e.target.value })}
+        onKeyDown={(e) => e.key === 'Enter' && terapkan()}
+        placeholder={placeholder}
+      />
+    </FormField>
+  );
 
   const dropdown = (key: (typeof SELECT_KEYS)[number], label: string, all: string, options: string[], labels?: Record<string, string>) => (
     <FormField label={label}>
@@ -74,11 +107,30 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
         <Button variant="quiet" size="sm" onClick={() => setOpen(!open)} aria-expanded={open}
           leadingIcon={<SlidersHorizontal className="size-[16px]" />}
           trailingIcon={<ChevronDown className={`size-[16px] transition-transform ${open ? 'rotate-180' : ''}`} />}>
-          {open ? 'Sembunyikan filter' : 'Tampilkan filter'}
+          {staging ? (open ? 'Sembunyikan Filter' : 'Tampilkan Filter') : (open ? 'Sembunyikan filter' : 'Tampilkan filter')}
           {active > 0 && <span className="sd-t-mobile-helper ml-[6px] rounded-full bg-sd-blue-70 px-[6px] text-white">{active}</span>}
         </Button>
       </div>
-      {open && (
+      {open && staging && (
+        <div className="m-[16px] mb-[12px] p-[16px] rounded-[4px] bg-sd-gray-5 flex flex-col gap-[16px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px]">
+            {teks('nama', 'Nama', 'Cari nama')}
+            {teks('nip', 'NIP', 'Cari NIP')}
+            {dropdown('golongan', 'Golongan', 'Semua Golongan', GOLONGAN_OPTIONS)}
+            {teks('jabatan', 'Jabatan', 'Ketik kata kunci jabatan', true)}
+            {dropdown('unit', 'Unit Kerja', 'Semua Unit Kerja', UNIT_OPTIONS)}
+            {dropdown('jenis', 'Jenis Perubahan Data', 'Semua Jenis', ['Tambah', 'Ubah', 'Hapus'])}
+            {dropdown('data', 'Data yang Diubah', 'Semua Data', KATEGORI_DATA)}
+            {dropdown('asal', 'Asal Pengajuan', 'Semua', ['Pegawai', 'Admin Satker'])}
+            {statuses && dropdown('status', 'Status', 'Semua Status', statuses, STATUS_LABEL)}
+          </div>
+          <div className="flex justify-end gap-[8px]">
+            <button onClick={reset} className={buttonClass('secondary', 'md')}>Reset</button>
+            <button onClick={terapkan} className={buttonClass('primary', 'md')}>Terapkan Filter</button>
+          </div>
+        </div>
+      )}
+      {open && !staging && (
         <div className="m-[16px] mb-[12px] p-[16px] rounded-[8px] bg-sd-gray-0 border border-sd-modal-footer-border flex flex-col gap-[12px]">
           <FormField label="Nama atau NIP">
             <TextField
@@ -120,7 +172,8 @@ function FilterBar({ f, setF, statuses }: { f: Filters; setF: (f: Filters) => vo
 const has = (v: string, q: string) => !q || v.toLowerCase().includes(q.toLowerCase());
 const applyFilters = (rows: Usulan[], f: Filters) =>
   rows.filter((u) =>
-    (has(u.nama, f.q) || has(u.nip, f.q)) &&
+    (has(u.nama, f.q) || has(u.nip, f.q)) && has(u.nama, f.nama) && has(u.nip, f.nip) && has(u.jabatan, f.jabatan) &&
+    (!f.golongan || u.golongan === f.golongan) &&
     (!f.unit || shortUnit(u.unit) === f.unit) &&
     (!f.data || u.data === f.data) && (!f.jenis || u.jenis === f.jenis) &&
     (!f.asal || u.asal === f.asal) && (!f.status || u.status === f.status));
@@ -322,6 +375,7 @@ function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRe
 /* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Komite menyetujui) ---------- */
 /** Pola komparasi dua kolom: Data Portal (usulan) di kiri, Data SIASN di kanan. Data SIASN di sini masih contoh. */
 function SinkronModal({ u, onBack, onConfirm, labelKonfirmasi = 'Konfirmasi & Sinkronkan' }: { u: Usulan; onBack: () => void; onConfirm: () => void; labelKonfirmasi?: string }) {
+  const staging = useTampilanModal() === 'staging';
   const baris = segmen(u, (k, v) => siasnValue(u, k, v));
   const portal = u.jenis === 'Hapus' ? [] : baris;
   const ada = u.jenis !== 'Tambah'; // Tambah: tidak ada data yang cocok di SIASN
@@ -330,6 +384,74 @@ function SinkronModal({ u, onBack, onConfirm, labelKonfirmasi = 'Konfirmasi & Si
   const segJudul = u.jenis === 'Tambah' ? { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus }
     : u.jenis === 'Hapus' ? { teks: 'Data yang akan dihapus', warna: 'var(--sd-red-70)', Icon: Trash2 }
     : { teks: `Data yang akan diperbarui (${siasn.filter((r) => r.beda).length})`, warna: 'var(--sd-gray-90)', Icon: Pencil };
+  if (staging) {
+    // Seperti staging: bila SIASN tidak punya data yang cocok (usulan Tambah, atau Ubah tanpa data lama di SIASN), tampil "Data baru akan ditambahkan".
+    const cocok = u.jenis === 'Hapus' || (u.jenis === 'Ubah' && baris.some((r) => r.lama !== undefined && r.lama !== '-'));
+    const judul = cocok ? segJudul : { teks: 'Data baru akan ditambahkan', warna: 'var(--sd-green-70)', Icon: CirclePlus };
+    const jumlah = cocok ? (siasn.filter((r) => r.beda).length || siasn.length) : 0;
+    const Panel2 = ({ title, kanan, children }: { title: string; kanan?: ReactNode; children: ReactNode }) => (
+      <section className="rounded-[8px] border border-sd-modal-footer-border overflow-hidden flex flex-col lg:h-full lg:min-h-0">
+        <header className="flex items-center justify-between gap-[8px] px-[16px] py-[8px] border-b border-sd-modal-footer-border" style={{ background: 'var(--sd-gray-5)' }}>
+          <h4 className="text-sd-gray-90" style={{ fontSize: '17px', fontWeight: 600, lineHeight: '22px' }}>{title}</h4>
+          {kanan}
+        </header>
+        <div className="p-[16px] lg:flex-1 lg:min-h-0 lg:overflow-y-auto">{children}</div>
+      </section>
+    );
+    const Nilai = ({ label, nilai }: { label: string; nilai: string }) => (
+      <div><dt className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{label}</dt><dd className="text-sd-gray-90 break-words" style={{ fontSize: '16px', lineHeight: '24px', fontWeight: 600 }}>{nilai || '-'}</dd></div>
+    );
+    return (
+      <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
+        <div role="dialog" aria-label="Konfirmasi Sinkronisasi Data SIASN" onClick={(e) => e.stopPropagation()} className="bg-sd-gray-0 rounded-[8px] w-full max-w-[940px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06">
+          <div className="px-[20px] pt-[20px]">
+            <div className="flex items-center justify-between gap-[16px] pb-[16px] border-b border-sd-modal-footer-border">
+              <h2 className="text-sd-gray-90" style={{ fontSize: '18px', lineHeight: '24px', fontWeight: 400 }}>Konfirmasi Sinkronisasi Data SIASN: <b style={{ fontWeight: 700 }}>{u.data.replace(/^Data /, '').toUpperCase()}</b></h2>
+              <button onClick={onBack} aria-label="Tutup" className="shrink-0 text-sd-gray-60 hover:text-sd-gray-90"><X className="size-[20px]" /></button>
+            </div>
+          </div>
+          <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden px-[20px] py-[16px] flex flex-col gap-[16px]">
+            <StagingProfil u={u} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[16px] items-start lg:items-stretch lg:flex-1 lg:min-h-0">
+              <Panel2 title="Data Portal">
+                {portal.length === 0
+                  ? <p className="text-sd-gray-60" style={BODY}>Data ini akan dihapus dari Portal.</p>
+                  : <dl className="flex flex-col gap-[16px]">{portal.map((r) => <Nilai key={r.label} label={r.label} nilai={r.baru} />)}</dl>}
+              </Panel2>
+              <Panel2 title="Data SIASN" kanan={<span className="text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px', fontWeight: 600 }}>{jumlah} data</span>}>
+                <div className="flex flex-col gap-[16px]">
+                  <div className="flex flex-col gap-[8px]">
+                    <h5 className="flex items-center gap-[8px]" style={{ fontSize: '16px', lineHeight: '24px', fontWeight: 700, color: judul.warna }}><judul.Icon className="size-[20px] text-sd-gray-90" aria-hidden /> {judul.teks}</h5>
+                    {cocok ? (
+                      <dl className="flex flex-col gap-[16px]">{siasn.map((r) => <Nilai key={r.label} label={r.label} nilai={r.nilai} />)}</dl>
+                    ) : (
+                      <div className="rounded-[8px] border border-dashed border-sd-green-30 bg-sd-green-5 p-[24px] flex flex-col items-center gap-[8px] text-center text-sd-gray-70" style={{ fontSize: '16px', lineHeight: '24px' }}>
+                        <FilePlus className="size-[32px] text-sd-gray-90" aria-hidden />
+                        Data baru akan ditambahkan. Tidak ada data yang cocok di SIASN.
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t border-sd-badge-neutral pt-[16px] flex flex-col gap-[8px]">
+                    <h5 className="flex items-center gap-[8px] text-sd-gray-60" style={{ fontSize: '16px', lineHeight: '24px', fontWeight: 700 }}><List className="size-[20px] text-sd-gray-90" aria-hidden /> Data lainnya di SIASN (0)</h5>
+                    <div className="rounded-[8px] border border-sd-modal-footer-border p-[32px] flex flex-col items-center gap-[8px] text-center text-sd-gray-60" style={{ fontSize: '16px', lineHeight: '24px' }}>
+                      <Inbox className="size-[32px] text-sd-gray-90" aria-hidden />
+                      Tidak ada data lain di SIASN
+                    </div>
+                  </div>
+                </div>
+              </Panel2>
+            </div>
+          </div>
+          <div className="px-[20px] pb-[16px]">
+            <div className="flex items-center justify-between gap-[12px] pt-[16px] border-t border-sd-modal-footer-border">
+              <button onClick={onBack} className={buttonClass('secondary', 'lg')}><ArrowLeft className="size-[16px]" /> Kembali</button>
+              <button onClick={onConfirm} className={buttonClass('ultimate', 'lg')}><Check className="size-[16px]" /> Konfirmasi & Sinkronkan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onBack} role="presentation">
       <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[8px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06">
@@ -399,16 +521,84 @@ function SinkronModal({ u, onBack, onConfirm, labelKonfirmasi = 'Konfirmasi & Si
   );
 }
 
+/* ---------- Prototipe: tampilan modal ala staging ---------- */
+const STG_TONE = {
+  Tambah: { badge: 'Penambahan Data', chipBg: 'var(--sd-green-20)', baru: 'var(--sd-green-70)', lamaBg: 'transparent' },
+  Ubah: { badge: 'Perubahan Data', chipBg: 'color-mix(in srgb, var(--sd-warning-border) 55%, white)', baru: 'var(--sd-yellow-70)', lamaBg: 'color-mix(in srgb, var(--sd-warning-border) 55%, white)' },
+  Hapus: { badge: 'Penghapusan Data', chipBg: 'var(--sd-red-10)', baru: 'var(--sd-red-70)', lamaBg: 'transparent' },
+} as const;
+
+/** Kartu pegawai gaya staging, dipakai di modal detail dan modal sinkronisasi. */
+function StagingProfil({ u }: { u: Usulan }) {
+  return (
+      <div className="flex items-center gap-[16px] rounded-[8px] p-[16px] border border-sd-modal-footer-border" style={{ background: 'var(--sd-gray-5)' }}>
+        <img alt="" src={imgTutWuri} className="size-[72px] shrink-0 rounded-full object-cover" />
+        <div className="min-w-0 flex flex-col gap-[4px]">
+          <p className="text-sd-gray-90" style={{ fontSize: '17px', fontWeight: 600, lineHeight: '22px' }}>{u.nama}</p>
+          <p className="text-sd-gray-60" style={{ fontSize: '16px', lineHeight: '24px' }}>{u.nip}</p>
+          <div className="flex flex-wrap gap-[8px]">
+            <span className="rounded-[4px] bg-white px-[8px] border border-sd-modal-footer-border text-sd-gray-90" style={{ fontSize: '12px', lineHeight: '20px', fontWeight: 600 }}>{u.golongan}</span>
+            <span className="rounded-[4px] px-[8px] text-sd-gray-90" style={{ background: 'var(--sd-green-20)', fontSize: '12px', lineHeight: '20px', fontWeight: 600 }}>PNS</span>
+            <span className="rounded-[4px] bg-sd-badge-neutral px-[8px] text-sd-gray-90" style={{ fontSize: '12px', lineHeight: '20px', fontWeight: 600 }}>{u.jabatan}</span>
+          </div>
+        </div>
+      </div>
+  );
+}
+
+/** Kartu usulan persis pola staging: kartu pegawai, lalu kartu Detail dengan lencana jenis, keterangan warna, dan grid 3 kolom. */
+function StagingDetail({ u }: { u: Usulan }) {
+  const t = STG_TONE[u.jenis];
+  const dariAdmin = u.asal === 'Admin Satker';
+  const baris = segmen(u, (k, v) => (dariAdmin ? 'Menunggu konfirmasi mapping' : siasnValue(u, k, v)));
+  const legenda = u.jenis === 'Ubah'
+    ? [<>Data lama ditampilkan dengan <mark className="px-[2px]" style={{ background: t.lamaBg, color: 'var(--sd-gray-60)' }}>latar kuning</mark></>, <>Data baru ditampilkan dengan <b style={{ color: 'var(--sd-yellow-30)' }}>teks berwarna cokelat</b></>]
+    : [u.jenis === 'Tambah' ? <>Data yang ditambahkan ditampilkan dengan <b style={{ color: 'var(--sd-green-30)' }}>teks berwarna hijau</b></> : <>Data yang dihapus ditampilkan dengan <b style={{ color: 'var(--sd-red-20)' }}>teks berwarna merah</b></>];
+  return (
+    <div className="flex flex-col gap-[16px]">
+      <StagingProfil u={u} />
+
+      <section className="rounded-[8px] border border-sd-modal-footer-border overflow-hidden bg-white">
+        <header className="flex flex-wrap items-center gap-x-[12px] gap-y-[4px] px-[16px] py-[8px]" style={{ background: 'var(--sd-gray-5)' }}>
+          <h4 className="text-sd-gray-90" style={{ fontSize: '17px', fontWeight: 600, lineHeight: '22px' }}>Detail</h4>
+          <span className="rounded-full px-[12px] text-sd-gray-90" style={{ background: t.chipBg, fontSize: '14px', fontWeight: 600, lineHeight: '24px' }}>{t.badge}</span>
+          <Tooltip side="bottom" text={<ul className="list-disc pl-[16px]">{legenda.map((l, i) => <li key={i}>{l}</li>)}</ul>}>
+            <button type="button" aria-label="Arti warna pada detail" className="text-sd-gray-70 hover:text-sd-gray-90"><Info className="size-[20px]" /></button>
+          </Tooltip>
+          <p className="ml-auto text-sd-gray-90" style={{ fontSize: '14px', lineHeight: '20px' }}>Diajukan pada: <b style={{ fontWeight: 600 }}>{u.diajukan}</b></p>
+        </header>
+        <dl className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-[24px] gap-y-[16px] p-[16px]">
+          {baris.map((r) => {
+            const kosong = !r.baru || r.baru === '-';
+            const sorot = r.berubah && !kosong || r.lama !== undefined;
+            return (
+              <div key={r.label} className="min-w-0">
+                <dt className="text-sd-gray-60" style={{ fontSize: '14px', lineHeight: '20px' }}>{r.label}</dt>
+                <dd className="break-words" style={{ fontSize: '16px', lineHeight: '24px' }}>
+                  {r.lama !== undefined && <span className="block"><span style={{ background: t.lamaBg, color: 'var(--sd-gray-60)' }}>{r.lama || '-'}</span></span>}
+                  <span style={{ fontWeight: 600, color: sorot ? t.baru : 'var(--sd-gray-90)' }}>{r.baru || '-'}</span>
+                </dd>
+              </div>
+            );
+          })}
+        </dl>
+      </section>
+    </div>
+  );
+}
+
 /* ---------- Modal detail ---------- */
 type Mode = 'verifikasi' | 'putusan' | 'lihat';
 
 
 function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: Mode; onClose: () => void }) {
   const [catatan, setCatatan] = useState('');
+  const tampilan = useTampilanModal(); // prototipe: dipilih dari kontrol prototipe di atas header
+  const staging = tampilan === 'staging';
   const [sinkron, setSinkron] = useState(false); // langkah 2 Komite: konfirmasi sinkronisasi SIASN
   const steps = buildSteps(u, perluSyncSiasn(u)); // Komite memakai Opsi 2: progres SIASN tampil (READ saja) hanya untuk data yang perlu sync SIASN
   const tolakButuhCatatan = (fn: () => void) => () => {
-    if (!catatan.trim()) return toast.error('Isi catatan penolakan terlebih dahulu.');
+    if (!staging && !catatan.trim()) return toast.error('Isi catatan penolakan terlebih dahulu.');
     fn();
   };
   const close = (msg: string) => { toast.success(msg); onClose(); };
@@ -425,29 +615,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   if (sinkron) {
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Komite Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
   }
-  return (
-    <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
-      <div role="dialog" aria-label="Detail Usulan Perubahan" onClick={(e) => e.stopPropagation()} className="bg-white rounded-[8px] w-full max-w-[1040px] h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06">
-        <div className="flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header">
-          <h2 className="text-sd-gray-90" style={HEADING}>Detail Usulan Perubahan</h2>
-          <button onClick={onClose} aria-label="Tutup" className="shrink-0 text-sd-gray-60 hover:text-sd-gray-90"><X className="size-[20px]" /></button>
-        </div>
-
-        <div className="flex-1 min-h-0 overflow-y-auto">
-          <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
-          {/* Kolom utama (kanan di layar lebar): apa yang berubah, bukti, dan keputusan */}
-          <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[24px]">
-            <div className="flex items-center gap-[12px]">
-              <h3 className="flex-1 min-w-0 text-sd-gray-90" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
-              <StatusBadge status={u.status} short />
-            </div>
-
-            <PerubahanPanel u={u} />
-
-            {u.asal === 'Admin Satker' && (
-              <p className="text-sd-gray-60 -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi.</p>
-            )}
-
+  const extra = (
+    <>
             {u.dokumen.length > 0 && (
               <section className="flex flex-col gap-[8px]">
                 <h4 className="text-sd-gray-90" style={HEADING}>Dokumen Pendukung</h4>
@@ -471,14 +640,49 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
                 <TextArea aria-label="Catatan" value={catatan} onChange={(e) => setCatatan(e.target.value)} rows={3} placeholder="Tulis alasan atau catatan untuk usulan ini" />
               </section>
             )}
+    </>
+  );
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/70 grid place-items-center p-[16px]" onClick={onClose} role="presentation">
+      <div className={`w-full ${staging ? 'max-w-[940px]' : 'max-w-[1040px]'} flex flex-col gap-[8px]`} onClick={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-label="Detail Usulan Perubahan" className={`${staging ? 'bg-sd-gray-0' : 'bg-white'} rounded-[8px] w-full h-[min(88vh,760px)] flex flex-col overflow-hidden shadow-sd-06`}>
+        <div className={staging ? 'mx-[20px] mt-[20px] flex items-center justify-between gap-[16px] pb-[16px] border-b border-sd-modal-footer-border' : 'flex items-center justify-between gap-[16px] px-[20px] py-[16px] border-b border-sd-modal-border bg-sd-modal-header'}>
+          <h2 className="text-sd-gray-90" style={staging ? { fontSize: '18px', lineHeight: '24px', fontWeight: 400 } : HEADING}>{staging ? <>Detail Usulan Perubahan: <b style={{ fontWeight: 700 }}>{u.data.replace(/^Data /, '').toUpperCase()}</b></> : 'Detail Usulan Perubahan'}</h2>
+          <button onClick={onClose} aria-label="Tutup" className="shrink-0 text-sd-gray-60 hover:text-sd-gray-90"><X className="size-[20px]" /></button>
+        </div>
+
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          {staging ? (
+          <div className="px-[20px] py-[16px] flex flex-col gap-[16px] min-h-full">
+            <StagingDetail u={u} />
+            {u.asal === 'Admin Satker' && <p className="text-sd-gray-60 -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi.</p>}
+          </div>
+          ) : (
+          <div className="min-h-full grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
+          {/* Kolom utama (kanan di layar lebar): apa yang berubah, bukti, dan keputusan */}
+          <div className="order-1 lg:order-2 bg-sd-gray-0 p-[24px] flex flex-col gap-[24px]">
+            <div className="flex items-center gap-[12px]">
+              <h3 className="flex-1 min-w-0 text-sd-gray-90" style={{ fontSize: 'var(--text-lg)', fontWeight: 600, lineHeight: '28px' }}>{headline}</h3>
+              <StatusBadge status={u.status} short />
+            </div>
+            <p className="text-sd-gray-60 -mt-[16px]" style={SMALL}>Diajukan pada {u.diajukan}</p>
+
+            <PerubahanPanel u={u} />
+
+            {u.asal === 'Admin Satker' && (
+              <p className="text-sd-gray-60 -mt-[8px]" style={SMALL}>Usulan Admin Satker dianggap sudah diverifikasi.</p>
+            )}
+
+            {extra}
           </div>
 
           {/* Kolom samping (kiri di layar lebar): konteks pegawai, status, dan alur */}
           <UsulanSidebar u={u} steps={steps} canRetry={canRetry} />
           </div>
+          )}
         </div>
 
-        <div className="flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white">
+        <div className={staging ? 'mx-[20px] mb-[16px] flex items-center justify-between gap-[12px] pt-[16px] border-t border-sd-modal-footer-border' : 'flex items-center justify-between gap-[12px] px-[20px] py-[16px] border-t border-sd-modal-footer-border bg-white'}>
           <button onClick={onClose} className={buttonClass('secondary', 'lg')}>{mode === 'lihat' ? 'Tutup' : 'Batal'}</button>
           <div className="flex gap-[8px]">
             {canRetry && (
@@ -492,18 +696,19 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
             {mode === 'verifikasi' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
-                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiAdmin())} className={buttonClass('ultimate', 'lg')}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
+                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiAdmin())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass('destructive-secondary', 'lg')}>Tolak</button>
-                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
+                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
