@@ -8,7 +8,7 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { fieldClass, Tabs, Badge, Banner, Button, DescriptionList, Panel, Select as SdSelect, TextField, TextArea, Tooltip, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
-  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite, perluSyncSiasn,
+  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite, perluSyncSiasn, adminPerluVerval, adminPerluKomparasi, komitePerluKomparasi,
   UNIT_SHORT, STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
 } from '@/app/data/usulanPerubahan';
 
@@ -29,7 +29,7 @@ function ProtoBar() {
       <span className="text-sd-gray-60">Bukan bagian produk</span>
       <label className="inline-flex items-center gap-[8px]">Tampilan
         <select value={tampilan} onChange={(e) => setTampilanModal(e.target.value as TampilanModal)} aria-label="Tampilan prototipe" className="max-w-full rounded-[4px] border border-sd-gray-50 bg-white px-[8px] py-[4px] outline-none transition-shadow focus:border-sd-blue-50 focus:shadow-[0_0_0_2px_var(--sd-interactive-focused)]" style={{ fontSize: '12px' }}>
-          <option value="staging">Opsi 1: Tampilan staging</option>
+          <option value="staging">Opsi 1 : Kondisi Pengembangan Q4</option>
           <option value="iterasi">Opsi 2: Tampilan iterasi berikutnya</option>
         </select>
       </label>
@@ -607,7 +607,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
   const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Komite maupun sinkronisasi SIASN.'); };
-  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close('Usulan disetujui Komite Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
+  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close(perluSyncSiasn(u) ? 'Usulan disetujui Komite Talenta. Data disinkronkan ke SIASN dan Portal telah diperbarui.' : 'Usulan disetujui Komite Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
   if (sinkron && role === 'admin') {
     // Placeholder SIASN untuk Admin Satker: tampil bila jenis data perlu sinkronisasi SIASN
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={setujuiAdmin} labelKonfirmasi="Konfirmasi & Setujui" />;
@@ -697,13 +697,13 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {mode === 'verifikasi' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { verifikasiAdmin(u.id, false, catatan); close('Usulan ditolak Admin Satker.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
-                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiAdmin())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
+                <button onClick={() => (adminPerluKomparasi(u) ? setSinkron(true) : setujuiAdmin())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
             {mode === 'putusan' && (
               <>
                 <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
-                <button onClick={() => (perluSyncSiasn(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
+                <button onClick={() => (komitePerluKomparasi(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
           </div>
@@ -740,7 +740,15 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
 }
 
 function VerifikasiPage({ role }: { role: Role }) {
-  const all = useUsulan();
+  const mentah = useUsulan();
+  const staging = useTampilanModal() === 'staging';
+  // Opsi 1 mengikuti tabel aturan: usulan yang tidak perlu verval Admin Satker langsung ke Komite (bila perlu) atau langsung memperbarui data.
+  const all = useMemo(() => mentah.map((u): Usulan => {
+    if (!staging) return u;
+    if (u.status === 'menunggu-diverifikasi' && !adminPerluVerval(u)) return { ...u, status: perluKomite(u) ? 'menunggu-komite' : 'berhasil-diperbarui' };
+    if (u.status === 'menunggu-komite' && !perluKomite(u)) return { ...u, status: 'berhasil-diperbarui' };
+    return u;
+  }), [mentah, staging]);
   const [tab, setTab] = useState(0);
   const [f, setF] = useState<Filters>(emptyFilters);
   const [sel, setSel] = useState<Usulan | null>(null);
@@ -751,7 +759,7 @@ function VerifikasiPage({ role }: { role: Role }) {
   const reviewed = useMemo(() => {
     const base = all.filter((u) => u.status !== pendingStatus);
     return role === 'admin' ? base : base.filter((u) => perluKomite(u) && !['menunggu-diverifikasi', 'ditolak-admin'].includes(u.status));
-  }, [all, pendingStatus, role]);
+  }, [all, pendingStatus, role, staging]);
 
   const list = applyFilters(tab === 0 ? pending : reviewed, f);
   const { cols, toRow } = useCols(tab === 1, (u) => setSel(u));

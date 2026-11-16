@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { getTampilanModal } from './prototipeTampilan';
 
 export type StatusUsulan =
   | 'menunggu-diverifikasi'
@@ -86,7 +87,7 @@ export const FIELD_DATA_PRIBADI: Record<string, string[]> = {
 export const PERLU_KOMITE = ['Jabatan', 'Sertifikasi'];
 export const butuhKomite = (data: string, field?: string) =>
   PERLU_KOMITE.includes(data) || (data === 'Data Pribadi' && field === 'Jabatan');
-export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
+const perluKomiteIterasi = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
   u.jenis === 'Ubah' ? u.detail.some(([f]) => butuhKomite(u.data, f)) || (u.detail.length === 0 && butuhKomite(u.data)) : butuhKomite(u.data);
 
 /**
@@ -100,6 +101,25 @@ export const DATA_SYNC_SIASN = [
   'Pelatihan SIASN', 'Pelatihan Struktural', 'Pendidikan', 'Penghargaan', 'Penugasan', 'Sertifikasi',
 ];
 export const perluSyncSiasn = (u: Pick<Usulan, 'data'>) => DATA_SYNC_SIASN.includes(u.data);
+
+/**
+ * Aturan Opsi 1 (tampilan staging), sumber: tabel "Jenis Data x Perlu Sync SIASN / verval / komparasi".
+ * - Admin Satker perlu verval dan perlu komparasi SIASN: sama dengan Perlu Sync SIASN (Data Pribadi dan Pelatihan Teknis: Tidak).
+ * - Komite perlu verval: Ya untuk riwayat (hukuman disiplin, jabatan, kepangkatan, pelatihan SIASN, pelatihan struktural,
+ *   pendidikan, penghargaan, penugasan, sertifikasi) dan Pelatihan Teknis; Tidak untuk keluarga, KGB, dan Data Pribadi.
+ * - Komite perlu komparasi SIASN: Tidak untuk semua jenis data (komparasi dilakukan Admin Satker).
+ */
+export const KOMITE_VERVAL_STAGING = [
+  'Hukuman Disiplin', 'Jabatan', 'Kepangkatan', 'Pelatihan SIASN', 'Pelatihan Struktural', 'Pendidikan', 'Penghargaan', 'Penugasan', 'Sertifikasi', 'Pelatihan Teknis',
+];
+const staging = () => getTampilanModal() === 'staging';
+type Kunci = Pick<Usulan, 'data'>;
+/** Opsi 2 (iterasi): Admin Satker selalu memverifikasi dan Komite ikut komparasi SIASN. */
+export const adminPerluVerval = (u: Kunci) => !staging() || perluSyncSiasn(u);
+export const adminPerluKomparasi = (u: Kunci) => perluSyncSiasn(u);
+export const komitePerluKomparasi = (u: Kunci) => !staging() && perluSyncSiasn(u);
+export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
+  staging() ? KOMITE_VERVAL_STAGING.includes(u.data) : perluKomiteIterasi(u);
 
 export const UNIT_SHORT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta';
 export const UNIT_FULL = `${UNIT_SHORT} - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah`;
@@ -300,6 +320,11 @@ export function putusKomite(id: number, setuju: boolean, catatan?: string) {
   if (!u) return;
   const log = logTambah(u, 'komite', 'Komite Talenta', catatan);
   if (!setuju) return patch(id, { status: 'ditolak-komite', catatan, log });
+  // Opsi 1: komparasi SIASN sudah dilakukan Admin Satker, jadi persetujuan Komite langsung menyinkronkan dan memperbarui Portal
+  if (staging() && perluSyncSiasn(u)) {
+    const sekarang = formatWaktu(new Date());
+    return patch(id, { status: 'berhasil-diperbarui', catatan, log: { ...log, siasn: { oleh: 'Sistem', waktu: sekarang }, portal: { oleh: 'Sistem', waktu: sekarang } } });
+  }
   // Data yang tidak perlu sync SIASN langsung memperbarui Portal
   if (!perluSyncSiasn(u)) return patch(id, { status: 'berhasil-diperbarui', catatan, log: { ...log, portal: { oleh: 'Sistem', waktu: formatWaktu(new Date()) } } });
   patch(id, { status: 'disetujui-komite', catatan, log });

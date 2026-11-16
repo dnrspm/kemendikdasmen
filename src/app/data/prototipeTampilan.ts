@@ -14,6 +14,8 @@ export function setTampilanModal(v: TampilanModal) {
   listeners.forEach((l) => l());
 }
 
+export const getTampilanModal = (): TampilanModal => current;
+
 export function useTampilanModal(): TampilanModal {
   return useSyncExternalStore((cb) => { listeners.add(cb); return () => { listeners.delete(cb); }; }, () => current, () => 'staging');
 }
