@@ -156,7 +156,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
 
   const kirim = () => {
     ajukanUsulan({ ...profilByNip(nipParam), data: kategori, jenis, detail, lama: jenis === 'Ubah' ? lama : undefined });
-    toast.success(komite ? 'Pengajuan dikirim dan menunggu peninjauan Komite Talenta.' : 'Pengajuan dikirim. Data pokok tidak memerlukan validasi Komite.');
+    toast.success(komite ? 'Pengajuan dikirim dan menunggu peninjauan Admin Talenta.' : 'Pengajuan dikirim. Data pokok tidak memerlukan validasi Komite.');
     onDone({ field, nilai, komite });
   };
 
@@ -228,7 +228,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
       )}
 
       <p className="text-sd-gray-60" style={LABEL}>
-        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Komite Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
+        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Admin Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
       </p>
     </Modal>
   );
@@ -377,7 +377,7 @@ export function UbahPegawaiPage() {
         <Button variant="quiet" size="sm" leadingIcon={<ArrowLeft className="size-[16px]" />} onClick={() => navigate(tipe === 'nonaktif' ? '/kepegawaian/data-nonaktif' : '/kepegawaian/data-pegawai-aktif')}>Kembali</Button>
         <div className="flex flex-col gap-[8px]">
           <h1 className="text-sd-gray-90" style={{ fontSize: '24px', fontWeight: 600, lineHeight: '28px' }}>Edit Data Pegawai {tipe === 'nonaktif' ? 'Non Aktif' : 'Aktif'}</h1>
-          <p className="text-sd-gray-90" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Komite Talenta sebelum disinkronkan ke SIASN.</p>
+          <p className="text-sd-gray-90" style={LABEL}>Setiap pengajuan hanya mengubah satu field. Data jabatan dan sertifikasi memerlukan persetujuan Admin Talenta sebelum disinkronkan ke SIASN.</p>
         </div>
 
         <div className="flex items-center gap-[20px] bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] p-[20px]">

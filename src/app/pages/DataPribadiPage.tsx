@@ -797,7 +797,7 @@ export function DataPribadiPage({ onBack: _onBack }: { onBack?: () => void }) {
         {showNotice && (
           <Banner tone="info" title="Perhatian" onClose={() => setShowNotice(false)}>
             <p>Silakan ajukan perubahan data jika ada kesalahan atau ada perubahan data diri Anda.</p>
-            <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh Admin Satker/UPT Anda. Untuk data tertentu, usulan akan ditinjau lebih lanjut oleh Komite Talenta.</p>
+            <p>Permintaan perubahan yang Anda lakukan akan diverifikasi oleh Admin Satker/UPT Anda. Untuk data tertentu, usulan akan ditinjau lebih lanjut oleh Admin Talenta.</p>
           </Banner>
         )}
 

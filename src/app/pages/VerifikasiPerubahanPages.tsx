@@ -46,7 +46,7 @@ function PageShell({ title, subtitle, role, children }: { title: string; subtitl
           <p className="text-sd-gray-90" style={{ fontSize: '13px', lineHeight: '20px' }}>{subtitle}</p>
         </div>
         <Banner tone="info">
-          Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Komite Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
+          Anda bertindak sebagai <b style={{ fontWeight: 600 }}>{role === 'admin' ? 'Admin Satker' : 'Admin Talenta'}</b>. {role === 'admin' ? 'Verifikasi dan validasi pengajuan data pegawai pada unit kerja Anda.' : 'Tinjau data pengajuan, lalu berikan persetujuan atau penolakan.'}
         </Banner>
         <div className="bg-white shadow-[0_1px_1px_0_rgba(0,0,0,0.08),0_2px_1px_-1px_rgba(0,0,0,0.02),0_1px_3px_0_rgba(0,0,0,0.10)] rounded-[8px] overflow-hidden">{children}</div>
       </div>
@@ -210,13 +210,13 @@ function buildSteps(u: Usulan, showSiasn: boolean): Step[] {
   if (s === 'ditolak-admin') return steps;
   if (perluKomite(u)) {
     steps.push({
-      label: s === 'ditolak-komite' ? 'Pengusulan Ditolak Komite Talenta' : 'Persetujuan Komite Talenta',
+      label: s === 'ditolak-komite' ? 'Pengusulan Ditolak Admin Talenta' : 'Persetujuan Admin Talenta',
       info: info('komite'),
       state: s === 'menunggu-diverifikasi' ? 'todo' : s === 'menunggu-komite' ? 'current' : s === 'ditolak-komite' ? 'failed' : 'done',
     });
     if (s === 'ditolak-komite') return steps;
   } else {
-    steps.push({ label: 'Persetujuan Komite Talenta (tidak diperlukan)', state: 'skipped' });
+    steps.push({ label: 'Persetujuan Admin Talenta (tidak diperlukan)', state: 'skipped' });
   }
   if (showSiasn) {
     const sync = s === 'disetujui-komite' ? 'current' : s === 'gagal-siasn' ? 'failed' : ['berhasil-siasn', 'berhasil-diperbarui'].includes(s) ? 'done' : 'todo';
@@ -364,7 +364,7 @@ function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRe
     <div className="flex flex-col gap-[16px] border-t border-sd-gray-30 pt-[20px] mt-[4px]">
       <h4 className="text-sd-gray-80" style={TH_STYLE}>Alur Pengusulan</h4>
       <Stepper steps={steps} />
-      {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-sd-red-5 px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Komite Talenta hanya dapat melihat informasi ini.'}</p>}
+      {u.status === 'gagal-siasn' && <p className="rounded-[8px] bg-sd-red-5 px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi ke SIASN gagal. {canRetry ? 'Anda dapat mencoba lagi.' : 'Admin Talenta hanya dapat melihat informasi ini.'}</p>}
       {u.status === 'berhasil-siasn' && <p className="rounded-[8px] bg-sd-warning-surface px-[12px] py-[8px] text-sd-gray-90" style={SMALL}>Sinkronisasi SIASN berhasil, namun penyimpanan pada Portal belum berhasil.</p>}
     </div>
     </div>
@@ -606,14 +606,14 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
-  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Komite Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Komite maupun sinkronisasi SIASN.'); };
-  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close(perluSyncSiasn(u) ? 'Usulan disetujui Komite Talenta. Data disinkronkan ke SIASN dan Portal telah diperbarui.' : 'Usulan disetujui Komite Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
+  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Admin Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Komite maupun sinkronisasi SIASN.'); };
+  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close(perluSyncSiasn(u) ? 'Usulan disetujui Admin Talenta. Data disinkronkan ke SIASN dan Portal telah diperbarui.' : 'Usulan disetujui Admin Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
   if (sinkron && role === 'admin') {
     // Placeholder SIASN untuk Admin Satker: tampil bila jenis data perlu sinkronisasi SIASN
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={setujuiAdmin} labelKonfirmasi="Konfirmasi & Setujui" />;
   }
   if (sinkron) {
-    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Komite Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
+    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Admin Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
   }
   const extra = (
     <>
@@ -702,7 +702,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Komite Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
+                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Admin Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
                 <button onClick={() => (komitePerluKomparasi(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
@@ -788,7 +788,7 @@ function VerifikasiPage({ role }: { role: Role }) {
       <StagingDataTable hideFilter dense noTopRule columns={cols} rows={list.map(toRow)} />
       {tab === 1 && role === 'komite' && (
         <p className="px-[16px] pb-[16px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
-          Penyajian riwayat Komite Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
+          Penyajian riwayat Admin Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
         </p>
       )}
       {sel && <DetailModal key={sel.id + sel.status} u={all.find((x) => x.id === sel.id) ?? sel} role={role} mode={mode} onClose={() => setSel(null)} />}

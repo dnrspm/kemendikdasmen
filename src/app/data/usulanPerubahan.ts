@@ -42,10 +42,10 @@ export type Usulan = {
 
 export const STATUS_LABEL: Record<StatusUsulan, string> = {
   'menunggu-diverifikasi': 'Menunggu Verifikasi Data',
-  'menunggu-komite': 'Pengusulan Ditinjau Komite Talenta',
+  'menunggu-komite': 'Pengusulan Ditinjau Admin Talenta',
   'ditolak-admin': 'Pengusulan Ditolak Admin Satker',
-  'disetujui-komite': 'Pengusulan Disetujui Komite Talenta',
-  'ditolak-komite': 'Pengusulan Ditolak Komite Talenta',
+  'disetujui-komite': 'Pengusulan Disetujui Admin Talenta',
+  'ditolak-komite': 'Pengusulan Ditolak Admin Talenta',
   'berhasil-siasn': 'Berhasil Sinkronisasi ke SIASN',
   'gagal-siasn': 'Gagal Sinkronisasi ke SIASN',
   'berhasil-diperbarui': 'Berhasil Memperbarui Data',
@@ -83,7 +83,7 @@ export const FIELD_DATA_PRIBADI: Record<string, string[]> = {
   'Data Lainnya': ['Nomor Surat Keterangan Dokter', 'Tanggal Surat Keterangan Dokter', 'Nomor Surat Bebas Narkoba', 'Tanggal Surat Bebas Narkoba', 'Nomor Catatan Kepolisian', 'Tanggal Catatan Kepolisian', 'Nomor Akte Kelahiran', 'Nomor BPJS', 'NPWP', 'Tanggal NPWP', 'Nomor TASPEN'],
 };
 
-/** Jenis data yang memerlukan validasi Komite Talenta (data pokok pegawai tidak). */
+/** Jenis data yang memerlukan validasi Admin Talenta (data pokok pegawai tidak). */
 export const PERLU_KOMITE = ['Jabatan', 'Sertifikasi'];
 export const butuhKomite = (data: string, field?: string) =>
   PERLU_KOMITE.includes(data) || (data === 'Data Pribadi' && field === 'Jabatan');
@@ -235,7 +235,7 @@ function buatLog(u: Pick<Usulan, 'nama' | 'asal' | 'status' | 'data' | 'jenis' |
   }
   if (st === 'ditolak-admin') return log;
   const lewatKomite = ['disetujui-komite', 'ditolak-komite', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st);
-  if (perluKomite(u) && lewatKomite) log.komite = { oleh: 'Komite Talenta', waktu: formatWaktu(tambahMenit(t0, 1500)), catatan: st === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined };
+  if (perluKomite(u) && lewatKomite) log.komite = { oleh: 'Admin Talenta', waktu: formatWaktu(tambahMenit(t0, 1500)), catatan: st === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined };
   if (perluSyncSiasn(u) && ['berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st)) log.siasn = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1505)) };
   if (st === 'berhasil-diperbarui') log.portal = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1506)) };
   return log;
@@ -318,7 +318,7 @@ export function verifikasiAdmin(id: number, setuju: boolean, catatan?: string) {
 export function putusKomite(id: number, setuju: boolean, catatan?: string) {
   const u = state.find((x) => x.id === id);
   if (!u) return;
-  const log = logTambah(u, 'komite', 'Komite Talenta', catatan);
+  const log = logTambah(u, 'komite', 'Admin Talenta', catatan);
   if (!setuju) return patch(id, { status: 'ditolak-komite', catatan, log });
   // Opsi 1: komparasi SIASN sudah dilakukan Admin Satker, jadi persetujuan Komite langsung menyinkronkan dan memperbarui Portal
   if (staging() && perluSyncSiasn(u)) {
