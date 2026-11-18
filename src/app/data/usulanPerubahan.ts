@@ -3,10 +3,10 @@ import { getTampilanModal } from './prototipeTampilan';
 
 export type StatusUsulan =
   | 'menunggu-diverifikasi'
-  | 'menunggu-komite'
+  | 'menunggu-talenta'
   | 'ditolak-admin'
-  | 'disetujui-komite'
-  | 'ditolak-komite'
+  | 'disetujui-talenta'
+  | 'ditolak-talenta'
   | 'berhasil-siasn'
   | 'gagal-siasn'
   | 'berhasil-diperbarui';
@@ -14,7 +14,7 @@ export type StatusUsulan =
 export type Asal = 'Pegawai' | 'Admin Satker';
 export type Jenis = 'Tambah' | 'Ubah' | 'Hapus';
 
-export type LogKey = 'ajukan' | 'admin' | 'komite' | 'siasn' | 'portal';
+export type LogKey = 'ajukan' | 'admin' | 'talenta' | 'siasn' | 'portal';
 export type LogItem = { oleh: string; waktu: string; catatan?: string };
 
 export type Usulan = {
@@ -42,10 +42,10 @@ export type Usulan = {
 
 export const STATUS_LABEL: Record<StatusUsulan, string> = {
   'menunggu-diverifikasi': 'Menunggu Verifikasi Data',
-  'menunggu-komite': 'Pengusulan Ditinjau Admin Talenta',
+  'menunggu-talenta': 'Pengusulan Ditinjau Admin Talenta',
   'ditolak-admin': 'Pengusulan Ditolak Admin Satker',
-  'disetujui-komite': 'Pengusulan Disetujui Admin Talenta',
-  'ditolak-komite': 'Pengusulan Ditolak Admin Talenta',
+  'disetujui-talenta': 'Pengusulan Disetujui Admin Talenta',
+  'ditolak-talenta': 'Pengusulan Ditolak Admin Talenta',
   'berhasil-siasn': 'Berhasil Sinkronisasi ke SIASN',
   'gagal-siasn': 'Gagal Sinkronisasi ke SIASN',
   'berhasil-diperbarui': 'Berhasil Memperbarui Data',
@@ -55,10 +55,10 @@ export const STATUS_SHORT = STATUS_LABEL;
 
 export const STATUS_TONE: Record<StatusUsulan, 'green' | 'red' | 'amber' | 'blue'> = {
   'menunggu-diverifikasi': 'amber',
-  'menunggu-komite': 'amber',
+  'menunggu-talenta': 'amber',
   'ditolak-admin': 'red',
-  'disetujui-komite': 'blue',
-  'ditolak-komite': 'red',
+  'disetujui-talenta': 'blue',
+  'ditolak-talenta': 'red',
   'berhasil-siasn': 'blue',
   'gagal-siasn': 'red',
   'berhasil-diperbarui': 'green',
@@ -84,11 +84,11 @@ export const FIELD_DATA_PRIBADI: Record<string, string[]> = {
 };
 
 /** Jenis data yang memerlukan validasi Admin Talenta (data pokok pegawai tidak). */
-export const PERLU_KOMITE = ['Jabatan', 'Sertifikasi'];
-export const butuhKomite = (data: string, field?: string) =>
-  PERLU_KOMITE.includes(data) || (data === 'Data Pribadi' && field === 'Jabatan');
-const perluKomiteIterasi = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
-  u.jenis === 'Ubah' ? u.detail.some(([f]) => butuhKomite(u.data, f)) || (u.detail.length === 0 && butuhKomite(u.data)) : butuhKomite(u.data);
+export const PERLU_TALENTA = ['Jabatan', 'Sertifikasi'];
+export const butuhTalenta = (data: string, field?: string) =>
+  PERLU_TALENTA.includes(data) || (data === 'Data Pribadi' && field === 'Jabatan');
+const perluTalentaIterasi = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
+  u.jenis === 'Ubah' ? u.detail.some(([f]) => butuhTalenta(u.data, f)) || (u.detail.length === 0 && butuhTalenta(u.data)) : butuhTalenta(u.data);
 
 /**
  * Kategori data yang perlu sinkronisasi SIASN (sumber: tabel "Perlu Sync SIASN?").
@@ -105,21 +105,21 @@ export const perluSyncSiasn = (u: Pick<Usulan, 'data'>) => DATA_SYNC_SIASN.inclu
 /**
  * Aturan Opsi 1 (tampilan staging), sumber: tabel "Jenis Data x Perlu Sync SIASN / verval / komparasi".
  * - Admin Satker perlu verval dan perlu komparasi SIASN: sama dengan Perlu Sync SIASN (Data Pribadi dan Pelatihan Teknis: Tidak).
- * - Komite perlu verval: Ya untuk riwayat (hukuman disiplin, jabatan, kepangkatan, pelatihan SIASN, pelatihan struktural,
+ * - Admin Talenta perlu verval: Ya untuk riwayat (hukuman disiplin, jabatan, kepangkatan, pelatihan SIASN, pelatihan struktural,
  *   pendidikan, penghargaan, penugasan, sertifikasi) dan Pelatihan Teknis; Tidak untuk keluarga, KGB, dan Data Pribadi.
- * - Komite perlu komparasi SIASN: Tidak untuk semua jenis data (komparasi dilakukan Admin Satker).
+ * - Admin Talenta perlu komparasi SIASN: Tidak untuk semua jenis data (komparasi dilakukan Admin Satker).
  */
-export const KOMITE_VERVAL_STAGING = [
+export const TALENTA_VERVAL_STAGING = [
   'Hukuman Disiplin', 'Jabatan', 'Kepangkatan', 'Pelatihan SIASN', 'Pelatihan Struktural', 'Pendidikan', 'Penghargaan', 'Penugasan', 'Sertifikasi', 'Pelatihan Teknis',
 ];
 const staging = () => getTampilanModal() === 'staging';
 type Kunci = Pick<Usulan, 'data'>;
-/** Opsi 2 (iterasi): Admin Satker selalu memverifikasi dan Komite ikut komparasi SIASN. */
+/** Opsi 2 (iterasi): Admin Satker selalu memverifikasi dan Admin Talenta ikut komparasi SIASN. */
 export const adminPerluVerval = (u: Kunci) => !staging() || perluSyncSiasn(u);
 export const adminPerluKomparasi = (u: Kunci) => perluSyncSiasn(u);
-export const komitePerluKomparasi = (u: Kunci) => !staging() && perluSyncSiasn(u);
-export const perluKomite = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
-  staging() ? KOMITE_VERVAL_STAGING.includes(u.data) : perluKomiteIterasi(u);
+export const talentaPerluKomparasi = (u: Kunci) => !staging() && perluSyncSiasn(u);
+export const perluTalenta = (u: Pick<Usulan, 'data' | 'jenis' | 'detail'>) =>
+  staging() ? TALENTA_VERVAL_STAGING.includes(u.data) : perluTalentaIterasi(u);
 
 export const UNIT_SHORT = 'Balai Penjaminan Mutu Pendidikan Provinsi D.K.I. Jakarta';
 export const UNIT_FULL = `${UNIT_SHORT} - Direktorat Jenderal Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah - Kementerian Pendidikan Dasar dan Menengah`;
@@ -234,8 +234,8 @@ function buatLog(u: Pick<Usulan, 'nama' | 'asal' | 'status' | 'data' | 'jenis' |
     log.admin = { oleh: 'Otomatis (diajukan Admin Satker)', waktu: formatWaktu(t0) };
   }
   if (st === 'ditolak-admin') return log;
-  const lewatKomite = ['disetujui-komite', 'ditolak-komite', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st);
-  if (perluKomite(u) && lewatKomite) log.komite = { oleh: 'Admin Talenta', waktu: formatWaktu(tambahMenit(t0, 1500)), catatan: st === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined };
+  const lewatTalenta = ['disetujui-talenta', 'ditolak-talenta', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st);
+  if (perluTalenta(u) && lewatTalenta) log.talenta = { oleh: 'Admin Talenta', waktu: formatWaktu(tambahMenit(t0, 1500)), catatan: st === 'ditolak-talenta' ? 'Data belum memenuhi syarat' : undefined };
   if (perluSyncSiasn(u) && ['berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'].includes(st)) log.siasn = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1505)) };
   if (st === 'berhasil-diperbarui') log.portal = { oleh: 'Sistem', waktu: formatWaktu(tambahMenit(t0, 1506)) };
   return log;
@@ -253,7 +253,7 @@ const mk = (id: number, nama: string, nip: string, data: string, jenis: Jenis, a
     data, jenis, asal, status, detail, diajukan: formatWaktu(t0),
     dokumen: dokumenFor(data, jenis, jenis === 'Ubah' ? detail[0][0] : undefined),
     log: buatLog({ nama, asal, status, data, jenis, detail }, t0),
-    catatan: status === 'ditolak-admin' ? 'Dokumen tidak sesuai' : status === 'ditolak-komite' ? 'Data belum memenuhi syarat' : undefined,
+    catatan: status === 'ditolak-admin' ? 'Dokumen tidak sesuai' : status === 'ditolak-talenta' ? 'Data belum memenuhi syarat' : undefined,
   };
 };
 
@@ -262,17 +262,17 @@ const seed: Usulan[] = [
   mk(2, AHMAD, AHMAD_NIP, 'Orang Tua', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
   mk(3, AHMAD, AHMAD_NIP, 'Orang Tua', 'Hapus', 'Pegawai', 'menunggu-diverifikasi'),
   mk(4, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Anak', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
-  mk(5, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Pegawai', 'menunggu-komite', ['Jabatan', 'TMT Jabatan']),
-  mk(6, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Sertifikasi', 'Tambah', 'Admin Satker', 'menunggu-komite'),
+  mk(5, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Pegawai', 'menunggu-talenta', ['Jabatan', 'TMT Jabatan']),
+  mk(6, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Sertifikasi', 'Tambah', 'Admin Satker', 'menunggu-talenta'),
   mk(7, AHMAD, AHMAD_NIP, 'Sertifikasi', 'Tambah', 'Pegawai', 'berhasil-diperbarui'),
   mk(8, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'gagal-siasn'),
-  mk(9, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Jabatan', 'Ubah', 'Pegawai', 'ditolak-komite', 'TMT Jabatan'),
+  mk(9, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Jabatan', 'Ubah', 'Pegawai', 'ditolak-talenta', 'TMT Jabatan'),
   mk(10, AHMAD, AHMAD_NIP, 'Pasangan', 'Hapus', 'Pegawai', 'ditolak-admin'),
   mk(11, AHMAD, AHMAD_NIP, 'Sertifikasi', 'Ubah', 'Pegawai', 'berhasil-siasn', 'Berlaku Sampai'),
-  mk(12, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Admin Satker', 'disetujui-komite', 'Nomor SK'),
+  mk(12, AHMAD, AHMAD_NIP, 'Jabatan', 'Ubah', 'Admin Satker', 'disetujui-talenta', 'Nomor SK'),
   mk(13, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', ['Alamat', 'Nomor HP']),
   mk(14, 'Prof. Dr. Dummy Pegawai 1 S.Kom, MM, PhD', 'GEN000000000000001', 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', 'Nomor HP'),
-  mk(15, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'menunggu-komite'),
+  mk(15, AHMAD, AHMAD_NIP, 'Jabatan', 'Tambah', 'Admin Satker', 'menunggu-talenta'),
   mk(16, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'berhasil-diperbarui', 'Email Lain'),
   mk(17, AHMAD, AHMAD_NIP, 'Pendidikan', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
   // Kategori lain mengikuti tabel "Perlu Sync SIASN?" (Ya: 18-24, Tidak: 25-26)
@@ -284,10 +284,10 @@ const seed: Usulan[] = [
   mk(23, AHMAD, AHMAD_NIP, 'Pelatihan Struktural', 'Tambah', 'Pegawai', 'berhasil-diperbarui'),
   mk(24, AHMAD, AHMAD_NIP, 'Kepangkatan', 'Ubah', 'Pegawai', 'menunggu-diverifikasi', ['Golongan Ruang', 'TMT Pangkat']),
   mk(25, AHMAD, AHMAD_NIP, 'Pelatihan Teknis', 'Tambah', 'Pegawai', 'menunggu-diverifikasi'),
-  mk(26, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-komite', 'Jabatan'),
+  mk(26, AHMAD, AHMAD_NIP, 'Data Pribadi', 'Ubah', 'Pegawai', 'menunggu-talenta', 'Jabatan'),
 ];
 
-// --- store sederhana (state bersama antar halaman Admin Satker dan Komite) ---
+// --- store sederhana (state bersama antar halaman Admin Satker dan Admin Talenta) ---
 let state = seed;
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
@@ -303,34 +303,34 @@ const patch = (id: number, p: Partial<Usulan>) => { state = state.map((u) => (u.
 
 const logTambah = (u: Usulan, kunci: LogKey, oleh: string, catatan?: string): Usulan['log'] => ({ ...u.log, [kunci]: { oleh, waktu: formatWaktu(new Date()), catatan } });
 
-/** Admin Satker memverifikasi usulan pegawai. Data pokok tidak perlu Komite, langsung sinkronisasi. */
+/** Admin Satker memverifikasi usulan pegawai. Data pokok tidak perlu Admin Talenta, langsung sinkronisasi. */
 export function verifikasiAdmin(id: number, setuju: boolean, catatan?: string) {
   const u = state.find((x) => x.id === id);
   if (!u) return;
   const log = logTambah(u, 'admin', 'Admin Satker', catatan);
   if (!setuju) return patch(id, { status: 'ditolak-admin', catatan, log });
-  if (perluKomite(u)) return patch(id, { status: 'menunggu-komite', catatan, log });
-  // Tanpa Komite: data yang perlu sync SIASN dicatat tersinkron, lalu Portal diperbarui
+  if (perluTalenta(u)) return patch(id, { status: 'menunggu-talenta', catatan, log });
+  // Tanpa Admin Talenta: data yang perlu sync SIASN dicatat tersinkron, lalu Portal diperbarui
   const akhir = perluSyncSiasn(u) ? { ...log, siasn: { oleh: 'Sistem', waktu: formatWaktu(new Date()) }, portal: { oleh: 'Sistem', waktu: formatWaktu(new Date()) } } : { ...log, portal: { oleh: 'Sistem', waktu: formatWaktu(new Date()) } };
   patch(id, { status: 'berhasil-diperbarui', catatan, log: akhir });
 }
 
-export function putusKomite(id: number, setuju: boolean, catatan?: string) {
+export function putusTalenta(id: number, setuju: boolean, catatan?: string) {
   const u = state.find((x) => x.id === id);
   if (!u) return;
-  const log = logTambah(u, 'komite', 'Admin Talenta', catatan);
-  if (!setuju) return patch(id, { status: 'ditolak-komite', catatan, log });
-  // Opsi 1: komparasi SIASN sudah dilakukan Admin Satker, jadi persetujuan Komite langsung menyinkronkan dan memperbarui Portal
+  const log = logTambah(u, 'talenta', 'Admin Talenta', catatan);
+  if (!setuju) return patch(id, { status: 'ditolak-talenta', catatan, log });
+  // Opsi 1: komparasi SIASN sudah dilakukan Admin Satker, jadi persetujuan Admin Talenta langsung menyinkronkan dan memperbarui Portal
   if (staging() && perluSyncSiasn(u)) {
     const sekarang = formatWaktu(new Date());
     return patch(id, { status: 'berhasil-diperbarui', catatan, log: { ...log, siasn: { oleh: 'Sistem', waktu: sekarang }, portal: { oleh: 'Sistem', waktu: sekarang } } });
   }
   // Data yang tidak perlu sync SIASN langsung memperbarui Portal
   if (!perluSyncSiasn(u)) return patch(id, { status: 'berhasil-diperbarui', catatan, log: { ...log, portal: { oleh: 'Sistem', waktu: formatWaktu(new Date()) } } });
-  patch(id, { status: 'disetujui-komite', catatan, log });
+  patch(id, { status: 'disetujui-talenta', catatan, log });
 }
 
-/** Simulasi sinkronisasi SIASN setelah disetujui Komite (Admin Satker dapat coba lagi bila gagal). */
+/** Simulasi sinkronisasi SIASN setelah disetujui Admin Talenta (Admin Satker dapat coba lagi bila gagal). */
 export function sinkronSiasn(id: number, berhasil: boolean) {
   const u = state.find((x) => x.id === id);
   if (!u) return;
@@ -346,17 +346,17 @@ export const AHMAD_PROFIL = { nama: AHMAD, nip: AHMAD_NIP };
 
 /**
  * Pengajuan dari halaman edit pegawai oleh Admin Satker: dianggap sudah diverifikasi,
- * sehingga langsung ke Komite (jabatan/sertifikasi) atau langsung diperbarui (data pokok).
+ * sehingga langsung ke Admin Talenta (jabatan/sertifikasi) atau langsung diperbarui (data pokok).
  */
 export function ajukanUsulan(i: { nama: string; nip: string; data: string; jenis: Jenis; detail: [string, string][]; lama?: string }): Usulan {
   const base: Usulan = {
     id: Math.max(0, ...state.map((u) => u.id)) + 1, nama: i.nama, nip: i.nip, unit: UNIT_FULL,
     golongan: i.nip === AHMAD_NIP ? 'III/d' : 'III/c',
     jabatan: i.nip === AHMAD_NIP ? 'Kepala Seksi Pemetaan Mutu dan Supervisi' : 'Analis Kebijakan Ahli Muda',
-    data: i.data, jenis: i.jenis, asal: 'Admin Satker', status: 'menunggu-komite', detail: i.detail, lama: i.lama, diajukan: formatWaktu(new Date()),
+    data: i.data, jenis: i.jenis, asal: 'Admin Satker', status: 'menunggu-talenta', detail: i.detail, lama: i.lama, diajukan: formatWaktu(new Date()),
     dokumen: dokumenFor(i.data, i.jenis, i.jenis === 'Ubah' ? i.detail[0]?.[0] : undefined), log: {},
   };
-  const status = (perluKomite(base) ? 'menunggu-komite' : 'berhasil-diperbarui') as StatusUsulan;
+  const status = (perluTalenta(base) ? 'menunggu-talenta' : 'berhasil-diperbarui') as StatusUsulan;
   const now = new Date();
   const u = { ...base, status, log: buatLog({ ...base, status }, now) };
   state = [u, ...state];

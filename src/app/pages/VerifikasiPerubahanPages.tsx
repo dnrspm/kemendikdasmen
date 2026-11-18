@@ -8,11 +8,11 @@ import { KepegawaianLayout } from '@/app/components/KepegawaianLayout';
 import { fieldClass, Tabs, Badge, Banner, Button, DescriptionList, Panel, Select as SdSelect, TextField, TextArea, Tooltip, buttonClass } from 'seragam-design-system';
 import { StagingDataTable, PersonCell, Chip, type Column } from '@/app/components/StagingDataTable';
 import {
-  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusKomite, sinkronSiasn, simpanPortal, perluKomite, perluSyncSiasn, adminPerluVerval, adminPerluKomparasi, komitePerluKomparasi,
+  useUsulan, KATEGORI_DATA, FIELD_DATA_PRIBADI, detailFor, verifikasiAdmin, putusTalenta, sinkronSiasn, simpanPortal, perluTalenta, perluSyncSiasn, adminPerluVerval, adminPerluKomparasi, talentaPerluKomparasi,
   UNIT_SHORT, STATUS_LABEL, STATUS_SHORT, STATUS_TONE, type Usulan, type StatusUsulan, type Asal,
 } from '@/app/data/usulanPerubahan';
 
-type Role = 'admin' | 'komite';
+type Role = 'admin' | 'talenta';
 
 const TONE_MAP = { green: 'green', amber: 'amber', red: 'red', blue: 'blue' } as const;
 
@@ -208,18 +208,18 @@ function buildSteps(u: Usulan, showSiasn: boolean): Step[] {
     steps.push({ label: 'Verifikasi Admin Satker (otomatis)', info: info('admin'), state: 'done' });
   }
   if (s === 'ditolak-admin') return steps;
-  if (perluKomite(u)) {
+  if (perluTalenta(u)) {
     steps.push({
-      label: s === 'ditolak-komite' ? 'Pengusulan Ditolak Admin Talenta' : 'Persetujuan Admin Talenta',
-      info: info('komite'),
-      state: s === 'menunggu-diverifikasi' ? 'todo' : s === 'menunggu-komite' ? 'current' : s === 'ditolak-komite' ? 'failed' : 'done',
+      label: s === 'ditolak-talenta' ? 'Pengusulan Ditolak Admin Talenta' : 'Persetujuan Admin Talenta',
+      info: info('talenta'),
+      state: s === 'menunggu-diverifikasi' ? 'todo' : s === 'menunggu-talenta' ? 'current' : s === 'ditolak-talenta' ? 'failed' : 'done',
     });
-    if (s === 'ditolak-komite') return steps;
+    if (s === 'ditolak-talenta') return steps;
   } else {
     steps.push({ label: 'Persetujuan Admin Talenta (tidak diperlukan)', state: 'skipped' });
   }
   if (showSiasn) {
-    const sync = s === 'disetujui-komite' ? 'current' : s === 'gagal-siasn' ? 'failed' : ['berhasil-siasn', 'berhasil-diperbarui'].includes(s) ? 'done' : 'todo';
+    const sync = s === 'disetujui-talenta' ? 'current' : s === 'gagal-siasn' ? 'failed' : ['berhasil-siasn', 'berhasil-diperbarui'].includes(s) ? 'done' : 'todo';
     steps.push({ label: s === 'gagal-siasn' ? 'Gagal Sinkronisasi ke SIASN' : 'Sinkronisasi ke SIASN', info: info('siasn'), state: sync });
     steps.push({ label: 'Pembaruan Data pada Portal', info: info('portal'), state: s === 'berhasil-diperbarui' ? 'done' : s === 'berhasil-siasn' ? 'current' : 'todo' });
   }
@@ -372,7 +372,7 @@ function UsulanSidebar({ u, steps, canRetry }: { u: Usulan; steps: Step[]; canRe
   );
 }
 
-/* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Komite menyetujui) ---------- */
+/* ---------- Konfirmasi Sinkronisasi SIASN (langkah setelah Admin Talenta menyetujui) ---------- */
 /** Pola komparasi dua kolom: Data Portal (usulan) di kiri, Data SIASN di kanan. Data SIASN di sini masih contoh. */
 function SinkronModal({ u, onBack, onConfirm, labelKonfirmasi = 'Konfirmasi & Sinkronkan' }: { u: Usulan; onBack: () => void; onConfirm: () => void; labelKonfirmasi?: string }) {
   const staging = useTampilanModal() === 'staging';
@@ -595,8 +595,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const [catatan, setCatatan] = useState('');
   const tampilan = useTampilanModal(); // prototipe: dipilih dari kontrol prototipe di atas header
   const staging = tampilan === 'staging';
-  const [sinkron, setSinkron] = useState(false); // langkah 2 Komite: konfirmasi sinkronisasi SIASN
-  const steps = buildSteps(u, perluSyncSiasn(u)); // Komite memakai Opsi 2: progres SIASN tampil (READ saja) hanya untuk data yang perlu sync SIASN
+  const [sinkron, setSinkron] = useState(false); // langkah 2 Admin Talenta: konfirmasi sinkronisasi SIASN
+  const steps = buildSteps(u, perluSyncSiasn(u)); // Admin Talenta memakai Opsi 2: progres SIASN tampil (READ saja) hanya untuk data yang perlu sync SIASN
   const tolakButuhCatatan = (fn: () => void) => () => {
     if (!staging && !catatan.trim()) return toast.error('Isi catatan penolakan terlebih dahulu.');
     fn();
@@ -606,14 +606,14 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
   const field = u.detail.length === 1 ? u.detail[0][0] : u.data;
   const headline = `${u.jenis === 'Tambah' ? 'Penambahan' : u.jenis === 'Ubah' ? 'Perubahan' : 'Penghapusan'} Data ${(u.jenis === 'Ubah' ? field : u.data).replace(/^Data /, '')}`;
 
-  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluKomite(u) ? 'Usulan diteruskan ke Admin Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Komite maupun sinkronisasi SIASN.'); };
-  const setujuiKomiteTanpaSync = () => { putusKomite(u.id, true, catatan); close(perluSyncSiasn(u) ? 'Usulan disetujui Admin Talenta. Data disinkronkan ke SIASN dan Portal telah diperbarui.' : 'Usulan disetujui Admin Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
+  const setujuiAdmin = () => { verifikasiAdmin(u.id, true, catatan); close(perluTalenta(u) ? 'Usulan diteruskan ke Admin Talenta.' : perluSyncSiasn(u) ? 'Usulan disetujui dan data diperbarui.' : 'Usulan disetujui. Data tidak memerlukan validasi Admin Talenta maupun sinkronisasi SIASN.'); };
+  const setujuiTalentaTanpaSync = () => { putusTalenta(u.id, true, catatan); close(perluSyncSiasn(u) ? 'Usulan disetujui Admin Talenta. Data disinkronkan ke SIASN dan Portal telah diperbarui.' : 'Usulan disetujui Admin Talenta. Data tidak perlu sinkronisasi SIASN dan Portal telah diperbarui.'); };
   if (sinkron && role === 'admin') {
     // Placeholder SIASN untuk Admin Satker: tampil bila jenis data perlu sinkronisasi SIASN
     return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={setujuiAdmin} labelKonfirmasi="Konfirmasi & Setujui" />;
   }
   if (sinkron) {
-    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusKomite(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Admin Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
+    return <SinkronModal u={u} onBack={() => setSinkron(false)} onConfirm={() => { putusTalenta(u.id, true, catatan); sinkronSiasn(u.id, true); close('Usulan disetujui Admin Talenta dan berhasil disinkronkan ke SIASN.'); }} />;
   }
   const extra = (
     <>
@@ -688,7 +688,7 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             {canRetry && (
               <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil. Data Portal diperbarui.'); simpanPortal(u.id); }} className={buttonClass('ultimate', 'lg')}><RotateCcw className="size-[16px]" /> Coba Lagi</button>
             )}
-            {u.status === 'disetujui-komite' && role === 'admin' && (
+            {u.status === 'disetujui-talenta' && role === 'admin' && (
               <button onClick={() => { sinkronSiasn(u.id, true); close('Sinkronisasi ke SIASN berhasil.'); }} className={buttonClass('ultimate', 'lg')}>Jalankan Sinkronisasi SIASN</button>
             )}
             {u.status === 'berhasil-siasn' && role === 'admin' && (
@@ -702,8 +702,8 @@ function DetailModal({ u, role, mode, onClose }: { u: Usulan; role: Role; mode: 
             )}
             {mode === 'putusan' && (
               <>
-                <button onClick={tolakButuhCatatan(() => { putusKomite(u.id, false, catatan); close('Usulan ditolak Admin Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
-                <button onClick={() => (komitePerluKomparasi(u) ? setSinkron(true) : setujuiKomiteTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
+                <button onClick={tolakButuhCatatan(() => { putusTalenta(u.id, false, catatan); close('Usulan ditolak Admin Talenta.'); })} className={buttonClass(staging ? 'destructive' : 'destructive-secondary', 'lg')}>{staging && <X className="size-[16px]" />}Tolak</button>
+                <button onClick={() => (talentaPerluKomparasi(u) ? setSinkron(true) : setujuiTalentaTanpaSync())} className={buttonClass('ultimate', 'lg')}>{staging && <Check className="size-[16px]" />}Setujui</button>
               </>
             )}
           </div>
@@ -742,30 +742,30 @@ function useCols(withStatus: boolean, onOpen: (u: Usulan) => void) {
 function VerifikasiPage({ role }: { role: Role }) {
   const mentah = useUsulan();
   const staging = useTampilanModal() === 'staging';
-  // Opsi 1 mengikuti tabel aturan: usulan yang tidak perlu verval Admin Satker langsung ke Komite (bila perlu) atau langsung memperbarui data.
+  // Opsi 1 mengikuti tabel aturan: usulan yang tidak perlu verval Admin Satker langsung ke Admin Talenta (bila perlu) atau langsung memperbarui data.
   const all = useMemo(() => mentah.map((u): Usulan => {
     if (!staging) return u;
-    if (u.status === 'menunggu-diverifikasi' && !adminPerluVerval(u)) return { ...u, status: perluKomite(u) ? 'menunggu-komite' : 'berhasil-diperbarui' };
-    if (u.status === 'menunggu-komite' && !perluKomite(u)) return { ...u, status: 'berhasil-diperbarui' };
+    if (u.status === 'menunggu-diverifikasi' && !adminPerluVerval(u)) return { ...u, status: perluTalenta(u) ? 'menunggu-talenta' : 'berhasil-diperbarui' };
+    if (u.status === 'menunggu-talenta' && !perluTalenta(u)) return { ...u, status: 'berhasil-diperbarui' };
     return u;
   }), [mentah, staging]);
   const [tab, setTab] = useState(0);
   const [f, setF] = useState<Filters>(emptyFilters);
   const [sel, setSel] = useState<Usulan | null>(null);
 
-  const pendingStatus: StatusUsulan = role === 'admin' ? 'menunggu-diverifikasi' : 'menunggu-komite';
+  const pendingStatus: StatusUsulan = role === 'admin' ? 'menunggu-diverifikasi' : 'menunggu-talenta';
   const pending = useMemo(() => all.filter((u) => u.status === pendingStatus), [all, pendingStatus]);
-  // Komite hanya melihat usulan yang butuh validasi Komite; Admin melihat semua status pada riwayat.
+  // Admin Talenta hanya melihat usulan yang butuh validasi Admin Talenta; Admin melihat semua status pada riwayat.
   const reviewed = useMemo(() => {
     const base = all.filter((u) => u.status !== pendingStatus);
-    return role === 'admin' ? base : base.filter((u) => perluKomite(u) && !['menunggu-diverifikasi', 'ditolak-admin'].includes(u.status));
+    return role === 'admin' ? base : base.filter((u) => perluTalenta(u) && !['menunggu-diverifikasi', 'ditolak-admin'].includes(u.status));
   }, [all, pendingStatus, role, staging]);
 
   const list = applyFilters(tab === 0 ? pending : reviewed, f);
   const { cols, toRow } = useCols(tab === 1, (u) => setSel(u));
   const reviewedStatuses: StatusUsulan[] = role === 'admin'
-    ? ['menunggu-komite', 'ditolak-admin', 'disetujui-komite', 'ditolak-komite', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui']
-    : ['disetujui-komite', 'ditolak-komite', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'];
+    ? ['menunggu-talenta', 'ditolak-admin', 'disetujui-talenta', 'ditolak-talenta', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui']
+    : ['disetujui-talenta', 'ditolak-talenta', 'berhasil-siasn', 'gagal-siasn', 'berhasil-diperbarui'];
 
   const mode: Mode = tab === 1 ? 'lihat' : role === 'admin' ? 'verifikasi' : 'putusan';
 
@@ -786,9 +786,9 @@ function VerifikasiPage({ role }: { role: Role }) {
       />
       <FilterBar f={f} setF={setF} statuses={tab === 1 ? reviewedStatuses : undefined} />
       <StagingDataTable hideFilter dense noTopRule columns={cols} rows={list.map(toRow)} />
-      {tab === 1 && role === 'komite' && (
+      {tab === 1 && role === 'talenta' && (
         <p className="px-[16px] pb-[16px] text-sd-gray-60" style={{ fontSize: 'var(--text-xs)' }}>
-          Penyajian riwayat Admin Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Komite hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
+          Penyajian riwayat Admin Talenta menggunakan Opsi 2 (status mengikuti seluruh proses). Admin Talenta hanya memiliki akses baca terhadap informasi sinkronisasi SIASN, tanpa aksi Coba Lagi.
         </p>
       )}
       {sel && <DetailModal key={sel.id + sel.status} u={all.find((x) => x.id === sel.id) ?? sel} role={role} mode={mode} onClose={() => setSel(null)} />}
@@ -797,4 +797,4 @@ function VerifikasiPage({ role }: { role: Role }) {
 }
 
 export const VerifikasiPerubahanPage = () => <VerifikasiPage role="admin" />;
-export const VerifikasiDataKomitePage = () => <VerifikasiPage role="komite" />;
+export const VerifikasiDataTalentaPage = () => <VerifikasiPage role="talenta" />;

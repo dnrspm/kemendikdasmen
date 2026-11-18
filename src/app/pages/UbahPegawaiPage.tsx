@@ -9,7 +9,7 @@ import { Tabs, ChipGroup, Badge, Button, Modal as SdModal, Panel as SdPanel, Sel
 import { AksiCell } from '@/app/components/AksiCell';
 import { Field as FormField } from '@/app/components/FormParts';
 import {
-  AHMAD_PROFIL, FIELD_DATA_PRIBADI, STATUS_LABEL, ajukanUsulan, perluKomite, useUsulan, type Jenis,
+  AHMAD_PROFIL, FIELD_DATA_PRIBADI, STATUS_LABEL, ajukanUsulan, perluTalenta, useUsulan, type Jenis,
 } from '@/app/data/usulanPerubahan';
 
 const TABS = ['Data Pribadi', 'Keluarga', 'Pendidikan dan Pelatihan', 'Penilaian', 'Riwayat', 'Biometrik'];
@@ -134,7 +134,7 @@ function Panel({ title, right, children }: { title: string; right?: ReactNode; c
   );
 }
 
-function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, { tipe: 'detail' }>; pribadi: Rec; onClose: () => void; onDone: (r: { field: string; nilai: string; komite: boolean }) => void }) {
+function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, { tipe: 'detail' }>; pribadi: Rec; onClose: () => void; onDone: (r: { field: string; nilai: string; talenta: boolean }) => void }) {
   const { nip: nipParam } = useParams();
   const fields = aksi.tipe === 'ubah-baris' ? fieldsOf(aksi.baris).map(([k]) => k) : [];
   const [field, setField] = useState(aksi.tipe === 'ubah-pribadi' || aksi.tipe === 'ubah-kolom' ? aksi.field : fields[0] ?? '');
@@ -152,12 +152,12 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
     : aksi.tipe === 'hapus' ? fieldsOf(aksi.baris)
     : aksi.tabel.kolom.map((k) => [k, tambah[k] || '-']);
   const valid = jenis === 'Hapus' || (jenis === 'Ubah' ? nilai.trim() !== '' && nilai !== lama : aksi.tipe === 'tambah' && !!tambah[aksi.tabel.kolom[0]]?.trim());
-  const komite = perluKomite({ data: kategori, jenis, detail });
+  const talenta = perluTalenta({ data: kategori, jenis, detail });
 
   const kirim = () => {
     ajukanUsulan({ ...profilByNip(nipParam), data: kategori, jenis, detail, lama: jenis === 'Ubah' ? lama : undefined });
-    toast.success(komite ? 'Pengajuan dikirim dan menunggu peninjauan Admin Talenta.' : 'Pengajuan dikirim. Data pokok tidak memerlukan validasi Komite.');
-    onDone({ field, nilai, komite });
+    toast.success(talenta ? 'Pengajuan dikirim dan menunggu peninjauan Admin Talenta.' : 'Pengajuan dikirim. Data pokok tidak memerlukan validasi Admin Talenta.');
+    onDone({ field, nilai, talenta });
   };
 
   return (
@@ -228,7 +228,7 @@ function AjukanModal({ aksi, pribadi, onClose, onDone }: { aksi: Exclude<Aksi, {
       )}
 
       <p className="text-sd-gray-60" style={LABEL}>
-        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {komite ? 'Usulan akan ditinjau oleh Admin Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Komite.'}
+        Pengajuan ini dianggap sudah diverifikasi Admin Satker. {talenta ? 'Usulan akan ditinjau oleh Admin Talenta sebelum disinkronkan ke SIASN.' : 'Data pokok tidak memerlukan validasi Admin Talenta.'}
       </p>
     </Modal>
   );
@@ -314,7 +314,7 @@ function TabSub({ tabel, onAksi, siasn = true, editable = true }: { tabel: Tabel
 function DataPribadiTab({ values, onAksi }: { values: Rec; onAksi: (a: Aksi) => void }) {
   const usulan = useUsulan();
   const { nip: nipParam } = useParams();
-  const pending = (f: string) => usulan.find((u) => u.nip === profilByNip(nipParam).nip && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.detail[0][0] === f && u.status === 'menunggu-komite');
+  const pending = (f: string) => usulan.find((u) => u.nip === profilByNip(nipParam).nip && u.data === 'Data Pribadi' && u.jenis === 'Ubah' && u.detail[0][0] === f && u.status === 'menunggu-talenta');
   return (
     <div className="flex flex-col gap-[20px]">
       {Object.entries(FIELD_DATA_PRIBADI).map(([bagian, fields]) => (
@@ -368,7 +368,7 @@ export function UbahPegawaiPage() {
     setAksiState(a);
   };
 
-  // Data pokok langsung tampil ter-update (lewat store); jabatan menunggu Komite dan statusnya tampil di bawah field.
+  // Data pokok langsung tampil ter-update (lewat store); jabatan menunggu Admin Talenta dan statusnya tampil di bawah field.
   const selesai = () => setAksiState(null);
 
   return (
@@ -481,9 +481,9 @@ export function DetailKeluargaPage() {
     </section>
   );
 
-  // Data keluarga tidak memerlukan Komite: nilai baru langsung tampil setelah diajukan.
-  const selesai = (res: { field: string; nilai: string; komite: boolean }) => {
-    if (!res.komite) setBaru((b) => ({ ...b, [res.field]: res.nilai }));
+  // Data keluarga tidak memerlukan Admin Talenta: nilai baru langsung tampil setelah diajukan.
+  const selesai = (res: { field: string; nilai: string; talenta: boolean }) => {
+    if (!res.talenta) setBaru((b) => ({ ...b, [res.field]: res.nilai }));
     setAksi(null);
   };
 
